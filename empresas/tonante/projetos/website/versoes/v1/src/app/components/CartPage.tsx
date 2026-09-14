@@ -291,7 +291,7 @@ export function CartPage() {
               className="mb-6 flex flex-wrap items-center justify-between gap-3 overflow-hidden p-4 md:p-5"
               style={{
                 borderRadius: "var(--radius-card-md)",
-                background: "linear-gradient(135deg, rgba(200, 120, 0,0.10) 0%, rgba(200, 120, 0,0.04) 100%)",
+                background: "linear-gradient(135deg, rgba(17, 17, 17, 0.08) 0%, rgba(17, 17, 17, 0.04) 100%)",
                 border: "1px solid rgba(200, 120, 0,0.32)",
                 boxShadow: "0 18px 38px -16px rgba(200, 120, 0,0.45)",
               }}
@@ -1050,7 +1050,7 @@ export function CartPage() {
                       >
                         <div
                           className="relative h-[132px] w-[132px] flex-shrink-0 overflow-hidden border-r border-edge-subtle md:h-[210px] md:w-full md:border-r-0 md:border-b"
-                          style={{ background: "radial-gradient(circle at top, rgba(200, 120, 0,0.12) 0%, transparent 60%)" }}
+                          style={{ background: "radial-gradient(circle at top, rgba(17, 17, 17, 0.08) 0%, transparent 60%)" }}
                         >
                           <ImageWithFallback
                             src={getPrimaryProductImage(product)}

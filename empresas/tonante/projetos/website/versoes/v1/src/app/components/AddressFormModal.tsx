@@ -60,7 +60,7 @@ export function AddressFormModal({ open, onClose, initial, onSubmit }: Props) {
         }}
       >
         <div className="px-6 pt-6 pb-4 flex items-center gap-3" style={{ borderBottom: isDark ? "1px solid rgba(var(--foreground-rgb), 0.06)" : "1px solid rgba(0,0,0,0.06)" }}>
-          <div className="flex items-center justify-center" style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(200, 120, 0,0.12)" }}>
+          <div className="flex items-center justify-center" style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(17, 17, 17, 0.08)" }}>
             <MapPin size={18} className="text-primary" />
           </div>
           <div className="flex-1 min-w-0">

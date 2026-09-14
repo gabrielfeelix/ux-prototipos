@@ -105,8 +105,8 @@ export function OfertasDaSemana() {
   if (picks.length === 0) return null;
 
   return (
-    <section className="px-5 py-12 md:px-[72px] md:py-16" style={{ background: "var(--surface-0)" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+    <section className="px-5 py-12 md:px-12 md:py-16" style={{ background: "var(--surface-0)" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-7 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
           <SectionHeader
             eyebrow="OFERTAS DA SEMANA"

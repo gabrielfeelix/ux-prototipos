@@ -14,7 +14,7 @@ export function BrandStatement() {
       style={{ background: "var(--surface-0)" }}
     >
       {/* Subtle red radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(200, 120, 0,0.07),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(17, 17, 17, 0.07),transparent)]" />
 
       <div className="relative max-w-[1760px] mx-auto px-5 md:px-8 py-16 md:py-24">
         {/* Top rule */}

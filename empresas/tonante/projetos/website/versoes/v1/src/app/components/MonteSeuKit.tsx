@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router";
-import { Plus, Check, ShoppingBag } from "lucide-react";
+import { Plus, Check, ShoppingBag, Guitar, Music, Mic, type LucideIcon } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useCart } from "./CartContext";
 import { allProducts, type Product } from "./productsData";
@@ -28,17 +28,17 @@ function resolveAddons(groups: string[][], exclude: Product): Product[] {
   return out;
 }
 
-type Preset = { key: string; label: string; desc: string; base: Product; addons: Product[] };
+type Preset = { key: string; label: string; desc: string; icon: LucideIcon; base: Product; addons: Product[] };
 const PRESETS: Preset[] = [
-  { key: "iniciante", label: "Kit Iniciante", desc: "Pra dar os primeiros acordes",
+  { key: "iniciante", label: "Tô começando agora", desc: "Kit Iniciante — pra dar os primeiros acordes", icon: Guitar,
     baseKw: ["Lorenzzo", "Violão Clássico", "Violão"], groups: [["Capa", "Bag", "Case"], ["Afinador"], ["Palheta"]] },
-  { key: "palco", label: "Kit Palco", desc: "Pronto pra subir no palco",
+  { key: "palco", label: "Toco ao vivo", desc: "Kit Palco — pronto pra subir no palco", icon: Music,
     baseKw: ["Cecille", "Guitarra Elétrica", "Guitarra"], groups: [["Cabo DE Guitarra", "Cabo"], ["Correia"], ["Suporte"]] },
-  { key: "estudio", label: "Kit Estúdio", desc: "Grave com qualidade",
+  { key: "estudio", label: "Gravo em casa", desc: "Kit Estúdio — grave com qualidade", icon: Mic,
     baseKw: ["Microfone Profissional", "Microfone", "Podcast"], groups: [["Cabo DE Microf", "Cabo Para Microf", "Cabo"], ["Pedestal", "Suporte"], ["Plug"]] },
 ].map((r) => {
   const base = findOne(...r.baseKw) ?? allProducts[0];
-  return { key: r.key, label: r.label, desc: r.desc, base, addons: resolveAddons(r.groups, base) };
+  return { key: r.key, label: r.label, desc: r.desc, icon: r.icon, base, addons: resolveAddons(r.groups, base) };
 });
 
 export function MonteSeuKit() {
@@ -66,10 +66,10 @@ export function MonteSeuKit() {
 
   return (
     <section
-      className="px-5 md:px-[72px]"
+      className="px-5 md:px-12"
       style={{ background: "var(--surface-2)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", paddingTop: 44, paddingBottom: 44 }}
     >
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-7">
           <p className="label" style={{ color: "var(--amber-deep)", marginBottom: 12 }}>
             Combo Tonante
@@ -83,114 +83,134 @@ export function MonteSeuKit() {
           </p>
         </div>
 
-        {/* presets — pré-populam o builder em 1 clique (§6.9).
-            Mobile: 3 ícone-tabs (ícone em cima do título, sem descrição).
-            Desktop: linha com ícone + título + descrição. */}
-        <div className="mb-6 grid grid-cols-3 gap-2.5 sm:gap-3">
-          {PRESETS.map((p, i) => {
-            const on = i === presetIdx;
-            return (
-              <button
-                key={p.key}
-                onClick={() => choosePreset(i)}
-                className="flex cursor-pointer flex-col items-center gap-2 p-3 text-center transition-all sm:flex-row sm:items-center sm:gap-3 sm:px-4 sm:py-3.5 sm:text-left"
-                style={{
-                  background: on ? "var(--ink-strong)" : "var(--surface-1)",
-                  color: on ? "var(--background)" : "var(--ink-strong)",
-                  border: `1.5px solid ${on ? "var(--ink-strong)" : "var(--edge)"}`,
-                  borderRadius: "var(--radius-card-md)",
-                }}
-              >
-                <span
-                  className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full"
-                  style={{ background: on ? "var(--amber)" : "var(--surface-2)", color: on ? "#fff" : "var(--amber-deep)" }}
-                >
-                  <ShoppingBag size={16} strokeWidth={2.2} />
-                </span>
-                <span>
-                  <span className="block" style={{ fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "13.5px", lineHeight: 1.15 }}>
-                    {p.label}
-                  </span>
-                  <span className="mt-0.5 hidden sm:block" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12px", opacity: 0.72 }}>
-                    {p.desc}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,420px)_auto_1fr]">
-          {/* base */}
-          <article className="flex flex-col gap-3" style={{ background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: "var(--radius-card-lg)", padding: 16 }}>
-            <span className="label" style={{ color: "var(--amber-deep)" }}>
-              Instrumento base
-            </span>
-            <Link to={`/produto/${base.id}`} className="relative block overflow-hidden rounded-[12px]" style={{ background: "var(--well)", boxShadow: "inset 0 0 0 1px rgba(26,23,20,0.06)" }}>
-              <div className="relative aspect-[4/3]">
-                <ImageWithFallback src={getPrimaryProductImage(base)} alt={base.name} className="absolute inset-0 h-full w-full object-contain p-4" style={{ mixBlendMode: "multiply" }} />
-              </div>
-            </Link>
-            <div>
-              <Link to={`/produto/${base.id}`} className="text-ink-strong line-clamp-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 600, lineHeight: 1.35 }}>
-                {base.name}
-              </Link>
-              <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-price-lg)", fontWeight: 700, color: "var(--amber-deep)", marginTop: 4 }}>
-                {formatBRL(getPixPrice(base))}
-              </div>
-            </div>
-          </article>
-
-          {/* plus */}
-          <div className="mx-auto grid h-11 w-11 place-items-center rounded-full" style={{ background: "var(--ink-strong)", color: "var(--background)" }}>
-            <Plus size={20} strokeWidth={2.4} />
-          </div>
-
-          {/* add-ons (horizontais) + resumo */}
-          <div className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {addons.map((a) => {
-                const on = sel.includes(a.id);
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,320px)_1fr] lg:items-start">
+          {/* rail de contexto — pergunta + 3 opções empilhadas (radiogroup).
+              Tabs horizontais não liam como seletor; vertical + pergunta lê. */}
+          <div>
+            <h3 style={{ fontFamily: "var(--font-family-figtree)", fontSize: "20px", fontWeight: 700, color: "var(--ink-strong)", margin: 0 }}>
+              Qual é o seu contexto?
+            </h3>
+            <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "14px", color: "var(--ink-soft)", margin: "6px 0 0" }}>
+              Escolha uma opção e a gente monta o kit.
+            </p>
+            <div role="radiogroup" aria-label="Qual é o seu contexto?" className="mt-4 flex flex-col gap-2.5">
+              {PRESETS.map((p, i) => {
+                const on = i === presetIdx;
+                const Icon = p.icon;
                 return (
                   <button
-                    key={a.id}
-                    onClick={() => toggle(a.id)}
-                    className="relative flex cursor-pointer flex-col overflow-hidden text-left"
+                    key={p.key}
+                    role="radio"
+                    aria-checked={on}
+                    tabIndex={on ? 0 : -1}
+                    onClick={() => choosePreset(i)}
+                    className="flex w-full cursor-pointer items-center gap-3 px-4 py-3.5 text-left transition-all"
                     style={{
                       background: "var(--surface-1)",
-                      border: `1.5px solid ${on ? "var(--amber)" : "var(--border)"}`,
+                      border: `1.5px solid ${on ? "var(--amber)" : "var(--edge)"}`,
                       borderRadius: "var(--radius-card-md)",
-                      transition: "border-color .2s",
+                      boxShadow: on ? "0 0 0 3px rgba(17, 17, 17, 0.08)" : "none",
                     }}
                   >
-                    {/* well no topo, flush nos cantos (card clipa) — sem borda
-                        âmbar vazando atrás da imagem */}
-                    <div className="relative aspect-square" style={{ background: "var(--well)" }}>
-                      <ImageWithFallback src={getPrimaryProductImage(a)} alt={a.name} className="absolute inset-0 h-full w-full object-contain p-3" style={{ mixBlendMode: "multiply" }} />
-                      <span
-                        className="absolute right-2.5 top-2.5 grid h-[26px] w-[26px] place-items-center rounded-full"
-                        style={{ background: on ? "var(--amber)" : "rgba(255,255,255,0.92)", border: `1.5px solid ${on ? "var(--amber)" : "#d9d6d0"}`, color: on ? "#fff" : "var(--muted)", boxShadow: "0 2px 6px -2px rgba(26,23,20,0.25)" }}
-                      >
-                        {on ? <Check size={14} strokeWidth={2.6} /> : <Plus size={14} strokeWidth={2.6} />}
+                    <span
+                      className="grid h-5 w-5 flex-shrink-0 place-items-center rounded-full"
+                      style={{ border: `1.5px solid ${on ? "var(--amber)" : "#d4d4d4"}`, background: "var(--surface-1)" }}
+                    >
+                      {on && <span className="block h-2.5 w-2.5 rounded-full" style={{ background: "var(--amber)" }} />}
+                    </span>
+                    <span
+                      className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full"
+                      style={{ background: on ? "var(--amber)" : "var(--surface-2)", color: on ? "#fff" : "var(--amber-deep)" }}
+                    >
+                      <Icon size={17} strokeWidth={2.2} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block" style={{ fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "14.5px", lineHeight: 1.2, color: "var(--ink-strong)" }}>
+                        {p.label}
                       </span>
-                    </div>
-                    <div className="flex flex-col gap-1 p-3">
-                      <div className="line-clamp-2 text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontWeight: 600, fontSize: "13px", lineHeight: 1.2 }}>
-                        {a.name}
-                      </div>
-                      <div style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "var(--amber-deep)" }}>
-                        + {formatBRL(getPixPrice(a))}
-                      </div>
-                    </div>
+                      <span className="mt-0.5 block" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "var(--ink-muted)" }}>
+                        {p.desc}
+                      </span>
+                    </span>
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* kit resultante */}
+          <div className="flex flex-col gap-5">
+            <div className="grid grid-cols-1 items-center gap-5 md:grid-cols-[minmax(0,280px)_auto_1fr]">
+              {/* base */}
+              <article className="flex flex-col gap-3" style={{ background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: "var(--radius-card-lg)", padding: 16 }}>
+                <span className="label" style={{ color: "var(--amber-deep)" }}>
+                  Instrumento base
+                </span>
+                <Link to={`/produto/${base.id}`} className="relative block overflow-hidden rounded-[12px]" style={{ background: "var(--well)", boxShadow: "inset 0 0 0 1px rgba(17,17,17,0.06)" }}>
+                  <div className="relative aspect-[4/3]">
+                    <ImageWithFallback src={getPrimaryProductImage(base)} alt={base.name} className="absolute inset-0 h-full w-full object-contain p-4" style={{ mixBlendMode: "multiply" }} />
+                  </div>
+                </Link>
+                <div>
+                  <Link to={`/produto/${base.id}`} className="text-ink-strong line-clamp-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 600, lineHeight: 1.35 }}>
+                    {base.name}
+                  </Link>
+                  <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-price-lg)", fontWeight: 700, color: "var(--amber-deep)", marginTop: 4 }}>
+                    {formatBRL(getPixPrice(base))}
+                  </div>
+                </div>
+              </article>
+
+              {/* plus */}
+              <div className="mx-auto grid h-11 w-11 place-items-center rounded-full" style={{ background: "var(--ink-strong)", color: "var(--background)" }}>
+                <Plus size={20} strokeWidth={2.4} />
+              </div>
+
+              {/* add-ons */}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {addons.map((a) => {
+                  const on = sel.includes(a.id);
+                  return (
+                    <button
+                      key={a.id}
+                      onClick={() => toggle(a.id)}
+                      className="relative flex cursor-pointer flex-col overflow-hidden text-left"
+                      style={{
+                        background: "var(--surface-1)",
+                        border: `1.5px solid ${on ? "var(--amber)" : "var(--border)"}`,
+                        borderRadius: "var(--radius-card-md)",
+                        transition: "border-color .2s",
+                      }}
+                    >
+                      {/* well no topo, flush nos cantos (card clipa) — sem borda
+                          âmbar vazando atrás da imagem */}
+                      <div className="relative aspect-square" style={{ background: "var(--well)" }}>
+                        <ImageWithFallback src={getPrimaryProductImage(a)} alt={a.name} className="absolute inset-0 h-full w-full object-contain p-3" style={{ mixBlendMode: "multiply" }} />
+                        <span
+                          className="absolute right-2.5 top-2.5 grid h-[26px] w-[26px] place-items-center rounded-full"
+                          style={{ background: on ? "var(--amber)" : "rgba(255,255,255,0.92)", border: `1.5px solid ${on ? "var(--amber)" : "#d6d6d6"}`, color: on ? "#fff" : "var(--muted)", boxShadow: "0 2px 6px -2px rgba(17,17,17,0.25)" }}
+                        >
+                          {on ? <Check size={14} strokeWidth={2.6} /> : <Plus size={14} strokeWidth={2.6} />}
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-1 p-3">
+                        <div className="line-clamp-2 text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontWeight: 600, fontSize: "13px", lineHeight: 1.2 }}>
+                          {a.name}
+                        </div>
+                        <div style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "var(--amber-deep)" }}>
+                          + {formatBRL(getPixPrice(a))}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* resumo (claro) */}
             <div
               className="flex flex-wrap items-center justify-between gap-4 px-5 py-4"
-              style={{ background: "var(--surface-1)", border: "1.5px solid #d9d6d0", borderRadius: "var(--radius-card-md)" }}
+              style={{ background: "var(--surface-1)", border: "1.5px solid #d6d6d6", borderRadius: "var(--radius-card-md)" }}
             >
               <div>
                 <div className="num" style={{ fontSize: "var(--text-meta)", color: "var(--ink-meta)", textDecoration: "line-through" }}>

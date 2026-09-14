@@ -56,7 +56,7 @@ export function Newsletter() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden px-5 md:px-[72px]"
+      className="relative overflow-hidden px-5 md:px-12"
       style={{
         background: "var(--surface-0)",
         paddingTop: "var(--space-section-md)",
@@ -118,7 +118,7 @@ export function Newsletter() {
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="inline-flex items-center gap-2.5 rounded-full px-6 py-3.5"
                 style={{
-                  background: "rgba(200, 120, 0, 0.08)",
+                  background: "rgba(17, 17, 17, 0.08)",
                   border: "1px solid rgba(200, 120, 0, 0.32)",
                 }}
               >

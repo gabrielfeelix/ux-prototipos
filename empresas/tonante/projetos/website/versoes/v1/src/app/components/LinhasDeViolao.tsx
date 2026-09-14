@@ -11,14 +11,14 @@ import { playStrum } from "../lib/strum";
 
 // LinhasDeViolao — "Cada violão, uma experiência" (porta _ref/src/home_sections.jsx).
 // Palco imersivo por linha + seletor de linhas.
-type Line = { name: string; vibe: string; tone: [string, string]; desc: string; pills: string[] };
+type Line = { name: string; vibe: string; tone: [string, string]; desc: string };
 const LINES: Line[] = [
-  { name: "Coral", vibe: "Calor de roda de bar", tone: ["#b5793c", "#6e4220"], desc: "Madeira escura, som encorpado. A linha que aquece qualquer roda e pede uma canção de boteco.", pills: ["madeira escura", "som encorpado", "roda de boteco"] },
-  { name: "Volcano", vibe: "Energia que erupciona", tone: ["#d2a86a", "#9a6a33"], desc: "Eletroacústico pronto pro palco. Projeção potente pra quem toca pra ser ouvido.", pills: ["eletroacústico", "projeção potente", "pronto pro palco"] },
-  { name: "Etna", vibe: "Intensidade premium", tone: ["#b5793c", "#6e4220"], desc: "O topo da linha. Madeiras nobres e um som que preenche o ambiente do primeiro acorde.", pills: ["madeiras nobres", "som premium", "topo da linha"] },
-  { name: "Ônix", vibe: "Elegância na escuridão", tone: ["#3a352f", "#16130f"], desc: "Preto acetinado, atitude pura. Pra quem quer presença no visual e no timbre.", pills: ["preto acetinado", "atitude", "presença"] },
-  { name: "Citrino", vibe: "Brilho jovem", tone: ["#c9a06a", "#8a5e2c"], desc: "Leve e claro, fácil de tocar. O som que combina com o primeiro show e o primeiro amor.", pills: ["leve", "som claro", "fácil de tocar"] },
-  { name: "Lorenzzo", vibe: "Tradição clássica", tone: ["#c9a06a", "#8a5e2c"], desc: "Nylon atemporal. O clássico que ensinou gerações inteiras a tocar.", pills: ["nylon", "clássico", "atemporal"] },
+  { name: "Coral", vibe: "Calor de roda de bar", tone: ["#b5793c", "#6e4220"], desc: "Madeira escura, som encorpado. A linha que aquece qualquer roda e pede uma canção de boteco." },
+  { name: "Volcano", vibe: "Energia que erupciona", tone: ["#d2a86a", "#9a6a33"], desc: "Eletroacústico pronto pro palco. Projeção potente pra quem toca pra ser ouvido." },
+  { name: "Etna", vibe: "Intensidade premium", tone: ["#b5793c", "#6e4220"], desc: "O topo da linha. Madeiras nobres e um som que preenche o ambiente do primeiro acorde." },
+  { name: "Ônix", vibe: "Elegância na escuridão", tone: ["#3a352f", "#16130f"], desc: "Preto acetinado, atitude pura. Pra quem quer presença no visual e no timbre." },
+  { name: "Citrino", vibe: "Brilho jovem", tone: ["#c9a06a", "#8a5e2c"], desc: "Leve e claro, fácil de tocar. O som que combina com o primeiro show e o primeiro amor." },
+  { name: "Lorenzzo", vibe: "Tradição clássica", tone: ["#c9a06a", "#8a5e2c"], desc: "Nylon atemporal. O clássico que ensinou gerações inteiras a tocar." },
 ];
 
 const violoes = allProducts.filter((p) => p.category === "Violões");
@@ -48,8 +48,8 @@ export function LinhasDeViolao() {
   };
 
   return (
-    <section className="px-5 md:px-[72px]" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-lg)" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+    <section className="px-5 md:px-12" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-lg)" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-7 text-center">
           <p className="label" style={{ color: "var(--amber-deep)", marginBottom: 12 }}>
             Conheça as linhas
@@ -82,21 +82,6 @@ export function LinhasDeViolao() {
             <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "18px", color: "rgba(255,255,255,.92)", maxWidth: 420, margin: "18px 0 0", lineHeight: 1.55 }}>
               {L.desc}
             </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {L.pills.map((p) => (
-                <span
-                  key={p}
-                  style={{
-                    fontFamily: "var(--font-family-inter)", fontSize: "12.5px", fontWeight: 600,
-                    color: "#fff", background: "rgba(255,255,255,0.14)",
-                    border: "1px solid rgba(255,255,255,0.28)", borderRadius: "var(--radius-pill)",
-                    padding: "5px 12px", backdropFilter: "blur(4px)",
-                  }}
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
             <div className="mt-7 flex flex-wrap gap-3">
               <button
                 onClick={() => navigate(`/produto/${prod.id}`)}
@@ -131,7 +116,7 @@ export function LinhasDeViolao() {
           </div>
           {/* produto */}
           <div className="relative z-[2] hidden place-items-center p-8 md:grid">
-            <div className="relative overflow-hidden" style={{ width: "min(80%, 240px)", transform: "rotate(-4deg)", borderRadius: "var(--radius-card-lg)", background: "linear-gradient(160deg,#f8f7f4,#efede8)", boxShadow: "0 22px 40px -20px rgba(0,0,0,0.42)" }}>
+            <div className="relative overflow-hidden" style={{ width: "min(80%, 240px)", transform: "rotate(-4deg)", borderRadius: "var(--radius-card-lg)", background: "linear-gradient(160deg,#f7f7f7,#ececec)", boxShadow: "0 22px 40px -20px rgba(0,0,0,0.42)" }}>
               <div className="relative aspect-[3/4]">
                 <ImageWithFallback src={getPrimaryProductImage(prod)} alt={prod.name} className="absolute inset-0 h-full w-full object-contain p-4" style={{ mixBlendMode: "multiply" }} />
               </div>
@@ -178,7 +163,7 @@ export function LinhasDeViolao() {
                   <span
                     aria-hidden="true"
                     className="absolute bottom-[3px] left-1/2 h-[26px] w-[26px] -translate-x-1/2 rounded-full"
-                    style={{ background: "radial-gradient(circle, rgba(248,244,236,0.92) 0%, rgba(248,244,236,0.45) 55%, transparent 75%)" }}
+                    style={{ background: "radial-gradient(circle, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.45) 55%, transparent 75%)" }}
                   />
                   <img
                     src={getPrimaryProductImage(lprod)}

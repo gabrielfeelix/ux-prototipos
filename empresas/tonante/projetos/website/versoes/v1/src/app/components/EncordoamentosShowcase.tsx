@@ -105,7 +105,7 @@ function FamilyCard({ f }: { f: Family }) {
         borderRadius: "var(--radius-card-xl)",
         background: `linear-gradient(170deg, ${f.from} 0%, ${f.to} 100%)`,
         textDecoration: "none",
-        boxShadow: "0 18px 44px -22px rgba(26,23,20,0.40)",
+        boxShadow: "0 18px 44px -22px rgba(17,17,17,0.40)",
         // altura definida pelo conteúdo (CTA nunca corta); flex stretch iguala os cards
       }}
       aria-label={`${f.title} — ${product.name}`}
@@ -169,7 +169,7 @@ function FamilyCard({ f }: { f: Family }) {
               remapeada pra ink pelo light-scope. */}
           <span
             className="mt-4 inline-flex items-center gap-2 rounded-pill transition-colors group-hover:bg-white"
-            style={{ background: "rgba(255,255,255,0.85)", color: "#1a1714", padding: "9px 20px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: 13.5 }}
+            style={{ background: "rgba(255,255,255,0.85)", color: "#111111", padding: "9px 20px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: 13.5 }}
           >
             <ArrowRight size={15} strokeWidth={2.4} />
             comprar · <span className="num">{product.price}</span>
@@ -190,7 +190,7 @@ export function EncordoamentosShowcase() {
 
   return (
     <section style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-md)" }}>
-      <div className="mx-auto w-full px-5 md:px-[72px]" style={{ maxWidth: "1600px" }}>
+      <div className="mx-auto w-full px-5 md:px-12" style={{ maxWidth: "1680px" }}>
         <div className="mb-8 flex items-end justify-between gap-6">
           <div>
             <SectionHeader eyebrow="Cordas & Encordoamentos" title="Qual corda é a sua?" size="lg" weight={700} />

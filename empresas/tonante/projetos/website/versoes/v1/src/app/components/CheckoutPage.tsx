@@ -139,7 +139,7 @@ function PaymentOption({
   accentBg?: string;
 }) {
   const accent = color ?? "var(--primary)";
-  const activeBadgeBg = accentBg ?? "rgba(200, 120, 0,0.14)";
+  const activeBadgeBg = accentBg ?? "rgba(17, 17, 17, 0.08)";
   return (
     <button
       onClick={onClick}
@@ -1080,7 +1080,7 @@ export function CheckoutPage() {
                                   onClick={() => setSelectedAddressId(a.id)}
                                   style={{
                                     borderRadius: 12,
-                                    background: sel ? "rgba(200, 120, 0,0.08)" : "rgba(var(--foreground-rgb), 0.02)",
+                                    background: sel ? "rgba(17, 17, 17, 0.08)" : "rgba(var(--foreground-rgb), 0.02)",
                                     border: sel ? "1.5px solid rgba(200, 120, 0,0.45)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
                                   }}
                                 >
@@ -1089,7 +1089,7 @@ export function CheckoutPage() {
                                     <div className="min-w-0 flex-1">
                                       <div className="flex items-center gap-2">
                                         <span className="text-ink-strong truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>{a.label}</span>
-                                        {a.isDefault && <span className="px-1.5 py-0.5 bg-primary/12 text-primary" style={{ borderRadius: 999, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
+                                        {a.isDefault && <span className="px-1.5 py-0.5 bg-foreground/[0.06] text-primary" style={{ borderRadius: 999, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
                                       </div>
                                       <p className="text-ink-muted truncate mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                                         {a.street}, {a.number} · {a.city}/{a.state}
@@ -1116,12 +1116,12 @@ export function CheckoutPage() {
                               className="flex items-center gap-2 justify-center p-3 transition-all cursor-pointer hover:brightness-110"
                               style={{
                                 borderRadius: 12,
-                                background: "rgba(200, 120, 0,0.04)",
+                                background: "rgba(17, 17, 17, 0.04)",
                                 border: "1.5px dashed rgba(200, 120, 0,0.35)",
                                 minHeight: 60,
                               }}
                             >
-                              <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(200, 120, 0,0.18)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
+                              <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(17, 17, 17, 0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
                               <span className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo endereço</span>
                             </button>
                           </div>
@@ -1427,7 +1427,7 @@ export function CheckoutPage() {
                                         className="text-left p-3 transition-all cursor-pointer flex items-center gap-2.5 relative"
                                         style={{
                                           borderRadius: 12,
-                                          background: sel ? "rgba(200, 120, 0,0.08)" : "rgba(var(--foreground-rgb), 0.02)",
+                                          background: sel ? "rgba(17, 17, 17, 0.08)" : "rgba(var(--foreground-rgb), 0.02)",
                                           border: sel ? "1.5px solid rgba(200, 120, 0,0.45)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
                                         }}
                                       >
@@ -1435,7 +1435,7 @@ export function CheckoutPage() {
                                         <div className="min-w-0 flex-1">
                                           <div className="flex items-center gap-2">
                                             <span className="text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}>{c.brand}</span>
-                                            {c.isDefault && <span className="px-1.5 py-0.5 bg-primary/12 text-primary" style={{ borderRadius: 999, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
+                                            {c.isDefault && <span className="px-1.5 py-0.5 bg-foreground/[0.06] text-primary" style={{ borderRadius: 999, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
                                           </div>
                                           <p className="text-ink font-mono mt-0.5" style={{ fontSize: "var(--text-caption)", fontWeight: 600, letterSpacing: "0.05em" }}>•••• {c.last4}</p>
                                           <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Validade {c.expiry}</p>
@@ -1460,12 +1460,12 @@ export function CheckoutPage() {
                                     className="flex items-center gap-2 justify-center p-3 transition-all cursor-pointer hover:brightness-110"
                                     style={{
                                       borderRadius: 12,
-                                      background: "rgba(200, 120, 0,0.04)",
+                                      background: "rgba(17, 17, 17, 0.04)",
                                       border: "1.5px dashed rgba(200, 120, 0,0.35)",
                                       minHeight: 60,
                                     }}
                                   >
-                                    <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(200, 120, 0,0.18)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
+                                    <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(17, 17, 17, 0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
                                     <span className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo cartão</span>
                                   </button>
                                 </div>
@@ -2089,7 +2089,7 @@ export function CheckoutPage() {
                 background: "var(--surface-1)",
                 color: "#fff",
                 borderRadius: "20px 20px 0 0",
-                boxShadow: "0 -16px 40px -20px rgba(26,23,20,0.20)",
+                boxShadow: "0 -16px 40px -20px rgba(17,17,17,0.20)",
               }}
             >
               <div className="flex items-center justify-between px-5 pb-3 pt-4">

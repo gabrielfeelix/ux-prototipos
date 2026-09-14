@@ -190,7 +190,7 @@ export function BannerSection() {
             style={{ backgroundImage: `url("${backgroundImage}")` }}
           />
           <div className="absolute inset-0 bg-black/28" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200, 120, 0,0.14),transparent_42%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(17, 17, 17, 0.08),transparent_42%)]" />
         </motion.div>
 
         {/* Centered layout */}

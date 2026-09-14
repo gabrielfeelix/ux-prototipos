@@ -117,6 +117,31 @@ export function getPrimaryProductImage(product: Pick<Product, "image" | "images"
   return product.images?.find((image) => !isPlaceholderProductImage(image)) ?? product.image;
 }
 
+/**
+ * A mesma foto existe em tamanho cheio no caminho sem o segmento de cache:
+ * .../product/cache/<hash32>/1/1/foo.jpeg  →  .../product/1/1/foo.jpeg
+ * (300x300 → 1200x1200, mesmo enquadramento). Quem exibe deve cair de volta
+ * na URL original se o arquivo cheio não existir — ver ImageWithFallback.
+ */
+export function upgradeProductImage(image: string) {
+  return image.replace(/\/cache\/[a-f0-9]{32}\//, "/");
+}
+
+/**
+ * Thumb de 300x300 gerada pelo Magento (`/media/catalog/product/cache/<hash>/`).
+ * O mesmo produto costuma ter o original em cdn.oderco.com.br — bem maior.
+ * Usar a thumb num card de 370px deixa a foto visivelmente borrada.
+ */
+export function isLowResProductImage(image: string) {
+  return /\/media\/catalog\/product\/cache\//.test(image);
+}
+
+/** Mesmas fotos de getProductImages, com os originais na frente das thumbs. */
+export function getProductImagesRanked(product: Pick<Product, "image" | "images">) {
+  const images = getProductImages(product);
+  return [...images].sort((a, b) => Number(isLowResProductImage(a)) - Number(isLowResProductImage(b)));
+}
+
 export function getProductImages(product: Pick<Product, "image" | "images">) {
   const images = product.images?.filter((image) => !isPlaceholderProductImage(image)) ?? [];
   if (!isPlaceholderProductImage(product.image) && !images.includes(product.image)) {

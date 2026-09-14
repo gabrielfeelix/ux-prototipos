@@ -13,8 +13,8 @@ const MESSAGES = [
 
 // Stage escuro Tonante — bar fica FORA do light-scope, então usa cores
 // explícitas (creme/âmbar sobre ink) em vez dos tokens de texto (que são escuros).
-const CREAM = "#f6f2e9";
-const CREAM_MUTED = "rgba(246,242,233,0.62)";
+const CREAM = "#ffffff";
+const CREAM_MUTED = "rgba(255,255,255,0.62)";
 
 export function AnnouncementBar() {
   const [dismissed, setDismissed] = useState(false);
@@ -37,7 +37,7 @@ export function AnnouncementBar() {
       className="fixed inset-x-0 top-0 z-[60] w-full overflow-hidden"
       style={{
         background: "linear-gradient(90deg, #131314 0%, #1f1f21 50%, #131314 100%)",
-        borderBottom: "1px solid rgba(200,120,0,0.22)",
+        borderBottom: "1px solid rgba(17, 17, 17, 0.08)",
       }}
     >
       {/* fio âmbar sutil nas bordas */}

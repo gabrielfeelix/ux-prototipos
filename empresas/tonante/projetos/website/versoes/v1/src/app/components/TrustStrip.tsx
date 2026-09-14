@@ -13,22 +13,21 @@ const items: Item[] = [
 
 export function TrustStrip() {
   return (
-    <section className="px-5 md:px-[72px]" style={{ background: "var(--surface-0)", paddingTop: "28px", paddingBottom: "8px" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
-        {/* faixa DARK — quebra o branco, dá presença rock e mata o look vazado */}
+    <section className="px-5 md:px-12" style={{ background: "var(--surface-0)", paddingTop: "28px", paddingBottom: "8px" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
+        {/* faixa clara — divisórias hairline sobre o fundo da página */}
         <div
-          data-keep-dark
           className="grid grid-cols-2 overflow-hidden md:grid-cols-4"
-          style={{ gap: "1px", background: "rgba(255,255,255,0.08)", borderRadius: "var(--radius-card-lg)" }}
+          style={{ gap: "1px", background: "var(--border)", borderRadius: "var(--radius-card-lg)" }}
         >
           {items.map(({ icon: Icon, title, sub }) => (
-            <div key={title} className="flex items-center gap-3.5 px-5 py-6" style={{ background: "var(--stage)" }}>
-              <Icon size={26} strokeWidth={1.6} style={{ color: "var(--amber-bright)", flexShrink: 0 }} />
+            <div key={title} className="flex items-center gap-3.5 px-5 py-6" style={{ background: "var(--surface-0)" }}>
+              <Icon size={26} strokeWidth={1.6} style={{ color: "var(--amber-text)", flexShrink: 0 }} />
               <div className="min-w-0">
-                <div style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 700, lineHeight: 1.2, color: "#f4f1ec" }}>
+                <div style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 700, lineHeight: 1.2, color: "var(--ink-strong)" }}>
                   {title}
                 </div>
-                <div style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "rgba(244,241,236,0.6)" }}>{sub}</div>
+                <div style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "var(--ink-muted)" }}>{sub}</div>
               </div>
             </div>
           ))}

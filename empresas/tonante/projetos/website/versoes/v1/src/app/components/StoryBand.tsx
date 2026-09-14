@@ -15,15 +15,15 @@ const TIMELINE = [
 
 export function StoryBand() {
   return (
-    <section className="px-5 md:px-[72px]" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-md)" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+    <section className="px-5 md:px-12" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-md)" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div
           data-keep-dark
           className="grain relative overflow-hidden"
           style={{
             borderRadius: "var(--radius-card-xl)",
             background: "linear-gradient(120deg, #131314, #1f1f21)",
-            color: "#f3ebde",
+            color: "#ffffff",
             padding: "clamp(34px,6vw,72px)",
           }}
         >
@@ -58,7 +58,7 @@ export function StoryBand() {
                 <br />
                 <span style={{ fontStyle: "italic", color: "var(--amber)" }}>de gerações.</span>
               </h2>
-              <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "17px", lineHeight: 1.65, color: "#d8cdba", margin: "20px 0 0", maxWidth: 520 }}>
+              <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "17px", lineHeight: 1.65, color: "#d6d6d6", margin: "20px 0 0", maxWidth: 520 }}>
                 Dois irmãos, uma oficina na Lapa e um plano: música para todos. Setenta anos
                 depois, a história continua — e ela passa pelas suas mãos.
               </p>
@@ -70,7 +70,7 @@ export function StoryBand() {
                 <div key={t.year} className="relative min-w-[195px] flex-shrink-0 pr-6 md:min-w-0">
                   {/* corda + nó */}
                   <div className="relative flex items-center" aria-hidden="true">
-                    <span className="block h-[9px] w-[9px] flex-shrink-0 rounded-full" style={{ background: "var(--amber)", boxShadow: "0 0 0 3px rgba(200,120,0,0.22)" }} />
+                    <span className="block h-[9px] w-[9px] flex-shrink-0 rounded-full" style={{ background: "var(--amber)", boxShadow: "0 0 0 3px rgba(17, 17, 17, 0.08)" }} />
                     {i < TIMELINE.length - 1 ? (
                       <span className="block h-px flex-1" style={{ background: "linear-gradient(90deg, rgba(200,120,0,0.55), rgba(255,255,255,0.14))" }} />
                     ) : (
@@ -80,7 +80,7 @@ export function StoryBand() {
                   <p style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(26px,2.4vw,34px)", fontWeight: 700, color: "var(--amber)", margin: "14px 0 0", lineHeight: 1 }}>
                     {t.year}
                   </p>
-                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 13.5, lineHeight: 1.5, color: "#d8cdba", margin: "8px 0 0", maxWidth: 230 }}>
+                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 13.5, lineHeight: 1.5, color: "#d6d6d6", margin: "8px 0 0", maxWidth: 230 }}>
                     {t.text}
                   </p>
                 </div>

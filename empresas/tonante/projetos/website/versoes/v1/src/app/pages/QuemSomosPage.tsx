@@ -71,7 +71,7 @@ export function QuemSomosPage() {
         <div
           aria-hidden="true"
           className="pointer-events-none absolute"
-          style={{ left: "50%", top: "55%", transform: "translate(-50%,-50%)", width: 760, height: 760, background: "radial-gradient(circle, rgba(200,120,0,.18), transparent 65%)" }}
+          style={{ left: "50%", top: "55%", transform: "translate(-50%,-50%)", width: 760, height: 760, background: "radial-gradient(circle, rgba(17, 17, 17, 0.08), transparent 65%)" }}
         />
         <motion.div
           initial="hidden"
@@ -100,7 +100,7 @@ export function QuemSomosPage() {
           <motion.p
             variants={reveal}
             custom={2}
-            style={{ fontFamily: FIGTREE, fontStyle: "italic", fontSize: "clamp(19px, 2.6vw, 28px)", color: "#f4ecdf", margin: "26px 0 0", lineHeight: 1.35 }}
+            style={{ fontFamily: FIGTREE, fontStyle: "italic", fontSize: "clamp(19px, 2.6vw, 28px)", color: "#ffffff", margin: "26px 0 0", lineHeight: 1.35 }}
           >
             Dois irmãos. Um plano:
             <br />
@@ -270,7 +270,7 @@ export function QuemSomosPage() {
         <div
           aria-hidden="true"
           className="pointer-events-none absolute"
-          style={{ right: "-8%", top: "-20%", width: 560, height: 560, background: "radial-gradient(circle, rgba(200,120,0,.22), transparent 70%)" }}
+          style={{ right: "-8%", top: "-20%", width: 560, height: 560, background: "radial-gradient(circle, rgba(17, 17, 17, 0.08), transparent 70%)" }}
         />
         <div className="relative z-[2] mx-auto max-w-[1180px] px-5 py-20 md:px-12 md:py-28">
           <motion.div variants={reveal} initial="hidden" whileInView="show" viewport={viewportOnce}>
@@ -284,13 +284,13 @@ export function QuemSomosPage() {
               <em style={{ color: "var(--amber-bright)" }}>A música, não.</em>
             </h2>
             <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-16">
-              <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "#d8cdba", margin: 0 }}>
+              <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "#d6d6d6", margin: 0 }}>
                 Quando o galpão de Itupeva fechou, parte dos funcionários usou o dinheiro da
                 rescisão para comprar as máquinas e seguir fabricando instrumentos. A fábrica
                 morreu; o ofício, não. E pelo país, colecionadores restaurando Finders antigas
                 mantiveram a chama acesa por anos — em fóruns, oficinas e clubes de fãs.
               </p>
-              <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "#d8cdba", margin: 0 }}>
+              <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "#d6d6d6", margin: 0 }}>
                 Em 2021, o <strong style={{ color: "#fff" }}>Grupo Oderço</strong> trouxe a marca
                 de volta: <em>"os instrumentos que marcaram gerações estão de volta — neste
                 recomeço, esperamos que vocês construam ainda mais histórias."</em> As primeiras

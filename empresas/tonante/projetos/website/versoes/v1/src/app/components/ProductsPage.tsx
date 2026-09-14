@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Link, useSearchParams, useParams } from "react-router";
 import { getCategoryFromSlug } from "../lib/slug";
+import { matchesSearchTerm, searchTermVariants } from "../lib/searchMatch";
 import { motion, AnimatePresence } from "motion/react";
 import {
   SlidersHorizontal, ArrowUpDown, ChevronDown, Grid3X3, LayoutList,
@@ -49,8 +50,8 @@ const colorFilters = [
   { label: "Spruce", color: "#d2a86a" },
   { label: "Mogno", color: "#6e4220" },
   { label: "Sunburst", color: "#b5793c" },
-  { label: "Preto", color: "#1a1714" },
-  { label: "Branco", color: "#f5f0e6" },
+  { label: "Preto", color: "#111111" },
+  { label: "Branco", color: "#f6f6f6" },
   { label: "Cherry", color: "#7e3a24" },
   { label: "Azul", color: "#3f6e8c" },
   { label: "Prata", color: "#bcbcbc" },
@@ -492,13 +493,8 @@ export function ProductsPage() {
   const productsWithoutPriceFilter = useMemo(() => {
     let result = [...validProducts];
     if (searchQuery) {
-      const lowerQ = searchQuery.toLowerCase().trim();
-      const singularized = lowerQ.endsWith("s") ? lowerQ.slice(0, -1) : lowerQ;
-      const matchTerm = (text: string | undefined) => {
-        if (!text) return false;
-        const t = text.toLowerCase();
-        return t.includes(lowerQ) || t.includes(singularized);
-      };
+      const terms = searchTermVariants(searchQuery);
+      const matchTerm = (text: string | undefined) => matchesSearchTerm(text, terms);
       result = result.filter((p) =>
         matchTerm(p.name) ||
         matchTerm(p.category) ||
@@ -1072,7 +1068,7 @@ export function ProductsPage() {
      ═══════════════════════════════════════════════════════ */
 
   return (
-    <div ref={mainRef} className="pt-[calc(56px+var(--announce-h))] md:pt-[calc(142px+var(--announce-h))] notebook:pt-[calc(92px+var(--announce-h))] min-h-dvh" style={{ background: "var(--surface-0)" }}>
+    <div ref={mainRef} className="min-h-dvh" style={{ background: "var(--surface-0)" }}>
       <SEO
         title={
           activeCategoryLabel
@@ -1109,7 +1105,7 @@ export function ProductsPage() {
       />
       {/* ── Breadcrumb strip ── */}
       <nav aria-label="Breadcrumb" className="px-5 md:px-8 py-3" style={{ background: "var(--surface-1)" }}>
-        <ol style={{ maxWidth: "1600px", margin: "0 auto" }} className="flex flex-wrap items-center gap-2">
+        <ol style={{ maxWidth: "1680px", margin: "0 auto" }} className="flex flex-wrap items-center gap-2">
           <li>
             <Link to="/" className="text-foreground/40 hover:text-foreground/80 transition-colors" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Home</Link>
           </li>
@@ -1138,7 +1134,7 @@ export function ProductsPage() {
 
       {/* ── Main Content — Insider layout ── */}
       <div className="px-5 md:px-8 py-6">
-        <div style={{ maxWidth: "1600px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1680px", margin: "0 auto" }}>
           {/* ── Page H1 (E-EAT, first fold) ── */}
           <header className="mb-6 md:mb-8">
             <h1
@@ -1223,7 +1219,7 @@ export function ProductsPage() {
                   onClick={() => setItemsPerPageDropdownOpen((prev) => !prev)}
                   className={`relative inline-flex h-9 min-h-[44px] lg:min-h-0 min-w-[62px] items-center justify-between gap-2 rounded-[var(--radius-card-sm)] border px-3 transition-all cursor-pointer ${
                     itemsPerPageDropdownOpen
-                      ? "border-primary/50 bg-foreground/[0.06] text-foreground shadow-[0_0_0_1px_rgba(200, 120, 0,0.16)]"
+                      ? "border-primary/50 bg-foreground/[0.06] text-foreground shadow-[0_0_0_1px_rgba(17, 17, 17, 0.08)]"
                       : "border-foreground/10 bg-foreground/[0.03] text-foreground hover:border-foreground/20"
                   }`}
                   aria-haspopup="listbox"
@@ -1711,7 +1707,7 @@ export function ProductsPage() {
                             transition={{ duration: 0.18, delay: Math.min(index, 5) * 0.025 }}
                             className="flex items-start gap-3"
                           >
-                            <span className="flex-shrink-0 w-4 h-4 rounded-full bg-primary/15 flex items-center justify-center mt-0.5">
+                            <span className="flex-shrink-0 w-4 h-4 rounded-full bg-foreground/[0.08] flex items-center justify-center mt-0.5">
                               <Check size={9} className="text-primary" strokeWidth={2.5} />
                             </span>
                             <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: "1.6", color: "rgba(var(--foreground-rgb), 0.7)" }}>

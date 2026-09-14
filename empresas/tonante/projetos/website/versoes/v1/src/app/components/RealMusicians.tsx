@@ -19,11 +19,11 @@ function Card({ s, seed }: { s: Shot; seed: number }) {
   const rot = (((seed * 37) % 5) - 2) * 0.75; // -1,5° .. +1,5°
   return (
     <div className="flex-shrink-0" style={{ transform: `rotate(${rot}deg)` }}>
-      <div style={{ background: "var(--surface-1)", padding: 6, borderRadius: 14, boxShadow: "0 16px 34px -14px rgba(26,23,20,0.38)" }}>
+      <div style={{ background: "var(--surface-1)", padding: 6, borderRadius: 14, boxShadow: "0 16px 34px -14px rgba(17,17,17,0.38)" }}>
         <div className="relative overflow-hidden" style={{ width: 268, height: 330, borderRadius: 9 }}>
           <ImageWithFallback src={s.photo} alt={s.handle} className="absolute inset-0 h-full w-full object-cover" />
           <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 55%, rgba(0,0,0,.45) 100%)" }} />
-          <div className="absolute bottom-3 left-3 z-[2] inline-flex items-center gap-1.5 rounded-pill" style={{ background: "rgba(26,23,20,0.45)", backdropFilter: "blur(6px)", padding: "5px 11px", color: "#fff" }}>
+          <div className="absolute bottom-3 left-3 z-[2] inline-flex items-center gap-1.5 rounded-pill" style={{ background: "rgba(17,17,17,0.45)", backdropFilter: "blur(6px)", padding: "5px 11px", color: "#fff" }}>
             <Instagram size={14} strokeWidth={1.8} />
             <span style={{ fontFamily: "var(--font-family-inter)", fontWeight: 600, fontSize: "13px" }}>{s.handle}</span>
           </div>
@@ -37,7 +37,7 @@ export function RealMusicians() {
   const loop = [...SHOTS, ...SHOTS];
   return (
     <section style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-md)", overflow: "hidden" }}>
-      <div className="mx-auto w-full px-5 md:px-[72px]" style={{ maxWidth: "1600px" }}>
+      <div className="mx-auto w-full px-5 md:px-12" style={{ maxWidth: "1680px" }}>
         <div className="mb-8">
           <p className="label" style={{ color: "var(--amber-deep)", marginBottom: 12 }}>
             Tonante por aí

@@ -13,6 +13,8 @@ import { TimbrePlayer } from "./TimbrePlayer";
 import { getCardSpecs } from "./productAttributes";
 import { DiscountBadge } from "./section";
 import { useFavorites } from "./FavoritesContext";
+import { useCardVariant } from "./CardVariantContext";
+import { ProductCardV2 } from "../v2/ProductCardV2";
 
 /**
  * ProductCard — card de produto Tonante (porta o design do protótipo de marca
@@ -41,7 +43,21 @@ interface ProductCardProps {
   style?: CSSProperties;
 }
 
-export function ProductCard({
+/* Wrapper de variante: dentro de /v2 (CardVariantProvider) o card assume o
+   formato em teste; no resto do site segue o card clássico da v1. */
+export function ProductCard(props: ProductCardProps) {
+  const variant = useCardVariant();
+  if (variant === "v2") {
+    const { product, href, rank, onAdd, className, style } = props;
+    // o card da v2 não tem moldura: descarta o realce de borda/sombra que a
+    // prateleira aplica no #1 (isso é linguagem do card clássico)
+    const { borderColor: _b, boxShadow: _s, border: _br, background: _bg, ...cleanStyle } = style ?? {};
+    return <ProductCardV2 product={product} href={href} rank={rank} onAdd={onAdd} className={className} style={cleanStyle} />;
+  }
+  return <ProductCardClassic {...props} />;
+}
+
+function ProductCardClassic({
   product,
   href = `/produto/${product.id}`,
   rank,
@@ -110,7 +126,7 @@ export function ProductCard({
 
   return (
     <article
-      className={`group relative flex h-full flex-col overflow-hidden rounded-[8px] bg-white transition-shadow duration-300 shadow-[0_1px_3px_-1px_rgba(26,23,20,0.05),0_8px_22px_-12px_rgba(26,23,20,0.13)] hover:shadow-[0_6px_14px_-4px_rgba(26,23,20,0.09),0_18px_36px_-14px_rgba(26,23,20,0.20)] ${className}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-[8px] bg-white transition-shadow duration-300 shadow-[0_1px_3px_-1px_rgba(17,17,17,0.05),0_8px_22px_-12px_rgba(17,17,17,0.13)] hover:shadow-[0_6px_14px_-4px_rgba(17,17,17,0.09),0_18px_36px_-14px_rgba(17,17,17,0.20)] ${className}`}
       style={style}
     >
       <Link to={href} className="flex flex-1 flex-col">
@@ -119,7 +135,7 @@ export function ProductCard({
           <div
             className="relative aspect-[4/5] overflow-hidden"
             style={{
-              background: "linear-gradient(180deg, #f7f8f9 0%, #f1ece6 100%)",
+              background: "linear-gradient(180deg, #f7f7f7 0%, #efefef 100%)",
             }}
           >
             <ImageWithFallback
@@ -134,7 +150,7 @@ export function ProductCard({
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: "linear-gradient(180deg, #f7f8f9 0%, #f1ece6 100%)" }}
+                style={{ background: "linear-gradient(180deg, #f7f7f7 0%, #efefef 100%)" }}
               >
                 <ImageWithFallback
                   src={gallery[1]}
@@ -172,8 +188,8 @@ export function ProductCard({
               <button
                 onClick={handleFavorite}
                 aria-label="Favoritar"
-                className="flex h-11 w-11 md:h-9 md:w-9 items-center justify-center rounded-full shadow-[0_2px_8px_rgba(26,23,20,0.12)] transition-colors cursor-pointer"
-                style={{ background: "rgba(255,255,255,0.92)", color: isFavorited ? "#b3361f" : "#1a1714" }}
+                className="flex h-11 w-11 md:h-9 md:w-9 items-center justify-center rounded-full shadow-[0_2px_8px_rgba(17,17,17,0.12)] transition-colors cursor-pointer"
+                style={{ background: "rgba(255,255,255,0.92)", color: isFavorited ? "#b3361f" : "#111111" }}
               >
                 <Heart size={16} strokeWidth={1.8} fill={isFavorited ? "#b3361f" : "none"} />
               </button>
@@ -185,8 +201,8 @@ export function ProductCard({
                   setQuickOpen(true);
                 }}
                 aria-label="Espiar produto"
-                className="flex h-11 w-11 md:h-9 md:w-9 items-center justify-center rounded-full shadow-[0_2px_8px_rgba(26,23,20,0.12)] cursor-pointer"
-                style={{ background: "rgba(255,255,255,0.92)", color: "#1a1714" }}
+                className="flex h-11 w-11 md:h-9 md:w-9 items-center justify-center rounded-full shadow-[0_2px_8px_rgba(17,17,17,0.12)] cursor-pointer"
+                style={{ background: "rgba(255,255,255,0.92)", color: "#111111" }}
               >
                 <Eye size={16} strokeWidth={1.8} />
               </button>
@@ -199,7 +215,7 @@ export function ProductCard({
                   onClick={(e) => cycle(e, -1)}
                   aria-label="Imagem anterior"
                   className="absolute left-2 top-[42%] z-20 flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-full opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
-                  style={{ background: "rgba(255,255,255,0.85)", color: "#1a1714" }}
+                  style={{ background: "rgba(255,255,255,0.85)", color: "#111111" }}
                 >
                   <ChevronLeft size={16} />
                 </button>
@@ -207,7 +223,7 @@ export function ProductCard({
                   onClick={(e) => cycle(e, 1)}
                   aria-label="Próxima imagem"
                   className="absolute right-2 top-[42%] z-20 flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-full opacity-0 transition-opacity group-hover:opacity-100 cursor-pointer"
-                  style={{ background: "rgba(255,255,255,0.85)", color: "#1a1714" }}
+                  style={{ background: "rgba(255,255,255,0.85)", color: "#111111" }}
                 >
                   <ChevronRight size={16} />
                 </button>
@@ -349,7 +365,7 @@ export function ProductCard({
       {quickOpen && createPortal(
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-          style={{ background: "rgba(26,23,20,0.55)", backdropFilter: "blur(4px)" }}
+          style={{ background: "rgba(17,17,17,0.55)", backdropFilter: "blur(4px)" }}
           onClick={() => setQuickOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -364,13 +380,13 @@ export function ProductCard({
               onClick={() => setQuickOpen(false)}
               aria-label="Fechar"
               className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full cursor-pointer"
-              style={{ background: "rgba(255,255,255,0.92)", color: "#1a1714", boxShadow: "0 2px 8px rgba(26,23,20,0.12)" }}
+              style={{ background: "rgba(255,255,255,0.92)", color: "#111111", boxShadow: "0 2px 8px rgba(17,17,17,0.12)" }}
             >
               <X size={17} />
             </button>
 
             {/* imagem */}
-            <div className="relative aspect-square md:aspect-auto" style={{ background: "linear-gradient(160deg, #f8f7f4, #efede8)" }}>
+            <div className="relative aspect-square md:aspect-auto" style={{ background: "linear-gradient(160deg, #f7f7f7, #ececec)" }}>
               <ImageWithFallback src={image} alt={product.name} className="absolute inset-0 h-full w-full object-contain p-8" style={{ mixBlendMode: "multiply" }} />
               {discount > 0 && (
                 <span className="absolute left-5 top-5">
@@ -392,7 +408,7 @@ export function ProductCard({
               <span className="flex items-center gap-1.5">
                 <span className="flex" style={{ color: "var(--amber)" }}>
                   {[0, 1, 2, 3, 4].map((i) => (
-                    <Star key={i} size={14} strokeWidth={1.5} fill={product.rating - i >= 0.5 ? "var(--amber)" : "none"} stroke={product.rating - i >= 0.5 ? "var(--amber)" : "rgba(26,23,20,0.3)"} />
+                    <Star key={i} size={14} strokeWidth={1.5} fill={product.rating - i >= 0.5 ? "var(--amber)" : "none"} stroke={product.rating - i >= 0.5 ? "var(--amber)" : "rgba(17,17,17,0.3)"} />
                   ))}
                 </span>
                 <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-meta)", color: "var(--ink-meta)" }}>
@@ -457,7 +473,7 @@ export function ProductCard({
                     navigate(href);
                   }}
                   className="rounded-pill cursor-pointer"
-                  style={{ background: "transparent", color: "var(--ink-strong)", padding: "12px 22px", border: "1.5px solid #d9d6d0", fontFamily: "var(--font-family-inter)", fontWeight: 600, fontSize: "14.5px" }}
+                  style={{ background: "transparent", color: "var(--ink-strong)", padding: "12px 22px", border: "1.5px solid #d6d6d6", fontFamily: "var(--font-family-inter)", fontWeight: 600, fontSize: "14.5px" }}
                 >
                   Ver página completa
                 </button>

@@ -1745,7 +1745,7 @@ function GameTile({
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(200, 120, 0,0.18) 0%, transparent 60%)",
+                "linear-gradient(180deg, rgba(17, 17, 17, 0.08) 0%, transparent 60%)",
             }}
           />
         )}
@@ -1840,7 +1840,7 @@ function ProgramTile({
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(200, 120, 0,0.18) 0%, transparent 60%)",
+                "linear-gradient(180deg, rgba(17, 17, 17, 0.08) 0%, transparent 60%)",
             }}
           />
         )}
@@ -2951,7 +2951,7 @@ function PresetCard({
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="mt-3 flex min-h-[44px] w-full cursor-pointer items-center justify-between gap-2 rounded-[var(--radius-card-sm)] border border-edge-subtle bg-white/[0.015] px-3 py-2.5 text-left transition-all hover:border-primary/40 hover:bg-primary/[0.04] md:min-h-0"
+            className="mt-3 flex min-h-[44px] w-full cursor-pointer items-center justify-between gap-2 rounded-[var(--radius-card-sm)] border border-edge-subtle bg-white/[0.015] px-3 py-2.5 text-left transition-all hover:border-primary/40 hover:bg-foreground/[0.04] md:min-h-0"
           >
             <span
               className="flex items-center gap-2 text-ink-strong"
@@ -3148,7 +3148,7 @@ function PresetMiniCard({
                 ? "1.5px solid rgba(200, 120, 0,0.55)"
                 : "1px solid rgba(255,255,255,0.08)",
               boxShadow: isRecommended
-                ? "0 0 0 1px rgba(200, 120, 0,0.18), 0 22px 50px -22px rgba(200, 120, 0,0.35)"
+                ? "0 0 0 1px rgba(17, 17, 17, 0.08), 0 22px 50px -22px rgba(200, 120, 0,0.35)"
                 : "inset 0 1px 0 rgba(255,255,255,0.05)",
             }}
           >
@@ -3580,14 +3580,14 @@ function PresetGallery({
                 className={cn(
                   "group inline-flex min-h-[44px] cursor-pointer items-center gap-1.5 rounded-full border px-3.5 py-2 transition-all md:min-h-0",
                   active
-                    ? "border-primary/60 bg-primary/[0.1] text-ink-strong"
+                    ? "border-primary/60 bg-foreground/[0.06] text-ink-strong"
                     : "border-edge-subtle bg-white/[0.015] text-zinc-300 hover:border-edge-strong hover:bg-white/[0.05] hover:text-ink-strong",
                 )}
                 style={{
                   fontFamily: "var(--font-family-inter)",
                   fontSize: "var(--text-caption)",
                   fontWeight: 600,
-                  boxShadow: active ? "0 0 0 1px rgba(200, 120, 0,0.15), 0 10px 28px -10px rgba(200, 120, 0,0.4)" : undefined,
+                  boxShadow: active ? "0 0 0 1px rgba(17, 17, 17, 0.08), 0 10px 28px -10px rgba(200, 120, 0,0.4)" : undefined,
                 }}
               >
                 {c.label}
@@ -3724,7 +3724,7 @@ function PathCard({
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.35] transition-opacity duration-500 group-hover:opacity-100 md:opacity-0"
-        style={{ background: "radial-gradient(circle at 50% 0%, rgba(200, 120, 0,0.18), transparent 60%)" }}
+        style={{ background: "radial-gradient(circle at 50% 0%, rgba(17, 17, 17, 0.08), transparent 60%)" }}
       />
       {badge && (
         <span
@@ -3741,7 +3741,7 @@ function PathCard({
         </span>
       )}
       <div className="relative">
-        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/25 bg-primary/[0.1] text-primary transition-all group-hover:scale-110 group-hover:border-primary/45 group-hover:bg-primary/15">
+        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.06] text-primary transition-all group-hover:scale-110 group-hover:border-primary/45 group-hover:bg-foreground/[0.08]">
           {icon}
         </div>
         <h3
@@ -3788,7 +3788,7 @@ function WelcomeScreen({ onPath }: { onPath: (p: "builder" | "quiz" | "presets")
             width: "65%",
             height: "120%",
             background:
-              "radial-gradient(circle, rgba(200, 120, 0,0.09) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(17, 17, 17, 0.08) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
             filter: "blur(90px)",
           }}
         />
@@ -3800,7 +3800,7 @@ function WelcomeScreen({ onPath }: { onPath: (p: "builder" | "quiz" | "presets")
             width: "45%",
             height: "70%",
             background:
-              "radial-gradient(circle, rgba(200, 120, 0,0.04) 0%, transparent 65%)",
+              "radial-gradient(circle, rgba(17, 17, 17, 0.04) 0%, transparent 65%)",
             filter: "blur(100px)",
           }}
         />
@@ -4238,7 +4238,7 @@ function ReviewScreen({
                     ? { bg: "bg-red-500/15", text: "text-red-400", border: "border-red-500/30" }
                     : c.severity === "warn"
                       ? { bg: "bg-amber-500/15", text: "text-amber-400", border: "border-amber-500/30" }
-                      : { bg: "bg-primary/15", text: "text-primary", border: "border-primary/25" };
+                      : { bg: "bg-foreground/[0.08]", text: "text-primary", border: "border-foreground/10" };
                 return (
                   <li
                     key={c.id}
@@ -4348,7 +4348,7 @@ function ReviewScreen({
                   className={cn(
                     "mt-3 rounded-[var(--radius-card-sm)] border p-3",
                     freight.free
-                      ? "border-primary/30 bg-primary/[0.06]"
+                      ? "border-foreground/10 bg-foreground/[0.04]"
                       : "border-edge bg-surface-1",
                   )}
                 >
@@ -4772,7 +4772,7 @@ function MobileStepNav({
                   className={cn(
                     "flex min-h-[44px] w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                     active
-                      ? "border-primary/50 bg-primary/[0.12]"
+                      ? "border-primary/50 bg-foreground/[0.06]"
                       : "border-edge-subtle bg-white/[0.02] hover:bg-white/[0.05]",
                   )}
                 >
@@ -4820,7 +4820,7 @@ function MobileStepNav({
                   </div>
                   {active ? (
                     <span
-                      className="shrink-0 rounded-full bg-primary/20 px-2 py-0.5 text-primary"
+                      className="shrink-0 rounded-full bg-foreground/10 px-2 py-0.5 text-primary"
                       style={{
                         fontFamily: "var(--font-family-inter)",
                         fontSize: "var(--text-caption)",
@@ -5282,7 +5282,7 @@ function SelectedItemCard({
           <div className="flex items-center gap-2">
             {countLabel && (
               <span
-                className="rounded-full bg-primary/15 px-2 py-0.5 text-primary tabular-nums"
+                className="rounded-full bg-foreground/[0.08] px-2 py-0.5 text-primary tabular-nums"
                 style={{
                   fontFamily: "var(--font-family-inter)",
                   fontSize: "var(--text-caption)",
@@ -5571,7 +5571,7 @@ function ConfiguracaoSelecionadaCard({
             Configuração selecionada
           </p>
           <span
-            className="rounded-full bg-primary/[0.12] px-2 py-0.5 text-primary tabular-nums"
+            className="rounded-full bg-foreground/[0.06] px-2 py-0.5 text-primary tabular-nums"
             style={{
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-caption)",
@@ -6022,7 +6022,7 @@ export function MonteSeuPcPage() {
       className="relative min-h-screen text-[#f5f5f5]"
       style={{
         background:
-          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200, 120, 0,0.07) 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 50% 100%, rgba(200, 120, 0,0.04) 0%, transparent 60%), linear-gradient(180deg, #0a0a0c 0%, #080808 40%, #0a0a0c 100%)",
+          "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(17, 17, 17, 0.07) 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 50% 100%, rgba(17, 17, 17, 0.04) 0%, transparent 60%), linear-gradient(180deg, #0a0a0c 0%, #080808 40%, #0a0a0c 100%)",
       }}
     >
       <div
@@ -6306,16 +6306,16 @@ export function MonteSeuPcPage() {
                               className="rounded-card-sm border border-edge bg-surface-0 text-ink-strong shadow-[var(--shadow-pop)] shadow-black/60"
                               style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
                             >
-                              <SelectItem value="suggested" className="rounded-[var(--radius-card)] focus:bg-primary/15 focus:text-ink-strong data-[state=checked]:text-primary">
+                              <SelectItem value="suggested" className="rounded-[var(--radius-card)] focus:bg-foreground/[0.08] focus:text-ink-strong data-[state=checked]:text-primary">
                                 Sugerida primeiro
                               </SelectItem>
-                              <SelectItem value="price-asc" className="rounded-[var(--radius-card)] focus:bg-primary/15 focus:text-ink-strong data-[state=checked]:text-primary">
+                              <SelectItem value="price-asc" className="rounded-[var(--radius-card)] focus:bg-foreground/[0.08] focus:text-ink-strong data-[state=checked]:text-primary">
                                 Menor preço
                               </SelectItem>
-                              <SelectItem value="price-desc" className="rounded-[var(--radius-card)] focus:bg-primary/15 focus:text-ink-strong data-[state=checked]:text-primary">
+                              <SelectItem value="price-desc" className="rounded-[var(--radius-card)] focus:bg-foreground/[0.08] focus:text-ink-strong data-[state=checked]:text-primary">
                                 Maior preço
                               </SelectItem>
-                              <SelectItem value="name" className="rounded-[var(--radius-card)] focus:bg-primary/15 focus:text-ink-strong data-[state=checked]:text-primary">
+                              <SelectItem value="name" className="rounded-[var(--radius-card)] focus:bg-foreground/[0.08] focus:text-ink-strong data-[state=checked]:text-primary">
                                 Nome A-Z
                               </SelectItem>
                             </SelectContent>

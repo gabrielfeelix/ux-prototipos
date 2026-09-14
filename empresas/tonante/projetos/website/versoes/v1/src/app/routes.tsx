@@ -21,6 +21,7 @@ import { PrivacyPage } from "./pages/PrivacyPage";
 import { WarrantyPage } from "./pages/WarrantyPage";
 import { TermsPage } from "./pages/TermsPage";
 import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
+import { HomeV2 } from "./v2/HomeV2";
 
 const basename =
   import.meta.env.BASE_URL === "/"
@@ -33,7 +34,10 @@ export const router = createBrowserRouter([
     Component: RootLayout,
     errorElement: <GlobalErrorBoundary />,
     children: [
-      { index: true, Component: HomePage },
+      { index: true, Component: HomeV2 },
+
+      /* Home anterior (v1) preservada em /legado — mantém Navbar/AnnouncementBar. */
+      { path: "legado", Component: HomePage },
       { path: "produtos", Component: ProductsPage },
       { path: "produto/:id", Component: ProductPage },
       { path: "carrinho", Component: CartPage },

@@ -13,6 +13,7 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/t
 import { allProducts, type Product } from "./productsData";
 import { ThemeToggle } from "./ThemeToggle";
 import { getCatalogHref, getPrimaryProductImage, getProductSubcategory, getProductSwatches, getVisibleCatalogProducts } from "./productPresentation";
+import { matchesSearchQuery } from "../lib/searchMatch";
 
 // Header ainda usa surface escura (reskin p/ creme = Fase 3) → wordmark branco.
 const TONANTE_LOGO = "/brand/tonante-wordmark-dark.png";
@@ -438,7 +439,7 @@ export function Navbar() {
 
   const searchResults = searchQuery.trim().length > 0
     ? visibleCatalogProducts
-      .filter((p) => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase()))
+      .filter((p) => matchesSearchQuery([p.name, p.category, p.subcategory, p.brand], searchQuery))
       .slice(0, 8)
     : [];
 
@@ -536,7 +537,7 @@ export function Navbar() {
               <span className="absolute bottom-1.5 left-1.5 w-[9px] h-[9px] border-b border-l border-current opacity-30 group-hover:opacity-65 transition-opacity duration-200 pointer-events-none" />
               <span className="absolute bottom-1.5 right-1.5 w-[9px] h-[9px] border-b border-r border-current opacity-30 group-hover:opacity-65 transition-opacity duration-200 pointer-events-none" />
               {isLoggedIn ? (
-                <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-foreground/10 flex items-center justify-center">
                   <span className="text-primary" style={{ fontSize: "var(--text-caption)", fontFamily: "var(--font-family-inter)", fontWeight: "var(--font-weight-medium)" }}>J</span>
                 </span>
               ) : <User size={20} strokeWidth={1.5} />}
@@ -596,8 +597,8 @@ export function Navbar() {
       </div>
     );
 
-    const elevatedCardClass = "group relative grid h-full min-h-[270px] grid-rows-[150px_auto] overflow-hidden rounded-[var(--radius-card-xl)] border border-foreground/8 bg-linear-to-b from-foreground/[0.05] to-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_24px_80px_rgba(200, 120, 0,0.12)]";
-    const layoutElevatedCardClass = "group relative grid h-full min-h-[290px] grid-rows-[170px_auto] overflow-hidden rounded-[var(--radius-card-xl)] border border-foreground/8 bg-linear-to-b from-foreground/[0.05] to-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_24px_80px_rgba(200, 120, 0,0.12)]";
+    const elevatedCardClass = "group relative grid h-full min-h-[270px] grid-rows-[150px_auto] overflow-hidden rounded-[var(--radius-card-xl)] border border-foreground/8 bg-linear-to-b from-foreground/[0.05] to-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/10 hover:shadow-[0_24px_80px_rgba(17, 17, 17, 0.08)]";
+    const layoutElevatedCardClass = "group relative grid h-full min-h-[290px] grid-rows-[170px_auto] overflow-hidden rounded-[var(--radius-card-xl)] border border-foreground/8 bg-linear-to-b from-foreground/[0.05] to-transparent p-5 transition-all duration-300 hover:-translate-y-1 hover:border-foreground/10 hover:shadow-[0_24px_80px_rgba(17, 17, 17, 0.08)]";
 
     const showcaseCard = (
       href: string,
@@ -620,8 +621,8 @@ export function Navbar() {
             {badge}
           </span>
         )}
-        <div className="relative flex h-full items-center justify-center overflow-hidden rounded-[var(--radius-card-lg)] border border-foreground/8 bg-foreground/[0.04] px-4 py-5 transition-colors group-hover:bg-primary/[0.02]">
-          <div className="absolute inset-4 rounded-full bg-primary/10 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="relative flex h-full items-center justify-center overflow-hidden rounded-[var(--radius-card-lg)] border border-foreground/8 bg-foreground/[0.04] px-4 py-5 transition-colors group-hover:bg-foreground/[0.02]">
+          <div className="absolute inset-4 rounded-full bg-foreground/[0.06] blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           {visualSrc ? (
             <ImageWithFallback
               src={visualSrc}
@@ -663,7 +664,7 @@ export function Navbar() {
       <Link
         to={href}
         onClick={() => setActiveMega(null)}
-        className="group flex h-full rounded-card-lg border border-foreground/8 bg-foreground/[0.03] px-4 py-4 transition-all duration-300 hover:border-primary/30 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200, 120, 0,0.08)]"
+        className="group flex h-full rounded-card-lg border border-foreground/8 bg-foreground/[0.03] px-4 py-4 transition-all duration-300 hover:border-foreground/10 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(17, 17, 17, 0.08)]"
       >
         <div className="flex items-start gap-3 w-full">
           <div className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-2xl border border-foreground/8 bg-background/70 text-primary/75 transition-colors duration-300 group-hover:bg-primary group-hover:text-ink-strong">
@@ -695,7 +696,7 @@ export function Navbar() {
       <Link
         to={href}
         onClick={() => setActiveMega(null)}
-        className="group relative overflow-hidden flex h-full flex-col rounded-card-lg border border-foreground/8 bg-foreground/[0.03] px-5 py-5 transition-all duration-300 hover:border-primary/30 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(200, 120, 0,0.08)]"
+        className="group relative overflow-hidden flex h-full flex-col rounded-card-lg border border-foreground/8 bg-foreground/[0.03] px-5 py-5 transition-all duration-300 hover:border-foreground/10 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(17, 17, 17, 0.08)]"
       >
         <div className="absolute -bottom-6 -right-6 text-foreground opacity-[0.03] transition-all duration-500 group-hover:text-primary group-hover:opacity-10 group-hover:scale-110 group-hover:-rotate-6">
           {icon}
@@ -724,8 +725,8 @@ export function Navbar() {
       meta?: string,
     ) => (
       <Link to={resolveMenuHref(href)} onClick={() => setActiveMega(null)} className={layoutElevatedCardClass}>
-        <div className="relative flex h-full items-center justify-center overflow-hidden rounded-[var(--radius-card-lg)] border border-foreground/8 bg-foreground/[0.035] px-4 py-4 transition-colors group-hover:bg-primary/[0.02]">
-          <div className="absolute inset-3 rounded-full bg-primary/10 blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="relative flex h-full items-center justify-center overflow-hidden rounded-[var(--radius-card-lg)] border border-foreground/8 bg-foreground/[0.035] px-4 py-4 transition-colors group-hover:bg-foreground/[0.02]">
+          <div className="absolute inset-3 rounded-full bg-foreground/[0.06] blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
           {image ? (
             <ImageWithFallback
               src={image}
@@ -795,7 +796,7 @@ export function Navbar() {
               <Link
                 to={resolveMenuHref(activeSubData?.href)}
                 onClick={() => setActiveMega(null)}
-                className="group flex h-full min-h-[90px] flex-col justify-center rounded-card-lg border border-primary/20 bg-primary/[0.05] px-5 py-4 transition-all duration-300 hover:bg-primary/[0.10] hover:shadow-[0_8px_24px_rgba(200, 120, 0,0.12)] hover:-translate-y-0.5"
+                className="group flex h-full min-h-[90px] flex-col justify-center rounded-card-lg border border-foreground/10 bg-foreground/[0.04] px-5 py-4 transition-all duration-300 hover:bg-foreground/[0.06] hover:shadow-[0_8px_24px_rgba(17, 17, 17, 0.08)] hover:-translate-y-0.5"
               >
                 <p className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "700", letterSpacing: "0.18em" }}>
                   EXPLORAR
@@ -871,7 +872,7 @@ export function Navbar() {
               <Link
                 to={resolveMenuHref(activeSubData?.href)}
                 onClick={() => setActiveMega(null)}
-                className="group flex h-full min-h-[110px] flex-col justify-center rounded-card-lg border border-primary/20 bg-primary/[0.05] px-6 py-5 transition-all duration-300 hover:bg-primary/[0.10] hover:shadow-[0_12px_32px_rgba(200, 120, 0,0.12)] hover:-translate-y-0.5"
+                className="group flex h-full min-h-[110px] flex-col justify-center rounded-card-lg border border-foreground/10 bg-foreground/[0.04] px-6 py-5 transition-all duration-300 hover:bg-foreground/[0.06] hover:shadow-[0_12px_32px_rgba(17, 17, 17, 0.08)] hover:-translate-y-0.5"
               >
                 <p className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "700", letterSpacing: "0.18em" }}>
                   VER TUDO
@@ -900,7 +901,7 @@ export function Navbar() {
             {panelHeader(panel.title, "Destacamos o universo da categoria com uma peça principal e um acesso mais elegante para continuar a navegação.")}
           </motion.div>
           <motion.div variants={itemVariants} className="flex-1">
-            <Link to={resolveMenuHref(panel.href)} onClick={() => setActiveMega(null)} className="group grid h-full min-h-[360px] grid-cols-1 gap-5 overflow-hidden rounded-[var(--radius-card-xl)] border border-foreground/8 bg-linear-to-br from-foreground/[0.04] via-transparent to-primary/[0.06] p-6 transition-all duration-500 hover:border-primary/30 hover:shadow-[0_24px_80px_rgba(200, 120, 0,0.15)] xl:grid-cols-[1.1fr_1fr]">
+            <Link to={resolveMenuHref(panel.href)} onClick={() => setActiveMega(null)} className="group grid h-full min-h-[360px] grid-cols-1 gap-5 overflow-hidden rounded-[var(--radius-card-xl)] border border-foreground/8 bg-linear-to-br from-foreground/[0.04] via-transparent to-primary/[0.06] p-6 transition-all duration-500 hover:border-foreground/10 hover:shadow-[0_24px_80px_rgba(17, 17, 17, 0.08)] xl:grid-cols-[1.1fr_1fr]">
               <div className="flex h-full flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-4">
@@ -927,7 +928,7 @@ export function Navbar() {
                 </div>
               </div>
               <div className="relative flex min-h-[260px] items-center justify-center rounded-[var(--radius-card-xl)] border border-foreground/8 bg-background/60 p-6 overflow-hidden">
-                <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 rounded-full bg-foreground/[0.06] blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
                 <ImageWithFallback src={panel.image} alt={panel.name} className="relative z-10 h-full max-h-[320px] w-auto max-w-[120%] object-contain drop-shadow-[0_16px_30px_rgba(0,0,0,0.18)] transition-transform duration-700 group-hover:scale-[1.1] group-hover:-translate-x-2 group-hover:-translate-y-2" loading="eager" referrerPolicy="no-referrer" />
               </div>
             </Link>
@@ -950,7 +951,7 @@ export function Navbar() {
               const innerCard = (
                 <div className="flex flex-col h-full">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-card-md border border-foreground/8 bg-background/70 transition-transform duration-300 group-hover:-translate-y-1 group-hover:bg-primary/10">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-card-md border border-foreground/8 bg-background/70 transition-transform duration-300 group-hover:-translate-y-1 group-hover:bg-foreground/[0.06]">
                       {isPdf
                         ? <FileText size={22} className="text-primary/75 group-hover:text-primary transition-colors" />
                         : <Download size={22} className="text-primary/75 group-hover:text-primary transition-colors" />
@@ -975,7 +976,7 @@ export function Navbar() {
                 <motion.div
                   key={item.name}
                   variants={itemVariants}
-                  className="group rounded-[var(--radius-card-xl)] border border-foreground/8 bg-foreground/[0.03] px-6 py-5 transition-all duration-300 hover:border-primary/30 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(200, 120, 0,0.05)] cursor-pointer"
+                  className="group rounded-[var(--radius-card-xl)] border border-foreground/8 bg-foreground/[0.03] px-6 py-5 transition-all duration-300 hover:border-foreground/10 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(17, 17, 17, 0.05)] cursor-pointer"
                 >
                   {innerCard}
                 </motion.div>
@@ -984,14 +985,14 @@ export function Navbar() {
                   key={item.name}
                   variants={itemVariants}
                   href={item.href}
-                  className="group rounded-[var(--radius-card-xl)] border border-foreground/8 bg-foreground/[0.03] px-6 py-5 transition-all duration-300 hover:border-primary/30 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(200, 120, 0,0.1)]"
+                  className="group rounded-[var(--radius-card-xl)] border border-foreground/8 bg-foreground/[0.03] px-6 py-5 transition-all duration-300 hover:border-foreground/10 hover:bg-foreground/[0.05] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(17, 17, 17, 0.08)]"
                 >
                   {innerCard}
                 </motion.a>
               )
             })}
             <motion.div variants={itemVariants}>
-              <Link to="/drivers-e-manuais" onClick={() => setActiveMega(null)} className="group flex h-full min-h-[140px] flex-col justify-center rounded-[var(--radius-card-xl)] border border-primary/20 bg-primary/[0.05] px-6 py-5 transition-all duration-300 hover:bg-primary/[0.10] hover:shadow-[0_12px_32px_rgba(200, 120, 0,0.12)] hover:-translate-y-0.5">
+              <Link to="/drivers-e-manuais" onClick={() => setActiveMega(null)} className="group flex h-full min-h-[140px] flex-col justify-center rounded-[var(--radius-card-xl)] border border-foreground/10 bg-foreground/[0.04] px-6 py-5 transition-all duration-300 hover:bg-foreground/[0.06] hover:shadow-[0_12px_32px_rgba(17, 17, 17, 0.08)] hover:-translate-y-0.5">
                 <p className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "700", letterSpacing: "0.18em" }}>
                   CENTRAL DE SUPORTE
                 </p>
@@ -1229,7 +1230,7 @@ export function Navbar() {
                   className="flex h-[44px] items-center overflow-hidden rounded-full border-[1.5px] transition-all"
                   style={{
                     background: "var(--surface-1)",
-                    borderColor: searchPanelOpen ? "var(--primary)" : "#d9d6d0",
+                    borderColor: searchPanelOpen ? "var(--primary)" : "#d6d6d6",
                     boxShadow: "none",
                   }}
                 >
@@ -1248,7 +1249,7 @@ export function Navbar() {
                       <span className="xl:hidden">Categorias</span>
                       <ChevronDown size={14} strokeWidth={2} className={`transition-transform duration-200 ${searchCategoryOpen ? "rotate-180" : ""}`} />
                     </button>
-                    <span className="absolute right-0 top-1/2 h-5 w-px -translate-y-1/2" style={{ background: "rgba(26,23,20,0.12)" }} />
+                    <span className="absolute right-0 top-1/2 h-5 w-px -translate-y-1/2" style={{ background: "rgba(17,17,17,0.12)" }} />
                   </div>
 
                   <input
@@ -1327,7 +1328,7 @@ export function Navbar() {
                           }}
                           className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors ${
                             searchCategory === cat
-                              ? "bg-primary/15 text-ink-strong"
+                              ? "bg-foreground/[0.08] text-ink-strong"
                               : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
                           }`}
                           style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 500 }}
@@ -1708,7 +1709,7 @@ export function Navbar() {
                       aria-label={isLoggedIn ? "Conta" : "Login"}
                     >
                       {isLoggedIn ? (
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/20 text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>J</span>
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-foreground/10 text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>J</span>
                       ) : (
                         <User size={20} strokeWidth={1.5} />
                       )}
@@ -1862,8 +1863,8 @@ export function Navbar() {
                               aria-hidden="true"
                               className="absolute bottom-0 left-1/2 h-[96px] w-[96px] -translate-x-1/2 rounded-full transition-transform duration-300 group-hover:scale-105"
                               style={{
-                                background: "radial-gradient(circle at 50% 38%, rgba(200,120,0,0.20), rgba(200,120,0,0.06) 70%)",
-                                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.55), 0 12px 24px -10px rgba(26,23,20,0.42)",
+                                background: "radial-gradient(circle at 50% 38%, rgba(17, 17, 17, 0.08), rgba(17, 17, 17, 0.06) 70%)",
+                                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.55), 0 12px 24px -10px rgba(17,17,17,0.42)",
                               }}
                             />
                             {image ? (
@@ -2035,7 +2036,7 @@ export function Navbar() {
                           <Link
                             to={`/produto/${product.id}`}
                             onClick={() => setSearchOpen(false)}
-                            className="group flex items-center gap-4 border-b border-edge-subtle py-3.5 transition-colors hover:border-primary/30 md:gap-5 md:py-4"
+                            className="group flex items-center gap-4 border-b border-edge-subtle py-3.5 transition-colors hover:border-foreground/10 md:gap-5 md:py-4"
                           >
                             <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-[var(--radius-card-sm)] bg-white/[0.05] md:h-[76px] md:w-[76px]">
                               <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} className="h-full w-full object-cover" />

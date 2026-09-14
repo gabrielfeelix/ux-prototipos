@@ -1,5 +1,5 @@
 import { HeroSection } from "./HeroSection";
-import { CategoryChips } from "./CategoryChips";
+import { CardVariantProvider } from "./CardVariantContext";
 import { TrustStrip } from "./TrustStrip";
 import { OfertasDaSemana } from "./OfertasDaSemana";
 import { CategoryShowcase } from "./CategoryShowcase";
@@ -26,7 +26,7 @@ const newArrivalIds = (novelties.length >= 6 ? novelties : byReviews.slice(10, 1
 
 export function HomePage() {
   return (
-    <>
+    <CardVariantProvider variant="classic">
       <SEO
         title="Violões, guitarras, contrabaixos e acessórios"
         description="Loja oficial Tonante. Tradição brasileira desde 1954. Violões, guitarras, contrabaixos, cordas e acessórios. Frete grátis acima de R$ 299. Até 10x sem juros."
@@ -46,9 +46,6 @@ export function HomePage() {
       />
       {/* 1. Hero (carrossel de banners) */}
       <HeroSection />
-
-      {/* 2. Categorias — wayfinding sob o hero (loja-first) */}
-      <CategoryChips />
 
       {/* 3. Vantagens */}
       <TrustStrip />
@@ -93,6 +90,6 @@ export function HomePage() {
       {/* 13. Newsletter + Footer (onda sonora animada substitui o divisor de cordas) */}
       <Newsletter />
       <Footer />
-    </>
+    </CardVariantProvider>
   );
 }

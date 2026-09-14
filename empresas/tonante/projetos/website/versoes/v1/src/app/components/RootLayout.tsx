@@ -10,10 +10,16 @@ import { CookieConsent } from "./CookieConsent";
 import { WelcomePopup } from "./WelcomePopup";
 import { Navbar } from "./Navbar";
 import { AnnouncementBar } from "./AnnouncementBar";
+import { HeaderV2 } from "../v2/HeaderV2";
+import { WhatsAppFab } from "./WhatsAppFab";
 import { ThemeProvider } from "./ThemeProvider";
 
 export function RootLayout() {
   const { pathname } = useLocation();
+  // HeaderV2 é o cabeçalho do site inteiro (já inclui a faixa de avisos).
+  // Só /legado — a home antiga — segue com Navbar + AnnouncementBar.
+  const isLegacyChrome = pathname === "/legado" || pathname.startsWith("/legado/");
+  const hideHeader = pathname === "/checkout" || pathname === "/monte-seu-pc";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,13 +39,15 @@ export function RootLayout() {
                 >
                   Pular para o conteúdo principal
                 </a>
-                {pathname !== "/checkout" && pathname !== "/carrinho" && pathname !== "/monte-seu-pc" && <AnnouncementBar />}
-                {pathname !== "/checkout" && pathname !== "/monte-seu-pc" && <Navbar />}
+                {isLegacyChrome && <AnnouncementBar />}
+                {!hideHeader && (isLegacyChrome ? <Navbar /> : <HeaderV2 />)}
                 <div data-page-light-scope className="contents">
                   {pathname !== "/checkout" && <CartDrawer />}
                   <AuthModal />
                   <WelcomePopup />
                   <CookieConsent />
+                  {/* atendimento humano — fora do checkout, pra não disputar com o pagamento */}
+                  {pathname !== "/checkout" && <WhatsAppFab />}
                   <main id="main-content" tabIndex={-1} className="outline-none">
                     <Outlet />
                   </main>

@@ -39,7 +39,7 @@ export function SeloTonante({
   const reduce = useReducedMotion();
   const spin = rotate && !reduce;
 
-  const fg = tone === "light" ? "#f6f2e9" : "var(--ink-strong)";
+  const fg = tone === "light" ? "#ffffff" : "var(--ink-strong)";
   const accent = "var(--amber)";
   const ringPathId = `selo-ring-${id}`;
 

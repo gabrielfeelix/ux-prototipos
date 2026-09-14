@@ -339,7 +339,7 @@ function CountdownTimer() {
 
   return (
     <div
-      className="flex items-center gap-2.5 px-3.5 py-2.5 border border-primary/20 bg-primary/[0.05]"
+      className="flex items-center gap-2.5 px-3.5 py-2.5 border border-foreground/10 bg-foreground/[0.04]"
       style={{ borderRadius: "var(--radius-button)" }}
     >
       <Clock size={13} className="text-primary flex-shrink-0" strokeWidth={2} />
@@ -600,14 +600,14 @@ function PaymentModal({ open, onClose, priceNum }: { open: boolean; onClose: () 
                     </div>
                     <span
                       className="px-2 py-0.5 font-bold flex-shrink-0"
-                      style={{ borderRadius: "var(--radius)", fontSize: "var(--text-caption)", fontFamily: "var(--font-family-inter)", background: "rgba(200,120,0,0.12)", color: "var(--amber-deep)" }}
+                      style={{ borderRadius: "var(--radius)", fontSize: "var(--text-caption)", fontFamily: "var(--font-family-inter)", background: "rgba(17, 17, 17, 0.08)", color: "var(--amber-deep)" }}
                     >
                       10% OFF
                     </span>
                   </header>
                   <div
                     className="flex items-baseline justify-between px-4 py-3"
-                    style={{ borderRadius: "var(--radius-button)", background: "rgba(200,120,0,0.05)", border: "1px solid rgba(200,120,0,0.22)" }}
+                    style={{ borderRadius: "var(--radius-button)", background: "rgba(17, 17, 17, 0.05)", border: "1px solid rgba(17, 17, 17, 0.08)" }}
                   >
                     <span
                       className="text-foreground/60"
@@ -627,7 +627,7 @@ function PaymentModal({ open, onClose, priceNum }: { open: boolean; onClose: () 
                 {/* Cartão */}
                 <section>
                   <header className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-primary/12 flex items-center justify-center flex-shrink-0">
+                    <div className="w-9 h-9 rounded-lg bg-foreground/[0.06] flex items-center justify-center flex-shrink-0">
                       <CreditCard size={16} className="text-primary" strokeWidth={1.8} />
                     </div>
                     <div className="flex-1">
@@ -785,7 +785,7 @@ function StickyPriceCard({
           borderRadius: "var(--radius-card-lg)",
           background: "var(--surface-1)",
           border: "1px solid var(--border)",
-          boxShadow: "0 1px 2px rgba(26,23,20,0.04), 0 18px 44px -30px rgba(26,23,20,0.28)",
+          boxShadow: "0 1px 2px rgba(17,17,17,0.04), 0 18px 44px -30px rgba(17,17,17,0.28)",
         }}
       >
         {/* Promo Timer */}
@@ -1301,7 +1301,7 @@ function AboutProduct({ product, onSeeDescription }: { product: any; onSeeDescri
             transition={{ duration: 0.18, delay: Math.min(i, 5) * 0.025 }}
             className="flex items-start gap-3"
           >
-            <span className="flex-shrink-0 w-4 h-4 rounded-full bg-primary/10 flex items-center justify-center mt-1">
+            <span className="flex-shrink-0 w-4 h-4 rounded-full bg-foreground/[0.06] flex items-center justify-center mt-1">
               <Check size={9} className="text-primary" strokeWidth={2.5} />
             </span>
             <span
@@ -1512,7 +1512,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
               {[5, 4, 3, 2, 1].map((star) => {
                 const percentage = star === 5 ? 85 : star === 4 ? 12 : 1;
                 return (
-                  <button key={star} onClick={() => { setActiveStarFilter(activeStarFilter === star ? null : star); setReviewPage(1); }} className={`flex w-full items-center gap-3 p-1.5 rounded transition-colors cursor-pointer ${activeStarFilter === star ? 'bg-primary/10' : 'hover:bg-foreground/5'}`}>
+                  <button key={star} onClick={() => { setActiveStarFilter(activeStarFilter === star ? null : star); setReviewPage(1); }} className={`flex w-full items-center gap-3 p-1.5 rounded transition-colors cursor-pointer ${activeStarFilter === star ? 'bg-foreground/[0.06]' : 'hover:bg-foreground/5'}`}>
                     <span className="text-foreground/45 min-w-[12px]" style={{ fontSize: "var(--text-caption)", fontWeight: 600 }}>{star}</span>
                     <div className="flex-1 h-1.5 bg-foreground/5 rounded-full overflow-hidden">
                       <motion.div
@@ -1561,7 +1561,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
                     onClick={() => setRatingDropdownOpen((v) => !v)}
                     className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
                       activeStarFilter
-                        ? "bg-primary/15 text-primary border border-primary/35"
+                        ? "bg-foreground/[0.08] text-primary border border-primary/35"
                         : "bg-foreground/5 text-foreground/65 hover:text-foreground hover:bg-foreground/10 border border-transparent"
                     }`}
                     aria-haspopup="listbox"
@@ -1590,7 +1590,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
                         <button
                           onClick={() => { setActiveStarFilter(null); setReviewPage(1); setRatingDropdownOpen(false); }}
                           className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-xs transition-colors ${
-                            activeStarFilter === null ? "bg-primary/15 text-primary" : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
+                            activeStarFilter === null ? "bg-foreground/[0.08] text-primary" : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
                           }`}
                         >
                           Todas
@@ -1601,7 +1601,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
                             key={star}
                             onClick={() => { setActiveStarFilter(activeStarFilter === star ? null : star); setReviewPage(1); setRatingDropdownOpen(false); }}
                             className={`flex w-full items-center justify-between px-4 py-2.5 text-left text-xs transition-colors ${
-                              activeStarFilter === star ? "bg-primary/15 text-primary" : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
+                              activeStarFilter === star ? "bg-foreground/[0.08] text-primary" : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
                             }`}
                           >
                             <span className="inline-flex items-center gap-1.5">
@@ -1960,7 +1960,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
     `${product.name} foi desenvolvido para entregar desempenho, acabamento e confiabilidade no uso diário.`;
 
   const productImageBg = {
-    background: "linear-gradient(160deg, #f8f7f4, #efede8)",
+    background: "linear-gradient(160deg, #f7f7f7, #ececec)",
     border: "1px solid var(--border)",
     boxShadow: "var(--shadow-card-hairline)",
   } as const;
@@ -2273,7 +2273,7 @@ export function ProductPage() {
   const liked = isFavorite(product.id);
 
   return (
-    <div className="pt-[calc(56px+var(--announce-h))] lg:pt-[calc(180px+var(--announce-h))] notebook:pt-[calc(120px+var(--announce-h))]">
+    <div className="">
       <SEO
         title={product.name}
         description={`Compre ${product.name} na PCYES. ${product.price ? `Por ${product.price}.` : ""} Frete grátis acima de R$ 299, até 10x sem juros.`}
@@ -2425,7 +2425,7 @@ export function ProductPage() {
                 {product.brand && product.badge && <span className="text-foreground/15">·</span>}
                 {product.badge && (
                   <span
-                    className="px-2 py-0.5 bg-primary/12 text-primary font-bold"
+                    className="px-2 py-0.5 bg-foreground/[0.06] text-primary font-bold"
                     style={{ borderRadius: "var(--radius)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}
                   >
                     {product.badge}
@@ -2682,7 +2682,7 @@ export function ProductPage() {
           <button
             onClick={handleBuyNow}
             disabled={preOrderInfo ? (preOrderInfo.reservedUnits >= preOrderInfo.totalUnits) : (product.inStock === false)}
-            className="px-5 py-3 flex items-center gap-2 font-semibold transition-all cursor-pointer disabled:opacity-40 text-ink-strong"
+            className="px-5 py-3 flex items-center gap-2 font-semibold transition-all cursor-pointer disabled:opacity-40 text-white"
             style={{
               borderRadius: "var(--radius-button)",
               fontFamily: "var(--font-family-inter)",
@@ -2690,7 +2690,7 @@ export function ProductPage() {
               whiteSpace: "nowrap",
               background: preOrderInfo
                 ? "var(--gradient-preorder-orange)"
-                : "#4CAF50",
+                : "var(--gradient-buy)",
             }}
           >
             {preOrderInfo ? (

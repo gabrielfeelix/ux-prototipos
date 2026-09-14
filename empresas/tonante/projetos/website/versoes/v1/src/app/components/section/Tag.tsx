@@ -11,7 +11,7 @@ type TagProps = {
 
 const RECIPES: Record<Variant, CSSProperties> = {
   brand: {
-    background: "rgba(200, 120, 0, 0.12)",
+    background: "rgba(17, 17, 17, 0.08)",
     border: "1px solid rgba(200, 120, 0, 0.35)",
     color: "rgba(200, 120, 0, 0.95)",
   },

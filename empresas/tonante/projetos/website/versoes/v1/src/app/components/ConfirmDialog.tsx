@@ -26,7 +26,7 @@ export function ConfirmDialog({
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark" || resolvedTheme === undefined;
   const accent = destructive ? "rgba(239,68,68,1)" : "var(--primary)";
-  const accentBg = destructive ? "rgba(239,68,68,0.12)" : "rgba(200, 120, 0,0.12)";
+  const accentBg = destructive ? "rgba(239,68,68,0.12)" : "rgba(17, 17, 17, 0.08)";
   const Icon = destructive ? AlertCircle : XIcon;
 
   return (

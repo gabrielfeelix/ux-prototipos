@@ -13,12 +13,16 @@ export function Eyebrow({ children, icon, className = "", style }: EyebrowProps)
   const resolvedIcon = icon === undefined ? <RosetaIcon size={14} /> : icon;
   return (
     <span
-      className={`inline-flex items-center gap-2 text-primary ${className}`}
+      className={`inline-flex items-center gap-2 ${className}`}
       style={{
         fontFamily: "var(--font-family-inter)",
-        fontSize: "var(--text-caption)",
+        fontSize: "12.5px",
         fontWeight: 700,
-        letterSpacing: "0.3em",
+        // 0.3em quebrava a forma da palavra; --amber-text é o âmbar escuro
+        // (5:1) que o próprio tema reserva pra texto pequeno
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        color: "var(--amber-text)",
         ...style,
       }}
     >

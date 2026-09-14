@@ -9,7 +9,7 @@ type BrindePillProps = {
 export function BrindePill({ children = "BRINDE", className = "", style }: BrindePillProps) {
   return (
     <span
-      className={`rounded-pill bg-primary/[0.10] px-2 py-0.5 text-primary ${className}`}
+      className={`rounded-pill bg-foreground/[0.06] px-2 py-0.5 text-primary ${className}`}
       style={{
         fontFamily: "var(--font-family-inter)",
         fontSize: "var(--text-caption)",

@@ -22,8 +22,8 @@ const STATS: Stat[] = [
 
 export function SocialProofBar() {
   return (
-    <section className="px-5 md:px-[72px]" style={{ background: "var(--surface-0)" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+    <section className="px-5 md:px-12" style={{ background: "var(--surface-0)" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div
           className="grid grid-cols-2 gap-y-7 rounded-card-lg border py-8 md:grid-cols-4"
           style={{ background: "var(--surface-1)", borderColor: "var(--edge)" }}

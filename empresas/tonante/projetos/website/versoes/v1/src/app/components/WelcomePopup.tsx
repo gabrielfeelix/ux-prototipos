@@ -3,13 +3,39 @@ import { useLocation } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ArrowRight, Check, Facebook, Instagram, Youtube } from "lucide-react";
 
-const TONANTE_LOGO = "/brand/tonante-wordmark-amber.png";
+/* WelcomePopup — captura de e-mail da primeira visita.
+   Deixou de ser modal centralizado em set/2026: agora é um cartão horizontal
+   encostado no canto inferior direito, que chega deslizando da direita. Assim
+   ele pede o e-mail sem tapar a página que o visitante veio ver. */
+
+// ⚠️ PLACEHOLDER: banco de imagem até chegar a foto do elenco real (Oderço).
+const FOTO = "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=720&q=80&auto=format&fit=crop";
 
 /** Logo do X (ex-Twitter) — lucide não tem; SVG mínimo. */
 function XLogo({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+/** Rabisco à mão sob o desconto. Âmbar sólido — é elemento gráfico, não fundo. */
+function Rabisco() {
+  return (
+    <svg
+      viewBox="0 0 160 14"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      style={{ position: "absolute", left: 0, right: 0, bottom: -9, width: "100%", height: 12 }}
+    >
+      <path
+        d="M3 9.2c22-5.4 47-7.4 78-6.2 26 1 44 3.6 76 7.8"
+        fill="none"
+        stroke="var(--amber-deep)"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -97,102 +123,121 @@ export function WelcomePopup() {
     <AnimatePresence>
       {mounted && visible && (
         <>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[75] bg-black/65 backdrop-blur-md" onClick={dismiss} />
+          {/* Véu leve, sem blur: escurece a página o bastante pro cartão saltar,
+              sem esconder o que o visitante estava lendo. Clique fora fecha. */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="fixed inset-0 z-[75]"
+            style={{ background: "rgba(0,0,0,0.35)" }}
+            onClick={dismiss}
+          />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 24 }}
-            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[76] flex items-center justify-center p-4"
+            /* chega deslizando da direita, com a curva padrão do site */
+            initial={{ opacity: 0, x: 48, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 48, y: 16, scale: 0.98 }}
+            transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Cadastro na newsletter"
+            className="fixed z-[76] bottom-0 left-0 right-0 md:bottom-6 md:left-auto md:right-6"
           >
             <div
-              className="relative w-full max-w-[920px] grid grid-cols-1 md:grid-cols-2 overflow-hidden bg-card border border-border shadow-[var(--shadow-pop)]"
-              style={{ borderRadius: "var(--radius-card-lg)" }}
+              className="relative grid w-full grid-cols-1 overflow-hidden md:w-[790px] md:grid-cols-[309px_1fr]"
+              style={{
+                background: "#ffffff",
+                borderRadius: 20,
+                boxShadow: "0 24px 64px rgba(0,0,0,0.28)",
+                border: "1px solid var(--border)",
+              }}
             >
               <button
                 onClick={dismiss}
                 aria-label="Fechar"
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full flex items-center justify-center bg-black/30 text-ink-strong hover:bg-black/55 backdrop-blur-md transition-all cursor-pointer"
+                className="absolute right-4 top-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-colors duration-200 hover:bg-[var(--surface-2)]"
+                style={{ background: "#ffffff", border: "1px solid var(--border)", color: "var(--ink-strong)" }}
               >
-                <X size={18} strokeWidth={1.8} />
+                <X size={18} strokeWidth={1.9} />
               </button>
 
-              {/* ── Hero (left) ─────────────────────────────────────── */}
-              <div
-                className="relative hidden md:flex items-center justify-center min-h-[480px] overflow-hidden"
-                style={{
-                  background:
-                    "radial-gradient(circle at 28% 22%, rgba(200, 120, 0, 0.55) 0%, transparent 55%), radial-gradient(circle at 75% 78%, rgba(200, 120, 0, 0.4) 0%, transparent 50%), linear-gradient(135deg, #1d0404 0%, #0a0a0a 60%, #000 100%)",
-                }}
-              >
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-[0.07]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-                    backgroundSize: "44px 44px",
-                  }}
-                />
-                <div className="pointer-events-none absolute -top-24 -left-24 w-[280px] h-[280px] rounded-full blur-3xl"
-                  style={{ background: "radial-gradient(circle, rgba(200, 120, 0, 0.35) 0%, transparent 70%)" }} />
-                <div className="pointer-events-none absolute -bottom-32 -right-20 w-[320px] h-[320px] rounded-full blur-3xl"
-                  style={{ background: "radial-gradient(circle, rgba(200, 120, 0, 0.3) 0%, transparent 70%)" }} />
-
-                <div className="relative z-10 flex flex-col items-center px-10 text-center">
-                  <img src={TONANTE_LOGO} alt="Tonante" className="w-[220px] mb-8 drop-shadow-[0_8px_24px_rgba(200,120,0,0.45)]" />
-                  <p
-                    className="text-ink leading-snug"
-                    style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 700, letterSpacing: "-0.02em" }}
-                  >
-                    Feito pra<br />quem toca
-                  </p>
-                  <p
-                    className="mt-4 text-ink-muted max-w-[260px]"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.55 }}
-                  >
-                    Violões, cordas e acessórios que fazem parte da sua história desde 1954.
-                  </p>
-                </div>
+              {/* foto — some no mobile, onde o cartão vira barra no rodapé */}
+              <div className="relative hidden md:block" style={{ background: "var(--surface-2)" }}>
+                <img src={FOTO} alt="" className="absolute inset-0 h-full w-full object-cover" />
               </div>
 
-              {/* ── Form (right) ────────────────────────────────────── */}
-              <div className="px-8 md:px-12 py-10 md:py-14 flex flex-col justify-center">
+              <div className="flex flex-col justify-center px-7 py-8 md:px-10 md:py-9">
                 {!submitted ? (
                   <>
-                    <h3
-                      className="text-foreground mb-3"
-                      style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-2xl)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.02em" }}
-                    >
-                      Ganhe <span className="text-primary">10% OFF</span><br />na primeira compra
-                    </h3>
-                    <p
-                      className="text-foreground/55 mb-7"
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}
-                    >
-                      Lançamentos exclusivos, promos e cupons direto no seu inbox.
+                    <p className="label" style={{ color: "var(--amber-text)", margin: 0 }}>
+                      Primeira compra?
                     </p>
 
-                    <form onSubmit={handleSubmit} className="space-y-3">
+                    <h3
+                      style={{
+                        fontFamily: "var(--font-family-figtree)",
+                        fontSize: "clamp(24px, 2.4vw, 31px)",
+                        fontWeight: 700,
+                        lineHeight: 1.12,
+                        letterSpacing: "-0.015em",
+                        color: "var(--ink-strong)",
+                        margin: "12px 0 0",
+                      }}
+                    >
+                      Cadastre-se e ganhe{" "}
+                      <span style={{ position: "relative", whiteSpace: "nowrap" }}>
+                        10% OFF
+                        <Rabisco />
+                      </span>{" "}
+                      na primeira compra
+                    </h3>
+
+                    <form onSubmit={handleSubmit} className="relative" style={{ marginTop: 26 }}>
                       <input
                         type="email"
                         placeholder="Seu melhor e-mail"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
-                        className="w-full px-5 py-3.5 bg-background border border-border text-foreground placeholder:text-foreground/40 focus:border-foreground/40 focus:outline-none transition-colors"
-                        style={{ borderRadius: "var(--radius-pill)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
+                        aria-label="Seu e-mail"
+                        className="w-full transition-colors focus:outline-none"
+                        style={{
+                          background: "#ffffff",
+                          border: "1px solid var(--edge-strong)",
+                          borderRadius: 999,
+                          padding: "16px 62px 16px 22px",
+                          fontFamily: "var(--font-family-inter)",
+                          fontSize: 14.5,
+                          color: "var(--ink-strong)",
+                        }}
                       />
                       <button
                         type="submit"
-                        className="w-full py-4 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5"
-                        style={{ background: "var(--primary)", color: "#fff", borderRadius: "var(--radius-pill)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, letterSpacing: "0.02em", boxShadow: "var(--shadow-buy-cta-sm)" }}
+                        aria-label="Cadastrar"
+                        /* preto, não âmbar: CTA de ação no site é sempre preto */
+                        className="absolute right-[7px] top-1/2 flex h-[42px] w-[42px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full transition-[scale] duration-200 hover:scale-105 active:scale-95"
+                        style={{ background: "#111111", color: "#ffffff", border: "none" }}
                       >
-                        QUERO MEU DESCONTO <ArrowRight size={16} strokeWidth={2} />
+                        <ArrowRight size={18} strokeWidth={2.2} />
                       </button>
                     </form>
 
-                    {/* Social */}
-                    <div className="mt-7 flex items-center justify-center gap-3">
+                    <p
+                      style={{
+                        fontFamily: "var(--font-family-inter)",
+                        fontSize: 13.5,
+                        lineHeight: 1.55,
+                        color: "var(--ink-soft)",
+                        margin: "16px 0 0",
+                      }}
+                    >
+                      Lançamentos, promoções e cupons antes de todo mundo. Sem spam, cancele quando quiser.
+                    </p>
+
+                    <div className="flex items-center gap-4" style={{ marginTop: 20 }}>
                       {[
                         { Icon: Facebook, label: "Facebook", href: "#" },
                         { Icon: XLogo, label: "X", href: "#" },
@@ -203,37 +248,44 @@ export function WelcomePopup() {
                           key={label}
                           href={href}
                           aria-label={label}
-                          className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-foreground/65 hover:text-foreground hover:border-foreground/40 transition-colors"
+                          className="transition-opacity duration-200 hover:opacity-60"
+                          style={{ color: "var(--ink-strong)" }}
                         >
-                          <Icon size={16} strokeWidth={1.6} />
+                          <Icon size={18} strokeWidth={1.8} />
                         </a>
                       ))}
                     </div>
-
-                    <button
-                      onClick={dismiss}
-                      className="mt-5 mx-auto block text-foreground/40 hover:text-foreground/70 transition-colors cursor-pointer"
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}
-                    >
-                      Não, obrigado
-                    </button>
                   </>
                 ) : (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-green-500/10 flex items-center justify-center">
-                      <Check size={28} className="text-green-500" strokeWidth={2.2} />
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+                    <div
+                      className="flex h-14 w-14 items-center justify-center rounded-full"
+                      style={{ background: "rgba(34,197,94,0.12)" }}
+                    >
+                      <Check size={26} className="text-green-600" strokeWidth={2.4} />
                     </div>
                     <h3
-                      className="text-foreground mb-3"
-                      style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 700, lineHeight: 1.1 }}
+                      style={{
+                        fontFamily: "var(--font-family-figtree)",
+                        fontSize: 26,
+                        fontWeight: 700,
+                        lineHeight: 1.12,
+                        color: "var(--ink-strong)",
+                        margin: "18px 0 0",
+                      }}
                     >
                       Cadastro realizado!
                     </h3>
                     <p
-                      className="text-foreground/60"
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}
+                      style={{
+                        fontFamily: "var(--font-family-inter)",
+                        fontSize: 14.5,
+                        lineHeight: 1.6,
+                        color: "var(--ink-soft)",
+                        margin: "10px 0 0",
+                      }}
                     >
-                      Use o cupom <span className="text-primary font-medium">BEMVINDO</span> na sua primeira compra.
+                      Use o cupom <strong style={{ color: "var(--amber-text)" }}>BEMVINDO</strong> na sua primeira compra.
                     </p>
                   </motion.div>
                 )}

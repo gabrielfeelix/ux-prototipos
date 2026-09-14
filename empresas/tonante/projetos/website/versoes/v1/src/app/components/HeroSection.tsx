@@ -30,10 +30,10 @@ export function HeroSection() {
 
   return (
     <section
-      className="px-5 pt-[calc(70px+var(--announce-h))] md:px-[72px] md:pt-[calc(150px+var(--announce-h))] notebook:pt-[calc(100px+var(--announce-h))]"
+      className="px-5 pt-[calc(70px+var(--announce-h))] md:px-12 md:pt-[calc(150px+var(--announce-h))] notebook:pt-[calc(100px+var(--announce-h))]"
       style={{ background: "var(--surface-0)" }}
     >
-      <div className="relative mx-auto" style={{ maxWidth: "1600px" }}>
+      <div className="relative mx-auto" style={{ maxWidth: "1680px" }}>
         {/* palco — aspecto da arte (597/250 ≈ 2.39:1), mas capado pela altura da
             viewport p/ banner + chips de categoria caberem na 1ª dobra em
             qualquer monitor. Reserva = header+pt (≈190) + dots (≈44) + chips
@@ -89,7 +89,7 @@ export function HeroSection() {
                 onClick={() => goTo(i)}
                 aria-label={`Banner ${i + 1}`}
                 className="h-[9px] rounded-full transition-all cursor-pointer"
-                style={{ width: i === idx ? 28 : 9, background: i === idx ? "var(--amber)" : "#d9d6d0", padding: 0, border: "none" }}
+                style={{ width: i === idx ? 28 : 9, background: i === idx ? "var(--amber)" : "#d6d6d6", padding: 0, border: "none" }}
               />
             ))}
           </div>

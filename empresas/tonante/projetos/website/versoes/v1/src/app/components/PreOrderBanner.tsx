@@ -61,7 +61,7 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(circle at 30% 0%, rgba(200, 120, 0,0.20) 0%, transparent 55%), radial-gradient(circle at 80% 100%, rgba(255,200,90,0.10) 0%, transparent 50%)",
+            "radial-gradient(circle at 30% 0%, rgba(17, 17, 17, 0.08) 0%, transparent 55%), radial-gradient(circle at 80% 100%, rgba(255,200,90,0.10) 0%, transparent 50%)",
         }}
       />
       {/* starfield */}

@@ -172,7 +172,7 @@ export function CartDrawer() {
                 <ShoppingBag size={18} className="text-foreground" strokeWidth={1.5} />
                 <span className="text-foreground" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: "var(--font-weight-medium)" }}>Carrinho</span>
                 <span className="px-2 py-0.5 bg-primary text-primary-foreground" style={{ borderRadius: "var(--radius-pill)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>{totalItems}</span>
-                <span className="flex items-center gap-1 px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(200,120,0,0.12)", color: "var(--amber-deep)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>
+                <span className="flex items-center gap-1 px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(17, 17, 17, 0.08)", color: "var(--amber-deep)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>
                   <PcyesCoin size={14} />
                   {formatInt(USER_PCYES_POINTS)}
                 </span>
@@ -217,7 +217,7 @@ export function CartDrawer() {
 
             {paidItems.length > 0 && (
               <div className="border-b border-foreground/5 px-7 py-3">
-                <div className={`flex items-center gap-2.5 rounded-card-md border px-3.5 py-2.5 ${giftUnlocked ? "border-primary/20 bg-primary/[0.06]" : "border-foreground/8 bg-foreground/[0.03]"}`}>
+                <div className={`flex items-center gap-2.5 rounded-card-md border px-3.5 py-2.5 ${giftUnlocked ? "border-foreground/10 bg-foreground/[0.04]" : "border-foreground/8 bg-foreground/[0.03]"}`}>
                   <Gift size={16} className="flex-shrink-0 text-primary" strokeWidth={2} />
                   <p className="flex-1 text-foreground/80" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.35 }}>
                     {giftUnlocked
@@ -253,10 +253,10 @@ export function CartDrawer() {
                   <AnimatePresence>
                     {items.map((item) => (
                       <motion.div key={item.cartKey} layout initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30, height: 0 }} transition={{ duration: 0.3 }}
-                        className={`flex gap-4 p-3.5 border ${lastAdded?.cartKey === item.cartKey ? "border-primary/30 bg-primary/5" : item.isGift ? "border-primary/20 bg-primary/[0.04]" : "border-edge-subtle bg-surface-1"} transition-colors duration-700`}
+                        className={`flex gap-4 p-3.5 border ${lastAdded?.cartKey === item.cartKey ? "border-foreground/10 bg-foreground/[0.04]" : item.isGift ? "border-foreground/10 bg-foreground/[0.04]" : "border-edge-subtle bg-surface-1"} transition-colors duration-700`}
                         style={{ borderRadius: "var(--radius-card)" }}
                       >
-                        <div className="w-[84px] flex-shrink-0 self-stretch overflow-hidden relative min-h-[84px]" style={{ borderRadius: "var(--radius)", background: "var(--well)", boxShadow: "inset 0 0 0 1px rgba(26,23,20,0.06)" }}>
+                        <div className="w-[84px] flex-shrink-0 self-stretch overflow-hidden relative min-h-[84px]" style={{ borderRadius: "var(--radius)", background: "var(--well)", boxShadow: "inset 0 0 0 1px rgba(17,17,17,0.06)" }}>
                           <ImageWithFallback src={item.image} alt={item.name} className="absolute inset-0 h-full w-full object-contain p-2.5" style={{ mixBlendMode: "multiply" }} />
                           {item.isGift && (
                             <div className="absolute left-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
@@ -401,7 +401,7 @@ export function CartDrawer() {
                 <button
                   className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-4 transition-transform hover:scale-[1.01] active:scale-[0.98]"
                   style={{
-                    background: "var(--primary)",
+                    background: "var(--gradient-buy)",
                     color: "#fff",
                     fontFamily: "var(--font-family-inter)",
                     fontSize: "var(--text-sm)",
@@ -503,7 +503,7 @@ export function CartDrawer() {
                         />
                         <div
                           className="relative h-[132px] w-[132px] flex-shrink-0 overflow-hidden border-r border-edge-subtle md:h-[210px] md:w-full md:border-r-0 md:border-b"
-                          style={{ background: "radial-gradient(circle at top, rgba(200, 120, 0,0.12) 0%, transparent 60%)" }}
+                          style={{ background: "radial-gradient(circle at top, rgba(17, 17, 17, 0.08) 0%, transparent 60%)" }}
                         >
                           <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04] md:p-6" />
                           <div
@@ -567,9 +567,9 @@ export function CartDrawer() {
                     <button
                       onClick={confirmGift}
                       disabled={!selectedGiftId}
-                      className="cursor-pointer rounded-full px-7 py-3 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:scale-100 min-h-[44px] md:min-h-0"
+                      className="cursor-pointer rounded-full px-7 py-3 text-white transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:scale-100 min-h-[44px] md:min-h-0"
                       style={{
-                        background: "var(--gradient-brand)",
+                        background: "var(--gradient-buy)",
                         fontFamily: "var(--font-family-inter)",
                         fontSize: "var(--text-sm)",
                         fontWeight: 700,

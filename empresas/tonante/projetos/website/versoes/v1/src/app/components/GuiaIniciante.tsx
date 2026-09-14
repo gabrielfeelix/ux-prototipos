@@ -30,8 +30,8 @@ const BULLETS = [
 
 export function GuiaIniciante() {
   return (
-    <section className="px-5 md:px-[72px]" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-md)" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+    <section className="px-5 md:px-12" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-md)" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div
           data-keep-dark
           className="grain grid grid-cols-1 overflow-hidden md:grid-cols-2"
@@ -73,7 +73,7 @@ export function GuiaIniciante() {
             </span>
             <div
               className="relative overflow-hidden"
-              style={{ width: "min(72%, 250px)", transform: "rotate(-3deg)", borderRadius: "var(--radius-card-lg)", background: "linear-gradient(160deg,#f8f7f4,#efede8)", boxShadow: "0 22px 40px -20px rgba(0,0,0,0.42)" }}
+              style={{ width: "min(72%, 250px)", transform: "rotate(-3deg)", borderRadius: "var(--radius-card-lg)", background: "linear-gradient(160deg,#f7f7f7,#ececec)", boxShadow: "0 22px 40px -20px rgba(0,0,0,0.42)" }}
             >
               <div className="relative aspect-[3/4]">
                 <ImageWithFallback

@@ -40,7 +40,7 @@ export function SectionContainer({
   return (
     <section
       id={id}
-      className={`relative px-5 md:px-[72px] ${className}`}
+      className={`relative px-5 md:px-12 ${className}`}
       style={{
         paddingTop: PADDINGS[paddingY],
         paddingBottom: PADDINGS[paddingY],

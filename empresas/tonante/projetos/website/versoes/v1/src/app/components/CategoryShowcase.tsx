@@ -118,8 +118,8 @@ function CategoryCard({ cat, big, spanClass = "" }: { cat: Cat; big?: boolean; s
 
 export function CategoryShowcase() {
   return (
-    <section className="px-5 md:px-[72px]" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-lg)" }}>
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+    <section className="px-5 md:px-12" style={{ background: "var(--surface-0)", paddingTop: "var(--space-section-lg)" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-9 flex items-end justify-between gap-4">
           <div>
             <p className="label" style={{ color: "var(--amber-deep)", marginBottom: 12 }}>

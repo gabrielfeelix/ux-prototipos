@@ -83,7 +83,7 @@ function PreOrderCard({ info }: { info: PreOrderInfo }) {
       style={{
         borderRadius: "var(--radius-card-lg)",
         background: "linear-gradient(135deg, #120608 0%, #1a080b 50%, #120608 100%)",
-        border: "1px solid rgba(200, 120, 0,0.12)",
+        border: "1px solid rgba(17, 17, 17, 0.08)",
         boxShadow: "var(--shadow-pop)",
         transition: "border-color 0.4s ease, box-shadow 0.4s ease",
       }}
@@ -93,7 +93,7 @@ function PreOrderCard({ info }: { info: PreOrderInfo }) {
         className="pointer-events-none absolute inset-0 transition-opacity duration-500 group-hover:opacity-100 opacity-50"
         style={{
           background:
-            "radial-gradient(circle at 85% 0%, rgba(200, 120, 0,0.10) 0%, transparent 50%)",
+            "radial-gradient(circle at 85% 0%, rgba(17, 17, 17, 0.08) 0%, transparent 50%)",
         }}
       />
 
@@ -357,7 +357,7 @@ function HeroSection({
             width: "70%",
             height: "90%",
             background:
-              "radial-gradient(circle, rgba(200, 120, 0,0.09) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(17, 17, 17, 0.08) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
             filter: "blur(90px)",
           }}
         />
@@ -369,7 +369,7 @@ function HeroSection({
             width: "45%",
             height: "55%",
             background:
-              "radial-gradient(circle, rgba(200, 120, 0,0.04) 0%, transparent 65%)",
+              "radial-gradient(circle, rgba(17, 17, 17, 0.04) 0%, transparent 65%)",
             filter: "blur(100px)",
           }}
         />
@@ -398,7 +398,7 @@ function HeroSection({
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(circle at 50% 65%, rgba(200, 120, 0,0.07) 0%, rgba(200, 120, 0,0.02) 40%, transparent 70%)",
+                "radial-gradient(circle at 50% 65%, rgba(17, 17, 17, 0.07) 0%, rgba(17, 17, 17, 0.02) 40%, transparent 70%)",
               filter: "blur(60px)",
               transform: "scale(1.1)",
             }}
@@ -516,7 +516,7 @@ function HeroSection({
           <span
             className="relative inline-flex items-center gap-2 rounded-full px-3 py-1.5"
             style={{
-              background: "rgba(200, 120, 0,0.08)",
+              background: "rgba(17, 17, 17, 0.08)",
               border: "1px solid rgba(200, 120, 0,0.25)",
               color: "#ff7770",
               fontFamily: "var(--font-family-inter)",
@@ -984,7 +984,7 @@ export function PreOrderPage() {
   };
 
   return (
-    <div className="pt-[calc(80px+var(--announce-h))] md:pt-[calc(110px+var(--announce-h))] min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <HeroSection featured={featured} />
 
       <FiltersBar

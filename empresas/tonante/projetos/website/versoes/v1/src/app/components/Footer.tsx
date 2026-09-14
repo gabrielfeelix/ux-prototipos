@@ -105,7 +105,7 @@ export function Footer() {
 
   if (isCheckout) {
     return (
-      <footer className="bg-[#f6f5f2] border-t border-foreground/10 text-foreground py-12 mt-auto">
+      <footer className="bg-[#f5f5f5] border-t border-foreground/10 text-foreground py-12 mt-auto">
         <div className="mx-auto max-w-5xl px-5 md:px-8">
           <div className="flex flex-col items-center justify-center gap-6 text-center">
             <Link to="/" className="hover:opacity-80 transition-opacity" aria-label="Tonante">
@@ -131,13 +131,13 @@ export function Footer() {
     <footer
       data-keep-dark
       className="grain relative overflow-hidden"
-      style={{ background: "var(--stage)", color: "#e9e1d4", marginTop: 8 }}
+      style={{ background: "var(--stage)", color: "#ffffff", marginTop: 8 }}
     >
       {/* glow âmbar superior-direito */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute"
-        style={{ right: "-6%", top: "-30%", width: 520, height: 520, background: "radial-gradient(circle, rgba(200,120,0,.20), transparent 70%)" }}
+        style={{ right: "-6%", top: "-30%", width: 520, height: 520, background: "radial-gradient(circle, rgba(17, 17, 17, 0.08), transparent 70%)" }}
       />
 
       <div className="relative z-[2] mx-auto w-full max-w-[1434px] px-5 pt-[72px] pb-10 md:px-12 xl:px-0">
@@ -155,7 +155,7 @@ export function Footer() {
           />
           <p
             className="m-0 mt-6 max-w-[640px]"
-            style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(20px, 2.4vw, 28px)", lineHeight: 1.4, color: "#f4ecdf" }}
+            style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(20px, 2.4vw, 28px)", lineHeight: 1.4, color: "#ffffff" }}
           >
             Desde 1954, a Tonante é o primeiro acorde de milhões de brasileiros.
             <br />
@@ -179,7 +179,7 @@ export function Footer() {
             <Link to="/" className="inline-block hover:opacity-80 transition-opacity" aria-label="Tonante">
               <ImageWithFallback src={brandLogoWhite} alt="Tonante" className="h-[40px] w-auto object-contain" />
             </Link>
-            <p className="serif mt-6 max-w-[280px]" style={{ fontSize: 22, lineHeight: 1.3, color: "#f4ecdf" }}>
+            <p className="serif mt-6 max-w-[280px]" style={{ fontSize: 22, lineHeight: 1.3, color: "#ffffff" }}>
               Feita de Histórias.<br />Desde 1954.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
@@ -191,9 +191,9 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label={social.label}
                   className="grid h-11 w-11 place-items-center rounded-full transition-colors md:h-[42px] md:w-[42px]"
-                  style={{ border: "1px solid rgba(255,255,255,.18)", color: "#e9e1d4" }}
+                  style={{ border: "1px solid rgba(255,255,255,.18)", color: "#ffffff" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(200,120,0,.6)"; e.currentTarget.style.color = "#fff"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,.18)"; e.currentTarget.style.color = "#e9e1d4"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,.18)"; e.currentTarget.style.color = "#ffffff"; }}
                 >
                   <SocialIcon label={social.label} />
                 </a>
@@ -212,7 +212,7 @@ export function Footer() {
                       to={link.href}
                       className="inline-flex min-h-[32px] items-center transition-colors"
                       style={{ color: "#cabfae", fontSize: 14.5, fontFamily: "var(--font-family-inter)" }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = "#f4ecdf"; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; }}
                       onMouseLeave={(e) => { e.currentTarget.style.color = "#cabfae"; }}
                     >
                       {link.label}

@@ -105,10 +105,10 @@ export function ProductShelf({
   return (
     <section
       ref={ref}
-      className="px-5 py-12 md:px-[72px] md:py-14"
+      className="px-5 py-12 md:px-12 md:py-14"
       style={{ background: "var(--surface-0)" }}
     >
-      <div className="mx-auto w-full" style={{ maxWidth: "1600px" }}>
+      <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <SectionHeader eyebrow={effectiveEyebrow} title={effectiveTitle} size="sm" weight={600} />
           {tabs && tabs.length > 1 && (

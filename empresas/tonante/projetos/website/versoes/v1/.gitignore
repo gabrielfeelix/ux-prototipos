@@ -15,3 +15,8 @@ kaspersky-ca-bundle.crt
 
 # WSL artifacts
 *:Zone.Identifier
+
+# Vídeos e áudios brutos das gravações (centenas de MB cada). Ficam fora de
+# public/ pra não entrar no build do Vite, e fora do git pra não inchar o
+# histórico. Os clipes já cortados que o site serve vivem em public/musicos/.
+assets-fonte/

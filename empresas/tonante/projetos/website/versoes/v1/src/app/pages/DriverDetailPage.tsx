@@ -46,7 +46,7 @@ function DownloadCard({
             letterSpacing: "0.1em",
             ...(isPdf
               ? {
-                  background: "rgba(200, 120, 0,0.14)",
+                  background: "rgba(17, 17, 17, 0.08)",
                   color: "var(--primary)",
                   border: "1px solid rgba(200, 120, 0,0.32)",
                 }
@@ -354,7 +354,7 @@ export function DriverDetailPage() {
 
             {/* Closing note */}
             <div className="mt-8 flex items-start gap-3 rounded-2xl border border-foreground/10 bg-white/[0.03] p-5">
-              <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+              <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-foreground/[0.08] text-primary">
                 <ShieldCheck size={16} />
               </div>
               <p

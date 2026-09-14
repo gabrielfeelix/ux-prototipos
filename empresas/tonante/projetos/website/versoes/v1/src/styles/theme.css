@@ -2,9 +2,9 @@
 
 /* ===========================================================================
    TONANTE — Design tokens
-   Marca: preto quente #1A1714 + âmbar oficial #C87800 · base branca (V3).
+   Marca: preto quente #111111 + âmbar oficial #C87800 · base branca (V3).
    Creme sobrevive só como texto sobre dark stage e no well de foto (--well).
-   Tipografia: Bodoni Moda (display) + Hanken Grotesk (corpo). Light-only.
+   Tipografia: Fraunces (display) + Hanken Grotesk (corpo). Light-only.
    Estrutura/escala herdada do template PCYES v3 (larguras, grid, primitivos);
    valores (cor, raio, sombra, tipografia, voz) são próprios da Tonante.
    =========================================================================== */
@@ -13,21 +13,21 @@
 
   /* ---- Cores base (light, único modo) ---- */
   --background: rgba(255, 255, 255, 1.00);   /* página branca (V3) */
-  --foreground: rgba(26, 23, 20, 1.00);      /* preto quente / ink */
+  --foreground: rgba(17, 17, 17, 1.00);      /* preto quente / ink */
   /* RGB triplets para uso em rgba() com var() — tints theme-aware
      (ex.: rgba(var(--foreground-rgb), 0.45) para texto/bordas/overlays). */
-  --foreground-rgb: 26, 23, 20;
+  --foreground-rgb: 17, 17, 17;
   --background-rgb: 255, 255, 255;
   --card: rgba(255, 255, 255, 1.00);         /* surface / cartões */
-  --card-foreground: rgba(26, 23, 20, 1.00);
+  --card-foreground: rgba(17, 17, 17, 1.00);
   --popover: rgba(255, 255, 255, 1.00);
-  --popover-foreground: rgba(26, 23, 20, 1.00);
+  --popover-foreground: rgba(17, 17, 17, 1.00);
   --primary: rgba(200, 120, 0, 1.00);        /* âmbar oficial #C87800 */
   --primary-foreground: rgba(255, 255, 255, 1.00);
-  --secondary: rgba(246, 245, 242, 1.00);    /* cinza-quente neutro */
-  --secondary-foreground: rgba(26, 23, 20, 1.00);
-  --muted: rgba(131, 119, 103, 1.00);
-  --muted-foreground: rgba(107, 95, 81, 1.00);
+  --secondary: rgba(245, 245, 245, 1.00);    /* cinza-quente neutro */
+  --secondary-foreground: rgba(17, 17, 17, 1.00);
+  --muted: rgba(115, 115, 115, 1.00);
+  --muted-foreground: rgba(90, 90, 90, 1.00);
 
   /* Aliases de marca (do protótipo _ref) — usados pelos componentes portados. */
   --amber: #c87800;
@@ -44,11 +44,11 @@
   --accent-foreground: rgba(255, 255, 255, 1.00);
   --destructive: rgba(179, 38, 30, 1.00);
   --destructive-foreground: rgba(255, 255, 255, 1.00);
-  --border: rgba(231, 229, 224, 1.00);       /* hairline neutro */
+  --border: rgba(230, 230, 230, 1.00);       /* hairline neutro */
   --input: rgba(255, 255, 255, 1.00);
   --input-background: rgba(255, 255, 255, 1.00);
   --ring: rgba(200, 120, 0, 1.00);
-  --elevation-sm: 0 1px 3px 0 rgba(26, 23, 20, 0.06), 0 1px 2px 0 rgba(26, 23, 20, 0.04);
+  --elevation-sm: 0 1px 3px 0 rgba(17, 17, 17, 0.06), 0 1px 2px 0 rgba(17, 17, 17, 0.04);
   --chart-1: rgba(200, 120, 0, 1.00);
   --chart-2: rgba(224, 140, 18, 1.00);
   --chart-3: rgba(160, 95, 0, 1.00);
@@ -61,12 +61,12 @@
   --radius-card: 12px;
 
   --sidebar: rgba(255, 255, 255, 1.00);
-  --sidebar-foreground: rgba(26, 23, 20, 1.00);
+  --sidebar-foreground: rgba(17, 17, 17, 1.00);
   --sidebar-primary: rgba(200, 120, 0, 1.00);
   --sidebar-primary-foreground: rgba(255, 255, 255, 1.00);
   --sidebar-accent: rgba(200, 120, 0, 1.00);
   --sidebar-accent-foreground: rgba(255, 255, 255, 1.00);
-  --sidebar-border: rgba(231, 229, 224, 1.00);
+  --sidebar-border: rgba(230, 230, 230, 1.00);
   --sidebar-ring: rgba(200, 120, 0, 1.00);
 
   /* ---- Rampa tipográfica (escala herdada do template) ----
@@ -102,7 +102,7 @@
 
   /* ---- Famílias (nomes de var mantidos do template p/ compatibilidade) ----
      figtree → Bodoni Moda (display/serif) · inter → Hanken Grotesk (corpo/sans) */
-  --font-family-figtree: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
+  --font-family-figtree: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-family-inter: 'Hanken Grotesk', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
   --font-display: var(--font-family-figtree);
   --font-sans: var(--font-family-inter);
@@ -129,13 +129,13 @@
   --gradient-discount:        linear-gradient(135deg, #b3261e 0%, #8f1d17 100%);
   /* compra/carrinho = VERDE (decisão Gabriel): destaca o "comprar" do âmbar
      de marca. Âmbar continua sendo o acento; verde é só ação de compra. */
-  --buy-green:                #1f9d57;
-  --buy-green-deep:           #15793f;
-  --gradient-buy:             linear-gradient(135deg, #1f9d57 0%, #15793f 100%);
+  --buy-green:                #1a1a1a;
+  --buy-green-deep:           #000000;
+  --gradient-buy:             linear-gradient(135deg, #1f1f1f 0%, #000000 100%);
   --gradient-preorder-orange: linear-gradient(135deg, #e08c12 0%, #c87800 100%);
   --gradient-preorder-red:    linear-gradient(135deg, #c87800 0%, #a05f00 100%);
-  --gradient-hero-stroke:     linear-gradient(135deg, rgba(26,23,20,0.14) 0%, rgba(26,23,20,0.05) 100%);
-  --gradient-hero-stroke-hover: linear-gradient(135deg, var(--primary) 0%, #e08c12 35%, rgba(200,120,0,0.45) 65%, rgba(200,120,0,0.12) 100%);
+  --gradient-hero-stroke:     linear-gradient(135deg, rgba(17,17,17,0.14) 0%, rgba(17,17,17,0.05) 100%);
+  --gradient-hero-stroke-hover: linear-gradient(135deg, var(--primary) 0%, #e08c12 35%, rgba(200,120,0,0.45) 65%, rgba(17, 17, 17, 0.08) 100%);
   --gradient-category-grid:   linear-gradient(72.85deg, #121213 44.62%, #1d1d1f 100.35%);  /* dark stage neutro (rock, não marrom) */
 
   /* ===================================================================
@@ -144,44 +144,44 @@
      O acento âmbar fica na BORDA (hover), não na sombra.
      =================================================================== */
   --shadow-neon-red:
-    0 1px 2px rgba(26, 23, 20, 0.04),
-    0 10px 28px -18px rgba(26, 23, 20, 0.22);
+    0 1px 2px rgba(17, 17, 17, 0.04),
+    0 10px 28px -18px rgba(17, 17, 17, 0.22);
   --shadow-neon-glow-deepen: none;
   --shadow-hero-card-hover:
-    0 14px 38px -24px rgba(26, 23, 20, 0.30);
+    0 14px 38px -24px rgba(17, 17, 17, 0.30);
   --shadow-category-active:
-    0 12px 32px -22px rgba(26, 23, 20, 0.26);
+    0 12px 32px -22px rgba(17, 17, 17, 0.26);
   --shadow-essential-hover:
-    0 10px 28px -22px rgba(26, 23, 20, 0.22);
+    0 10px 28px -22px rgba(17, 17, 17, 0.22);
   --shadow-deal-hover:
-    0 10px 26px -22px rgba(26, 23, 20, 0.20);
+    0 10px 26px -22px rgba(17, 17, 17, 0.20);
   --shadow-profile-hover:
-    0 8px 22px -20px rgba(26, 23, 20, 0.18);
+    0 8px 22px -20px rgba(17, 17, 17, 0.18);
   --shadow-order-hover:
-    0 6px 18px -18px rgba(26, 23, 20, 0.16);
+    0 6px 18px -18px rgba(17, 17, 17, 0.16);
   /* CTAs: lift neutro sutil — sem brilho âmbar/vermelho sob o botão */
-  --shadow-buy-cta:        0 6px 16px -8px rgba(26,23,20,0.28);
-  --shadow-buy-cta-sm:     0 3px 10px -5px rgba(26,23,20,0.24);
-  --shadow-brand-cta:      0 6px 16px -8px rgba(26,23,20,0.28);
-  --shadow-brand-cta-sm:   0 3px 10px -5px rgba(26,23,20,0.24);
-  --shadow-brand-pill:     0 3px 10px -5px rgba(26,23,20,0.22);
-  --shadow-discount-badge: 0 3px 10px -4px rgba(26,23,20,0.22);
-  --shadow-discount-sm:    0 2px 6px -3px rgba(26,23,20,0.20);
-  --shadow-preorder-cta:   0 6px 16px -8px rgba(26,23,20,0.28);
-  --shadow-preorder-pill:  0 3px 10px -5px rgba(26,23,20,0.22);
-  --shadow-drawer-side:    -14px 0 38px -22px rgba(26, 23, 20, 0.20);
-  --shadow-search-open:    0 16px 40px -24px rgba(26, 23, 20, 0.22);
+  --shadow-buy-cta:        0 6px 16px -8px rgba(17,17,17,0.28);
+  --shadow-buy-cta-sm:     0 3px 10px -5px rgba(17,17,17,0.24);
+  --shadow-brand-cta:      0 6px 16px -8px rgba(17,17,17,0.28);
+  --shadow-brand-cta-sm:   0 3px 10px -5px rgba(17,17,17,0.24);
+  --shadow-brand-pill:     0 3px 10px -5px rgba(17,17,17,0.22);
+  --shadow-discount-badge: 0 3px 10px -4px rgba(17,17,17,0.22);
+  --shadow-discount-sm:    0 2px 6px -3px rgba(17,17,17,0.20);
+  --shadow-preorder-cta:   0 6px 16px -8px rgba(17,17,17,0.28);
+  --shadow-preorder-pill:  0 3px 10px -5px rgba(17,17,17,0.22);
+  --shadow-drawer-side:    -14px 0 38px -22px rgba(17, 17, 17, 0.20);
+  --shadow-search-open:    0 16px 40px -24px rgba(17, 17, 17, 0.22);
 
   /* Hairline superior — leve realce claro no topo dos cards. */
   --shadow-card-hairline:  inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
   /* Medalhão de ranking — sombra neutra compacta (sem glow âmbar). */
-  --shadow-medallion:      0 3px 10px -4px rgba(26, 23, 20, 0.30);
+  --shadow-medallion:      0 3px 10px -4px rgba(17, 17, 17, 0.30);
 
   /* Sombras nativas Tonante — base ink, sutis. */
-  --shadow-card:  0 1px 2px rgba(26,23,20,0.04), 0 6px 20px -16px rgba(26,23,20,0.20);
-  --shadow-float: 0 18px 44px -26px rgba(26,23,20,0.28);
-  --shadow-pop:   0 14px 36px -24px rgba(26,23,20,0.24);
+  --shadow-card:  0 1px 2px rgba(17,17,17,0.04), 0 6px 20px -16px rgba(17,17,17,0.20);
+  --shadow-float: 0 18px 44px -26px rgba(17,17,17,0.28);
+  --shadow-pop:   0 14px 36px -24px rgba(17,17,17,0.24);
 
   /* Easing house Tonante. */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -191,18 +191,18 @@
      =================================================================== */
   --surface-0: #ffffff;   /* página */
   --surface-1: #ffffff;   /* cartões (definidos por borda+sombra, não cor) */
-  --surface-2: #f6f5f2;   /* inputs, elevados — cinza-quente neutro */
-  --surface-3: #eeede9;   /* hover */
-  --well: #f5f4f0;        /* fundo de foto de produto — o "creme Gibson",
+  --surface-2: #f5f5f5;   /* inputs, elevados — cinza-quente neutro */
+  --surface-3: #ebebeb;   /* hover */
+  --well: #f4f4f4;        /* fundo de foto de produto — o "creme Gibson",
                              único warm claro sobrevivente como superfície */
-  --surface-glass: rgba(26, 23, 20, 0.04);
-  --ink-strong: #1a1714;
-  --ink: rgba(26, 23, 20, 0.95);
-  --ink-muted: rgba(26, 23, 20, 0.62);
-  --ink-subtle: rgba(26, 23, 20, 0.42);
-  --edge-subtle: rgba(26, 23, 20, 0.06);
-  --edge: rgba(26, 23, 20, 0.12);
-  --edge-strong: rgba(26, 23, 20, 0.20);
+  --surface-glass: rgba(17, 17, 17, 0.04);
+  --ink-strong: #111111;
+  --ink: rgba(17, 17, 17, 0.95);
+  --ink-muted: rgba(17, 17, 17, 0.62);
+  --ink-subtle: rgba(17, 17, 17, 0.42);
+  --edge-subtle: rgba(17, 17, 17, 0.06);
+  --edge: rgba(17, 17, 17, 0.12);
+  --edge-strong: rgba(17, 17, 17, 0.20);
 
   /* Dark stage Tonante — preto neutro/charcoal (rock'n'roll, não marrom). */
   --stage: #131314;
@@ -250,7 +250,6 @@
 .shelf-track::-webkit-scrollbar,
 .deals-track::-webkit-scrollbar,
 .essentials-track::-webkit-scrollbar,
-.category-track::-webkit-scrollbar,
 .profile-tabs::-webkit-scrollbar { display: none; }
 
 /* Hover de cards — base âmbar suave (substitui o hover vermelho neon). */
@@ -270,7 +269,7 @@
 
 .order-card { transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease; }
 .order-card:hover {
-  border-color: rgba(200, 120, 0, 0.22) !important;
+  border-color: rgba(17, 17, 17, 0.08) !important;
   box-shadow: var(--shadow-order-hover);
   transform: translateY(-1px);
 }
@@ -561,7 +560,7 @@ html {
    página branca / janela quente / produto). */
 .deal-image-bg {
   background: var(--well);
-  box-shadow: inset 0 0 0 1px rgba(26, 23, 20, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.06);
 }
 
 /* Onda sonora (equalizer) — barras pulsando em torno da linha central.
@@ -621,40 +620,40 @@ html.light [data-page-light-scope] .bg-neutral-800,
 html.light [data-page-light-scope] .bg-zinc-800,
 html.light [data-page-light-scope] .bg-gray-800,
 html.light [data-page-light-scope] .bg-\[\#323232\] {
-  background-color: #f6f5f2 !important;
+  background-color: #f5f5f5 !important;
 }
 
 html.light [data-page-light-scope] .bg-neutral-700,
 html.light [data-page-light-scope] .bg-zinc-700,
 html.light [data-page-light-scope] .bg-gray-700 {
-  background-color: #eeede9 !important;
+  background-color: #ebebeb !important;
 }
 
 /* Painéis translúcidos brancos (glassy no dark) → painéis ink translúcidos */
-html.light [data-page-light-scope] .bg-white\/5  { background-color: rgba(26,23,20,0.04) !important; }
-html.light [data-page-light-scope] .bg-white\/8  { background-color: rgba(26,23,20,0.05) !important; }
-html.light [data-page-light-scope] .bg-white\/10 { background-color: rgba(26,23,20,0.06) !important; }
-html.light [data-page-light-scope] .bg-white\/15 { background-color: rgba(26,23,20,0.08) !important; }
-html.light [data-page-light-scope] .bg-white\/20 { background-color: rgba(26,23,20,0.10) !important; }
+html.light [data-page-light-scope] .bg-white\/5  { background-color: rgba(17,17,17,0.04) !important; }
+html.light [data-page-light-scope] .bg-white\/8  { background-color: rgba(17,17,17,0.05) !important; }
+html.light [data-page-light-scope] .bg-white\/10 { background-color: rgba(17,17,17,0.06) !important; }
+html.light [data-page-light-scope] .bg-white\/15 { background-color: rgba(17,17,17,0.08) !important; }
+html.light [data-page-light-scope] .bg-white\/20 { background-color: rgba(17,17,17,0.10) !important; }
 
 /* Texto branco puro → ink (invertido) */
-html.light [data-page-light-scope] .text-white     { color: rgb(26, 23, 20) !important; }
-html.light [data-page-light-scope] .text-white\/95 { color: rgba(26, 23, 20, 0.95) !important; }
-html.light [data-page-light-scope] .text-white\/90 { color: rgba(26, 23, 20, 0.90) !important; }
-html.light [data-page-light-scope] .text-white\/85 { color: rgba(26, 23, 20, 0.88) !important; }
-html.light [data-page-light-scope] .text-white\/80 { color: rgba(26, 23, 20, 0.82) !important; }
-html.light [data-page-light-scope] .text-white\/75 { color: rgba(26, 23, 20, 0.78) !important; }
-html.light [data-page-light-scope] .text-white\/70 { color: rgba(26, 23, 20, 0.72) !important; }
-html.light [data-page-light-scope] .text-white\/65 { color: rgba(26, 23, 20, 0.68) !important; }
-html.light [data-page-light-scope] .text-white\/60 { color: rgba(26, 23, 20, 0.65) !important; }
-html.light [data-page-light-scope] .text-white\/55 { color: rgba(26, 23, 20, 0.60) !important; }
-html.light [data-page-light-scope] .text-white\/50 { color: rgba(26, 23, 20, 0.55) !important; }
-html.light [data-page-light-scope] .text-white\/45 { color: rgba(26, 23, 20, 0.50) !important; }
-html.light [data-page-light-scope] .text-white\/40 { color: rgba(26, 23, 20, 0.48) !important; }
-html.light [data-page-light-scope] .text-white\/35 { color: rgba(26, 23, 20, 0.45) !important; }
-html.light [data-page-light-scope] .text-white\/30 { color: rgba(26, 23, 20, 0.42) !important; }
-html.light [data-page-light-scope] .text-white\/25 { color: rgba(26, 23, 20, 0.38) !important; }
-html.light [data-page-light-scope] .text-white\/20 { color: rgba(26, 23, 20, 0.32) !important; }
+html.light [data-page-light-scope] .text-white     { color: rgb(17, 17, 17) !important; }
+html.light [data-page-light-scope] .text-white\/95 { color: rgba(17, 17, 17, 0.95) !important; }
+html.light [data-page-light-scope] .text-white\/90 { color: rgba(17, 17, 17, 0.90) !important; }
+html.light [data-page-light-scope] .text-white\/85 { color: rgba(17, 17, 17, 0.88) !important; }
+html.light [data-page-light-scope] .text-white\/80 { color: rgba(17, 17, 17, 0.82) !important; }
+html.light [data-page-light-scope] .text-white\/75 { color: rgba(17, 17, 17, 0.78) !important; }
+html.light [data-page-light-scope] .text-white\/70 { color: rgba(17, 17, 17, 0.72) !important; }
+html.light [data-page-light-scope] .text-white\/65 { color: rgba(17, 17, 17, 0.68) !important; }
+html.light [data-page-light-scope] .text-white\/60 { color: rgba(17, 17, 17, 0.65) !important; }
+html.light [data-page-light-scope] .text-white\/55 { color: rgba(17, 17, 17, 0.60) !important; }
+html.light [data-page-light-scope] .text-white\/50 { color: rgba(17, 17, 17, 0.55) !important; }
+html.light [data-page-light-scope] .text-white\/45 { color: rgba(17, 17, 17, 0.50) !important; }
+html.light [data-page-light-scope] .text-white\/40 { color: rgba(17, 17, 17, 0.48) !important; }
+html.light [data-page-light-scope] .text-white\/35 { color: rgba(17, 17, 17, 0.45) !important; }
+html.light [data-page-light-scope] .text-white\/30 { color: rgba(17, 17, 17, 0.42) !important; }
+html.light [data-page-light-scope] .text-white\/25 { color: rgba(17, 17, 17, 0.38) !important; }
+html.light [data-page-light-scope] .text-white\/20 { color: rgba(17, 17, 17, 0.32) !important; }
 
 /* Neutros claros (texto muted no dark) → cinzas quentes mais escuros no light */
 html.light [data-page-light-scope] .text-neutral-100,
@@ -666,29 +665,29 @@ html.light [data-page-light-scope] .text-zinc-300,
 html.light [data-page-light-scope] .text-zinc-400 { color: #6b5f51 !important; }
 
 /* Bordas com tint branco → tint ink */
-html.light [data-page-light-scope] .border-white\/5  { border-color: rgba(26,23,20,0.06) !important; }
-html.light [data-page-light-scope] .border-white\/8  { border-color: rgba(26,23,20,0.08) !important; }
-html.light [data-page-light-scope] .border-white\/10 { border-color: rgba(26,23,20,0.10) !important; }
-html.light [data-page-light-scope] .border-white\/15 { border-color: rgba(26,23,20,0.12) !important; }
-html.light [data-page-light-scope] .border-white\/20 { border-color: rgba(26,23,20,0.14) !important; }
-html.light [data-page-light-scope] .border-white\/25 { border-color: rgba(26,23,20,0.16) !important; }
-html.light [data-page-light-scope] .border-white\/30 { border-color: rgba(26,23,20,0.18) !important; }
+html.light [data-page-light-scope] .border-white\/5  { border-color: rgba(17,17,17,0.06) !important; }
+html.light [data-page-light-scope] .border-white\/8  { border-color: rgba(17,17,17,0.08) !important; }
+html.light [data-page-light-scope] .border-white\/10 { border-color: rgba(17,17,17,0.10) !important; }
+html.light [data-page-light-scope] .border-white\/15 { border-color: rgba(17,17,17,0.12) !important; }
+html.light [data-page-light-scope] .border-white\/20 { border-color: rgba(17,17,17,0.14) !important; }
+html.light [data-page-light-scope] .border-white\/25 { border-color: rgba(17,17,17,0.16) !important; }
+html.light [data-page-light-scope] .border-white\/30 { border-color: rgba(17,17,17,0.18) !important; }
 html.light [data-page-light-scope] .border-neutral-900,
-html.light [data-page-light-scope] .border-neutral-800 { border-color: #e7e5e0 !important; }
-html.light [data-page-light-scope] .border-neutral-700 { border-color: #d9d6d0 !important; }
+html.light [data-page-light-scope] .border-neutral-800 { border-color: #e6e6e6 !important; }
+html.light [data-page-light-scope] .border-neutral-700 { border-color: #d6d6d6 !important; }
 html.light [data-page-light-scope] .border-zinc-800,
-html.light [data-page-light-scope] .border-zinc-900 { border-color: #e7e5e0 !important; }
+html.light [data-page-light-scope] .border-zinc-900 { border-color: #e6e6e6 !important; }
 
 /* Ring/divide */
-html.light [data-page-light-scope] .ring-white\/10 { --tw-ring-color: rgba(26,23,20,0.10) !important; }
-html.light [data-page-light-scope] .ring-white\/20 { --tw-ring-color: rgba(26,23,20,0.14) !important; }
-html.light [data-page-light-scope] .divide-white\/10 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(26,23,20,0.10) !important; }
+html.light [data-page-light-scope] .ring-white\/10 { --tw-ring-color: rgba(17,17,17,0.10) !important; }
+html.light [data-page-light-scope] .ring-white\/20 { --tw-ring-color: rgba(17,17,17,0.14) !important; }
+html.light [data-page-light-scope] .divide-white\/10 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(17,17,17,0.10) !important; }
 
 /* Placeholders */
 html.light [data-page-light-scope] .placeholder\:text-white\/48::placeholder,
 html.light [data-page-light-scope] .placeholder\:text-white\/50::placeholder,
 html.light [data-page-light-scope] .placeholder\:text-white\/60::placeholder {
-  color: rgba(26, 23, 20, 0.55) !important;
+  color: rgba(17, 17, 17, 0.55) !important;
 }
 
 html.light [data-page-light-scope] {
@@ -743,43 +742,43 @@ html.light [data-page-light-scope] [style*="rgb(29,29,31)"] {
 
 html.light [data-page-light-scope] [style*="rgb(50, 50, 50)"],
 html.light [data-page-light-scope] [style*="rgb(50,50,50)"] {
-  background: #f6f5f2 !important;
-  background-color: #f6f5f2 !important;
+  background: #f5f5f5 !important;
+  background-color: #f5f5f5 !important;
 }
 
 /* Contraste light — text-foreground/X de baixa opacidade fica invisível no creme.
    Eleva a opacidade efetiva mantendo a hierarquia (~AA). */
-html.light [data-page-light-scope] .text-foreground\/15 { color: rgba(26,23,20,0.50) !important; }
-html.light [data-page-light-scope] .text-foreground\/20 { color: rgba(26,23,20,0.55) !important; }
-html.light [data-page-light-scope] .text-foreground\/25 { color: rgba(26,23,20,0.58) !important; }
-html.light [data-page-light-scope] .text-foreground\/30 { color: rgba(26,23,20,0.60) !important; }
-html.light [data-page-light-scope] .text-foreground\/35 { color: rgba(26,23,20,0.62) !important; }
-html.light [data-page-light-scope] .text-foreground\/40 { color: rgba(26,23,20,0.65) !important; }
-html.light [data-page-light-scope] .text-foreground\/45 { color: rgba(26,23,20,0.68) !important; }
-html.light [data-page-light-scope] .text-foreground\/50 { color: rgba(26,23,20,0.72) !important; }
-html.light [data-page-light-scope] .text-foreground\/55 { color: rgba(26,23,20,0.75) !important; }
-html.light [data-page-light-scope] .text-foreground\/60 { color: rgba(26,23,20,0.78) !important; }
-html.light [data-page-light-scope] .text-foreground\/65 { color: rgba(26,23,20,0.80) !important; }
-html.light [data-page-light-scope] .text-foreground\/70 { color: rgba(26,23,20,0.85) !important; }
-html.light [data-page-light-scope] .text-foreground\/75 { color: rgba(26,23,20,0.88) !important; }
-html.light [data-page-light-scope] .text-foreground\/80 { color: rgba(26,23,20,0.92) !important; }
-html.light [data-page-light-scope] .text-foreground\/85 { color: rgba(26,23,20,0.95) !important; }
+html.light [data-page-light-scope] .text-foreground\/15 { color: rgba(17,17,17,0.50) !important; }
+html.light [data-page-light-scope] .text-foreground\/20 { color: rgba(17,17,17,0.55) !important; }
+html.light [data-page-light-scope] .text-foreground\/25 { color: rgba(17,17,17,0.58) !important; }
+html.light [data-page-light-scope] .text-foreground\/30 { color: rgba(17,17,17,0.60) !important; }
+html.light [data-page-light-scope] .text-foreground\/35 { color: rgba(17,17,17,0.62) !important; }
+html.light [data-page-light-scope] .text-foreground\/40 { color: rgba(17,17,17,0.65) !important; }
+html.light [data-page-light-scope] .text-foreground\/45 { color: rgba(17,17,17,0.68) !important; }
+html.light [data-page-light-scope] .text-foreground\/50 { color: rgba(17,17,17,0.72) !important; }
+html.light [data-page-light-scope] .text-foreground\/55 { color: rgba(17,17,17,0.75) !important; }
+html.light [data-page-light-scope] .text-foreground\/60 { color: rgba(17,17,17,0.78) !important; }
+html.light [data-page-light-scope] .text-foreground\/65 { color: rgba(17,17,17,0.80) !important; }
+html.light [data-page-light-scope] .text-foreground\/70 { color: rgba(17,17,17,0.85) !important; }
+html.light [data-page-light-scope] .text-foreground\/75 { color: rgba(17,17,17,0.88) !important; }
+html.light [data-page-light-scope] .text-foreground\/80 { color: rgba(17,17,17,0.92) !important; }
+html.light [data-page-light-scope] .text-foreground\/85 { color: rgba(17,17,17,0.95) !important; }
 
 /* Mesmo tratamento p/ text-white/X usado direto com alpha */
-html.light [data-page-light-scope] .text-white\/20 { color: rgba(26,23,20,0.55) !important; }
-html.light [data-page-light-scope] .text-white\/25 { color: rgba(26,23,20,0.58) !important; }
-html.light [data-page-light-scope] .text-white\/30 { color: rgba(26,23,20,0.60) !important; }
-html.light [data-page-light-scope] .text-white\/35 { color: rgba(26,23,20,0.62) !important; }
-html.light [data-page-light-scope] .text-white\/40 { color: rgba(26,23,20,0.65) !important; }
-html.light [data-page-light-scope] .text-white\/45 { color: rgba(26,23,20,0.68) !important; }
-html.light [data-page-light-scope] .text-white\/50 { color: rgba(26,23,20,0.72) !important; }
-html.light [data-page-light-scope] .text-white\/55 { color: rgba(26,23,20,0.75) !important; }
-html.light [data-page-light-scope] .text-white\/60 { color: rgba(26,23,20,0.78) !important; }
-html.light [data-page-light-scope] .text-white\/65 { color: rgba(26,23,20,0.80) !important; }
-html.light [data-page-light-scope] .text-white\/70 { color: rgba(26,23,20,0.85) !important; }
-html.light [data-page-light-scope] .text-white\/75 { color: rgba(26,23,20,0.88) !important; }
-html.light [data-page-light-scope] .text-white\/80 { color: rgba(26,23,20,0.92) !important; }
-html.light [data-page-light-scope] .text-white\/85 { color: rgba(26,23,20,0.95) !important; }
+html.light [data-page-light-scope] .text-white\/20 { color: rgba(17,17,17,0.55) !important; }
+html.light [data-page-light-scope] .text-white\/25 { color: rgba(17,17,17,0.58) !important; }
+html.light [data-page-light-scope] .text-white\/30 { color: rgba(17,17,17,0.60) !important; }
+html.light [data-page-light-scope] .text-white\/35 { color: rgba(17,17,17,0.62) !important; }
+html.light [data-page-light-scope] .text-white\/40 { color: rgba(17,17,17,0.65) !important; }
+html.light [data-page-light-scope] .text-white\/45 { color: rgba(17,17,17,0.68) !important; }
+html.light [data-page-light-scope] .text-white\/50 { color: rgba(17,17,17,0.72) !important; }
+html.light [data-page-light-scope] .text-white\/55 { color: rgba(17,17,17,0.75) !important; }
+html.light [data-page-light-scope] .text-white\/60 { color: rgba(17,17,17,0.78) !important; }
+html.light [data-page-light-scope] .text-white\/65 { color: rgba(17,17,17,0.80) !important; }
+html.light [data-page-light-scope] .text-white\/70 { color: rgba(17,17,17,0.85) !important; }
+html.light [data-page-light-scope] .text-white\/75 { color: rgba(17,17,17,0.88) !important; }
+html.light [data-page-light-scope] .text-white\/80 { color: rgba(17,17,17,0.92) !important; }
+html.light [data-page-light-scope] .text-white\/85 { color: rgba(17,17,17,0.95) !important; }
 
 /* ============================================================
    [data-keep-dark] — subtree opt-out p/ superfícies "sempre escuras"

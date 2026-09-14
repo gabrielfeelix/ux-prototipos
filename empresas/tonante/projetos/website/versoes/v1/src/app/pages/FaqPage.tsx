@@ -195,7 +195,7 @@ export function FaqPage() {
             width: "65%",
             height: "120%",
             background:
-              "radial-gradient(circle, rgba(200, 120, 0,0.09) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(17, 17, 17, 0.08) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
             filter: "blur(90px)",
           }}
         />
@@ -207,7 +207,7 @@ export function FaqPage() {
             width: "45%",
             height: "70%",
             background:
-              "radial-gradient(circle, rgba(200, 120, 0,0.04) 0%, transparent 65%)",
+              "radial-gradient(circle, rgba(17, 17, 17, 0.04) 0%, transparent 65%)",
             filter: "blur(100px)",
           }}
         />
@@ -329,7 +329,7 @@ export function FaqPage() {
                     className={
                       "cursor-pointer rounded-full border px-4 py-2 transition-all " +
                       (isActive
-                        ? "border-primary/60 bg-primary/[0.1] text-ink-strong"
+                        ? "border-primary/60 bg-foreground/[0.06] text-ink-strong"
                         : "border-edge bg-white/[0.03] text-foreground/60 hover:border-edge-strong hover:text-ink-strong")
                     }
                     style={{
@@ -444,13 +444,13 @@ export function FaqPage() {
                 height: "180%",
                 transform: "translateX(-50%)",
                 background:
-                  "radial-gradient(circle, rgba(200, 120, 0,0.12) 0%, transparent 65%)",
+                  "radial-gradient(circle, rgba(17, 17, 17, 0.08) 0%, transparent 65%)",
                 filter: "blur(70px)",
               }}
             />
             <div className="relative">
               <div className="mb-5 flex justify-center">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/25 bg-primary/[0.1] text-primary">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.06] text-primary">
                   <MessageCircle size={22} />
                 </span>
               </div>
