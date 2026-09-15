@@ -30,6 +30,11 @@ interface ProductShelfProps {
   /** Abas alternáveis (ex.: Mais vendidos | Lançamentos). Quando presente,
       eyebrow/título/produtos vêm da aba ativa; props soltas viram fallback. */
   tabs?: ShelfTab[];
+  /** "rail" (padrão) é o trilho que rola de lado; "grid" mostra tudo de uma vez,
+      em 5 colunas no desktop e 2 no mobile. Grid é pra seção de varredura —
+      acessório e corda, que ninguém leva um só — e pra não deixar dois trilhos
+      colados na mesma página. */
+  layout?: "rail" | "grid";
 }
 
 export function ProductShelf({
@@ -39,7 +44,9 @@ export function ProductShelf({
   showRanking = false,
   emphasizeDiscount = false,
   tabs,
+  layout = "rail",
 }: ProductShelfProps) {
+  const isGrid = layout === "grid";
   const ref = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canPrev, setCanPrev] = useState(false);
@@ -141,15 +148,16 @@ export function ProductShelf({
         </div>
 
         <div className="relative">
-          {navBtn(() => scrollByCards(-1), !canPrev, "Anterior", "left")}
-          {navBtn(() => scrollByCards(1), !canNext, "Próximo", "right")}
+          {!isGrid && navBtn(() => scrollByCards(-1), !canPrev, "Anterior", "left")}
+          {!isGrid && navBtn(() => scrollByCards(1), !canNext, "Próximo", "right")}
           <div
             ref={scrollRef}
-            className="shelf-track flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
+            className={
+              isGrid
+                ? "grid grid-cols-2 gap-4 lg:grid-cols-5 lg:gap-5"
+                : "shelf-track flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2"
+            }
+            style={isGrid ? undefined : { scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {products.map((product, i) => {
               const add = (p: Product) =>
@@ -157,6 +165,10 @@ export function ProductShelf({
               return (
                 <motion.div
                   key={product.id}
+                  /* no grid o card estica até a altura da linha: quem tem
+                     swatch de cor é mais alto e, sem isso, os cards da linha
+                     terminam em alturas diferentes. */
+                  className={isGrid ? "h-full" : undefined}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.45, delay: 0.04 * i }}
@@ -168,9 +180,9 @@ export function ProductShelf({
                     favorite
                     rank={effectiveRanking ? i + 1 : undefined}
                     emphasizeDiscount={emphasizeDiscount}
-                    className="snap-start flex-shrink-0"
+                    className={isGrid ? "h-full w-full" : "snap-start flex-shrink-0"}
                     style={{
-                      width: "clamp(264px, 78vw, 380px)",
+                      ...(isGrid ? null : { width: "clamp(264px, 78vw, 380px)" }),
                       // #1 ranqueado ganha a stroke âmbar de destaque (mesma do champion)
                       ...(effectiveRanking && i === 0
                         ? { borderColor: "rgba(200,120,0,0.55)", boxShadow: "var(--shadow-category-active)" }
@@ -182,7 +194,7 @@ export function ProductShelf({
               );
             })}
           </div>
-          <CarouselDots trackRef={scrollRef} />
+          {!isGrid && <CarouselDots trackRef={scrollRef} />}
         </div>
       </div>
     </section>

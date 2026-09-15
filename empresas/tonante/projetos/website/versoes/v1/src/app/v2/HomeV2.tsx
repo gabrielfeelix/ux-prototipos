@@ -36,8 +36,11 @@ const bestSellerIds = porReviews.slice(0, 10).map((p) => p.id);
 const novidades = catalogo.filter((p) => p.badge === "Novidade");
 const newArrivalIds = (novidades.length >= 6 ? novidades : porReviews.slice(10, 16)).slice(0, 6).map((p) => p.id);
 
-/* Carrossel 2 (antes dos músicos) — o que completa a compra: cordas,
-   acessórios e suportes. Ticket baixo, alto anexo. */
+/* Bloco 2 (antes dos músicos) — o que completa a compra: cordas, acessórios e
+   suportes. Ticket baixo, alto anexo. Vai em GRID de 4×2: é compra por
+   varredura (ninguém leva uma palheta só) e o trilho mostrava 4 de cada vez,
+   escondendo o resto atrás da seta. São 10: 5 por linha, 2 linhas. De quebra tira dois trilhos colados, que
+   era o que acontecia com o feed de músicos logo abaixo. */
 const completeIds = [...catalogo]
   .filter((p) => !INSTRUMENTOS.includes(p.category))
   .sort((a, b) => (b.reviews ?? 0) - (a.reviews ?? 0))
@@ -90,11 +93,12 @@ export function HomeV2() {
         {/* 9. institucional: as linhas Tonante */}
         <LinhasDeViolao />
 
-        {/* 10. último carrossel — o que completa a compra */}
+        {/* 10. grid — o que completa a compra */}
         <ProductShelf
           label="Completa o setup"
           title="Cordas, acessórios e suportes"
           productIds={completeIds}
+          layout="grid"
         />
 
         {/* 11. marca + captura */}
