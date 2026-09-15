@@ -10,6 +10,7 @@ import { getPrimaryProductImage } from "./productPresentation";
 import { useCart } from "./CartContext";
 import { getProductUrl } from "../lib/slug";
 import { INSTRUMENT_FRAMING, FRAMING_PADRAO } from "../v2/instrumentFraming";
+import { isFotoAmbientada } from "./photoBackdrop";
 
 // MusicosTonante — "Quem toca, conta" (V3 §4). A seção é o feed de Instagram
 // da Tonante: cada card é um post (vídeo do músico), com o selo do IG no alto
@@ -21,7 +22,18 @@ import { INSTRUMENT_FRAMING, FRAMING_PADRAO } from "../v2/instrumentFraming";
    Google — mockup de layout, não gente que toca Tonante. Ficam no arquivo de
    dados à espera do material; assim que ganharem um `video: "/musicos/…"`
    aparecem aqui sozinhos. */
-const ELENCO = MUSICIANS.filter((m) => m.video?.startsWith("/musicos/"));
+const COM_VIDEO = MUSICIANS.filter((m) => m.video?.startsWith("/musicos/"));
+
+/* A ordem do trilho é escolha do Gabriel, não a ordem do arquivo de dados:
+   o primeiro quadro da seção abre com o Paulo André e fecha no Alfredo José.
+   Quem não estiver listado aqui entra no fim, na ordem em que aparece nos
+   dados — assim um músico novo aparece sem precisar mexer nesta lista. */
+const ORDEM = ["paulo-andre", "rogerio-alves", "andre-batista", "thiago-nunes", "alfredo"];
+const ELENCO = [...COM_VIDEO].sort((a, b) => {
+  const ia = ORDEM.indexOf(a.id);
+  const ib = ORDEM.indexOf(b.id);
+  return (ia < 0 ? ORDEM.length : ia) - (ib < 0 ? ORDEM.length : ib);
+});
 
 /* Três voltas do elenco alimentam o loop infinito (ver `normalizar`). */
 const VOLTAS = [...ELENCO, ...ELENCO, ...ELENCO];
@@ -53,13 +65,28 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (tocando) {
-      const p = v.play();
-      if (p) p.catch(() => {}); // autoplay bloqueado: fica no frame do poster
-    } else {
+    if (!tocando) {
       v.pause();
       setComSom(false); // sai o mouse, volta o mudo
+      return;
     }
+    /* O trilho carrega três voltas do elenco, então há ~15 <video> na página.
+       Com `preload` ligado eles disputam as 6 conexões que o browser abre por
+       origem e o vídeo sob o mouse trava no poster esperando a sua vez — por
+       isso o elemento é `preload="none"` e a carga só começa aqui. Como o
+       primeiro play() cai num elemento sem nenhum dado, ele pode não pegar:
+       repetimos quando o vídeo avisa que já tem frame. */
+    const tentar = () => {
+      const p = v.play();
+      if (p) p.catch(() => {}); // autoplay bloqueado: fica no frame do poster
+    };
+    tentar();
+    v.addEventListener("loadeddata", tentar);
+    v.addEventListener("canplay", tentar);
+    return () => {
+      v.removeEventListener("loadeddata", tentar);
+      v.removeEventListener("canplay", tentar);
+    };
   }, [tocando]);
 
   // o som é sempre uma escolha do visitante; autoplay com áudio o browser barra
@@ -74,8 +101,9 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
   };
 
   const fotoProduto = produto ? getPrimaryProductImage(produto) : "";
-  // caminho relativo = arte nossa em public/; URL absoluta = thumb do Magento
-  const fotoDeCatalogo = !fotoProduto.startsWith("/");
+  /* Recorte de estúdio aparece inteiro, com o branco sumindo no branco da
+     miniatura; foto ambientada preenche o quadro (ver photoBackdrop.ts). */
+  const fotoDeCatalogo = !isFotoAmbientada(fotoProduto);
   /* O dy da tabela serve pro card grande, que encosta o instrumento no rodapé;
      aqui a miniatura é quadrada e o instrumento fica centrado, então só o zoom
      interessa. Teto de 2.6 pra foto de margem muito larga não estourar. */
@@ -109,7 +137,7 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:scale-[1.03]"
           />
         ) : (
