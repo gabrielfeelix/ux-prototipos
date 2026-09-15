@@ -7,7 +7,6 @@ import { MonteSeuKit } from "../components/MonteSeuKit";
 import { LinhasDeViolao } from "../components/LinhasDeViolao";
 import { EncordoamentosV2 } from "./EncordoamentosV2";
 import { Video70Anos } from "./Video70Anos";
-import { SocialProofBar } from "../components/SocialProofBar";
 import { MusicosTonante } from "../components/MusicosTonante";
 import { Newsletter } from "../components/Newsletter";
 import { Footer } from "../components/Footer";
@@ -69,7 +68,6 @@ export function HomeV2() {
 
         {/* 5. institucional: respiro, cor e história */}
         <Video70Anos />
-        <SocialProofBar />
 
         {/* 6. prateleira de mais vendidos */}
         <ProductShelf

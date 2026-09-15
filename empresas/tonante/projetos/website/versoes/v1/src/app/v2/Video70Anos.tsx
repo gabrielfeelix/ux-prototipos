@@ -44,7 +44,7 @@ export function Video70Anos() {
         to={DESTINO}
         aria-label="Ver a seleção de aniversário de 70 anos da Tonante"
         className="group/v70 relative block w-full overflow-hidden"
-        style={{ height: "clamp(360px, 62vh, 700px)", background: "#0b0b0c" }}
+        style={{ height: "clamp(420px, 72vh, 800px)", background: "#0b0b0c" }}
       >
         <video
           ref={videoRef}
