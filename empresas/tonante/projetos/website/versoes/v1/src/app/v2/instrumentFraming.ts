@@ -78,6 +78,7 @@ export const INSTRUMENT_FRAMING: Record<number, [zoom: number, dy: number]> = {
   215: [1.69, -2.9],
   216: [1.72, -1.8],
   217: [1.86, -2.7],
+  223: [1.67, 0.8],
   226: [1.86, 0.8],
   227: [1.78, -1.7],
   228: [1.86, -1.5],
@@ -102,6 +103,7 @@ export const INSTRUMENT_FRAMING: Record<number, [zoom: number, dy: number]> = {
   279: [1.60, 1.0],
   280: [1.45, -3.2],
   281: [1.45, -5.0],
+  285: [1.56, -0.2],
 };
 
 /** Instrumento sem medida cai no padrão. */

@@ -90,7 +90,7 @@ export const MUSICIANS: Musician[] = [
       "Comprei pelo som e fiquei pelo desenho da madeira. Não tem dois iguais — o meu tem um veio que corta o tampo inteiro.",
     instagram: "@thiagonunes.violao",
     productId: 285,
-    instrumentLabel: "Violão Zebrano Cutaway",
+    instrumentLabel: "Violão Safira Tampo Zebra",
   },
   {
     /* Material real: vídeo "Alfredo - Jacksons five", do início até 47,5s —
@@ -101,7 +101,7 @@ export const MUSICIANS: Musician[] = [
        ⚠️ Alfredo é pessoa real identificada pelo nome do arquivo: cidade e @
        ficaram vazios e o depoimento é PLACEHOLDER. */
     id: "alfredo",
-    name: "Alfredo",
+    name: "Alfredo José",
     role: "Guitarrista",
     photo: "/musicos/alfredo.jpg",
     video: "/musicos/alfredo.mp4",
@@ -140,8 +140,10 @@ export const MUSICIANS: Musician[] = [
     quote:
       "Toco onde der: feira, calçada, quintal. Cavaquinho tem que caber embaixo do braço e aguentar o dia inteiro.",
     instagram: "@rogerioalves.cavaco",
-    productId: 284,
-    instrumentLabel: "Cavaquinho Tonante Natural",
+    /* O instrumento do vídeo é o Cavaco Acústico Tonante Natural do catálogo
+       (id 223, CTN1954N) — mesmo modelo, foto de estúdio da Oderco. */
+    productId: 223,
+    instrumentLabel: "Cavaco Tonante Natural",
   },
   {
     id: "camila-rocha",
