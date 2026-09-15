@@ -38,6 +38,7 @@ const CATEGORIAS = [
   { label: "Violões", category: "Violões" },
   { label: "Guitarras", category: "Guitarras" },
   { label: "Contrabaixos", category: "Contrabaixos" },
+  { label: "Baterias", category: "Baterias" },
   { label: "Cordas", category: "Cordas & Encordoamentos" },
   { label: "Acessórios", category: "Acessórios" },
   { label: "Suportes", category: "Suportes" },
