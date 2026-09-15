@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
   Instagram, Facebook, Youtube, Store, Headphones, Truck, CreditCard, Guitar,
-  Heart, Package, LogOut, HelpCircle, Accessibility,
+  Heart, Package, LogOut, HelpCircle, Hand,
   type LucideIcon,
 } from "lucide-react";
 import { useCart } from "../components/CartContext";
@@ -255,8 +255,11 @@ export function HeaderV2() {
           {/* ── utilitários: ajuda · acessibilidade · favoritos ──── */}
           <div className="hidden items-center gap-0.5 md:flex">
             <IconeHeader to="/faq" label="Ajuda" icon={HelpCircle} />
-            {/* placeholder: o painel de acessibilidade ainda não existe */}
-            <IconeHeader label="Acessibilidade" icon={Accessibility} onClick={() => {}} />
+            {/* Mão aberta, não o boneco em cadeira de rodas: é o símbolo que
+                os plugins de acessibilidade em português usam e cobre mais
+                gente do que o ícone de mobilidade.
+                placeholder: o painel de acessibilidade ainda não existe */}
+            <IconeHeader label="Acessibilidade" icon={Hand} onClick={() => {}} />
             <IconeHeader to="/perfil?tab=favoritos" label="Favoritos" icon={Heart} badge={favoritos} />
           </div>
 
