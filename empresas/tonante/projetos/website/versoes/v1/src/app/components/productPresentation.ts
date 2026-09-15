@@ -1,5 +1,6 @@
 import { allProducts, type Product } from "./productsData";
 import { getCategoryUrl } from "../lib/slug";
+import { getOfficialGallery } from "./productGalleries";
 
 export interface CatalogHrefParams {
   category?: string;
@@ -137,16 +138,25 @@ export function isLowResProductImage(image: string) {
 }
 
 /** Mesmas fotos de getProductImages, com os originais na frente das thumbs. */
-export function getProductImagesRanked(product: Pick<Product, "image" | "images">) {
+export function getProductImagesRanked(product: Pick<Product, "image" | "images" | "sku">) {
   const images = getProductImages(product);
   return [...images].sort((a, b) => Number(isLowResProductImage(a)) - Number(isLowResProductImage(b)));
 }
 
-export function getProductImages(product: Pick<Product, "image" | "images">) {
+export function getProductImages(product: Pick<Product, "image" | "images" | "sku">) {
   const images = product.images?.filter((image) => !isPlaceholderProductImage(image)) ?? [];
   if (!isPlaceholderProductImage(product.image) && !images.includes(product.image)) {
     images.unshift(product.image);
   }
+
+  /* Sessão oficial de estúdio (productGalleries) vem primeiro: são 10+ ângulos
+     em 1200x1200 contra a foto única e recortada do dump do Magento. As do dump
+     ficam no fim como fallback, sem duplicar o que a sessão já cobre. */
+  const official = getOfficialGallery(product.sku);
+  if (official.length > 0) {
+    return [...official, ...images.filter((image) => !official.includes(image))];
+  }
+
   return images.length > 0 ? images : [product.image];
 }
 
