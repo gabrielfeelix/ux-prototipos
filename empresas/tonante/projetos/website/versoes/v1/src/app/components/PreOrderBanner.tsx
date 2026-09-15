@@ -47,29 +47,25 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
   return (
     <div
       className="relative overflow-hidden"
+      data-purchase-card="product-page"
       style={{
-        borderRadius: variant === "hero" ? "24px" : "20px",
-        background:
-          "linear-gradient(135deg, #1a0608 0%, #2a0a0d 45%, #1a0608 100%)",
-        border: "1px solid rgba(200, 120, 0,0.28)",
-        boxShadow:
-          "inset 0 1px 0 rgba(var(--foreground-rgb), 0.06), 0 30px 80px -24px rgba(200, 120, 0,0.45)",
+        // irmão do StickyPriceCard: branco, borda + sombra suave. O tema
+        // "espaço" (gradiente vinho + starfield) vinha do template PCYES e
+        // deixava a tinta escura da Tonante ilegível sobre fundo escuro.
+        borderRadius: variant === "hero" ? "var(--radius-card-xl)" : "var(--radius-card-lg)",
+        background: "var(--surface-1)",
+        border: "1px solid var(--border)",
+        boxShadow: "0 1px 2px rgba(17,17,17,0.04), 0 18px 44px -30px rgba(17,17,17,0.28)",
       }}
     >
-      {/* radial glow */}
+      {/* banho âmbar no topo — marca "pré-venda" sem escurecer o card */}
       <div
-        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0"
         style={{
+          height: "140px",
           background:
-            "radial-gradient(circle at 30% 0%, rgba(17, 17, 17, 0.08) 0%, transparent 55%), radial-gradient(circle at 80% 100%, rgba(255,200,90,0.10) 0%, transparent 50%)",
-        }}
-      />
-      {/* starfield */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 12% 22%, #fff 0.5px, transparent 1px), radial-gradient(circle at 38% 78%, #fde68a 0.5px, transparent 1px), radial-gradient(circle at 64% 30%, #fff 0.5px, transparent 1px), radial-gradient(circle at 84% 65%, #fde68a 0.5px, transparent 1px), radial-gradient(circle at 22% 88%, #fff 0.5px, transparent 1px)",
+            "linear-gradient(180deg, rgba(200, 120, 0, 0.09) 0%, rgba(200, 120, 0, 0) 100%)",
         }}
       />
 
@@ -93,7 +89,7 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
             Pré-venda
           </span>
           <span
-            className="inline-flex items-center gap-1 text-ink-muted"
+            className="inline-flex items-center gap-1 text-ink-subtle"
             style={{
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-caption)",
@@ -119,7 +115,8 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
         >
           <Sparkles
             size={13}
-            className="inline mr-1.5 -mt-0.5 text-[#facc15]"
+            className="inline mr-1.5 -mt-0.5"
+            style={{ color: "var(--amber)" }}
             strokeWidth={2.4}
           />
           {info.highlight}
@@ -151,8 +148,8 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
                   key={unit.l}
                   className="flex flex-col items-center justify-center py-2.5"
                   style={{
-                    background: "rgba(0,0,0,0.45)",
-                    border: "1px solid rgba(var(--foreground-rgb), 0.08)",
+                    background: "var(--well)",
+                    border: "1px solid rgba(17, 17, 17, 0.07)",
                     borderRadius: "var(--radius-card-sm)",
                   }}
                 >
@@ -187,7 +184,7 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
 
         {/* release date */}
         <div className="flex items-center gap-2 mb-4">
-          <CalendarDays size={13} className="text-ink-muted" strokeWidth={2.2} />
+          <CalendarDays size={13} strokeWidth={2.2} style={{ color: "var(--amber-deep)" }} />
           <span
             className="text-ink-muted"
             style={{
@@ -213,7 +210,7 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
                 fontWeight: 700,
               }}
             >
-              // RESERVAS
+              Reservas
             </span>
             <span
               className="text-ink-strong tabular-nums"
@@ -229,7 +226,7 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
           <div
             className="relative h-2 w-full overflow-hidden"
             style={{
-              background: "rgba(var(--foreground-rgb), 0.06)",
+              background: "rgba(17, 17, 17, 0.08)",
               borderRadius: "var(--radius-pill)",
             }}
           >
@@ -238,9 +235,8 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
               style={{
                 width: `${reservedPct}%`,
                 background:
-                  "linear-gradient(90deg, #e08c12 0%, #facc15 100%)",
+                  "linear-gradient(90deg, var(--amber-bright) 0%, var(--amber) 100%)",
                 borderRadius: "var(--radius-pill)",
-                boxShadow: "0 0 16px rgba(200, 120, 0,0.55)",
               }}
             />
           </div>
@@ -261,9 +257,9 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
         <div
           className="mb-4 p-3"
           style={{
-            background: "rgba(0,0,0,0.35)",
-            border: "1px solid rgba(var(--foreground-rgb), 0.06)",
-            borderRadius: "var(--radius-card-sm)",
+            background: "var(--well)",
+            border: "1px solid rgba(17, 17, 17, 0.07)",
+            borderRadius: "var(--radius-card-md)",
           }}
         >
           <p
@@ -280,12 +276,12 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
           </p>
           <div className="flex items-baseline gap-2">
             <span
-              className="text-ink-strong leading-none"
+              className="text-ink-strong leading-none num"
               style={{
-                fontFamily: "var(--font-family-figtree)",
-                fontSize: "var(--text-2xl)",
-                fontWeight: 600,
-                letterSpacing: "-0.02em",
+                fontFamily: "var(--font-family-inter)",
+                fontSize: "clamp(26px, 3vw, 30px)",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
               }}
             >
               {info.preOrderPrice ?? productPrice}
@@ -317,14 +313,14 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
         <button
           onClick={onReserve}
           disabled={remaining <= 0}
-          className="w-full h-12 flex items-center justify-center gap-2 text-ink-strong rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full h-12 flex items-center justify-center gap-2 [color:#fff] [&_svg]:text-[#fff] rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           style={{
             background: "var(--gradient-preorder-orange)",
             fontFamily: "var(--font-family-inter)",
             fontSize: "var(--text-sm)",
             fontWeight: 700,
             letterSpacing: "0.04em",
-            boxShadow: "0 18px 38px -10px rgba(249,115,22,0.65)",
+            boxShadow: "var(--shadow-preorder-cta)",
           }}
         >
           <Rocket size={15} strokeWidth={2.4} />
@@ -333,7 +329,7 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
 
         {/* guarantees */}
         <div className="mt-4 flex items-start gap-2">
-          <ShieldCheck size={13} className="text-[#22c55e] mt-0.5 flex-shrink-0" strokeWidth={2.2} />
+          <ShieldCheck size={13} className="mt-0.5 flex-shrink-0" strokeWidth={2.2} style={{ color: "var(--amber-deep)" }} />
           <p
             className="text-ink-muted"
             style={{

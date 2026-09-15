@@ -7,126 +7,59 @@ export interface PreOrderInfo {
   highlight: string;
 }
 
+/* Pré-venda da Tonante: instrumentos que ainda estão saindo da fábrica de
+   Maringá. Os ids apontam pro catálogo real e o preço de reserva fica abaixo
+   do preço de prateleira — reservar tem que valer a pena.
+   (A lista anterior era do template PCYES: ids de PC e copy de hardware, que
+   caíam em cima de guitarras.) */
 export const PRE_ORDER_ITEMS: PreOrderInfo[] = [
   {
-    productId: 500,
-    releaseDate: "2026-07-15T20:00:00",
-    preOrderPrice: "R$ 8.999,00",
-    reservedUnits: 1247,
-    totalUnits: 3000,
-    highlight: "Ray Tracing + DLSS 3 · entrega no lançamento",
+    productId: 276, // Guitarra 70 Anos · Satin Black — R$ 3.989,90
+    releaseDate: "2026-11-20T10:00:00",
+    preOrderPrice: "R$ 3.649,90",
+    reservedUnits: 212,
+    totalUnits: 300,
+    highlight: "Série 70 anos · 300 unidades numeradas, montadas em Maringá",
   },
   {
-    productId: 433,
-    releaseDate: "2026-06-10T19:00:00",
-    preOrderPrice: "R$ 2.499,00",
-    reservedUnits: 642,
-    totalUnits: 1500,
-    highlight: "Edição limitada PCYES",
+    productId: 278, // Guitarra 70 Anos · Olympic White — R$ 3.490,00
+    releaseDate: "2026-12-05T10:00:00",
+    preOrderPrice: "R$ 3.190,00",
+    reservedUnits: 96,
+    totalUnits: 300,
+    highlight: "Edição 70 anos · corpo em alder e acabamento Olympic White",
   },
   {
-    productId: 446,
-    releaseDate: "2026-06-22T18:00:00",
-    preOrderPrice: "R$ 1.099,00",
-    reservedUnits: 312,
-    totalUnits: 800,
-    highlight: "Maringá FC Limited Edition",
-  },
-  {
-    productId: 164,
-    releaseDate: "2026-06-05T19:00:00",
-    preOrderPrice: "R$ 2.199,00",
-    reservedUnits: 720,
-    totalUnits: 800,
-    highlight: "Monitor 240Hz QHD · cores 100% sRGB",
-  },
-  {
-    productId: 509,
-    releaseDate: "2026-09-20T19:00:00",
-    preOrderPrice: "R$ 3.499,00",
-    reservedUnits: 180,
-    totalUnits: 600,
-    highlight: "Monitor curvo 34\" UltraWide HDR",
-  },
-  {
-    productId: 30,
-    releaseDate: "2026-08-10T20:00:00",
-    preOrderPrice: "R$ 5.499,00",
-    reservedUnits: 410,
-    totalUnits: 500,
-    highlight: "PC Gamer pronto · i7 + RTX 4070 + 32GB",
-  },
-  {
-    productId: 35,
-    releaseDate: "2026-11-15T20:00:00",
-    preOrderPrice: "R$ 9.799,00",
-    reservedUnits: 95,
+    productId: 277, // Guitarra 70 Anos · Metallic — R$ 1.499,90
+    releaseDate: "2026-10-28T10:00:00",
+    preOrderPrice: "R$ 1.379,90",
+    reservedUnits: 341,
     totalUnits: 400,
-    highlight: "PC Workstation · Ryzen 9 + 64GB RAM",
+    highlight: "Edição 70 anos · captação calibrada uma a uma na fábrica",
   },
   {
-    productId: 43,
-    releaseDate: "2026-06-30T19:00:00",
-    preOrderPrice: "R$ 4.299,00",
-    reservedUnits: 188,
+    productId: 123, // Violão eletroacústico Performance Plus — R$ 898,00
+    releaseDate: "2026-10-09T10:00:00",
+    preOrderPrice: "R$ 819,00",
+    reservedUnits: 148,
     totalUnits: 250,
-    highlight: "Build streamer · entrega expressa",
+    highlight: "Primeira leva do Performance Plus · tampo maciço e EQ ativo",
   },
   {
-    productId: 233,
-    releaseDate: "2026-07-08T18:00:00",
-    preOrderPrice: "R$ 799,00",
-    reservedUnits: 540,
-    totalUnits: 1200,
-    highlight: "Gabinete RGB · vidro temperado",
-  },
-  {
-    productId: 250,
-    releaseDate: "2026-08-25T20:00:00",
-    preOrderPrice: "R$ 1.299,00",
-    reservedUnits: 220,
-    totalUnits: 700,
-    highlight: "Gabinete dual-chamber premium",
-  },
-  {
-    productId: 260,
-    releaseDate: "2026-10-12T19:00:00",
-    preOrderPrice: "R$ 1.899,00",
-    reservedUnits: 76,
-    totalUnits: 500,
-    highlight: "Monitor 4K 144Hz · IPS Nano",
-  },
-  {
-    productId: 262,
-    releaseDate: "2026-07-22T19:00:00",
-    preOrderPrice: "R$ 1.499,00",
-    reservedUnits: 612,
-    totalUnits: 700,
-    highlight: "Monitor 27\" 240Hz · resposta 0.5ms",
-  },
-  {
-    productId: 31,
-    releaseDate: "2026-09-05T20:00:00",
-    preOrderPrice: "R$ 6.999,00",
-    reservedUnits: 152,
-    totalUnits: 350,
-    highlight: "PC Gamer high-end · RTX 4080 SUPER",
-  },
-  {
-    productId: 32,
-    releaseDate: "2026-12-02T20:00:00",
-    preOrderPrice: "R$ 12.499,00",
-    reservedUnits: 41,
+    productId: 44, // Contrabaixo Theodor 5 cordas · Nude Wood — R$ 777,90
+    releaseDate: "2026-11-06T10:00:00",
+    preOrderPrice: "R$ 709,90",
+    reservedUnits: 84,
     totalUnits: 200,
-    highlight: "Build flagship · RTX 5090 + i9 14ª gen",
+    highlight: "Theodor 5 cordas · lote piloto com escala em jatobá",
   },
   {
-    productId: 38,
-    releaseDate: "2026-08-18T19:00:00",
-    preOrderPrice: "R$ 3.799,00",
+    productId: 38, // Guitarra Star Light SS · Red Sunset — R$ 699,90
+    releaseDate: "2026-10-16T10:00:00",
+    preOrderPrice: "R$ 639,90",
     reservedUnits: 268,
     totalUnits: 400,
-    highlight: "PC compacto ITX · perfeito pra office",
+    highlight: "Star Light Red Sunset · primeira leva do acabamento vermelho",
   },
 ];
 
