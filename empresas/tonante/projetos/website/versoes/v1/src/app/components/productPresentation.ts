@@ -2,6 +2,7 @@ import { allProducts, type Product } from "./productsData";
 import { getCategoryUrl } from "../lib/slug";
 import { getOfficialGallery } from "./productGalleries";
 import { isFotoAmbientada } from "./photoBackdrop";
+import { getVariantInfo } from "./productVariants";
 
 export interface CatalogHrefParams {
   category?: string;
@@ -259,9 +260,34 @@ export function getSwatchImage(product: Pick<Product, "image" | "images" | "sku"
 }
 
 export function getProductSwatches(
-  product: Pick<Product, "id" | "name" | "category">,
+  product: Pick<Product, "id" | "name" | "category" | "sku">,
   catalog: Product[] = allProducts,
 ): ProductSwatch[] {
+  /* productVariants é a fonte boa: famílias medidas no catálogo inteiro, com o
+     nome comercial da cor ("Deep Dark", "Merlot"). O caminho abaixo, por
+     COLOR_RULES, é herança do protótipo de origem e só reconhece dez cores
+     genéricas — fica de reserva para produto que ainda não está na tabela. */
+  const info = getVariantInfo(product.sku);
+  if (info) {
+    const irmaos = catalog.filter((candidate) => {
+      const outro = getVariantInfo(candidate.sku);
+      return outro?.family === info.family && hasUsableProductImage(candidate);
+    });
+    const porCor = new Map<string, ProductSwatch>();
+    irmaos.forEach((variant) => {
+      const dele = getVariantInfo(variant.sku)!;
+      if (porCor.has(dele.label)) return;
+      porCor.set(dele.label, {
+        color: dele.color,
+        label: dele.label,
+        productId: variant.id,
+        image: getSwatchImage(variant),
+        name: variant.name,
+      });
+    });
+    if (porCor.size > 1) return Array.from(porCor.values()).slice(0, 8);
+  }
+
   const signature = getFamilySignature(product);
   if (!signature.endsWith("::")) {
     const variants = catalog.filter((candidate) => getFamilySignature(candidate) === signature && hasUsableProductImage(candidate));
