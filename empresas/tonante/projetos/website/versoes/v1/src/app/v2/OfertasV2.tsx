@@ -48,7 +48,10 @@ function BannerArt({ art, img }: { art: string; img: string }) {
       alt=""
       aria-hidden="true"
       onError={() => setSrc(img)}
-      className="absolute inset-0 h-full w-full object-cover"
+      /* zoom no hover do banner inteiro, como no card de produto. Anima
+         `scale` e não `transform`: o Tailwind v4 escreve a escala na
+         propriedade `scale`, que `transition-transform` não alcança. */
+      className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/banner:scale-[1.06]"
     />
   );
 }
@@ -90,7 +93,7 @@ export function OfertasV2() {
           {/* banner — mesma altura dos cards */}
           <Link
             to={active.banner.href}
-            className="relative hidden w-[26%] min-w-[320px] flex-shrink-0 self-start overflow-hidden lg:block"
+            className="group/banner relative hidden w-[26%] min-w-[320px] flex-shrink-0 self-start overflow-hidden lg:block"
             style={{ borderRadius: "8px", aspectRatio: "436 / 556" }}
           >
             <BannerArt key={active.key} art={active.banner.art} img={active.banner.img} />

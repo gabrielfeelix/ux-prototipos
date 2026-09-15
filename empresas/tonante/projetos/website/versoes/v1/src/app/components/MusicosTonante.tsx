@@ -7,6 +7,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { MUSICIANS, type Musician } from "./musiciansData";
 import { allProducts } from "./productsData";
 import { getPrimaryProductImage } from "./productPresentation";
+import { getPixPrice, formatBRL } from "./productEnhancements";
 import { useCart } from "./CartContext";
 import { getProductUrl } from "../lib/slug";
 import { INSTRUMENT_FRAMING, FRAMING_PADRAO } from "../v2/instrumentFraming";
@@ -203,14 +204,16 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
           </span>
         )}
 
-        {/* miniatura do instrumento = o produto marcado no post. Leva pra PDP e
-            diz o nome num balãozinho, porque 52px de foto não identificam nada. */}
+        {/* miniatura do instrumento = o produto marcado no post, com nome e
+            preço ao lado. A miniatura fica sempre visível; nome e preço entram
+            junto com o botão de compra, no hover do card, porque é o momento em
+            que o visitante decide — e sozinhos cobririam o vídeo. */}
         {produto && (
-          <div className="absolute bottom-4 left-4 z-[6] transition-[translate] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:-translate-y-[64px]">
+          <div className="absolute inset-x-4 bottom-4 z-[6] flex items-end gap-3 transition-[translate] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:-translate-y-[64px]">
             <Link
               to={getProductUrl(produto)}
               aria-label={`Ver ${produto.name}`}
-              className="peer/thumb flex h-[66px] w-[50px] items-center justify-center overflow-hidden transition-[scale] duration-200 hover:scale-105"
+              className="flex h-[66px] w-[50px] flex-shrink-0 items-center justify-center overflow-hidden transition-[scale] duration-200 hover:scale-105"
               style={{ borderRadius: 10, background: "#fff", boxShadow: "0 4px 16px rgba(0,0,0,0.30)" }}
             >
               {/* A foto do Magento é quadrada com o instrumento ocupando pouco
@@ -236,19 +239,25 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
                 }
               />
             </Link>
-            {/* o nome de catálogo do Magento é quilométrico ("Violão Elétrico
-                Coral 41\" - Tampo Sólido EM Spruce - …") e estourava o card,
-                que é overflow:hidden. O balão usa o nome curto do instrumento e
-                ainda assim tem teto de largura e pode quebrar em duas linhas. */}
-            <span
-              role="tooltip"
-              className="pointer-events-none absolute bottom-[calc(100%+8px)] left-0 opacity-0 transition-opacity duration-200 peer-hover/thumb:opacity-100"
-              /* `display: block` é obrigatório: num <span> inline que quebra em
-                 duas linhas o fundo e o padding se partem por linha. */
-              style={{ display: "block", width: "max-content", background: "#111111", color: "#fff", borderRadius: 8, padding: "6px 10px", fontFamily: "var(--font-family-inter)", fontSize: 12.5, fontWeight: 600, lineHeight: 1.35, maxWidth: 190, border: "1px solid rgba(255,255,255,0.14)", boxShadow: "0 6px 18px rgba(0,0,0,0.45)" }}
-            >
-              {m.instrumentLabel}
-            </span>
+            {/* O nome de catálogo do Magento é quilométrico ("Violão Elétrico
+                Coral 41\" - Tampo Sólido EM Spruce - …") e estoura o card, que
+                é overflow:hidden — por isso o nome curto do instrumento, com
+                teto de duas linhas. O preço é o do Pix, o mesmo que o card de
+                produto mostra grande, pra não haver dois preços no site. */}
+            <div className="pointer-events-none min-w-0 pb-1 opacity-0 transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:opacity-100">
+              <p
+                className="line-clamp-2"
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: 12.5, fontWeight: 500, color: "rgba(255,255,255,0.88)", margin: 0, lineHeight: 1.25, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
+              >
+                {m.instrumentLabel}
+              </p>
+              <p
+                className="num"
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: 16, fontWeight: 700, color: "#ffffff", margin: "3px 0 0", lineHeight: 1.1, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
+              >
+                {formatBRL(getPixPrice(produto))}
+              </p>
+            </div>
           </div>
         )}
 
