@@ -209,7 +209,7 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
             junto com o botão de compra, no hover do card, porque é o momento em
             que o visitante decide — e sozinhos cobririam o vídeo. */}
         {produto && (
-          <div className="absolute inset-x-4 bottom-4 z-[6] flex items-end gap-3 transition-[translate] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:-translate-y-[64px]">
+          <div className="absolute inset-x-4 bottom-4 z-[6] flex items-center gap-3 transition-[translate] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:-translate-y-[64px]">
             <Link
               to={getProductUrl(produto)}
               aria-label={`Ver ${produto.name}`}
@@ -244,16 +244,16 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
                 é overflow:hidden — por isso o nome curto do instrumento, com
                 teto de duas linhas. O preço é o do Pix, o mesmo que o card de
                 produto mostra grande, pra não haver dois preços no site. */}
-            <div className="pointer-events-none min-w-0 pb-1 opacity-0 transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:opacity-100">
+            <div className="pointer-events-none min-w-0 opacity-0 transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:opacity-100">
               <p
                 className="line-clamp-2"
-                style={{ fontFamily: "var(--font-family-inter)", fontSize: 12.5, fontWeight: 500, color: "rgba(255,255,255,0.88)", margin: 0, lineHeight: 1.25, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.90)", margin: 0, lineHeight: 1.3, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
               >
                 {m.instrumentLabel}
               </p>
               <p
                 className="num"
-                style={{ fontFamily: "var(--font-family-inter)", fontSize: 16, fontWeight: 700, color: "#ffffff", margin: "3px 0 0", lineHeight: 1.1, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: 18, fontWeight: 700, color: "#ffffff", margin: "4px 0 0", lineHeight: 1.1, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
               >
                 {formatBRL(getPixPrice(produto))}
               </p>
