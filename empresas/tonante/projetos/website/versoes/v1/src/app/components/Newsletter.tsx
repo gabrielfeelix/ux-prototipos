@@ -3,39 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { ArrowRight, Check } from "lucide-react";
-import { Eyebrow } from "./section";
-
-/** Onda sonora animada — assinatura "música" da Tonante (substitui as cordas
-    que passavam despercebidas). Barras âmbar pulsando em torno da linha central.
-    Decorativo: aria-hidden; congela com prefers-reduced-motion. */
-function EqualizerWave() {
-  const BARS = 48;
-  const center = (BARS - 1) / 2;
-  return (
-    <div aria-hidden="true" className="flex h-8 items-center justify-center gap-[3px]">
-      {Array.from({ length: BARS }).map((_, i) => {
-        const d = Math.abs(i - center) / center;          // 0 no centro → 1 nas pontas
-        const peak = 0.32 + 0.68 * (1 - d * d);           // envelope: alto no meio
-        const dur = 0.85 + ((i * 7) % 5) * 0.13;          // velocidades variadas
-        const delay = -(((i * 13) % 9) * 0.11);           // defasagem por barra
-        return (
-          <span
-            key={i}
-            style={{
-              width: 3,
-              height: `${Math.round(peak * 30)}px`,
-              borderRadius: 2,
-              background: "linear-gradient(180deg, var(--amber-bright) 0%, var(--amber-deep) 100%)",
-              transformOrigin: "center",
-              animation: `tn-eq ${dur}s ease-in-out ${delay}s infinite`,
-              opacity: 0.9,
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-}
+import { Eyebrow, EqualizerWave } from "./section";
 
 export function Newsletter() {
   const ref = useRef<HTMLDivElement>(null);

@@ -13,6 +13,7 @@ import { AnnouncementBar } from "./AnnouncementBar";
 import { HeaderV2 } from "../v2/HeaderV2";
 import { WhatsAppFab } from "./WhatsAppFab";
 import { ThemeProvider } from "./ThemeProvider";
+import { BootLoader } from "./LoadingScreen";
 
 export function RootLayout() {
   const { pathname } = useLocation();
@@ -27,6 +28,8 @@ export function RootLayout() {
 
   return (
     <ThemeProvider>
+      {/* tela de carregamento do boot — onda sonora da marca */}
+      <BootLoader />
       <AuthProvider>
         <FavoritesProvider>
           <CartProvider>

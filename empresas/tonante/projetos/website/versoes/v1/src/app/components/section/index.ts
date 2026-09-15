@@ -14,3 +14,4 @@ export { CarouselNavButton } from "./CarouselNavButton";
 export { RosetaIcon } from "./RosetaIcon";
 export { StringDivider } from "./StringDivider";
 export { SeloTonante } from "./SeloTonante";
+export { EqualizerWave } from "./EqualizerWave";
