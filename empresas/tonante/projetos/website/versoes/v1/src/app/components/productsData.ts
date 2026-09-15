@@ -7192,7 +7192,7 @@ const rawProducts: Product[] = [
     "priceNum": 307.28,
     "rating": 4.8,
     "reviews": 312,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico"
@@ -7455,7 +7455,7 @@ const rawProducts: Product[] = [
     "priceNum": 369.00,
     "rating": 4.7,
     "reviews": 241,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico",
@@ -9132,7 +9132,7 @@ const rawProducts: Product[] = [
     "priceNum": 346.50,
     "rating": 4.4,
     "reviews": 48,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Eletroacústico",
@@ -9185,7 +9185,7 @@ const rawProducts: Product[] = [
     "priceNum": 393.90,
     "rating": 4.6,
     "reviews": 480,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Eletroacústico",
@@ -9238,7 +9238,7 @@ const rawProducts: Product[] = [
     "priceNum": 494.05,
     "rating": 4.7,
     "reviews": 375,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Eletroacústico",
@@ -9395,7 +9395,7 @@ const rawProducts: Product[] = [
     "priceNum": 288.00,
     "rating": 4.5,
     "reviews": 99,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico"
@@ -9447,7 +9447,7 @@ const rawProducts: Product[] = [
     "priceNum": 360.00,
     "rating": 4.6,
     "reviews": 244,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico",
@@ -12053,7 +12053,7 @@ const rawProducts: Product[] = [
     "priceNum": 489.90,
     "rating": 4.8,
     "reviews": 320,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Eletroacústico",
@@ -12107,7 +12107,7 @@ const rawProducts: Product[] = [
     "priceNum": 389.90,
     "rating": 4.5,
     "reviews": 277,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico",
@@ -12161,7 +12161,7 @@ const rawProducts: Product[] = [
     "priceNum": 444.53,
     "rating": 4.8,
     "reviews": 92,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Eletroacústico",
@@ -12216,7 +12216,7 @@ const rawProducts: Product[] = [
     "priceNum": 338.31,
     "rating": 4.6,
     "reviews": 150,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico",
@@ -12269,7 +12269,7 @@ const rawProducts: Product[] = [
     "priceNum": 339.90,
     "rating": 4.5,
     "reviews": 179,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios"
     ],
@@ -12320,7 +12320,7 @@ const rawProducts: Product[] = [
     "priceNum": 269.90,
     "rating": 4.6,
     "reviews": 446,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico"
@@ -12373,7 +12373,7 @@ const rawProducts: Product[] = [
     "priceNum": 310.11,
     "rating": 4.9,
     "reviews": 367,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios"
     ],
@@ -12424,7 +12424,7 @@ const rawProducts: Product[] = [
     "priceNum": 244.31,
     "rating": 4.4,
     "reviews": 338,
-    "category": "Acessórios",
+    "category": "Violões",
     "tags": [
       "Acessórios",
       "Acústico"

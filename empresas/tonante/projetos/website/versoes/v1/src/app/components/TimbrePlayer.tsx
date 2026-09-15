@@ -2,10 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Play, Square } from "lucide-react";
 import type { Product } from "./productsData";
 import { playStrum, stopStrum, strumDurationSec, presetForProduct } from "../lib/strum";
+import { sampleForProduct } from "../lib/timbre";
 
 /* TimbrePlayer — "Ouça este instrumento" (V3 §8.1).
-   Fonte em 2 tempos: product.audioSample (gravação real) quando existir;
-   senão timbre SIMULADO (Karplus-Strong) rotulado com honestidade.
+   Fonte em 3 tempos, do mais honesto ao mais genérico:
+   1. product.audioSample — gravação do próprio modelo Tonante;
+   2. amostra de referência CC0 por família (lib/timbre), sorteio estável;
+   3. timbre SIMULADO (Karplus-Strong).
+   Cada um tem seu rótulo: só o (1) pode dizer "gravado com este modelo".
    Regras: nunca autoplay; um som por vez (lib garante p/ synth; áudio real
    compartilha o mesmo singleton aqui). */
 
@@ -45,7 +49,10 @@ type Props = {
 
 export function TimbrePlayer({ product, variant = "full", className = "" }: Props) {
   const preset = presetForProduct(product);
-  const hasSample = Boolean(product.audioSample);
+  const ownRecording = product.audioSample ?? null;   // gravação do modelo
+  const reference = ownRecording ? null : sampleForProduct(product); // amostra CC0
+  const src = ownRecording ?? reference;
+  const hasSample = Boolean(src);
   const [playing, setPlaying] = useState(false);
   const cancelRef = useRef<(() => void) | null>(null);
 
@@ -67,7 +74,7 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
     stopStrum();
     setPlaying(true);
     if (hasSample) {
-      const audio = new Audio(product.audioSample);
+      const audio = new Audio(src!);
       currentAudio = audio;
       audio.onended = () => { setPlaying(false); currentAudio = null; };
       void audio.play();
@@ -77,7 +84,11 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
     }
   };
 
-  const label = hasSample ? "Gravado com este modelo" : "Timbre simulado";
+  const label = ownRecording
+    ? "Gravado com este modelo"
+    : reference
+      ? "Amostra de referência"
+      : "Timbre simulado";
   const dur = hasSample ? "" : ` · 0:0${Math.round(strumDurationSec(preset ?? "Coral"))}`;
 
   if (variant === "compact") {
@@ -115,7 +126,9 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
         </p>
         <div className="mt-1.5"><Waveform active={playing} color="var(--amber)" /></div>
         <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 11, color: "var(--ink-meta)", margin: "5px 0 0" }}>
-          {label}{dur}{!hasSample && " — gravações reais em produção"}
+          {label}{dur}
+          {reference && " — não é este exemplar"}
+          {!hasSample && " — gravações reais em produção"}
         </p>
       </div>
     </div>

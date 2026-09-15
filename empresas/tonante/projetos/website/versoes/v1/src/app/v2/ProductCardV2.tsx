@@ -8,7 +8,8 @@ import { useCart } from "../components/CartContext";
 import { type Product } from "../components/productsData";
 import { getPrimaryProductImage, getProductImagesRanked, getProductSwatches, upgradeProductImage } from "../components/productPresentation";
 import { allProducts } from "../components/productsData";
-import { INSTRUMENT_FRAMING, FRAMING_PADRAO } from "./instrumentFraming";
+import { FRAMING_POR_FOTO, INSTRUMENT_FRAMING, FRAMING_PADRAO } from "./instrumentFraming";
+import { tipoDoProduto } from "./curadoria";
 import { isFotoAmbientada, isFotoDesproporcional } from "../components/photoBackdrop";
 import { getPixPrice, formatBRL } from "../components/productEnhancements";
 import { getProductUrl } from "../lib/slug";
@@ -58,9 +59,14 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
   const [shot, setShot] = useState(0);
   const [ctaHover, setCtaHover] = useState(false);
   const [playing, setPlaying] = useState(false);
-  // só instrumento toca timbre; corda/acessório não
-  const isInstrument = ["Violões", "Guitarras", "Contrabaixos"].includes(p.category);
-  const preset = isInstrument ? presetForProduct(p) : null;
+  // só violão/guitarra/baixo toca timbre; corda/acessório não
+  const tocaTimbre = ["Violões", "Guitarras", "Contrabaixos"].includes(p.category);
+  const preset = tocaTimbre ? presetForProduct(p) : null;
+  /* Enquadramento é outra pergunta: cavaco, viola e ukulele moram na categoria
+     "Acessórios" e, tratados como acessório, apareciam em miniatura no meio do
+     branco ao lado de um violão. Quem é instrumento pela curadoria recebe o
+     mesmo corte no corpo — ver v2/curadoria.ts e instrumentFraming.ts. */
+  const isInstrument = tipoDoProduto(p) === "instrumento";
 
   const to = href ?? getProductUrl(p);
   const primary = getPrimaryProductImage(p);
@@ -127,7 +133,11 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
      aparece inteira por cima (mesmo tratamento da PDP). */
   const desproporcional = ambientada && isFotoDesproporcional(foto.src);
   const zoomNoCorpo = isInstrument && foto.ratio <= 1.2 && !ambientada;
-  const [zoom, dy] = INSTRUMENT_FRAMING[p.id] ?? FRAMING_PADRAO;
+  /* Medida da foto EXIBIDA, não do produto: o card troca de foto (a de maior
+     resolução que couber, miniatura clicada, variante de cor) e cada uma tem
+     margem branca própria — com a medida do produto, a guitarra do 70
+     Aniversário recebia o zoom de outra foto e saía cortada. */
+  const [zoom, dy] = FRAMING_POR_FOTO[foto.src] ?? INSTRUMENT_FRAMING[p.id] ?? FRAMING_PADRAO;
 
   const add = () => {
     if (onAdd) return onAdd(p);

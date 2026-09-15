@@ -18,6 +18,12 @@ export const STRUMS: Record<string, Strum> = {
   // presets por categoria (PDP)
   Guitarra: { notes: [82.41, 123.47, 164.81, 207.65, 246.94, 329.63], cutoff: 5200, gapMs: 30, dur: 2.6 }, // E aberto brilhante
   Baixo:    { notes: [41.2, 55, 73.42, 98], cutoff: 760, gapMs: 220, dur: 3.8 },                           // E1-A1-D2-G2 groove
+  // viola caipira: 10 cordas em 5 pares, cebolao mi (E-B-G#-E-B), oitavas nos bordoes
+  Viola:    { notes: [123.47, 246.94, 164.81, 329.63, 207.65, 246.94, 329.63], cutoff: 5400, gapMs: 26, dur: 2.4 },
+  // ukulele soprano: GCEA reentrante, 4ª corda aguda
+  Ukulele:  { notes: [392, 261.63, 329.63, 440], cutoff: 5600, gapMs: 24, dur: 1.9 },
+  // cavaquinho: 4 cordas de aço, DGBD, brilhante e curto
+  Cavaco:   { notes: [293.66, 392, 493.88, 587.33], cutoff: 6400, gapMs: 20, dur: 1.7 },
 };
 
 let audioCtx: AudioContext | null = null;
@@ -108,6 +114,11 @@ export function presetForProduct(p: Pick<Product, "name" | "category">): string 
   for (const k of LINE_KEYS) {
     if (n.includes(k.toLowerCase()) || (k === "Ônix" && n.includes("onix"))) return k;
   }
+  // viola caipira e ukulele vivem dentro de "Violões" mas não soam como violão.
+  // \bviola\b nao casa com "violao"/"violão" (letra seguinte e' de palavra).
+  if (/\bviolas?\b/.test(n)) return "Viola";
+  if (n.includes("ukulele")) return "Ukulele";
+  if (n.includes("cavac") || n.includes("cavaq")) return "Cavaco";
   switch (p.category) {
     case "Violões":
       return n.includes("nylon") ? "Lorenzzo" : "Coral";
@@ -119,7 +130,7 @@ export function presetForProduct(p: Pick<Product, "name" | "category">): string 
       if (n.includes("baixo")) return "Baixo";
       if (n.includes("guitarra")) return "Guitarra";
       if (n.includes("nylon")) return "Lorenzzo";
-      if (n.includes("viola ") || n.includes("cavaco") || n.includes("ukulele")) return "Citrino";
+      if (n.includes("cavaco")) return "Cavaco";
       return "Volcano"; // aço p/ violão
     default:
       return null; // suportes, acessórios, microfones: sem timbre

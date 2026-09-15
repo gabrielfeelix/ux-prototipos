@@ -1,0 +1,290 @@
+[
+ {
+  "fam": "baixo",
+  "file": "/audio/baixo/01.mp3",
+  "origem": "Guitar Walking Bass Blues in F.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Guitar_Walking_Bass_Blues_in_F.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 11.83
+ },
+ {
+  "fam": "baixo",
+  "file": "/audio/baixo/02.mp3",
+  "origem": "Guitar Walking Bass Blues in F.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Guitar_Walking_Bass_Blues_in_F.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 3.21
+ },
+ {
+  "fam": "guitarra",
+  "file": "/audio/guitarra/01.mp3",
+  "origem": "Clean tapping sample.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Clean_tapping_sample.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.08
+ },
+ {
+  "fam": "guitarra",
+  "file": "/audio/guitarra/02.mp3",
+  "origem": "Clean tapping sample.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Clean_tapping_sample.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 5.88
+ },
+ {
+  "fam": "ukulele",
+  "file": "/audio/ukulele/01.mp3",
+  "origem": "C Major Scale Ukulele.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/3/30/C_Major_Scale_Ukulele.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 3.8
+ },
+ {
+  "fam": "ukulele",
+  "file": "/audio/ukulele/02.mp3",
+  "origem": "C Major Scale Ukulele.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/3/30/C_Major_Scale_Ukulele.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 0.05
+ },
+ {
+  "fam": "ukulele",
+  "file": "/audio/ukulele/03.mp3",
+  "origem": "Ukulele M5 Core 2 tuning.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/2/24/Ukulele_M5_Core_2_tuning.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 8.33
+ },
+ {
+  "fam": "ukulele",
+  "file": "/audio/ukulele/04.mp3",
+  "origem": "Ukulele M5 Core 2 tuning.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/2/24/Ukulele_M5_Core_2_tuning.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 0.81
+ },
+ {
+  "fam": "viola",
+  "file": "/audio/viola/01.mp3",
+  "origem": "Schneewalzer.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Schneewalzer.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 0.3
+ },
+ {
+  "fam": "viola",
+  "file": "/audio/viola/02.mp3",
+  "origem": "Schneewalzer.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Schneewalzer.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 8.21
+ },
+ {
+  "fam": "viola",
+  "file": "/audio/viola/03.mp3",
+  "origem": "MandolinenDemo.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/c/cd/MandolinenDemo.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 0.88
+ },
+ {
+  "fam": "viola",
+  "file": "/audio/viola/04.mp3",
+  "origem": "MandolinenDemo.ogg",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/c/cd/MandolinenDemo.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 26.65
+ },
+ {
+  "fam": "violao-aco",
+  "file": "/audio/violao-aco/01.mp3",
+  "origem": "AcousticGuitarSample.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/6/67/AcousticGuitarSample.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 41.3
+ },
+ {
+  "fam": "violao-aco",
+  "file": "/audio/violao-aco/02.mp3",
+  "origem": "AcousticGuitarSample.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/6/67/AcousticGuitarSample.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 34.53
+ },
+ {
+  "fam": "violao-aco",
+  "file": "/audio/violao-aco/03.mp3",
+  "origem": "Matteo Carcassi Andante.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Matteo_Carcassi_Andante.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 0.05
+ },
+ {
+  "fam": "violao-aco",
+  "file": "/audio/violao-aco/04.mp3",
+  "origem": "Matteo Carcassi Andante.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Matteo_Carcassi_Andante.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 25.4
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/01.mp3",
+  "origem": "Audio files of spanish guitar chords 03.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/8/83/Audio_files_of_spanish_guitar_chords_03.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 2.35
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/02.mp3",
+  "origem": "Audio files of spanish guitar chords 14.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Audio_files_of_spanish_guitar_chords_14.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.93
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/03.mp3",
+  "origem": "Audio files of spanish guitar chords 01.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Audio_files_of_spanish_guitar_chords_01.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 15.18
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/04.mp3",
+  "origem": "Audio files of spanish guitar chords 19.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/4/42/Audio_files_of_spanish_guitar_chords_19.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.88
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/05.mp3",
+  "origem": "Audio files of spanish guitar chords 19.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/4/42/Audio_files_of_spanish_guitar_chords_19.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 8.38
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/06.mp3",
+  "origem": "Audio files of spanish guitar chords 01.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Audio_files_of_spanish_guitar_chords_01.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 19.45
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/07.mp3",
+  "origem": "Audio files of spanish guitar chords 01.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Audio_files_of_spanish_guitar_chords_01.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 15.18
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/08.mp3",
+  "origem": "Audio files of spanish guitar chords 02.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Audio_files_of_spanish_guitar_chords_02.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 16.25
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/09.mp3",
+  "origem": "Audio files of spanish guitar chords 02.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Audio_files_of_spanish_guitar_chords_02.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 4.13
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/10.mp3",
+  "origem": "Audio files of spanish guitar chords 04.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/7/77/Audio_files_of_spanish_guitar_chords_04.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.4
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/11.mp3",
+  "origem": "Audio files of spanish guitar chords 05.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Audio_files_of_spanish_guitar_chords_05.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 10.98
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/12.mp3",
+  "origem": "Audio files of spanish guitar chords 05.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Audio_files_of_spanish_guitar_chords_05.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.43
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/13.mp3",
+  "origem": "Audio files of spanish guitar chords 05.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Audio_files_of_spanish_guitar_chords_05.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 14.78
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/14.mp3",
+  "origem": "Audio files of spanish guitar chords 07.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Audio_files_of_spanish_guitar_chords_07.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 2.75
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/15.mp3",
+  "origem": "Audio files of spanish guitar chords 09.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Audio_files_of_spanish_guitar_chords_09.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.68
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/16.mp3",
+  "origem": "Audio files of spanish guitar chords 10.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/6/68/Audio_files_of_spanish_guitar_chords_10.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.88
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/17.mp3",
+  "origem": "Audio files of spanish guitar chords 11.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/8/89/Audio_files_of_spanish_guitar_chords_11.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.06
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/18.mp3",
+  "origem": "Audio files of spanish guitar chords 13.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/2/24/Audio_files_of_spanish_guitar_chords_13.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.73
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/19.mp3",
+  "origem": "Audio files of spanish guitar chords 14.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Audio_files_of_spanish_guitar_chords_14.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.93
+ },
+ {
+  "fam": "violao-nylon",
+  "file": "/audio/violao-nylon/20.mp3",
+  "origem": "Audio files of spanish guitar chords 29.wav",
+  "licenca": "CC0",
+  "pagina": "https://upload.wikimedia.org/wikipedia/commons/9/94/Audio_files_of_spanish_guitar_chords_29.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "corte": 1.35
+ }
+]

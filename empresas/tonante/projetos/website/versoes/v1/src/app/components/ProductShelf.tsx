@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router";
+import { ArrowRight } from "lucide-react";
 import { motion, useInView } from "motion/react";
 import { useCart } from "./CartContext";
 import { allProducts, type Product } from "./productsData";
@@ -17,6 +19,8 @@ export interface ShelfTab {
   tabLabel: string;
   eyebrow: string;
   title: string;
+  /** uma linha dizendo o que a seleção entrega (preço, público, prazo) */
+  subtitle?: string;
   productIds: number[];
   showRanking?: boolean;
 }
@@ -24,6 +28,11 @@ export interface ShelfTab {
 interface ProductShelfProps {
   label: string;
   title: string;
+  /** uma linha abaixo do título com a proposta da seleção */
+  subtitle?: string;
+  /** destino do "ver tudo" — sem ele a dobra não tem saída pro catálogo */
+  href?: string;
+  ctaLabel?: string;
   productIds: number[];
   showRanking?: boolean;
   emphasizeDiscount?: boolean;
@@ -40,6 +49,9 @@ interface ProductShelfProps {
 export function ProductShelf({
   label,
   title,
+  subtitle,
+  href,
+  ctaLabel = "Ver tudo",
   productIds,
   showRanking = false,
   emphasizeDiscount = false,
@@ -58,6 +70,7 @@ export function ProductShelf({
   const current = tabs?.[activeTab];
   const effectiveEyebrow = current?.eyebrow ?? label;
   const effectiveTitle = current?.title ?? title;
+  const effectiveSubtitle = current?.subtitle ?? (tabs ? undefined : subtitle);
   const effectiveIds = current?.productIds ?? productIds;
   // com abas, ranking é decisão da aba (ausente = false); sem abas, da prop
   const effectiveRanking = tabs ? (current?.showRanking ?? false) : showRanking;
@@ -117,7 +130,39 @@ export function ProductShelf({
     >
       <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-          <SectionHeader eyebrow={effectiveEyebrow} title={effectiveTitle} size="sm" weight={600} />
+          <div className="max-w-[640px]">
+            <SectionHeader eyebrow={effectiveEyebrow} title={effectiveTitle} size="sm" weight={600} />
+            {effectiveSubtitle && (
+              <p
+                style={{
+                  fontFamily: "var(--font-family-inter)",
+                  fontSize: "15px",
+                  lineHeight: 1.5,
+                  color: "var(--ink-soft)",
+                  margin: "10px 0 0",
+                }}
+              >
+                {effectiveSubtitle}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+          {href && (
+            <Link
+              to={href}
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-ink-strong"
+              style={{
+                fontFamily: "var(--font-family-inter)",
+                fontSize: "14px",
+                fontWeight: 600,
+                color: "var(--ink-soft)",
+                textDecoration: "none",
+              }}
+            >
+              {ctaLabel}
+              <ArrowRight size={15} />
+            </Link>
+          )}
           {tabs && tabs.length > 1 && (
             <div role="tablist" aria-label={title} className="flex gap-2">
               {tabs.map((t, i) => {
@@ -145,6 +190,7 @@ export function ProductShelf({
               })}
             </div>
           )}
+          </div>
         </div>
 
         <div className="relative">

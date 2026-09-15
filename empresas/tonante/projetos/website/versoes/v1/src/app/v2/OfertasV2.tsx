@@ -1,44 +1,52 @@
 "use client";
 
 import { SectionHeader } from "../components/section/SectionHeader";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { ProductCardV2 } from "./ProductCardV2";
 import { allProducts, type Product } from "../components/productsData";
-import { getCatalogHref } from "../components/productPresentation";
+import { getCatalogHref, getVisibleCatalogProducts } from "../components/productPresentation";
+import { primeiroInstrumento } from "./curadoria";
+import { formatBRL, getPixPrice } from "../components/productEnhancements";
 
 /* OfertasV2 — prateleira com banner fixo à esquerda + trilho de produtos.
-   Tabs trocam a seleção; as setas só aparecem no hover; a barra embaixo
-   mostra a posição do scroll. */
+   As setas só aparecem no hover; a barra embaixo mostra a posição do scroll.
 
-const score = (p: Product) => p.reviews * p.rating;
-const withDiscount = allProducts.filter((p) => p.oldPriceNum);
+   Esta dobra fala com UM público: quem nunca tocou. Antes era um segundo
+   "Mais vendidos" — a home já tem um logo abaixo, e os dois brigavam pelos
+   mesmos produtos. Público é recorte que a prova social não cobre, e o banner
+   só funciona quando tem uma promessa própria pra carregar. */
 
-type Tab = {
-  key: string;
-  label: string;
-  items: Product[];
+type Banner = {
+  eyebrow: string;
+  title: string;
+  sub: string;
+  cta: string;
+  href: string;
   /** art: arte final em /ofertas/<key>.jpg; img: foto provisória */
-  banner: { eyebrow: string; title: string; sub: string; href: string; art: string; img: string };
+  art: string;
+  img: string;
 };
 
-/* Sem tabs: "Ofertas da semana" dependia de curadoria semanal e "Primeiro
-   instrumento" é público próprio — vira seção dedicada. Mais vendidos fica
-   porque se mantém sozinho, sem ninguém configurar nada. */
-const MAIS_VENDIDOS: Tab = {
-  key: "mais-vendidos",
-  label: "Mais vendidos",
-  items: [...allProducts].sort((a, b) => score(b) - score(a)).slice(0, 12),
-  banner: {
-    eyebrow: "Semana Tonante",
-    title: "Mais vendidos",
-    sub: "O que os músicos estão levando pra casa agora.",
-    href: "/produtos",
-    art: "/ofertas/mais-vendidos.jpg",
-    img: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=85&auto=format&fit=crop",
-  },
+const BANNER: Banner = {
+  eyebrow: "Pra quem está começando",
+  /* o header já diz "Seu primeiro violão"; a arte carrega o preço, que é o
+     que trava a decisão de quem nunca comprou instrumento. O valor entra em
+     runtime, do menor preço da própria seleção. */
+  title: "Seu primeiro violão",
+  sub: "Chega afinado e regulado de fábrica, com garantia Tonante de 1 ano.",
+  cta: "Ver violões de estudo",
+  href: getCatalogHref({ category: "Violões" }),
+  art: "/ofertas/primeiro-violao.jpg",
+  img: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=1200&q=85&auto=format&fit=crop",
 };
+
+interface OfertasV2Props {
+  /** seleção vinda da home (ver v2/curadoria.ts). Sem ela, cai nos violões de
+      entrada do catálogo — a seção nunca aparece vazia. */
+  productIds?: number[];
+}
 
 function BannerArt({ art, img }: { art: string; img: string }) {
   const [src, setSrc] = useState(art);
@@ -56,11 +64,24 @@ function BannerArt({ art, img }: { art: string; img: string }) {
   );
 }
 
-export function OfertasV2() {
+export function OfertasV2({ productIds }: OfertasV2Props) {
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
-  const active = MAIS_VENDIDOS;
+  const itens = useMemo(() => {
+    const visivel = getVisibleCatalogProducts(allProducts);
+    const escolhidos = (productIds ?? [])
+      .map((id) => visivel.find((p) => p.id === id))
+      .filter(Boolean) as Product[];
+    return escolhidos.length > 0 ? escolhidos : primeiroInstrumento(12);
+  }, [productIds]);
+
+  /* mesmo preço que o card mostra (pix), senão a arte promete um valor e o
+     primeiro card ao lado dela mostra outro. */
+  const menorPreco = useMemo(
+    () => (itens.length ? formatBRL(Math.min(...itens.map((p) => getPixPrice(p)))) : "R$ 399"),
+    [itens],
+  );
 
   const sync = () => {
     const el = trackRef.current;
@@ -85,32 +106,32 @@ export function OfertasV2() {
     <section className="px-5 py-20 md:px-12" style={{ background: "#ffffff" }}>
       <div className="mx-auto w-full" style={{ maxWidth: "1680px" }}>
         <div className="mb-8">
-          <SectionHeader eyebrow={active.banner.eyebrow} title="Mais vendidos" size="lg" weight={700} />
+          <SectionHeader eyebrow={BANNER.eyebrow} title={BANNER.title} size="lg" weight={700} />
         </div>
 
         {/* banner + trilho */}
         <div className="group/shelf relative flex gap-6">
           {/* banner — mesma altura dos cards */}
           <Link
-            to={active.banner.href}
+            to={BANNER.href}
             className="group/banner relative hidden w-[26%] min-w-[320px] flex-shrink-0 self-start overflow-hidden lg:block"
             style={{ borderRadius: "8px", aspectRatio: "436 / 556" }}
           >
-            <BannerArt key={active.key} art={active.banner.art} img={active.banner.img} />
+            <BannerArt art={BANNER.art} img={BANNER.img} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(20,18,16,.10) 40%, rgba(20,18,16,.62) 100%)" }} />
             {/* texto centralizado no rodapé, como na referência */}
             <div className="relative flex h-full flex-col items-center justify-end px-7 pb-9 text-center">
               <h3 style={{ fontFamily: "var(--font-family-inter)", fontSize: "24px", fontWeight: 700, color: "#fff", margin: 0, lineHeight: 1.2 }}>
-                {active.banner.title}
+                A partir de {menorPreco}
               </h3>
               <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "14px", color: "rgba(255,255,255,.92)", margin: "10px 0 0", lineHeight: 1.45 }}>
-                {active.banner.sub}
+                {BANNER.sub}
               </p>
               <span
                 className="mt-4 inline-block"
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 600, color: "#fff", borderBottom: "1px solid rgba(255,255,255,.85)", paddingBottom: 3 }}
               >
-                Comprar agora
+                {BANNER.cta}
               </span>
             </div>
           </Link>
@@ -123,7 +144,7 @@ export function OfertasV2() {
               className="no-bar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth"
               style={{ scrollbarWidth: "none" }}
             >
-              {active.items.map((p) => (
+              {itens.map((p) => (
                 <ProductCardV2
                   key={p.id}
                   product={p}

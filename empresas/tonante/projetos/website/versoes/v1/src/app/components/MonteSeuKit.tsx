@@ -5,19 +5,42 @@ import { Link } from "react-router";
 import { Plus, Check, ShoppingBag, Guitar, Music, Mic, type LucideIcon } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useCart } from "./CartContext";
-import { allProducts, type Product } from "./productsData";
+import { type Product } from "./productsData";
+import { catalogo, peso, tipoDoProduto } from "../v2/curadoria";
 import { getPrimaryProductImage } from "./productPresentation";
 import { getPixPrice, formatBRL } from "./productEnhancements";
 
 // MonteSeuKit — combo builder (porta _ref/src/home_sections.jsx FeaturedEssentials).
 // Presets clicáveis (§6.9) pré-populam base + add-ons. 8% off no kit.
-const findOne = (...kw: string[]) =>
-  allProducts.find((p) => kw.some((k) => p.name.toLowerCase().includes(k.toLowerCase())));
+//
+// A base TEM que ser instrumento. Procurar "Violão" pelo nome devolvia
+// "Suporte Para Guitarra, Baixo e Violão" — o kit iniciante abria com um
+// suporte preto no lugar do violão. Agora a base sai da curadoria (categoria
+// + apelo visual, ver v2/curadoria.ts) e o nome só desempata entre candidatos
+// que já são instrumento.
+const porApelo = (lista: Product[]) => [...lista].sort((a, b) => peso(b) - peso(a));
+
+/** Melhor instrumento da categoria; `preferir` puxa um modelo específico pra frente. */
+function baseInstrumento(categoria: string, preferir: string[] = []) {
+  const candidatos = porApelo(
+    catalogo.filter((p) => p.category === categoria && tipoDoProduto(p) === "instrumento"),
+  );
+  for (const kw of preferir) {
+    const hit = candidatos.find((p) => p.name.toLowerCase().includes(kw.toLowerCase()));
+    if (hit) return hit;
+  }
+  return candidatos[0];
+}
+
+/** Microfone de verdade — "Cabo Para Microfone" não serve de base do kit estúdio. */
+function baseMicrofone() {
+  return porApelo(catalogo.filter((p) => tipoDoProduto(p) === "microfone"))[0];
+}
 
 function resolveAddons(groups: string[][], exclude: Product): Product[] {
   const out: Product[] = [];
   for (const g of groups) {
-    const hit = allProducts.find(
+    const hit = porApelo(catalogo).find(
       (p) =>
         g.some((k) => p.name.toLowerCase().includes(k.toLowerCase())) &&
         p.id !== exclude.id &&
@@ -29,15 +52,23 @@ function resolveAddons(groups: string[][], exclude: Product): Product[] {
 }
 
 type Preset = { key: string; label: string; desc: string; icon: LucideIcon; base: Product; addons: Product[] };
-const PRESETS: Preset[] = [
+
+/* Os add-ons são o que o instrumento PEDE junto — e o catálogo não tem capa,
+   então o kit iniciante fecha com afinador, correia e palheta. */
+const RECEITAS = [
   { key: "iniciante", label: "Tô começando agora", desc: "Kit Iniciante — pra dar os primeiros acordes", icon: Guitar,
-    baseKw: ["Lorenzzo", "Violão Clássico", "Violão"], groups: [["Capa", "Bag", "Case"], ["Afinador"], ["Palheta"]] },
+    base: () => baseInstrumento("Violões", ["Lorenzzo", "Clássico"]),
+    groups: [["Afinador"], ["Correia"], ["Palheta"]] },
   { key: "palco", label: "Toco ao vivo", desc: "Kit Palco — pronto pra subir no palco", icon: Music,
-    baseKw: ["Cecille", "Guitarra Elétrica", "Guitarra"], groups: [["Cabo DE Guitarra", "Cabo"], ["Correia"], ["Suporte"]] },
+    base: () => baseInstrumento("Guitarras", ["Cecille", "Les Paul", "Strato"]),
+    groups: [["Cabo DE Guitarra", "Cabo P10", "Cabo"], ["Correia"], ["Afinador"]] },
   { key: "estudio", label: "Gravo em casa", desc: "Kit Estúdio — grave com qualidade", icon: Mic,
-    baseKw: ["Microfone Profissional", "Microfone", "Podcast"], groups: [["Cabo DE Microf", "Cabo Para Microf", "Cabo"], ["Pedestal", "Suporte"], ["Plug"]] },
-].map((r) => {
-  const base = findOne(...r.baseKw) ?? allProducts[0];
+    base: () => baseMicrofone(),
+    groups: [["Cabo DE Microf", "Cabo Para Microf", "Cabo"], ["Pedestal", "Suporte"], ["Damper", "Plug"]] },
+];
+
+const PRESETS: Preset[] = RECEITAS.map((r) => {
+  const base = r.base() ?? catalogo[0];
   return { key: r.key, label: r.label, desc: r.desc, icon: r.icon, base, addons: resolveAddons(r.groups, base) };
 });
 

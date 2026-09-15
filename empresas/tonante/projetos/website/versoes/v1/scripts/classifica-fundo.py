@@ -46,6 +46,21 @@ ANEL_INTERNO = (0.08, 0.12)
 PROPORCAO_OK = (0.62, 1.6)
 
 
+def rgb_sobre_branco(im):
+    """RGB com o transparente virando BRANCO.
+
+    `convert("RGB")` puro pinta o alfa de PRETO: todo PNG recortado (fundo
+    transparente) era lido como foto ambientada e o card passava a preencher o
+    quadro por corte — foi assim que a guitarra do 70 Aniversário apareceu
+    cortada na home."""
+    if im.mode in ("RGBA", "LA") or (im.mode == "P" and "transparency" in im.info):
+        fundo = Image.new("RGB", im.size, (255, 255, 255))
+        rgba = im.convert("RGBA")
+        fundo.paste(rgba, mask=rgba.split()[-1])
+        return fundo
+    return im.convert("RGB")
+
+
 def proporcao(im) -> float:
     w, h = im.size
     return w / h if h else 1.0
@@ -55,7 +70,7 @@ def eh_estudio(caminho_ou_img) -> bool:
     im = caminho_ou_img
     if not isinstance(im, Image.Image):
         im = Image.open(im)
-    im = im.convert("RGB")
+    im = rgb_sobre_branco(im)
     # 200px de lado basta pro anel e corta o custo de decodificar 1200x1200
     im.thumbnail((200, 200))
     w, h = im.size
