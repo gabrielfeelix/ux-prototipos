@@ -9,6 +9,7 @@ import { type Product } from "../components/productsData";
 import { getPrimaryProductImage, getProductImagesRanked, getProductSwatches, upgradeProductImage } from "../components/productPresentation";
 import { allProducts } from "../components/productsData";
 import { INSTRUMENT_FRAMING, FRAMING_PADRAO } from "./instrumentFraming";
+import { isFotoAmbientada, isFotoDesproporcional } from "../components/photoBackdrop";
 import { getPixPrice, formatBRL } from "../components/productEnhancements";
 import { getProductUrl } from "../lib/slug";
 import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
@@ -117,7 +118,15 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
      instrumento ocupa de 23% a 100% da largura do quadro), então o fator vem
      da tabela medida em instrumentFraming — é o que faz violão e guitarra
      terminarem do mesmo tamanho na tela. Foto deitada não recebe zoom. */
-  const zoomNoCorpo = isInstrument && foto.ratio <= 1.2;
+  /* Foto ambientada tem cenário até a borda: preenche o quadro, senão o corte
+     dela aparece dentro do card. Só recorte de estúdio recebe enquadramento e
+     `multiply` — ver photoBackdrop.ts. */
+  const ambientada = isFotoAmbientada(foto.src);
+  /* Ambientada muito estreita ou muito deitada: preencher por corte amplia
+     tanto que vira tira borrada — a própria foto desfocada faz o fundo e ela
+     aparece inteira por cima (mesmo tratamento da PDP). */
+  const desproporcional = ambientada && isFotoDesproporcional(foto.src);
+  const zoomNoCorpo = isInstrument && foto.ratio <= 1.2 && !ambientada;
   const [zoom, dy] = INSTRUMENT_FRAMING[p.id] ?? FRAMING_PADRAO;
 
   const add = () => {
@@ -194,16 +203,33 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
             círculos de categoria. Acessório/corda é foto quadrada: cabe inteira. */}
         <Link to={to} className="block">
           <div className="relative aspect-square overflow-hidden">
+            {desproporcional && (
+              <ImageWithFallback
+                src={foto.src}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full scale-125 object-cover"
+                style={{ filter: "blur(28px) saturate(1.1)", opacity: 0.85 }}
+              />
+            )}
             <ImageWithFallback
               src={foto.src}
               alt={p.name}
-              className={`absolute inset-0 h-full w-full object-contain transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                zoomNoCorpo ? "origin-bottom group-hover/card:scale-105" : `group-hover/card:scale-[1.05] ${isInstrument ? "p-[6%]" : "p-[20%]"}`
+              className={`absolute inset-0 h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                desproporcional
+                  ? "object-contain group-hover/card:scale-[1.05]"
+                  : ambientada
+                  ? "object-cover group-hover/card:scale-[1.05]"
+                  : `object-contain ${zoomNoCorpo ? "origin-bottom group-hover/card:scale-105" : `group-hover/card:scale-[1.05] ${isInstrument ? "p-[6%]" : "p-[20%]"}`}`
               }`}
-              style={{
-                mixBlendMode: "multiply",
-                ...(zoomNoCorpo ? { transform: `translateY(${dy}%) scale(${zoom})` } : null),
-              }}
+              style={
+                ambientada
+                  ? undefined
+                  : {
+                      mixBlendMode: "multiply",
+                      ...(zoomNoCorpo ? { transform: `translateY(${dy}%) scale(${zoom})` } : null),
+                    }
+              }
             />
           </div>
         </Link>
