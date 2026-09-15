@@ -32,6 +32,7 @@ import { QuadroFoto } from "./QuadroFoto";
 import { TimbrePlayer } from "./TimbrePlayer";
 import { ProductCard } from "./ProductCard";
 import { LuthierBlock } from "./ProductMusicBlocks";
+import { getHistoriaDoProduto } from "./productStory";
 
 /* ── helpers ─────────────────────────────────────────── */
 
@@ -1976,19 +1977,56 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
    ═══════════════════════════════════════════════════════ */
 
 function ProductStandardDescription({ product, images }: { product: any; images: string[] }) {
-  const primaryImage = images[0] ?? getPrimaryProductImage(product);
-  const secondaryImage = images[1] ?? primaryImage;
-  const tertiaryImage = images[2] ?? secondaryImage;
-  const specs = product.specs?.length
-    ? product.specs
-    : [
-        { label: "Categoria", value: product.category },
-        { label: "Modelo", value: product.sku ? String(product.sku) : product.name },
-        { label: "Marca", value: product.brand ?? "PCYES" },
-      ];
+  /* O texto e a escolha de foto vêm de productStory: a copy sai dos atributos
+     reais do produto e cada foto entra pelo papel que cumpre (photoRoles), em
+     vez de images[0..2] — que são sempre os planos abertos de estúdio, o
+     instrumento pequeno e longe. O layout aqui é o mesmo de antes. */
+  const historia = getHistoriaDoProduto(product);
 
-  const lead = product.description?.split("\n").find((item: string) => item.trim()) ??
-    `${product.name} foi desenvolvido para entregar desempenho, acabamento e confiabilidade no uso diário.`;
+  /* foto de abertura: plano aberto é o conteúdo certo pro quadro grande */
+  const primaryImage = historia.angulos[0] ?? images[0] ?? getPrimaryProductImage(product);
+
+  /* os três cards editoriais pegam, nesta ordem, a foto do bloco de texto
+     correspondente; o que sobrar cai nos macros e depois nos ângulos */
+  const reserva = [
+    ...historia.blocos.map((b) => b.foto),
+    ...historia.detalhes,
+    ...(historia.faixa ? [historia.faixa] : []),
+    ...historia.angulos.slice(1),
+    primaryImage,
+  ].filter(Boolean) as string[];
+  const usadas = new Set<string>();
+  const proximaFoto = (preferida?: string) => {
+    const escolha = preferida && !usadas.has(preferida)
+      ? preferida
+      : reserva.find((f) => !usadas.has(f)) ?? preferida ?? primaryImage;
+    usadas.add(escolha);
+    return escolha;
+  };
+
+  const FALLBACK = [
+    { titulo: "Acabamento Tonante de fábrica", texto: "Materiais selecionados e conferência peça a peça antes do envio — o padrão da casa desde 1954." },
+    { titulo: "Do ensaio ao palco", texto: "Pensado pro dia a dia de quem toca: resistente na estrada, bonito de perto e fácil de manter." },
+    { titulo: "Garantia e suporte de verdade", texto: "2 anos de garantia, atendimento brasileiro e a tradição de quem é o primeiro instrumento de gerações." },
+  ];
+  const bloco = (i: number) => {
+    const b = historia.blocos[i];
+    return {
+      titulo: b?.titulo ?? FALLBACK[i].titulo,
+      texto: b?.texto ?? FALLBACK[i].texto,
+      foto: proximaFoto(b?.foto),
+    };
+  };
+  const blocoA = bloco(0);
+  const blocoB = bloco(1);
+  const blocoC = bloco(2);
+
+  /* o par 16/10 do fim: panorâmica e cena preenchem bem esse formato */
+  const parDeFotos = [proximaFoto(historia.faixa), proximaFoto()];
+  const fotoDaFicha = proximaFoto();
+
+  const specs = historia.ficha.length ? historia.ficha : product.specs ?? [];
+  const lead = historia.abertura;
 
   const productImageBg = {
     background: "linear-gradient(160deg, #f7f7f7, #ececec)",
@@ -2036,15 +2074,14 @@ function ProductStandardDescription({ product, images }: { product: any; images:
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               <article className="flex flex-col overflow-hidden" style={{ borderRadius: "var(--radius-card-xl)", border: "1px solid var(--border)", background: "var(--surface-1)" }}>
                 <div className="relative min-h-[300px] flex-1" style={{ background: "var(--well)" }}>
-                  <QuadroFoto src={secondaryImage} alt={`${product.name} em destaque`} padding="p-8" />
+                  <QuadroFoto src={blocoA.foto} alt={`${product.name} — ${blocoA.titulo}`} padding="p-8" />
                 </div>
                 <div className="p-7">
                   <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(22px, 2.6vw, 28px)", lineHeight: 1.1, fontWeight: 700 }}>
-                    Acabamento Tonante de fábrica
+                    {blocoA.titulo}
                   </h3>
                   <p className="mt-3" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.65, color: "var(--ink-soft)" }}>
-                    Materiais selecionados e conferência peça a peça antes do envio — o padrão da
-                    casa desde 1954.
+                    {blocoA.texto}
                   </p>
                 </div>
               </article>
@@ -2053,30 +2090,28 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                 <article className="relative flex min-h-[240px] items-center overflow-hidden" style={{ borderRadius: "var(--radius-card-xl)", border: "1px solid var(--border)", background: "var(--surface-1)" }}>
                   <div className="max-w-full p-7 md:max-w-[55%]">
                     <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(19px, 2.2vw, 24px)", lineHeight: 1.12, fontWeight: 700 }}>
-                      Do ensaio ao palco
+                      {blocoB.titulo}
                     </h3>
                     <p className="mt-3" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--ink-soft)" }}>
-                      Pensado pro dia a dia de quem toca: resistente na estrada, bonito de perto e
-                      fácil de manter.
+                      {blocoB.texto}
                     </p>
                   </div>
                   <div className="absolute inset-y-3 right-3 hidden w-[42%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                    <QuadroFoto src={tertiaryImage} alt={`${product.name} detalhe`} padding="p-4" />
+                    <QuadroFoto src={blocoB.foto} alt={`${product.name} — ${blocoB.titulo}`} padding="p-4" />
                   </div>
                 </article>
 
                 <article className="relative flex min-h-[240px] items-center overflow-hidden" style={{ borderRadius: "var(--radius-card-xl)", border: "1px solid var(--border)", background: "var(--surface-1)" }}>
                   <div className="max-w-full p-7 md:max-w-[55%]">
                     <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(19px, 2.2vw, 24px)", lineHeight: 1.12, fontWeight: 700 }}>
-                      Garantia e suporte de verdade
+                      {blocoC.titulo}
                     </h3>
                     <p className="mt-3" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.6, color: "var(--ink-soft)" }}>
-                      2 anos de garantia, atendimento brasileiro e a tradição de quem é o primeiro
-                      instrumento de gerações.
+                      {blocoC.texto}
                     </p>
                   </div>
                   <div className="absolute inset-y-3 right-3 hidden w-[42%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                    <QuadroFoto src={primaryImage} alt={`${product.name} em uso`} padding="p-4" />
+                    <QuadroFoto src={blocoC.foto} alt={`${product.name} — ${blocoC.titulo}`} padding="p-4" />
                   </div>
                 </article>
               </div>
@@ -2085,7 +2120,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
 
           <section className="border-t border-edge-subtle px-6 py-10 md:px-10">
             <div className="grid gap-7 md:grid-cols-2">
-              {[primaryImage, secondaryImage].map((image, index) => (
+              {parDeFotos.map((image, index) => (
                 <div key={`${image}-${index}`} className="relative aspect-[16/10] overflow-hidden" style={{ borderRadius: "var(--radius-card-lg)", ...productImageBg }}>
                   <div
                     className="pointer-events-none absolute inset-0"
@@ -2126,7 +2161,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                 </dl>
               </div>
               <div className="absolute inset-y-4 right-4 hidden w-[35%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                <QuadroFoto src={tertiaryImage} alt={`${product.name} especificações`} padding="p-6" />
+                <QuadroFoto src={fotoDaFicha} alt={`${product.name} especificações`} padding="p-6" />
               </div>
             </article>
           </section>

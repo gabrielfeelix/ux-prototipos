@@ -44,8 +44,11 @@ const TAMPO_MAP: Record<string, string> = {
 /** Linhas conhecidas (modelos de violão/guitarra/baixo Tonante). */
 const LINHAS = [
   "Lorenzzo", "Abalone", "Quartzo", "Safira", "Coral", "Onix", "Ônix",
-  "Topázio", "Jade", "Ametista", "Rubi", "Esmeralda",
-  "Valentine's", "Valentine", "Cecille", "Star Light", "Jazzmine", "Theodor",
+  "Topázio", "Jade", "Ametista", "Rubi", "Esmeralda", "Âmbar", "Ambar",
+  "Citrino", "Ágata", "Agata", "Jaspe", "Magma", "Opala", "Granada", "Masaya",
+  "Kilauea", "Vesúvio", "Vesuvio", "Etna", "Misti", "Haka",
+  "Valentine's", "Valentine", "Cecille", "Star Light", "Muriel's", "Muriel",
+  "Jazzmine", "Theodor", "Sonora",
 ];
 
 function firstMatch(re: RegExp, s: string): string | undefined {
@@ -56,7 +59,9 @@ function firstMatch(re: RegExp, s: string): string | undefined {
 function detectLinha(name: string): string | undefined {
   for (const l of LINHAS) {
     if (new RegExp(`\\b${l.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(name)) {
-      return l.replace("Ônix", "Onix");
+      return l.replace("Ônix", "Onix").replace("Ambar", "Âmbar").replace("Agata", "Ágata")
+        .replace("Vesuvio", "Vesúvio").replace(/^Valentine$/, "Valentine's")
+        .replace(/^Muriel$/, "Muriel's");
     }
   }
   return undefined;
@@ -76,7 +81,9 @@ function parseViolao(name: string): ProductAttributes {
   a.tamanho = firstMatch(/(\d{2})\s*"/, name) ? `${firstMatch(/(\d{2})\s*"/, name)}"` : undefined;
   if (/nylon/i.test(name)) a.corda = "Nylon";
   else if (/\ba[çc]o\b/i.test(name)) a.corda = "Aço";
-  if (/eletro[\s-]?ac[uú]stico|el[eé]trico/i.test(name)) a.tipo = "Eletroacústico";
+  /* "CEQ"/"EQ" no código do modelo (GNF3 CEQ, GD1 EQ) também é eletroacústico:
+     é como o catálogo de terceiros marca que tem captação. */
+  if (/eletro[\s-]?ac[uú]stico|el[eé]trico|\bc?eq\b/i.test(name)) a.tipo = "Eletroacústico";
   else if (/cl[aá]ssico/i.test(name)) a.tipo = "Clássico";
   else if (/ac[uú]stico/i.test(name)) a.tipo = "Acústico";
   for (const k of Object.keys(TAMPO_MAP)) {
@@ -85,6 +92,13 @@ function parseViolao(name: string): ProductAttributes {
   const eq = firstMatch(/eq\s*(\d)\s*bandas/i, name);
   if (eq) a.eq = `EQ ${eq} bandas`;
   if (/cutaway/i.test(name)) a.cutaway = true;
+  /* ukulele mora em "Violões" no catálogo, mas tem 4 cordas e nylon sempre */
+  if (/ukulele/i.test(name)) {
+    a.cordas = detectCordas(name) ?? 4;
+    a.corda = "Nylon";
+    a.tamanho = undefined;
+    return a;
+  }
   a.cordas = detectCordas(name) ?? 6;
   return a;
 }
