@@ -1,6 +1,7 @@
 import { allProducts, type Product } from "./productsData";
 import { getCategoryUrl } from "../lib/slug";
 import { getOfficialGallery } from "./productGalleries";
+import { isFotoAmbientada } from "./photoBackdrop";
 
 export interface CatalogHrefParams {
   category?: string;
@@ -244,6 +245,19 @@ export function findProductBySwatch(swatch: ProductSwatch, catalog: Product[] = 
   return catalog.find((product) => product.id === swatch.productId) ?? null;
 }
 
+/**
+ * Foto do produto para o seletor de cor.
+ *
+ * O swatch é um quadrado de 40px: foto ambientada vira mancha e a cor do
+ * instrumento se perde no cenário. Prefere o recorte de estúdio — fundo
+ * branco, corpo inteiro — e só cai na foto principal quando o produto não
+ * tem nenhum (ver photoBackdrop.ts).
+ */
+export function getSwatchImage(product: Pick<Product, "image" | "images" | "sku">) {
+  const estudio = getProductImages(product).find((image) => !isFotoAmbientada(image));
+  return estudio ?? getPrimaryProductImage(product);
+}
+
 export function getProductSwatches(
   product: Pick<Product, "id" | "name" | "category">,
   catalog: Product[] = allProducts,
@@ -262,7 +276,7 @@ export function getProductSwatches(
         color: rule.color,
         label: rule.label,
         productId: variant.id,
-        image: getPrimaryProductImage(variant),
+        image: getSwatchImage(variant),
         name: variant.name,
       });
     });

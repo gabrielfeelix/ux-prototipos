@@ -27,6 +27,8 @@ import { PreOrderBanner, useCountdown } from "./PreOrderBanner";
 import { CTAButton, DiscountBadge, QtyStepper } from "./section";
 import { SEO } from "./SEO";
 import { getProductSlug, getProductUrl } from "../lib/slug";
+import { isFotoAmbientada } from "./photoBackdrop";
+import { QuadroFoto } from "./QuadroFoto";
 import { TimbrePlayer } from "./TimbrePlayer";
 import { ProductCard } from "./ProductCard";
 import { LuthierBlock } from "./ProductMusicBlocks";
@@ -122,6 +124,8 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
     touchStart.current = null;
   };
 
+  const ambientadaAtiva = isFotoAmbientada(images[active]);
+
   return (
     <div className="flex w-full flex-col items-stretch gap-4 overflow-visible md:flex-row md:items-start md:gap-4">
       {images.length > 1 && (
@@ -130,11 +134,24 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
             <button
               key={`vthumb-${i}`}
               onClick={() => setActive(i)}
-              className={`flex-shrink-0 w-[68px] h-[68px] xl:w-[78px] xl:h-[78px] overflow-hidden border transition-all cursor-pointer ${i === active ? "border-primary ring-1 ring-primary/35" : "border-foreground/10 hover:border-foreground/30"}`}
+              className={`relative flex-shrink-0 w-[68px] h-[68px] xl:w-[78px] xl:h-[78px] overflow-hidden border transition-all cursor-pointer ${i === active ? "border-primary ring-1 ring-primary/35" : "border-foreground/10 hover:border-foreground/30"}`}
               style={{ borderRadius: "var(--radius-card)", background: "var(--surface-3)" }}
               aria-label={`Ver imagem ${i + 1}`}
             >
-              <ImageWithFallback src={img} alt={`${name} ${i + 1}`} className="w-full h-full object-contain p-1.5" />
+              {/* Regra do quadro (vale aqui e na foto grande): recorte de
+                  estúdio aparece inteiro e o branco dele some no fundo do
+                  card; foto ambientada PREENCHE o quadro, senão o corte da
+                  foto fica visível dentro dele. */}
+              <ImageWithFallback
+                src={img}
+                alt={`${name} ${i + 1}`}
+                className={
+                  isFotoAmbientada(img)
+                    ? "w-full h-full object-cover"
+                    : "w-full h-full object-contain p-1.5"
+                }
+                style={isFotoAmbientada(img) || isDark ? undefined : { mixBlendMode: "multiply" }}
+              />
             </button>
           ))}
         </div>
@@ -170,11 +187,25 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             className="w-full h-full"
+            /* O `multiply` da foto precisa de algo opaco atrás pra sumir com o
+               branco do recorte. Enquanto o motion anima o fade ele isola o
+               grupo, e aí o blend achava só transparência: o fundo da foto
+               virava um quadrado branco que só sumia quando a animação
+               terminava. Pintar aqui o mesmo cinza do quadro — opaco, não em
+               alpha — resolve no primeiro quadro e não depende do tempo da
+               animação. Foto ambientada cobre isto tudo. */
+            style={
+              isDark || ambientadaAtiva
+                ? undefined
+                : { isolation: "isolate", background: "linear-gradient(135deg, #f5f5f5 0%, #fcfcfc 100%)" }
+            }
           >
-            <ImageWithFallback
+            <QuadroFoto
               src={images[active]}
               alt={name}
-              className="w-full h-full object-contain p-4 md:p-5 group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+              padding="p-4 md:p-5"
+              semMultiply={isDark}
+              className="group-hover:scale-[1.03] transition-transform duration-700 ease-out"
             />
           </motion.div>
         </AnimatePresence>
@@ -1995,7 +2026,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                   borderRadius: "var(--radius-card-xl)",
                 }}
               />
-              <ImageWithFallback src={primaryImage} alt={product.name} className="relative max-h-[340px] w-full object-contain" style={{ mixBlendMode: "multiply" }} />
+              <QuadroFoto src={primaryImage} alt={product.name} />
             </div>
           </section>
 
@@ -2005,7 +2036,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               <article className="flex flex-col overflow-hidden" style={{ borderRadius: "var(--radius-card-xl)", border: "1px solid var(--border)", background: "var(--surface-1)" }}>
                 <div className="relative min-h-[300px] flex-1" style={{ background: "var(--well)" }}>
-                  <ImageWithFallback src={secondaryImage} alt={`${product.name} em destaque`} className="absolute inset-0 h-full w-full object-contain p-8" style={{ mixBlendMode: "multiply" }} />
+                  <QuadroFoto src={secondaryImage} alt={`${product.name} em destaque`} padding="p-8" />
                 </div>
                 <div className="p-7">
                   <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(22px, 2.6vw, 28px)", lineHeight: 1.1, fontWeight: 700 }}>
@@ -2030,7 +2061,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                     </p>
                   </div>
                   <div className="absolute inset-y-3 right-3 hidden w-[42%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                    <ImageWithFallback src={tertiaryImage} alt={`${product.name} detalhe`} className="absolute inset-0 h-full w-full object-contain p-4" style={{ mixBlendMode: "multiply" }} />
+                    <QuadroFoto src={tertiaryImage} alt={`${product.name} detalhe`} padding="p-4" />
                   </div>
                 </article>
 
@@ -2045,7 +2076,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                     </p>
                   </div>
                   <div className="absolute inset-y-3 right-3 hidden w-[42%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                    <ImageWithFallback src={primaryImage} alt={`${product.name} em uso`} className="absolute inset-0 h-full w-full object-contain p-4" style={{ mixBlendMode: "multiply" }} />
+                    <QuadroFoto src={primaryImage} alt={`${product.name} em uso`} padding="p-4" />
                   </div>
                 </article>
               </div>
@@ -2063,7 +2094,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                       borderRadius: "var(--radius-card-lg)",
                     }}
                   />
-                  <ImageWithFallback src={image} alt={`${product.name} galeria ${index + 1}`} className="relative h-full w-full object-contain p-6" />
+                  <QuadroFoto src={image} alt={`${product.name} galeria ${index + 1}`} padding="p-6" />
                 </div>
               ))}
             </div>
@@ -2095,7 +2126,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                 </dl>
               </div>
               <div className="absolute inset-y-4 right-4 hidden w-[35%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                <ImageWithFallback src={tertiaryImage} alt={`${product.name} especificações`} className="absolute inset-0 h-full w-full object-contain p-6" style={{ mixBlendMode: "multiply" }} />
+                <QuadroFoto src={tertiaryImage} alt={`${product.name} especificações`} padding="p-6" />
               </div>
             </article>
           </section>
@@ -2382,9 +2413,7 @@ export function ProductPage() {
                     style={{ borderRadius: 8, background: "var(--well)", border: sw.productId === product.id ? "1.5px solid var(--ink-strong)" : "1px solid var(--border)" }}
                     aria-label={sw.label}
                   >
-                    {(() => { const vp = allProducts.find((pp) => pp.id === sw.productId); return (
-                      <ImageWithFallback src={vp ? getPrimaryProductImage(vp) : ""} alt={sw.label} className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />
-                    ); })()}
+                    <QuadroFoto src={sw.image} alt={sw.label} padding="p-1" />
                   </button>
                 ))}
               </div>
@@ -2535,9 +2564,7 @@ export function ProductPage() {
                       style={{ borderRadius: 8, background: "var(--well)", border: sw.productId === product.id ? "1.5px solid var(--ink-strong)" : "1px solid var(--border)" }}
                       aria-label={sw.label}
                     >
-                      {(() => { const vp = allProducts.find((pp) => pp.id === sw.productId); return (
-                        <ImageWithFallback src={vp ? getPrimaryProductImage(vp) : ""} alt={sw.label} className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />
-                      ); })()}
+                      <QuadroFoto src={sw.image} alt={sw.label} padding="p-1" />
                     </button>
                   ))}
                 </div>
