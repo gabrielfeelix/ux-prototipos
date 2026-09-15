@@ -105,13 +105,20 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
   /* Recorte de estúdio aparece inteiro, com o branco sumindo no branco da
      miniatura; foto ambientada preenche o quadro (ver photoBackdrop.ts). */
   const fotoDeCatalogo = !isFotoAmbientada(fotoProduto);
-  /* O dy da tabela serve pro card grande, que encosta o instrumento no rodapé;
-     aqui a miniatura é quadrada e o instrumento fica centrado, então só o zoom
-     interessa. Teto de 2.6 pra foto de margem muito larga não estourar. */
-  const zoomThumb = Math.min(
-    (produto && INSTRUMENT_FRAMING[produto.id]?.[0]) ?? FRAMING_PADRAO[0],
-    2.6,
-  );
+  /* Mesmo enquadramento do card de produto: zoom no corpo, origem na base e o
+     braço saindo por cima. O par [zoom, dy] vem da tabela medida em
+     instrumentFraming, mas os dois números foram calculados pra uma caixa
+     QUADRADA e aqui a caixa é retrato (50×66). A foto é quadrada, então dentro
+     dela sobra uma tarja de 8px em cima e embaixo: sem corrigir, a origem "na
+     base" cai 8px abaixo do fim da foto e o zoom joga o instrumento pra cima.
+     `object-bottom` encosta a foto no rodapé da caixa e o dy vira proporcional
+     à altura real da foto (50 de 66). Em cima disso vai 25% a mais de zoom: em
+     50px o enquadramento do card grande ainda deixa braço demais, e o que
+     identifica o instrumento é o corpo. Teto de 3.4 pra margem larga não
+     estourar. */
+  const [zoomBase, dyBase] = (produto && INSTRUMENT_FRAMING[produto.id]) ?? FRAMING_PADRAO;
+  const zoomThumb = Math.min(zoomBase * 1.25, 3.4);
+  const dyThumb = dyBase * (50 / 66);
 
   const igUrl = m.instagram ? `https://instagram.com/${m.instagram.replace("@", "")}` : undefined;
   const igIcon = <Instagram size={22} strokeWidth={1.8} color="#ffffff" style={{ filter: "drop-shadow(0 1px 6px rgba(0,0,0,0.55))" }} />;
@@ -231,10 +238,14 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
               <ImageWithFallback
                 src={fotoProduto}
                 alt=""
-                className={fotoDeCatalogo ? "h-full w-full object-contain" : "h-full w-full object-cover"}
+                className={fotoDeCatalogo ? "h-full w-full object-contain object-bottom" : "h-full w-full object-cover"}
                 style={
                   fotoDeCatalogo
-                    ? { mixBlendMode: "multiply", scale: String(zoomThumb), transformOrigin: "50% 62%" }
+                    ? {
+                        mixBlendMode: "multiply",
+                        transform: `translateY(${dyThumb.toFixed(2)}%) scale(${zoomThumb})`,
+                        transformOrigin: "50% 100%",
+                      }
                     : undefined
                 }
               />
