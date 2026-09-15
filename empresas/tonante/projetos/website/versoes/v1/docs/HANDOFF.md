@@ -1,179 +1,165 @@
 # Handoff — Tonante website
 
-Estado em 2026-09-14. Branch `tonante/website-v1`. **Nada commitado** — tudo em
-working tree. Repo: `~/dev/ux-prototipos`, projeto em
-`empresas/tonante/projetos/website/versoes/v1`.
+Estado em 2026-09-15, 10h. Branch `tonante/website-v1`, projeto em
+`~/dev/ux-prototipos/empresas/tonante/projetos/website/versoes/v1`.
+Substitui o handoff de 14/09. O que ele dizia sobre estrutura da home, header,
+card v2, cor e tipografia **continua valendo** — leia `docs/STATE.md` junto.
 
-Substitui o handoff anterior, que descrevia a v2 como redesign paralelo em `/v2`.
-Isso acabou: **a v2 virou o site**.
+**O site é protótipo e não vai ao ar.** Placeholder (número de WhatsApp,
+depoimento de músico, flag de estoque, arte de banco de imagem) **não é
+pendência** e não deve ser listado como risco. Decisão do Gabriel, 15/09.
 
-## O que mudou desde o handoff anterior
+## Tem outro agente trabalhando no mesmo repo
 
-A v2 deixou de ser rota de teste. Hoje:
+Um agente paralelo cuidava de **imagens e catálogo**. **Encerrou em 15/09** —
+não há mais ninguém mexendo no repo junto. O que ele deixou commitado:
 
-| rota | o que é |
-|---|---|
-| `/` | `HomeV2` — home nova |
-| `/legado` | `HomePage` — home antiga, preservada como referência |
-| `/v2` | **não existe mais** (cai no catch-all `:category` e renderiza catálogo vazio) |
+- `5aa0f7fb` — 32 produtos do site institucional (`productsSiteOficial.ts`):
+  Pro Series, Volcano, Legacy, Muriel's, Star Light, baterias Sonora e cores
+  que faltavam. Entram em `allProducts`.
+- `24c5da7a` — Baterias no menu de categorias.
+- `cca1c0f2` — 6 SKUs cuja URL de cache do Magento devolve o placeholder cinza
+  com status 200.
 
-O `HeaderV2` é o cabeçalho do **site inteiro**, montado pelo `RootLayout`
-([RootLayout.tsx:42](../src/app/components/RootLayout.tsx)). Só `/legado` usa o
-`Navbar` + `AnnouncementBar` antigos; `/checkout` e `/monte-seu-pc` seguem sem
-cabeçalho, como já era.
+Deixou também `scripts/fotos-oficiais.py`, que raspa a media library do
+WordPress de `tonantebrasil.com.br` (`/wp-json/wp/v2/media`), casa por número de
+SKU (`CP111602` → `111602_2.jpg`), baixa, converte pra WebP, deduplica e regera
+`productGalleries.ts` (95 SKUs, 1205 fotos em `public/produtos/oficial/`).
+Agora que ele parou, esses arquivos são seus — mas rode o script antes de
+editar `productGalleries.ts` na mão, porque ele regera o arquivo inteiro.
 
-O card de produto v2 é o **padrão do site** — `CardVariantContext` tem default
-`"v2"`, e a `HomePage` do legado é quem se declara `"classic"`.
+## O que mudou nesta sessão (commitado em 15/09)
 
-## Ordem da home (decidida com o Gabriel, e ele vai continuar mexendo)
+```
+836a419d  classificador de fundo de foto (scripts/classifica-fundo.py)
+fa1ebf22  regra do quadro: QuadroFoto.tsx + ProductCardV2
+e78cca6a  instrumentos dos músicos viram produtos reais (223 e 285)
+ee43eb22  vídeo do feed não trava no hover + ordem do trilho
+993aadd9  preço real da Oderço nos 11 violões do site institucional
+d72c9b67  faixa de números sai da home, vídeo de 70 anos mais alto
+```
 
-O princípio: o visitante tem que estar quase sempre com produto na tela. A cada
-bloco comercial segue um institucional, que dá respiro, cor, e empurra pra algo
-que vende. Ele resumiu como "ou 1 carrossel e institucional, ou 2 carrosséis e
-institucional".
+`ProductPage.tsx` (regra do quadro em toda a PDP) entrou junto com o commit do
+outro agente. `npx vite build` passa limpo depois de tudo isso.
 
-1. `HeroBannersV2` — anúncio, única dobra sem produto
-2. `ProductShelf` da **campanha ativa** — primeiro contato oferta, não cataloga
-3. `CategoriasV2`
-4. `OfertasV2` — banner + trilho "Mais vendidos"
-5. `StoryBand` + `SocialProofBar` — institucional
-6. `ProductShelf` "Top da semana" (ainda com abas)
-7. `EncordoamentosV2`
-8. `MonteSeuKit` — **vai ser refeita 100%**, é o "Combo Tonante"
-9. `LinhasDeViolao` — institucional
-10. `ProductShelf` "Cordas, acessórios e suportes"
-11. `MusicosTonante` → `Newsletter` → `Footer`
+`productsData.ts` e `photoBackdrop.ts` já foram commitados pelo outro agente
+junto com o trabalho dele, com o repreçamento dentro.
 
-`GuiaIniciante` saiu da home (duplicava a captura da newsletter). O componente
-continua existindo. O Gabriel cogitou trazê-lo de volta **como banner**, não
-como componente com frases e botões — decisão em aberto.
+### 1. Regra do quadro (foto de produto)
 
-**Próximo passo que ele já anunciou**: melhorar as seções que acha feias e
-reordenar de novo por lógica comercial. Os candidatos que ele mesmo apontou são
-os institucionais (`StoryBand`, `LinhasDeViolao`) e o `MonteSeuKit`.
+Regra do Gabriel, textual: *"tem fundo branco? remove e fica no fundo do card.
+é ambientada? tem que preencher o card todo"*. Vale na foto principal e nas
+miniaturas. Implementada em `QuadroFoto.tsx`, em três casos:
 
-## Decisões que não estão óbvias no código
+1. **Recorte de estúdio** — aparece inteiro, `object-contain`, e o branco some
+   no fundo do quadro via `mixBlendMode: multiply`.
+2. **Ambientada** — `object-cover`, preenche. Sem isso o corte da foto aparece
+   dentro do card e parece defeito.
+3. **Ambientada e desproporcional** (retrato 240×1167, banner 1200×328) — em
+   quadro quase quadrado o `cover` amplia 5× e vira tira borrada. Aí a própria
+   foto desfocada e ampliada faz o fundo e a foto aparece inteira por cima.
 
-### Rotas e chrome
-- **Páginas perderam o `pt-[calc(142px+var(--announce-h))]`.** Isso compensava o
-  `Navbar` fixo da v1; com o spacer do `HeaderV2` virava ~180px de buraco.
-  Removido de `ProductsPage`, `ProductPage`, `ProfilePage`, `PreOrderPage`.
-  `HeroSection` manteve o dela — só `/legado` usa.
-- **`HeaderV2` é `fixed` + spacer de altura medida.** `HeroBannersV2` mede o
-  **spacer**, nunca o header (o header colapsa no scroll).
-- **Os painéis do header são filhos diretos do `<header>`.** A faixa de navegação
-  usa `overflow: hidden` pra animar o colapso e recortava qualquer dropdown
-  ancorado lá dentro — era esse o "menu bugado dentro do header".
-- Mega menu, conta e (antes) carrinho abrem no **hover com atraso de 140ms** no
-  fechamento (`useHoverPanel`), senão o painel some ao atravessar o vão.
-- **Carrinho não tem prévia no hover, de propósito**: a intenção é levar pra
-  sidebar, que é onde tem frete, brinde e cupom. É só ícone + bolinha vermelha.
+Quem sabe em que caso cada arquivo cai é **`photoBackdrop.ts`**, gerado por
+`scripts/classifica-fundo.py` — medido **offline** porque o CDN não manda CORS
+(mesmo motivo do `instrumentFraming`). Hoje: **598 ambientadas de 1567 fotos,
+174 delas desproporcionais**.
 
-### Card de produto (`ProductCardV2`)
-- **As miniaturas são VARIANTES de acabamento, não fotos do mesmo produto.**
-  Vêm de `getProductSwatches()`; clicar troca o produto exibido (nome, preço,
-  avaliações e link). Somem quando só há uma variante. 40×40px.
-- **Enquadramento de instrumento é tabelado, não calculado em runtime.**
-  `instrumentFraming.ts` tem `[zoom, dy]` por id de produto, medido offline: um
-  script Python baixou as 93 fotos de instrumento, achou o retângulo que não é
-  fundo branco e derivou o zoom pra todo instrumento sair com ~58% da largura do
-  card. **Por que offline**: o CDN da Oderco não manda CORS, então `canvas` no
-  browser é impossível (`crossOrigin` falha ao carregar). **Regerar quando as
-  fotos do catálogo mudarem** — sem isso, foto nova cai no padrão `[1.55, 0]` e
-  pode sair desproporcional.
-- O zoom usa `object-contain` + `origin-bottom` + `transform`, **não**
-  `object-cover`. Com cover, a fatia visível dependia da proporção do arquivo, e
-  foto estreita (havia uma 466×1200) virava close no cavalete.
-- Acessório/corda não recebe zoom: `object-contain` com `p-[20%]`.
+O classificador amostra dois anéis: 0–4% e 8–12% da borda. Anel branco = recorte.
+Os dois anéis existem porque recorte com moldura desenhada tem anel externo
+colorido e miolo branco, enquanto foto deitada colada num quadrado tem tarja
+branca em cima e conteúdo nas laterais — só o anel de dentro separa os dois.
 
-### Imagens
-- **Toda foto de produto passa por um upgrade de resolução.** A URL do Magento
-  `/media/catalog/product/cache/<hash32>/…` é uma thumb de **300×300**; a mesma
-  foto sem o segmento `/cache/<hash>/` é **1200×1200**. `upgradeProductImage()`
-  faz a troca e o `ImageWithFallback` tenta o original **e volta pra thumb se ele
-  não existir** — é esse fallback que impede a imagem quebrada.
+**Regerar quando entrar foto nova**: `python3 scripts/classifica-fundo.py --cdn`
+(~4 min; sem `--cdn` mede só as locais). Ele varre `productsData.ts`,
+`productsExtra.ts`, `productsSiteOficial.ts` e `public/produtos/oficial/`.
+Atenção: o catálogo usa **dois hosts** (`www.oderco.com.br/media/...` e
+`cdn.oderco.com.br/produtos/...`) e o segundo devolve **403** pro User-Agent
+padrão do urllib.
 
-### Cor e tipografia
-- **Nada de bege.** O Gabriel foi explícito: "somos BRANCO E PRETO, com alguns
-  elementos em marrom". Duas varreduras foram feitas:
-  1. hexes quentes (`#1a1714` ink, `#f6f5f2`, `#f5f4f0` well, cremes de texto)
-     → neutros (`#111111`, `#f5f5f5`, `#f4f4f4`, `#ffffff`);
-  2. **âmbar com alpha baixo**, que é o que renderizava areia: `bg-primary/5…20`,
-     `bg-primary/[0.02…0.12]`, `bg-amber-50/100`, `rgba(200,120,0,0.04…0.18)`,
-     `border-primary/10…30` → cinza neutro. Regra: âmbar com alpha ≤ 0,25 usado
-     como fundo/borda vira cinza; âmbar sólido (ícone, texto, pill) fica.
-  Exceção preservada: o gradiente de `EncordoamentosV2`, amostrado das artes.
-- **CTA de compra é preto**, não verde nem âmbar: `--gradient-buy` foi trocado
-  para preto e vale pra PDP, sticky bar e todo `CTAButton variant="buy"`. Verde
-  sobrou só como sinal semântico (em estoque, PIX, frete grátis).
-- **Display trocada: Bodoni Moda → Fraunces.** A didone sumia em tamanho pequeno.
-  Isso **contraria o manual de marca** (que pede família Bodoni) — foi decisão do
-  Gabriel, está registrada no comentário de `fonts.css`. O token continua com o
-  nome legado `--font-family-figtree`.
-- `Eyebrow` usava `letter-spacing: 0.3em` em `--primary` (#c87800, ~3,4:1).
-  Agora 0.12em em `--amber-text` (#a05f00, 5:1) — que é o âmbar que o próprio
-  `theme.css` reserva pra texto pequeno.
-- **Cores dos cards de corda são amostradas da arte.** Cada foto tem degradê
-  horizontal na base; o bloco de texto usa `linear-gradient(90deg, …)` com 9
-  stops medidos da faixa inferior, ignorando as colunas onde o instrumento
-  escuro cobre o fundo (detectadas por luminância e interpoladas). **Trocou a
-  arte → reamostrar**, senão aparece emenda.
+**Armadilha já paga**: na PDP a foto some num fade do `framer-motion`. Enquanto
+anima, o wrapper vira grupo isolado e o `multiply` fica sem fundo com que se
+misturar — o branco do recorte aparecia como um quadrado por ~1s. O `motion.div`
+agora pinta o mesmo cinza do quadro em **cor opaca** (não alpha) e declara
+`isolation: isolate`. Não troque por gradiente com alpha, o bug volta.
 
-### Layout
-- Largura do site: `maxWidth: 1680px` + respiro lateral `px-12`, em 18 arquivos.
-  Passou por 1600→1840→1680; 1840 ficou esticado demais na tela do Gabriel.
-  **Mexer nisso é mexer em todos de uma vez**, senão header e seções desalinham.
+### 2. Preços agora são os reais da Oderço
 
-### Busca
-- `lib/searchMatch.ts` normaliza acento e tenta o singular ("violao" acha
-  "Violão", "cordas" acha "corda"). Aplicado em `SearchBar`, `Navbar`,
-  `ProductsPage`. `SearchModal.tsx` **não é importado em lugar nenhum** e ainda
-  tem catálogo PCYES hardcoded — candidato a deletar.
+O dump estava ~3× acima da loja real (mediana da razão 0,31; só 11 de 275 dentro
+de ±20%), e errava pros dois lados — `CP22169` custava R$ 79,90 aqui e R$ 307,28
+lá. **276 produtos** repreçados pelo GraphQL público da Oderço:
 
-### Seções
-- `MusicosTonante` foi refeita na referência que o Gabriel mandou: card 292px,
-  vídeo 292×516 (9:16), gap 30px, **vídeo toca sozinho** quando a seção entra na
-  viewport (`IntersectionObserver`, muted/loop/playsInline), pausa fora da tela e
-  com o modal aberto. Embaixo do vídeo vai a caixa do produto que o músico toca.
-  O marquee automático que existia antes foi removido — vídeo tocando com trilho
-  andando brigava pela atenção.
-- `campanhas.ts` guarda as campanhas da home (Mês do Músico, 70 anos, Back to
-  70's). Uma no ar por vez via `CAMPANHA_ATIVA`; a seleção de produtos de hoje é
-  provisória (maior desconto real), esperando curadoria.
-- `OfertasV2` perdeu as abas. "Ofertas da semana" saiu (dependia de curadoria
-  semanal e competia com a campanha do topo) e "Primeiro instrumento" saiu pra
-  virar **seção própria, ainda não criada**. Sobrou "Mais vendidos", que se
-  sustenta sem ninguém configurar nada.
+```bash
+curl -s https://www.oderco.com.br/graphql -H 'Content-Type: application/json' \
+  -d '{"query":"{products(search:\"CP111630\",pageSize:1){items{sku name price_range{minimum_price{final_price{value}}} stock_status}}}"}'
+```
+
+O **percentual** de desconto foi preservado: onde havia `oldPrice`, ele foi
+escalado pelo mesmo fator, senão apareceria badge de −98%. Os 58 descontos do
+catálogo ficaram entre 2% e 25%.
+
+**34 SKUs continuam com o preço antigo (inflado)** — a Oderço não responde por
+eles. Decisão pendente: marcar com comentário ou escalar pela mediana (÷3,2).
+
+### 3. Feed de músicos
+
+- Ordem do trilho é lista explícita `ORDEM` em `MusicosTonante.tsx`: Paulo André,
+  Rogério Alves, André Batista, Thiago Nunes, Alfredo José. Músico fora da lista
+  entra no fim sozinho.
+- **Vídeos travavam no hover.** Eram 15 `<video>` no trilho (3 voltas × 5) todos
+  com `preload="metadata"`: disputavam as 6 conexões por origem e o vídeo sob o
+  mouse ficava na fila. Agora `preload="none"` e o `play()` repete em
+  `loadeddata`/`canplay`. **Não verificado no Chrome do Gabriel** — o Chromium
+  headless não tem codec H.264 (`DEMUXER_ERROR_NO_SUPPORTED_STREAMS`).
+- Alfredo José ganhou sobrenome.
+
+### 4. Produtos dos músicos
+
+- Rogério aponta pro **produto real do catálogo**: `Cavaco Acústico Tonante
+  Natural`, id 223. O SKU inventado 284 foi apagado.
+- O violão do Thiago **existe**: `CP111630`, "Violão Elétrico Safira 41" — Tampo
+  em Zebra — EQ 4 Bandas — Fosco — VSZ1954N41Z", R$ 489,90, marcado OUT_OF_STOCK
+  na Oderço (aqui fica `inStock: true` de propósito, com comentário). A busca por
+  "zebrano" dava zero porque o catálogo chama o tampo de **"Zebra"**. Fica em
+  `productsExtra.ts` com SKU do ERP, que é o que casa com a galeria oficial.
 
 ## Pendências
 
-1. **Número do WhatsApp** — `WhatsAppFab.tsx` está com placeholder
-   `5544999999999` e um `TODO`. O botão já está no ar em todas as páginas menos
-   `/checkout`.
-2. **Botão de acessibilidade do header não faz nada** — é placeholder combinado.
-3. **Seção "Primeiro instrumento"** ainda não existe; saiu das abas pra virar
-   seção dedicada.
-4. **`MonteSeuKit` vai ser refeita 100%** ("Combo Tonante").
-5. **Artes faltando** (o código cai em fallback): `public/categorias/`
-   (`afinadores.png`, `capas.png`, `palhetas.png`, `cabos.png`, `correias.png`,
-   `microfones.png`, quadradas 1024×1024) e `public/ofertas/`
-   (`mais-vendidos.jpg`, `ofertas.jpg`, `primeiro-instrumento.jpg`, retrato
-   1024×1536).
-6. **Artes de corda trazem marca D'Addario legível** — o Gabriel sabe, não
-   decidiu se regera.
-7. **~20 CTAs em `var(--gradient-brand)` (âmbar) em `CheckoutPage` e `CartPage`.**
-   No drawer eu já troquei os dois principais pra preto; o resto espera ele
-   olhar o checkout.
-8. `SearchBar` duplicado com o bloco interno do `Navbar.tsx` (3 cópias de markup:
-   drawer mobile, barra desktop, overlay). Unificar quando puder mexer na v1.
-9. Bateria, sopro e outros instrumentos **não existem** em `productsData` — só
-   Violões, Guitarras, Contrabaixos, Cordas, Acessórios, Suportes.
+Ordenadas por impacto visual, que é o que importa num protótipo.
+
+1. **`public/ofertas/` está vazia** — faltam `mais-vendidos.jpg`, `ofertas.jpg`,
+   `primeiro-instrumento.jpg` (retrato 1024×1536). `OfertasV2` cai em fallback.
+2. **`public/categorias/`** — faltam `afinadores`, `capas`, `palhetas`, `cabos`,
+   `correias` (1024×1024). Existem violão, guitarra, contrabaixo, encordoamento,
+   microfone, suporte.
+3. **`MonteSeuKit` refeita 100%** — vira o "Combo Tonante". Está na home,
+   posição 8.
+4. **`LinhasDeViolao`** — o outro institucional que o Gabriel acha feio, logo
+   depois do MonteSeuKit: dois blocos fracos seguidos.
+5. **Seção "Primeiro instrumento"** — saiu das abas do `OfertasV2` pra virar
+   seção própria e nunca foi criada.
+6. **`GuiaIniciante` como banner** — ele cogitou trazer de volta, decisão aberta.
+7. **Botão de acessibilidade do header não faz nada** (placeholder combinado).
+8. **~19 CTAs em âmbar no checkout** — 10 em `CheckoutPage`, 9 em `CartPage`,
+   contra o preto do resto do site.
+9. **`SearchModal.tsx` órfão** com catálogo PCYES hardcoded — candidato a
+   deletar. `SearchBar` tem 3 cópias de markup dentro do `Navbar`.
+10. **Órfãos em `public/produtos/`**: `111630_*.png`, `violao-tonante-zebrano*.png`
+    e `-2/-3/-4.jpg`, `cavaquinho-tonante-natural.jpg`. Nada referencia (o 285
+    usa a galeria oficial em `public/produtos/oficial/111630/`). Ficaram fora do
+    commit de propósito. O modo automático bloqueia `rm`, então peça pro Gabriel.
+
+### Decisões abertas com ele
+
+- **Arte de campanha com texto** (a do 70 anos): o `cover` corta as letras
+  ("...ada para celebrar gerações"). Cabe um quarto caso "arte com texto fica
+  inteira", ou a arte sai da galeria?
+- **Os 34 SKUs sem preço na Oderço** (ver acima).
+- Testar o hover dos vídeos no Chrome dele.
 
 ## Como verificar visualmente
 
-Dev server: `npm run dev` (costuma já estar em `localhost:5173`).
-
-Não há Playwright. Use o Chrome do ms-playwright com as libs extraídas, via CDP:
+Dev server: `npm run dev` (costuma estar em `localhost:5173`). Não há Playwright;
+use o Chrome do ms-playwright com as libs extraídas, via CDP:
 
 ```bash
 CHROME=~/.cache/ms-playwright/chromium-1169/chrome-linux/chrome
@@ -182,35 +168,33 @@ LD_LIBRARY_PATH=$HOME/.cache/chromelibs/usr/lib/x86_64-linux-gnu \
   --remote-debugging-port=9333 --user-data-dir=/tmp/claude-1000/chromeprof about:blank &
 ```
 
-Os scripts da sessão ficaram no scratchpad (some quando a sessão morre; refazer
-é rápido): `cap.mjs` (navega, fecha cookies/popup, rola, printa), `capx.mjs`
-(mesma coisa + roda um JS antes do print, pra abrir menu/hover) e `ev.mjs`
-(avalia uma expressão e imprime o retorno — bom pra medir DOM sem gastar imagem).
-Use `WebSocket` nativo do Node 24; o pacote `ws` não está instalado.
+Os scripts vivem no scratchpad da sessão e somem com ela; refazer leva minutos.
+Eram três, com `WebSocket` nativo do Node 24 (o pacote `ws` não está instalado):
+`cap.mjs` (navega, fecha cookies/popup, roda um JS, printa), `ev.mjs` (avalia
+expressão e imprime o retorno — mede DOM sem gastar imagem) e `pdp.mjs` (printa
+a mesma página em 350/900/2500ms, que foi como o flash do fundo branco apareceu).
 
-Armadilhas conhecidas do headless:
-- **Vídeo não toca**: o Chromium do playwright não tem codec H.264, então MP4
-  devolve `NotSupportedError`. No navegador do Gabriel roda.
-- **Canvas com foto de produto é impossível**: sem CORS do CDN.
-- Cookies ("Aceitar") e o popup de newsletter ("Não, obrigado") cobrem a tela —
-  os scripts já clicam neles antes de printar.
+URL de PDP é canônica, não `/produto/:id`: `/violoes/tonante/<seoSlug>/`.
 
-`npx tsc --noEmit` tem erros **pré-existentes** em `vite.config.ts`,
-`Navbar.tsx` (17, todos de `Variants` do motion), `CartPage.tsx`,
-`CheckoutPage.tsx`, `ProductPage.tsx` (props faltando em `StickyCard`) e
-`MonteSeuPcPage.tsx`. Nenhum em `src/app/v2/`.
+Armadilhas do headless: **vídeo não toca** (sem H.264), **canvas com foto de
+produto é impossível** (sem CORS), e cookies/newsletter cobrem a tela — os
+scripts já clicam em "Aceitar" e "Não, obrigado".
+
+`npx tsc --noEmit` tem erros **pré-existentes** em `vite.config.ts`, `Navbar.tsx`
+(17, todos de `Variants` do motion), `CartPage.tsx`, `CheckoutPage.tsx`,
+`ProductPage.tsx` (props faltando em `StickyCard`) e `MonteSeuPcPage.tsx`.
+`npx vite build` passa limpo.
 
 ## Como o Gabriel trabalha
 
-- Manda print da referência e cobra fidelidade: respeitar medidas (tamanho,
-  padding, proporção) em vez de aproximar. Ele inspeciona o DevTools da
-  referência e passa os números.
-- Revisa por screenshot. Capturar e mostrar vale mais que descrever.
-- Repara em motion: quer que as coisas **surjam**, com deslocamento leve na
-  direção final e curva suave. O padrão adotado é
-  `cubic-bezier(0.22, 1, 0.36, 1)` com 420ms (600ms no zoom da foto). Detalhe
-  que já mordeu: `transition` inline sobrescreve a classe do Tailwind, e o
-  Tailwind v4 anima as propriedades `translate`/`scale`, não `transform`.
+- Manda print da referência e cobra fidelidade: respeitar medidas em vez de
+  aproximar. Inspeciona o DevTools da referência e passa os números.
+- **Revisa por screenshot. Capturar e mostrar vale mais que descrever.**
+- Não quer spec pra aprovar: pede, você faz e mostra o print.
+- Repara em motion: as coisas têm que **surgir**, com deslocamento leve na
+  direção final. Padrão `cubic-bezier(0.22, 1, 0.36, 1)` com 420ms (600ms no
+  zoom da foto). `transition` inline sobrescreve a classe do Tailwind, e o
+  Tailwind v4 anima `translate`/`scale`, não `transform`.
 - Menos informação por card, mais respiro, menos "cara de IA".
 - Quando ele diz "tira isso", é remover — não esconder.
 - Fala em português, direto. Responde melhor a alternativa concreta que a
