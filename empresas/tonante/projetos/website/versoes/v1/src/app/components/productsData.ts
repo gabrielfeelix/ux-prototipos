@@ -1,4 +1,5 @@
 import { extraProducts } from "./productsExtra";
+import { siteOficialProducts } from "./productsSiteOficial";
 
 export interface Product {
   id: number;
@@ -15779,10 +15780,12 @@ const rawProducts: Product[] = [
 ];
 
 /* rawProducts vem do Magento; extraProducts é o que ainda não existe no ERP e
-   foi montado à mão (ver productsExtra.ts). Tudo que consome catálogo usa
-   allProducts, então não há dois caminhos pra achar um produto. */
-export const allProducts: Product[] = [...rawProducts, ...extraProducts];
+   foi montado à mão (ver productsExtra.ts); siteOficialProducts são as linhas
+   que só existem no site institucional da Tonante (ver productsSiteOficial.ts).
+   Tudo que consome catálogo usa allProducts, então não há dois caminhos pra
+   achar um produto. */
+export const allProducts: Product[] = [...rawProducts, ...extraProducts, ...siteOficialProducts];
 
-export const categories = ["Violões","Guitarras","Contrabaixos","Acessórios","Cordas & Encordoamentos","Suportes"];
-export const allTags = ["Acessórios","Palheta","Suportes","Microfone","Cabo","Dobrável","Capa","Guitarras","Single-coil","6 cordas","Contrabaixos","4 cordas","Violões","Nylon","Acústico","Clássico","Níquel","5 cordas","Cordas & Encordoamentos","Aço","Eletroacústico","Viola","Bronze","Ukulele","Capotraste","Afinador"];
+export const categories = ["Violões","Guitarras","Contrabaixos","Baterias","Acessórios","Cordas & Encordoamentos","Suportes"];
+export const allTags = ["Acessórios","Palheta","Suportes","Microfone","Cabo","Dobrável","Capa","Guitarras","Single-coil","6 cordas","Contrabaixos","4 cordas","Violões","Nylon","Acústico","Clássico","Níquel","5 cordas","Cordas & Encordoamentos","Aço","Eletroacústico","Viola","Bronze","Ukulele","Capotraste","Afinador","Baterias","Pro Series","Legacy","Volcano","Abalone","Safira","Coral","Baby","Muriel's","Star Light","Cecille","Sonora"];
 export const brands = ["Tonante"];

@@ -1161,7 +1161,7 @@ export function ProductsPage() {
               }}
             >
               {activeCategoryLabel
-                ? `Confira a linha completa de ${initialSubcategory ? `${initialSubcategory.toLowerCase()} ${activeCategoryLabel.toLowerCase()}` : activeCategoryLabel.toLowerCase()} PCYES. Garantia oficial, frete grátis acima de R$ 299, até 10x sem juros.`
+                ? `Confira a linha completa de ${initialSubcategory ? `${initialSubcategory.toLowerCase()} ${activeCategoryLabel.toLowerCase()}` : activeCategoryLabel.toLowerCase()} Tonante. Garantia oficial, frete grátis acima de R$ 299, até 10x sem juros.`
                 : "Tudo que conecta gente à música, num só lugar — com garantia oficial e frete grátis acima de R$ 299."}
             </p>
           </header>

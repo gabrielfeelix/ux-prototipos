@@ -22,6 +22,7 @@ import io
 import json
 import os
 import re
+import unicodedata
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -30,7 +31,9 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "public/produtos/oficial")
-CATALOG = os.path.join(ROOT, "src/app/components/productsData.ts")
+CATALOG = [os.path.join(ROOT, "src/app/components/productsData.ts"),
+           os.path.join(ROOT, "src/app/components/productsExtra.ts"),
+           os.path.join(ROOT, "src/app/components/productsSiteOficial.ts")]
 TARGET = os.path.join(ROOT, "src/app/components/productGalleries.ts")
 MEDIA = "https://tonantebrasil.com.br/wp-json/wp/v2/media"
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36"}
@@ -59,10 +62,58 @@ def media_urls():
     return urls
 
 
+# O site nomeia as fotos com o código antigo de fábrica; o ERP já renumerou o
+# mesmo produto. Sem isso as sessões dos ukuleles Haka ficariam órfãs.
+ALIASES = {
+    "35668": "CP314833",   # Ukulele Soprano Haka Mahogany USH1954M
+    "35669": "CP314834",   # Ukulele Concert Haka Mahogany UCH1954M
+}
+
+
 def catalog_skus():
     """{numero: sku} — o numero é a chave que o site oficial usa nos arquivos."""
-    src = open(CATALOG, encoding="utf-8").read()
-    return {m.group(1).replace("CP", ""): m.group(1) for m in re.finditer(r'"sku": "([^"]+)"', src)}
+    out = {}
+    for path in CATALOG:
+        src = open(path, encoding="utf-8").read()
+        for m in re.finditer(r'sku: "([^"]+)"|"sku": "([^"]+)"', src):
+            sku = m.group(1) or m.group(2)
+            out[sku.replace("CP", "")] = sku
+    for num, sku in ALIASES.items():
+        if sku in out.values():
+            out[num] = sku
+    return out
+
+
+# A fábrica erra o upload de vez em quando e deixa a foto de um modelo na pasta
+# de outro (111635-top-JASPE-BABY.jpg no meio do Rubi). Quando o nome do arquivo
+# cita um modelo que não é o do produto, a foto não entra na galeria.
+MODELOS = ["RUBI", "JASPE", "AMBAR", "ABALONE", "SAFIRA", "CORAL", "CITRINO", "TOPAZIO",
+           "KILAUEA", "VESUVIO", "ETNA", "MISTI", "QUARTZO", "AMETISTA", "JADE", "AGATA",
+           "ONIX", "OPALA", "MAGMA", "GRANADA", "LORENZZO", "MURIEL", "CECILLE",
+           "VALENTINE", "STARLIGHT", "JAZZMINE", "THEODOR", "SONORA", "MASAYA", "HAKA"]
+
+
+def sem_acento(texto):
+    return "".join(c for c in unicodedata.normalize("NFD", texto)
+                   if unicodedata.category(c) != "Mn").upper()
+
+
+def de_outro_modelo(nome_arquivo, nome_produto):
+    arquivo, produto = sem_acento(nome_arquivo), sem_acento(nome_produto)
+    citados = [m for m in MODELOS if m in arquivo]
+    return bool(citados) and not any(m in produto for m in citados)
+
+
+def product_names():
+    """{sku: nome} — para saber de que modelo cada pasta é."""
+    out = {}
+    for path in CATALOG:
+        src = open(path, encoding="utf-8").read()
+        for m in re.finditer(r'(?:"sku": "([^"]+)"|sku: "([^"]+)")(.{0,400}?)(?:"name": "((?:[^"\\]|\\.)*)"|name: "((?:[^"\\]|\\.)*)")',
+                             src, re.S):
+            sku = m.group(1) or m.group(2)
+            out[sku] = m.group(4) or m.group(5) or ""
+    return out
 
 
 def download(job):
@@ -149,11 +200,16 @@ def main():
     dropped = sum(dedupe(os.path.join(OUT, num)) for num in groups)
     print(f"{dropped} duplicatas removidas")
 
-    galleries = {}
+    nomes_de_produto = product_names()
+    galleries, intrusas = {}, 0
     for num in sorted(groups):
         folder = os.path.join(OUT, num)
         names = sorted(os.listdir(folder), key=lambda n: order(num, n, folder))
-        galleries[skus[num]] = [f"/produtos/oficial/{num}/{n}" for n in names]
+        produto = nomes_de_produto.get(skus[num], "")
+        limpo = [n for n in names if not de_outro_modelo(n, produto)]
+        intrusas += len(names) - len(limpo)
+        galleries[skus[num]] = [f"/produtos/oficial/{num}/{n}" for n in limpo]
+    print(f"{intrusas} fotos descartadas por serem de outro modelo")
 
     total = sum(len(v) for v in galleries.values())
     body = "\n".join(

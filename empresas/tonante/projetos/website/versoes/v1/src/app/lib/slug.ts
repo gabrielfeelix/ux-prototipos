@@ -24,6 +24,7 @@ export const CATEGORY_TO_SLUG: Record<string, string> = {
   "Violões":                  "violoes",
   "Guitarras":                "guitarras",
   "Contrabaixos":             "contrabaixos",
+  "Baterias":                 "baterias",
   "Acessórios":               "acessorios",
   "Cordas & Encordoamentos":  "cordas-encordoamentos",
   "Suportes":                 "suportes",
