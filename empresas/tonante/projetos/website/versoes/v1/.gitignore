@@ -20,3 +20,6 @@ kaspersky-ca-bundle.crt
 # public/ pra não entrar no build do Vite, e fora do git pra não inchar o
 # histórico. Os clipes já cortados que o site serve vivem em public/musicos/.
 assets-fonte/
+
+# Cache do Python dos scripts em scripts/
+__pycache__/
