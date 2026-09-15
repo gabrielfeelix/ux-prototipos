@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router";
 import { Facebook, Instagram, Linkedin, Youtube, ShieldCheck } from "lucide-react";
+import { SOCIAL_LINKS, type SocialLabel } from "./socialLinks";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { getCatalogHref } from "./productPresentation";
 
@@ -45,14 +46,6 @@ const footerColumns = [
   },
 ] as const;
 
-// TODO(handles): confirmar os @ oficiais da Tonante (placeholders abaixo).
-const socialLinks = [
-  { label: "Instagram", href: "https://www.instagram.com/tonanteinstrumentos" },
-  { label: "TikTok", href: "https://www.tiktok.com/@tonanteinstrumentos" },
-  { label: "Facebook", href: "https://www.facebook.com/tonanteinstrumentos" },
-  { label: "YouTube", href: "https://www.youtube.com/@tonanteinstrumentos" },
-] as const;
-
 const certifications: { label: string; href?: string; image: string }[] = [
   {
     label: "RA 1000",
@@ -73,23 +66,10 @@ const certifications: { label: string; href?: string; image: string }[] = [
   },
 ] as const;
 
-function TikTokIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 17 17" fill="none" aria-hidden="true">
-      <path
-        d="M12.199 0.681641H9.50457V11.572C9.50457 12.8696 8.46827 13.9355 7.17861 13.9355C5.88896 13.9355 4.85264 12.8696 4.85264 11.572C4.85264 10.2976 5.86594 9.2549 7.10954 9.20858V6.47441C4.36902 6.52073 2.1582 8.76833 2.1582 11.572C2.1582 14.3989 4.41508 16.6697 7.20165 16.6697C9.98818 16.6697 12.2451 14.3757 12.2451 11.572V5.9878C13.2584 6.72928 14.5019 7.16953 15.8146 7.19271V4.45852C13.7881 4.38901 12.199 2.72069 12.199 0.681641Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function SocialIcon({ label }: { label: (typeof socialLinks)[number]["label"] }) {
+function SocialIcon({ label }: { label: SocialLabel }) {
   switch (label) {
     case "Instagram":
       return <Instagram size={18} strokeWidth={1.8} />;
-    case "TikTok":
-      return <TikTokIcon />;
     case "Facebook":
       return <Facebook size={18} strokeWidth={1.8} />;
     case "YouTube":
@@ -183,13 +163,13 @@ export function Footer() {
               Feita de Histórias.<br />Desde 1954.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              {socialLinks.map((social) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={social.label}
+                  aria-label={`Tonante no ${social.label}`}
                   className="grid h-11 w-11 place-items-center rounded-full transition-colors md:h-[42px] md:w-[42px]"
                   style={{ border: "1px solid rgba(255,255,255,.18)", color: "#ffffff" }}
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(200,120,0,.6)"; e.currentTarget.style.color = "#fff"; }}

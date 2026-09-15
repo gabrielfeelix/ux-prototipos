@@ -15,6 +15,15 @@ import { getCatalogHref, getPrimaryProductImage, getVisibleCatalogProducts } fro
 import { allProducts, type Product } from "../components/productsData";
 import { getProductUrl } from "../lib/slug";
 import { SearchBar } from "../components/SearchBar";
+import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
+
+/* Ícone de cada perfil da faixa preta. A lista em si vive em
+   components/socialLinks.ts — aqui só o desenho. */
+const ICONE_SOCIAL: Record<SocialLabel, LucideIcon> = {
+  Instagram,
+  Facebook,
+  YouTube: Youtube,
+};
 
 /* HeaderV2 — cabeçalho do site (referência: tema Local/Shopify).
    3 faixas: utilitária escura (social + avisos rotativos + ajuda),
@@ -180,16 +189,21 @@ export function HeaderV2() {
       <div data-keep-dark style={{ background: "var(--ink-strong)" }}>
         <div className="mx-auto flex h-11 w-full items-center gap-4 px-5 md:px-12" style={{ maxWidth: "1680px" }}>
           <div className="flex items-center gap-3.5">
-            {[Instagram, Facebook, Youtube].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                aria-label="Redes sociais Tonante"
-                className="text-white/60 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none"
-              >
-                <Icon size={16} strokeWidth={1.8} />
-              </a>
-            ))}
+            {SOCIAL_LINKS.map(({ label, href }) => {
+              const Icon = ICONE_SOCIAL[label];
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Tonante no ${label}`}
+                  className="text-white/60 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none"
+                >
+                  <Icon size={16} strokeWidth={1.8} />
+                </a>
+              );
+            })}
           </div>
 
           <div className="flex flex-1 items-center justify-center gap-3">
