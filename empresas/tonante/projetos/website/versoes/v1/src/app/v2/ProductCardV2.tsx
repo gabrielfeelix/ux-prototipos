@@ -314,8 +314,12 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
               style={{
                 background: "linear-gradient(158deg, #fbfbfc, #eaecee)",
                 borderRadius: "8px",
-                outline: on ? "2px solid var(--ink-soft)" : "1px solid var(--edge)",
-                outlineOffset: "-2px",
+                /* selecionada: a mesma tinta quente do --ink-soft, só que
+                   fraca. Contorno cheio brigava com a foto do instrumento
+                   dentro de 40px; a não-selecionada fica em --edge (0.12),
+                   então a distância entre os dois estados se mantém. */
+                outline: on ? "1.35px solid rgba(79, 70, 60, 0.4)" : "1px solid var(--edge)",
+                outlineOffset: "-1.35px",
               }}
             >
               <ImageWithFallback src={v.image} alt="" className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />

@@ -57,7 +57,6 @@ const CATEGORIAS = [
 /* depois das categorias, os atalhos que não são catálogo */
 const NAV = [
   { label: "Ofertas", href: "/produtos?promo=1" },
-  { label: "Monte seu kit", href: "/produtos" },
 ];
 
 /* Conteúdo do mega menu derivado do catálogo — subcategorias reais e os
