@@ -72,7 +72,7 @@ export function CartPage() {
       .slice(0, 3);
   }, []);
 
-  // Tonante Points (state vem do context)
+  // Ton Points (state vem do context)
   const userPoints = 480;
 
   const subtotal = useMemo(
@@ -801,7 +801,7 @@ export function CartPage() {
                   )}
                 </AnimatePresence>
 
-                {/* Tonante Points */}
+                {/* Ton Points */}
                 <div
                   className={`mb-5 overflow-hidden rounded-card-sm transition-colors ${
                     pointsApplied
@@ -817,7 +817,7 @@ export function CartPage() {
                     <span className="flex items-center gap-2">
                       <PcyesCoin size={20} />
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "#facc15" : "rgba(var(--foreground-rgb), 0.78)" }}>
-                        Tonante Points
+                        Ton Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.4)" }}>
                         {userPoints} pts
@@ -922,7 +922,7 @@ export function CartPage() {
                   {pointsValue > 0 && (
                     <div className="flex items-center justify-between">
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 600 }}>
-                        Tonante Points
+                        Ton Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 700 }}>
                         −{formatBRL(pointsValue)}

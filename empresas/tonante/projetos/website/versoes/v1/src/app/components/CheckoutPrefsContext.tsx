@@ -1,12 +1,12 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 
 interface CheckoutPrefs {
   appliedCoupon: string | null;
-  setAppliedCoupon: (c: string | null) => void;
+  setAppliedCoupon: Dispatch<SetStateAction<string | null>>;
   pointsApplied: boolean;
-  setPointsApplied: (b: boolean) => void;
+  setPointsApplied: Dispatch<SetStateAction<boolean>>;
   pointsToUse: number;
-  setPointsToUse: (n: number) => void;
+  setPointsToUse: Dispatch<SetStateAction<number>>;
 }
 
 const CheckoutPrefsContext = createContext<CheckoutPrefs | null>(null);

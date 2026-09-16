@@ -88,7 +88,7 @@ type PaymentMethod = "pix" | "credit" | "apple" | "google" | "boleto" | "mercado
 type WalletSheet = "apple" | "google" | "mercadopago" | null;
 
 const inputClass =
-  "w-full text-ink-strong placeholder:text-ink-subtle focus:outline-none transition-all";
+  "w-full text-ink-strong placeholder:text-ink-subtle transition-all";
 const inputStyle: React.CSSProperties = {
   padding: "11px 13px",
   borderRadius: "var(--radius-card-sm)",
@@ -148,16 +148,23 @@ function PaymentOption({
      (herança do tema antigo, que sumia): é borda âmbar de 1.5px, um véu de
      âmbar bem baixo e a mesma sombra curta dos cards da home. O texto fica
      ink nos dois estados — só o peso do contorno muda. */
+  const [hover, setHover] = useState(false);
   const accent = color ?? "var(--primary)";
   const activeBadgeBg = accentBg ?? "rgba(200, 120, 0, 0.12)";
   return (
     <button
       onClick={onClick}
-      className="relative flex flex-col items-start gap-2 px-4 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer hover:border-[rgba(200,120,0,0.45)]"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className="relative flex flex-col items-start gap-2 px-4 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer"
       style={{
         borderRadius: "var(--radius-card-sm)",
         background: active ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
-        border: active ? `1.5px solid ${accent}` : "1px solid var(--border)",
+        border: active
+          ? `1.5px solid ${accent}`
+          : hover
+          ? "1px solid rgba(200, 120, 0, 0.45)"
+          : "1px solid var(--border)",
         boxShadow: active ? "var(--shadow-card)" : "none",
         minHeight: 84,
       }}
@@ -989,7 +996,7 @@ export function CheckoutPage() {
                     borderRadius: "var(--radius-card-lg)",
                     background: cardBg,
                     border: cardBorder,
-                    boxShadow: "var(--shadow-card-hairline)",
+                    boxShadow: "var(--shadow-card)",
                   }}
                 >
                   {step === 0 && (
@@ -1269,7 +1276,7 @@ export function CheckoutPage() {
                         <button
                           onClick={() => { setPayment("apple"); setWalletSheet("apple"); }}
                           aria-label="Pagar com Apple Pay"
-                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                           style={{
                             background: "#000",
                             color: "#fff",
@@ -1286,7 +1293,7 @@ export function CheckoutPage() {
                         <button
                           onClick={() => { setPayment("google"); setWalletSheet("google"); }}
                           aria-label="Pagar com Google Pay"
-                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                           style={{
                             background: "#fff",
                             color: "#000",
@@ -1726,12 +1733,12 @@ export function CheckoutPage() {
                         {appliedCoupon ? `${appliedCoupon} aplicado` : "Tenho um cupom"}
                       </span>
                       {appliedCoupon && (
-                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "rgba(18,146,76,0.75)" }}>
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "var(--buy-green-deep)" }}>
                           −{discountPct}%
                         </span>
                       )}
                     </span>
-                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: appliedCoupon ? "rgba(18,146,76,0.75)" : "rgba(var(--foreground-rgb), 0.4)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: appliedCoupon ? "var(--buy-green-deep)" : "rgba(var(--foreground-rgb), 0.4)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                       {appliedCoupon ? "Alterar" : "Adicionar"}
                     </span>
                   </button>
@@ -1752,7 +1759,7 @@ export function CheckoutPage() {
                             onChange={(e) => { setCoupon(e.target.value.toUpperCase()); setCouponError(""); }}
                             onKeyDown={(e) => e.key === "Enter" && handleApplyCoupon()}
                             aria-label="Código do cupom"
-                            className="flex-1 rounded-[var(--radius-card-sm)] px-3 py-2 text-ink-strong placeholder:text-ink-subtle focus:outline-none"
+                            className="flex-1 rounded-[var(--radius-card-sm)] px-3 py-2 text-ink-strong placeholder:text-ink-subtle"
                             style={{
                               background: "var(--surface-2)",
                               border: "1px solid var(--edge-subtle)",
@@ -1775,7 +1782,7 @@ export function CheckoutPage() {
                   </AnimatePresence>
                 </div>
 
-                {/* Tonante Points — clube de fidelidade (CheckoutPage) */}
+                {/* Ton Points — clube de fidelidade (CheckoutPage) */}
                 <div
                   className={`mb-4 overflow-hidden rounded-card-sm transition-colors ${
                     pointsApplied
@@ -1791,7 +1798,7 @@ export function CheckoutPage() {
                     <span className="flex items-center gap-2">
                       <PcyesCoin size={16} />
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.78)" }}>
-                        Tonante Points
+                        Ton Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.4)" }}>
                         {userPoints} pts
@@ -1829,7 +1836,7 @@ export function CheckoutPage() {
                             step={10}
                             value={pointsToUse}
                             onChange={(e) => setPointsToUse(Number(e.target.value))}
-                            aria-label="Tonante Points a usar"
+                            aria-label="Ton Points a usar"
                             className="w-full"
                             style={{ accentColor: "var(--amber-deep)" }}
                           />
@@ -1849,7 +1856,7 @@ export function CheckoutPage() {
                   {pointsValue > 0 && (
                     <div className="flex items-center justify-between">
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 600 }}>
-                        Tonante Points
+                        Ton Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 700 }}>
                         −{formatBRL(pointsValue)}
@@ -2275,7 +2282,7 @@ function CardBrand({ digits }: { digits: string }) {
   const wrap = (children: React.ReactNode, bg: string) => (
     <span
       className="absolute right-2.5 top-1/2 -translate-y-1/2 inline-flex h-7 w-11 items-center justify-center overflow-hidden"
-      style={{ background: bg, borderRadius: "var(--radius)", boxShadow: "inset 0 1px 0 rgba(var(--foreground-rgb), 0.18), 0 4px 12px -4px rgba(0,0,0,0.5)" }}
+      style={{ background: bg, borderRadius: "var(--radius)", boxShadow: "var(--shadow-discount-sm)" }}
       aria-label={`Bandeira ${brand}`}
     >
       {children}
@@ -2343,7 +2350,7 @@ function PointsStepper({
         value={value}
         onChange={(e) => onChange(clamp(Number(e.target.value.replace(/\D/g, "")) || 0))}
         aria-label="Quantidade de pontos"
-        className="num w-14 bg-transparent px-2 py-1 text-center text-ink-strong focus:outline-none"
+        className="num w-14 bg-transparent px-2 py-1 text-center text-ink-strong"
         style={{
           fontFamily: "var(--font-family-inter)",
           fontSize: "var(--text-sm)",
