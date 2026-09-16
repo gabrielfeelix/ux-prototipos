@@ -19,7 +19,7 @@ import {
   selecionar,
   lancamentos,
   maisVendidos,
-  primeiroInstrumento,
+  PRIMEIRO_VIOLAO,
 } from "./curadoria";
 
 /* HomeV2 — home do site.
@@ -57,12 +57,13 @@ import {
 
 const promoIds = CAMPANHA_ATIVA.produtos;
 
-/* Ordem de ESCOLHA, que não é a ordem em que as dobras aparecem: quem tem o
-   estoque mais estreito escolhe primeiro. Novidade é o que a loja marcou como
-   novidade — doze produtos — enquanto "primeiro violão" tem setenta e oito
-   violões de entrada pra escolher. Deixando o primeiro violão na frente, ele
-   levava quase todos os marcados e a dobra Novidades terminava preenchida
-   pelo catálogo geral, sem a pill "Novidade" que o card promete. */
+/* Ordem de ESCOLHA, que não é a ordem em que as dobras aparecem.
+   "Seu primeiro violão" escolhe primeiro: a dobra é os doze violões mais
+   baratos do catálogo, do mais barato ao mais caro, e qualquer item cedido
+   pra promoção ou pra novidade a obriga a completar com um violão mais caro
+   — aí ela deixa de ser o que promete. Sobram treze instrumentos marcados
+   como novidade fora desses doze, o bastante pra dobra Novidades continuar
+   inteira com a pill que o card estampa. */
 /* Pré-venda sai de PreOrderData, não da curadoria: é uma lista editorial com
    data de lançamento e lote, a mesma que abre o card de reserva na PDP. Sem
    dobra própria, esses seis produtos não apareciam em lugar nenhum da home —
@@ -74,12 +75,12 @@ const preVendaTodos = new Set(PRE_ORDER_ITEMS.map((item) => item.productId));
    miniatura embaixo da foto. */
 const preVendaIds = idsDe(selecionar({ pool: catalogo.filter((p) => preVendaTodos.has(p.id)), n: 12 }));
 
-const novidadesIds = idsDe(lancamentos(9, [...promoIds, ...preVendaIds]));
-
-const iniciantes = primeiroInstrumento(12, 1200, [...promoIds, ...preVendaIds, ...novidadesIds]);
+const iniciantes = PRIMEIRO_VIOLAO;
 const iniciantesIds = idsDe(iniciantes);
 
-const usadosAteAqui = [...promoIds, ...preVendaIds, ...novidadesIds, ...iniciantesIds];
+const novidadesIds = idsDe(lancamentos(9, [...iniciantesIds, ...promoIds, ...preVendaIds]));
+
+const usadosAteAqui = [...iniciantesIds, ...promoIds, ...preVendaIds, ...novidadesIds];
 
 const topIds = idsDe(maisVendidos(12, usadosAteAqui));
 /* seleção fixa, escolhida pela foto — ver ACESSORIOS_BONITOS em v2/curadoria.ts */

@@ -354,7 +354,20 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
             mista, os cards com promoção empurravam o preço 17px pra baixo e a
             linha de preço da dobra voltava a ficar em serra — o mesmo defeito
             que a faixa de variantes tinha. */}
-        <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13px", color: "#8a8a8a", textDecoration: "line-through", lineHeight: 1.3, minHeight: "17px" }}>
+        <div
+          className="num"
+          style={{
+            fontFamily: "var(--font-family-inter)",
+            fontSize: "13px",
+            color: "#8a8a8a",
+            /* o riscado só existe quando há preço antigo: sobre o espaço em
+               branco que reserva a altura, ele virava um tracinho solto no
+               card sem promoção. */
+            textDecoration: discount > 0 && p.oldPriceNum ? "line-through" : "none",
+            lineHeight: 1.3,
+            minHeight: "17px",
+          }}
+        >
           {discount > 0 && p.oldPriceNum ? formatBRL(p.oldPriceNum) : "\u00a0"}
         </div>
         <div className="flex flex-wrap items-baseline gap-x-2">

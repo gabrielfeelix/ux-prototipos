@@ -19,7 +19,12 @@ const fallback = (category: string, subMatch?: string) => {
 };
 
 /* Instrumento é alto e fino: em `contain` ele vira um palito no card.
-   `crop` enquadra o corpo (parte mais larga) e deixa o braço sair pra fora. */
+   `crop` enquadra o corpo (parte mais larga) e deixa o braço sair pra fora.
+
+   As artes de estúdio (set/2026) já vêm quadradas, com o produto na escala certa
+   e sombra de contato no chão branco, então elas entram sem crop, zoom ou flip —
+   recortar de novo cortaria a sombra, que é metade do desenho da foto. As props
+   continuam aqui para quando alguma categoria voltar a usar arte recortada. */
 type Cat = {
   label: string;
   art: string;
@@ -40,20 +45,17 @@ type Cat = {
 
 const CATS: Cat[] = [
   /* 1ª linha — instrumentos, na ordem de tamanho do catálogo */
-  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Violões", art: "/categorias/violao.png", href: getCatalogHref({ category: "Violões" }), fallbackImg: fallback("Violões") },
-  /* /categorias/guitarra.png é um contrabaixo preto (4 cordas, 4 tarraxas em
-     linha, corpo Jazz Bass) — mesmo instrumento do card ao lado. Até a arte
-     certa existir, cai na foto de uma guitarra de verdade do catálogo. */
-  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Guitarras", art: "/categorias/guitarra-eletrica.png", href: getCatalogHref({ category: "Guitarras" }), fallbackImg: fallback("Guitarras", "star light") },
-  { crop: true, focus: "50% 100%", zoom: 1.4, flip: true, offsetX: 3.5, label: "Contrabaixos", art: "/categorias/contrabaixo.png", href: getCatalogHref({ category: "Contrabaixos" }), fallbackImg: fallback("Contrabaixos") },
+  { label: "Violões", art: "/categorias/violao.png", href: getCatalogHref({ category: "Violões" }), fallbackImg: fallback("Violões") },
+  { label: "Guitarras", art: "/categorias/guitarra-eletrica.png", href: getCatalogHref({ category: "Guitarras" }), fallbackImg: fallback("Guitarras", "star light") },
+  { label: "Contrabaixos", art: "/categorias/contrabaixo.png", href: getCatalogHref({ category: "Contrabaixos" }), fallbackImg: fallback("Contrabaixos") },
   /* Baterias é linha própria da Tonante (Sonora) e não aparecia na home */
   { label: "Baterias", art: "/categorias/bateria.png", href: getCatalogHref({ category: "Baterias" }), fallbackImg: fallback("Baterias") },
   /* Violas e ukuleles moram dentro de "Violões": sem vitrine aqui ninguém acha */
-  { crop: true, focus: "50% 100%", zoom: 1.4, offsetX: 8, label: "Violas", art: "/categorias/viola.png", href: getCatalogHref({ category: "Violões", search: "viola caipira" }), fallbackImg: fallback("Violões", "viola ") },
-  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Ukuleles", art: "/categorias/ukulele.png", href: getCatalogHref({ category: "Violões", search: "ukulele" }), fallbackImg: fallback("Violões", "ukulele") },
+  { label: "Violas", art: "/categorias/viola.png", href: getCatalogHref({ category: "Violões", search: "viola caipira" }), fallbackImg: fallback("Violões", "viola ") },
+  { label: "Ukuleles", art: "/categorias/ukulele.png", href: getCatalogHref({ category: "Violões", search: "ukulele" }), fallbackImg: fallback("Violões", "ukulele") },
 
   /* 2ª linha — o que se compra junto do instrumento */
-  { artScale: 0.85, label: "Cordas & Encordoamentos", art: "/categorias/encordoamento.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), fallbackImg: fallback("Cordas & Encordoamentos") },
+  { label: "Cordas & Encordoamentos", art: "/categorias/encordoamento.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), fallbackImg: fallback("Cordas & Encordoamentos") },
   { label: "Suportes & Pedestais", art: "/categorias/suporte.png", href: getCatalogHref({ category: "Suportes" }), fallbackImg: fallback("Suportes") },
   { label: "Correias", art: "/categorias/correias.png", href: getCatalogHref({ category: "Acessórios", search: "correia" }), fallbackImg: fallback("Acessórios", "correia") },
   { label: "Cabos", art: "/categorias/cabos.png", href: getCatalogHref({ category: "Acessórios", search: "cabo" }), fallbackImg: fallback("Acessórios", "shogun") },
@@ -86,12 +88,14 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
       <div
         className={
           round
-            ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden rounded-full p-6 transition-colors`
+            ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden rounded-full transition-colors`
             : "flex min-h-0 w-full flex-1 items-end justify-center overflow-hidden"
         }
         style={
           round
-            ? { background: "var(--surface-2)" }
+            /* a arte de estúdio já traz o próprio fundo; o círculo só precisa de
+               um contorno pra não sumir na página branca */
+            ? { background: "#ffffff", border: "1px solid var(--edge)" }
             : undefined
         }
       >
@@ -118,9 +122,16 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
             alt=""
             aria-hidden="true"
             onError={() => setSrc(cat.fallbackImg)}
-            className={`max-h-[86%] w-auto max-w-[70%] object-contain ${round ? "object-center" : "object-bottom"}`}
+            /* no círculo a foto preenche tudo (object-cover): com `contain` o
+               quadrado branco da arte aparecia recortado contra o fundo do
+               card, e lia como imagem cortada do lado direito. */
+            className={
+              round
+                ? "h-full w-full object-cover object-center"
+                : "max-h-[92%] w-auto max-w-[80%] object-contain object-bottom"
+            }
             style={{
-              mixBlendMode: "multiply",
+              mixBlendMode: round ? undefined : "multiply",
               transform: `translateX(${cat.offsetX ?? 0}%) scale(${(cat.artScale ?? 1) * (hover ? 1.06 : 1)})${cat.flip ? " scaleX(-1)" : ""}`,
               transformOrigin: round ? "50% 50%" : "50% 100%",
               transition: "transform .45s ease-out",

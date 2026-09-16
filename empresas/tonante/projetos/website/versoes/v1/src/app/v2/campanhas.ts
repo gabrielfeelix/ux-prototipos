@@ -1,4 +1,11 @@
-import { promocoes, maiorDesconto, instrumentos, idsDe, resumoDaSelecao } from "./curadoria";
+import {
+  promocoes,
+  maiorDesconto,
+  instrumentos,
+  idsDe,
+  resumoDaSelecao,
+  PRIMEIRO_VIOLAO_IDS,
+} from "./curadoria";
 
 /* Campanhas da home — o primeiro carrossel depois do hero é o primeiro
    contato: ele oferta, não cataloga. Por isso não tem filtro nem aba; ele
@@ -24,7 +31,9 @@ export type Campanha = {
 
 /* Seleção da promoção: desconto real, instrumento na frente, teto por tipo
    (ver v2/curadoria.ts) — é o que tira cabo e suporte da primeira dobra. */
-const emPromocao = promocoes(12);
+/* Os violões de entrada saem daqui: a dobra do primeiro violão escolhe por
+   preço e escolhe primeiro (ver PRIMEIRO_VIOLAO em v2/curadoria.ts). */
+const emPromocao = promocoes(12, PRIMEIRO_VIOLAO_IDS);
 const pctPromo = maiorDesconto(emPromocao);
 /* o título lê a própria seleção: prometer "contrabaixo" com a fileira cheia
    de cavaco é o mesmo erro de "Mês do Músico", só que mais caro. */

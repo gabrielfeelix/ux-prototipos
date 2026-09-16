@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { BannerShelf, type ShelfBanner } from "./BannerShelf";
 import { allProducts, type Product } from "../components/productsData";
 import { getCatalogHref, getVisibleCatalogProducts } from "../components/productPresentation";
-import { primeiroInstrumento } from "./curadoria";
+import { PRIMEIRO_VIOLAO } from "./curadoria";
 import { formatBRL, getPixPrice } from "../components/productEnhancements";
 
 /* OfertasV2 — prateleira com banner fixo à direita + trilho de produtos.
@@ -30,8 +30,8 @@ const BANNER: Omit<ShelfBanner, "headline"> = {
 };
 
 interface OfertasV2Props {
-  /** seleção vinda da home (ver v2/curadoria.ts). Sem ela, cai nos violões de
-      entrada do catálogo — a seção nunca aparece vazia. */
+  /** seleção vinda da home (ver v2/curadoria.ts). Sem ela, cai nos doze
+      violões mais baratos do catálogo — a seção nunca aparece vazia. */
   productIds?: number[];
 }
 
@@ -41,7 +41,7 @@ export function OfertasV2({ productIds }: OfertasV2Props) {
     const escolhidos = (productIds ?? [])
       .map((id) => visivel.find((p) => p.id === id))
       .filter(Boolean) as Product[];
-    return escolhidos.length > 0 ? escolhidos : primeiroInstrumento(12);
+    return escolhidos.length > 0 ? escolhidos : PRIMEIRO_VIOLAO;
   }, [productIds]);
 
   /* mesmo preço que o card mostra (pix), senão a arte promete um valor e o

@@ -320,7 +320,17 @@ export function instrumentos(n = 12, categorias = CATEGORIAS_INSTRUMENTO, exceto
   });
 }
 
-/** Primeiro instrumento: violão de entrada, ordenado por preço. */
+/** Primeiro violão: só violão, os mais baratos, do mais barato ao mais caro.
+ *
+ *  Duas coisas que a versão anterior errava. A categoria "Violões" do catálogo
+ *  guarda cavaco, viola e ukulele (25 dos 78 itens) — a dobra prometia
+ *  primeiro violão e mostrava ukulele, então aqui o nome tem que ABRIR com
+ *  violão. E a ordem era por `peso` (apelo + review + sorteio) e só depois
+ *  reordenada por preço: a fileira saía crescente, mas não eram os mais
+ *  baratos. Quem nunca comprou instrumento decide por preço, então o corte é
+ *  preço puro. Sem sorteio do dia: preço não é vitrine, é ranking. */
+const NOME_ABRE_COM_VIOLAO = /^violao/;
+
 export function primeiroInstrumento(n = 12, teto = 1200, exceto: number[] = []) {
   const bloqueados = new Set(exceto);
   return catalogo
@@ -328,13 +338,20 @@ export function primeiroInstrumento(n = 12, teto = 1200, exceto: number[] = []) 
       (p) =>
         p.category === "Violões" &&
         tipoDoProduto(p) === "instrumento" &&
+        NOME_ABRE_COM_VIOLAO.test(semAcento(p.name)) &&
         p.priceNum <= teto &&
         !bloqueados.has(p.id),
     )
-    .sort((a, b) => peso(b) - peso(a))
-    .slice(0, n)
-    .sort((a, b) => a.priceNum - b.priceNum);
+    .sort((a, b) => a.priceNum - b.priceNum)
+    .slice(0, n);
 }
+
+/* A dobra "Seu primeiro violão" escolhe ANTES de todas as outras da home.
+   Preço é o recorte dela: se ela ceder um violão barato pra promoção ou pra
+   novidade, completa a fileira com o 13º mais barato e a dobra deixa de ser
+   "os mais baratos". As outras seleções recebem estes ids em `exceto`. */
+export const PRIMEIRO_VIOLAO = primeiroInstrumento(12);
+export const PRIMEIRO_VIOLAO_IDS = PRIMEIRO_VIOLAO.map((p) => p.id);
 
 /** O que se leva junto pra tocar hoje: microfone, afinador, correia, palheta,
     cabo — nessa ordem de apelo. Suporte entra, mas por último e pouco. */
