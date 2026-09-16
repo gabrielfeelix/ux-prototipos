@@ -56,13 +56,13 @@ type Preset = { key: string; label: string; desc: string; icon: LucideIcon; base
 /* Os add-ons são o que o instrumento PEDE junto — e o catálogo não tem capa,
    então o kit iniciante fecha com afinador, correia e palheta. */
 const RECEITAS = [
-  { key: "iniciante", label: "Tô começando agora", desc: "Kit Iniciante — pra dar os primeiros acordes", icon: Guitar,
+  { key: "iniciante", label: "Tô começando agora", desc: "Kit Iniciante: para dar os primeiros acordes", icon: Guitar,
     base: () => baseInstrumento("Violões", ["Lorenzzo", "Clássico"]),
     groups: [["Afinador"], ["Correia"], ["Palheta"]] },
-  { key: "palco", label: "Toco ao vivo", desc: "Kit Palco — pronto pra subir no palco", icon: Music,
+  { key: "palco", label: "Toco ao vivo", desc: "Kit Palco: pronto para subir no palco", icon: Music,
     base: () => baseInstrumento("Guitarras", ["Cecille", "Les Paul", "Strato"]),
     groups: [["Cabo DE Guitarra", "Cabo P10", "Cabo"], ["Correia"], ["Afinador"]] },
-  { key: "estudio", label: "Gravo em casa", desc: "Kit Estúdio — grave com qualidade", icon: Mic,
+  { key: "estudio", label: "Gravo em casa", desc: "Kit Estúdio: grave com qualidade", icon: Mic,
     base: () => baseMicrofone(),
     groups: [["Cabo DE Microf", "Cabo Para Microf", "Cabo"], ["Pedestal", "Suporte"], ["Damper", "Plug"]] },
 ];

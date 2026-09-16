@@ -341,13 +341,13 @@ export function DriverDetailPage() {
               <DownloadCard
                 kind="driver"
                 file={entry.driver}
-                title={`Driver — ${entry.name}`}
+                title={`Driver: ${entry.name}`}
                 description="Software completo de instalação e configuração do produto."
               />
               <DownloadCard
                 kind="manual"
                 file={entry.manual}
-                title={`Manual do Usuário — ${entry.name}`}
+                title={`Manual do Usuário: ${entry.name}`}
                 description="Guia oficial com instruções de uso, especificações e cuidados."
               />
             </div>

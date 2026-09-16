@@ -286,5 +286,93 @@
   "licenca": "CC0",
   "pagina": "https://upload.wikimedia.org/wikipedia/commons/9/94/Audio_files_of_spanish_guitar_chords_29.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
   "corte": 1.35
+ },
+ {
+  "fam": "bateria",
+  "file": "/audio/bateria/01.mp3",
+  "origem": "Jazz ride pattern.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Jazz_ride_pattern.ogg",
+  "corte": 1.2
+ },
+ {
+  "fam": "bateria",
+  "file": "/audio/bateria/02.mp3",
+  "origem": "Shuffle pattern.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Shuffle_pattern.ogg",
+  "corte": 0.8
+ },
+ {
+  "fam": "bateria",
+  "file": "/audio/bateria/03.mp3",
+  "origem": "Drums.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Drums.ogg",
+  "corte": 60.0
+ },
+ {
+  "fam": "bateria",
+  "file": "/audio/bateria/04.mp3",
+  "origem": "Drums.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Drums.ogg",
+  "corte": 244.6
+ },
+ {
+  "fam": "teclado",
+  "file": "/audio/teclado/01.mp3",
+  "origem": "CPS-101-“Demo”.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:CPS-101-%E2%80%9CDemo%E2%80%9D.ogg",
+  "corte": 16.0
+ },
+ {
+  "fam": "teclado",
+  "file": "/audio/teclado/02.mp3",
+  "origem": "CPS-101-“Demo”.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:CPS-101-%E2%80%9CDemo%E2%80%9D.ogg",
+  "corte": 4.5
+ },
+ {
+  "fam": "teclado",
+  "file": "/audio/teclado/03.mp3",
+  "origem": "Chromatic.scale.down.digital.ogg",
+  "licenca": "CC0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Chromatic.scale.down.digital.ogg",
+  "corte": 3.0
+ },
+ {
+  "fam": "teclado",
+  "file": "/audio/teclado/04.mp3",
+  "origem": "Chromatic.scale.down.digital.ogg",
+  "licenca": "CC0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Chromatic.scale.down.digital.ogg",
+  "corte": 24.0
+ },
+ {
+  "fam": "flauta",
+  "file": "/audio/flauta/01.mp3",
+  "origem": "SopranoRecorder.ogg",
+  "licenca": "Public domain",
+  "pagina": "https://commons.wikimedia.org/wiki/File:SopranoRecorder.ogg",
+  "corte": 1.6
+ },
+ {
+  "fam": "flauta",
+  "file": "/audio/flauta/02.mp3",
+  "origem": "Piermic - Improvisation with Sopranino Recorder (2015).mp3",
+  "licenca": "CC0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Piermic_-_Improvisation_with_Sopranino_Recorder_(2015).mp3",
+  "corte": 4.0
+ },
+ {
+  "fam": "flauta",
+  "file": "/audio/flauta/03.mp3",
+  "origem": "Piermic - Improvisation with Sopranino Recorder (2015).mp3",
+  "licenca": "CC0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Piermic_-_Improvisation_with_Sopranino_Recorder_(2015).mp3",
+  "corte": 12.0
  }
 ]

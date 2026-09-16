@@ -23,7 +23,6 @@ export function PreOrderPill({ info, compact = false, className = "" }: PreOrder
         letterSpacing: "0.16em",
         textTransform: "uppercase",
         padding: compact ? "3px 7px" : "4px 9px",
-        boxShadow: "var(--shadow-preorder-pill)",
       }}
     >
       <Rocket size={compact ? 8 : 9} strokeWidth={2.6} />

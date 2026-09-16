@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import { X } from "lucide-react";
 
 const MESSAGES = [
-  "Feita de Histórias desde 1954 — o Rei dos Violões",
+  "Feita de Histórias desde 1954 · o Rei dos Violões",
   "Frete grátis acima de R$ 299 para todo o Brasil",
   "Até 10x sem juros em toda a loja",
   "Garantia Tonante de 2 anos em todos os instrumentos",

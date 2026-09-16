@@ -32,7 +32,7 @@ const FAMILIES: Family[] = [
     gauge: "029 / 044",
     gaugeNote: "tensão alta",
     title: "Nylon para violão",
-    use: "Macia pros dedos — clássico, bossa e roda de sala.",
+    use: "Macia para os dedos: clássico, bossa e roda de sala.",
     pills: ["6 cordas", "cobre prata", "p/ iniciante"],
     from: "#5d3f1a",
     to: "#9c7138",
@@ -43,7 +43,7 @@ const FAMILIES: Family[] = [
     gauge: "011 / 052",
     gaugeNote: "aço bronze 85/15",
     title: "Aço para violão",
-    use: "Brilho e projeção — folk, roda e palco.",
+    use: "Brilho e projeção: folk, roda e palco.",
     pills: ["6 cordas", "bronze 85/15", "som brilhante"],
     from: "#6f4214",
     to: "#c9863f",
@@ -54,7 +54,7 @@ const FAMILIES: Family[] = [
     gauge: "009 / 042",
     gaugeNote: "níquel plated steel",
     title: "Níquel para guitarra",
-    use: "Ataque rápido e bend fácil — do ensaio ao solo.",
+    use: "Ataque rápido e bend fácil: do ensaio ao solo.",
     pills: ["6 cordas", "extra light", "bend fácil"],
     from: "#16130f",
     to: "#4a443c",
@@ -65,7 +65,7 @@ const FAMILIES: Family[] = [
     gauge: "040 / 095",
     gaugeNote: "níquel plated steel",
     title: "Níquel para baixo",
-    use: "Grave firme e definido — pra segurar o groove.",
+    use: "Grave firme e definido: para segurar o groove.",
     pills: ["4 cordas", "light", "groove"],
     from: "#3f2310",
     to: "#7d4a28",
@@ -76,7 +76,7 @@ const FAMILIES: Family[] = [
     gauge: "Cebolão Ré",
     gaugeNote: "afinação tradicional · 10 cordas",
     title: "Viola caipira",
-    use: "O som do interior do Brasil — afinação cebolão, a mais usada na viola.",
+    use: "O som do interior do Brasil: afinação cebolão, a mais usada na viola.",
     pills: ["10 cordas", "níquel", "tensão média"],
     from: "#6f4f1e",
     to: "#b08948",
@@ -108,7 +108,7 @@ function FamilyCard({ f }: { f: Family }) {
         boxShadow: "0 18px 44px -22px rgba(17,17,17,0.40)",
         // altura definida pelo conteúdo (CTA nunca corta); flex stretch iguala os cards
       }}
-      aria-label={`${f.title} — ${product.name}`}
+      aria-label={`${f.title}: ${product.name}`}
     >
       <StringsTexture />
 
@@ -195,7 +195,7 @@ export function EncordoamentosShowcase() {
           <div>
             <SectionHeader eyebrow="Cordas & Encordoamentos" title="Qual corda é a sua?" size="lg" weight={700} />
             <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 15, color: "var(--ink-soft)", margin: "14px 0 0" }}>
-              A corda certa muda o som — escolha pela família, a gente explica o resto.
+              A corda certa muda o som. Escolha pela família, a gente explica o resto.
             </p>
           </div>
           <div className="hidden items-center gap-3 md:flex">

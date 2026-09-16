@@ -6,20 +6,25 @@ import { Eye, Star, Play, Square } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useCart } from "../components/CartContext";
 import { type Product } from "../components/productsData";
-import { getPrimaryProductImage, getProductImagesRanked, getProductSwatches, upgradeProductImage } from "../components/productPresentation";
+import { getPrimaryProductImage, getProductImagesRanked, getProductSwatches, getSwatchImage, upgradeProductImage } from "../components/productPresentation";
 import { allProducts } from "../components/productsData";
 import { FRAMING_POR_FOTO, INSTRUMENT_FRAMING, FRAMING_PADRAO } from "./instrumentFraming";
 import { tipoDoProduto } from "./curadoria";
 import { isFotoAmbientada, isFotoDesproporcional } from "../components/photoBackdrop";
-import { getPixPrice, formatBRL } from "../components/productEnhancements";
+import { getPixPrice, formatBRL, getInstallmentCount, getInstallmentValue } from "../components/productEnhancements";
 import { getProductUrl } from "../lib/slug";
+import { getPreOrderInfo } from "../components/PreOrderData";
+import { PreOrderPill } from "../components/section";
 import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
+import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
 
 /* ProductCardV2 — card do teste /v2 (referência: tema Helix).
    Foto numa caixa cinza-clara sem borda, badges no topo, ações que só
    aparecem no hover, e fora da caixa: miniaturas, nome e preço. */
 
-const GREEN = "#127a45";
+/* um verde só na página, vindo do token de compra: selo de desconto, "à vista
+   no PIX" e botão Comprar agora. Ver --buy-green em styles/theme.css. */
+const GREEN = "var(--buy-green)";
 
 function Stars({ rating, reviews }: { rating: number; reviews: number }) {
   return (
@@ -54,19 +59,27 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
      não fotos extras: cada uma é outro produto da mesma família. Clicar
      troca o produto exibido — nome, preço e link inclusive. */
   const swatches = getProductSwatches(base);
+  /* Produto sem irmã de cor ainda mostra UMA miniatura: a dele. A fileira
+     deixa de ser um buraco de 40px reservado e passa a dizer a mesma coisa
+     nos dois casos — "este é o acabamento" —, com a anatomia do card igual
+     da primeira à última coluna. */
+  const acabamentos = swatches.length > 1
+    ? swatches
+    : [{ color: "", label: base.name, productId: base.id, image: getSwatchImage(base), name: base.name }];
   const [variantId, setVariantId] = useState(base.id);
   const p = (variantId !== base.id ? allProducts.find((x) => x.id === variantId) : undefined) ?? base;
   const [shot, setShot] = useState(0);
-  const [ctaHover, setCtaHover] = useState(false);
   const [playing, setPlaying] = useState(false);
-  // só violão/guitarra/baixo toca timbre; corda/acessório não
-  const tocaTimbre = ["Violões", "Guitarras", "Contrabaixos"].includes(p.category);
-  const preset = tocaTimbre ? presetForProduct(p) : null;
-  /* Enquadramento é outra pergunta: cavaco, viola e ukulele moram na categoria
-     "Acessórios" e, tratados como acessório, apareciam em miniatura no meio do
-     branco ao lado de um violão. Quem é instrumento pela curadoria recebe o
-     mesmo corte no corpo — ver v2/curadoria.ts e instrumentFraming.ts. */
+  /* Uma pergunta só, usada em duas decisões: som e enquadramento. Bateria,
+     teclado, flauta, cavaco, viola e ukulele moram em "Acessórios" no dump do
+     ERP — tratados pela categoria, ficavam mudos e ainda apareciam em
+     miniatura no meio do branco ao lado de um violão. Corda, cabo e suporte
+     seguem sem play. Ver v2/curadoria.ts e instrumentFraming.ts. */
   const isInstrument = tipoDoProduto(p) === "instrumento";
+  /* Amostra real (Wikimedia CC0, ver lib/timbre) ganha do synth; gravação do
+     próprio modelo, quando existir, ganha das duas. */
+  const amostra = isInstrument ? (p.audioSample ?? sampleForProduct(p)) : null;
+  const preset = isInstrument && !amostra ? presetForProduct(p) : null;
 
   const to = href ?? getProductUrl(p);
   const primary = getPrimaryProductImage(p);
@@ -116,7 +129,17 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
     };
   }, [p.id]);
   const discount = p.oldPriceNum ? Math.round((1 - p.priceNum / p.oldPriceNum) * 100) : 0;
+  /* parcelamento sobre o preço de cartão (priceNum), não sobre o do PIX: PIX é
+     à vista, e mostrar a parcela do valor com desconto de PIX prometeria um
+     total que o checkout não cobra. */
+  const parcelas = getInstallmentCount(p.priceNum);
+  const valorParcela = getInstallmentValue(p.priceNum);
   const isNew = p.badge?.toLowerCase().includes("nov");
+  /* Pré-venda é estado do produto, não recorte de vitrine: vem de
+     PreOrderData (os mesmos itens que abrem card com timer na PDP). Quando
+     tem pré-venda, ela manda — o produto ainda não está à venda, e anunciar
+     "Novidade" ao lado seria oferecer duas coisas diferentes no mesmo card. */
+  const preOrder = getPreOrderInfo(p.id);
 
   const foto = thumbs[shot] ?? { src: primary, ratio: 1 };
   /* Instrumento entra sempre enquadrado no corpo, com `contain` + origem na
@@ -162,29 +185,37 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
               #{rank}
             </span>
           )}
+          {/* ordem: o que o produto É (pré-venda, novidade) antes de quanto
+              ele custa — o desconto fecha a pilha, encostado na foto. */}
+          {preOrder ? (
+            <PreOrderPill info={preOrder} />
+          ) : isNew ? (
+            <span className="rounded-pill px-2.5 py-1" style={{ backgroundImage: "var(--gradient-novelty-blue)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "11px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              Novidade
+            </span>
+          ) : null}
           {discount > 0 && (
             <span className="num rounded-pill px-3 py-1.5" style={{ background: GREEN, color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "13px", fontWeight: 700 }}>
               -{discount}%
             </span>
           )}
-          {isNew && (
-            <span className="rounded-pill px-2.5 py-1" style={{ background: "var(--ink-strong)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "12px", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}>
-              Novo
-            </span>
-          )}
         </div>
 
         {/* instrumento: ouvir o timbre. catálogo: espiar. home não-instrumento: nada */}
-        {preset ? (
+        {amostra || preset ? (
           <button
             onClick={() => {
               if (playing) {
                 stopStrum();
+                stopSample();
                 setPlaying(false);
                 return;
               }
+              stopStrum();
+              stopSample();
               setPlaying(true);
-              playStrum(preset, () => setPlaying(false));
+              if (amostra) playSample(amostra, () => setPlaying(false));
+              else if (preset) playStrum(preset, () => setPlaying(false));
             }}
             aria-label={playing ? `Parar o timbre de ${p.name}` : `Ouvir o timbre de ${p.name}`}
             aria-pressed={playing}
@@ -245,14 +276,15 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
         </Link>
 
         {/* ação — aparece no hover, flutuando dentro da caixa */}
+        {/* verde de compra, os mesmos três estados do CTA da PDP (tokens
+            --buy-green*). O hover do CARD revela o botão; o hover do BOTÃO
+            escurece — dois gestos diferentes, e por isso o `translate/opacity`
+            fica em group-hover e a cor em hover próprio. */}
         <button
           onClick={add}
-          onMouseEnter={() => setCtaHover(true)}
-          onMouseLeave={() => setCtaHover(false)}
-          className="absolute inset-x-3 bottom-3 z-[2] flex h-12 translate-y-2.5 cursor-pointer items-center justify-center rounded-pill opacity-0 transition-[opacity,translate,background-color,color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:translate-y-0 group-hover/card:opacity-100"
+          className="absolute inset-x-3 bottom-3 z-[2] flex h-12 translate-y-2.5 cursor-pointer items-center justify-center rounded-pill opacity-0 transition-[opacity,translate,background-color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:translate-y-0 group-hover/card:opacity-100 [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] active:scale-[0.98]"
           style={{
-            background: ctaHover ? "var(--ink-strong)" : "#ffffff",
-            color: ctaHover ? "#ffffff" : "var(--ink-strong)",
+            color: "#ffffff",
             padding: "6px 10px",
             fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 600,
           }}
@@ -261,37 +293,46 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
         </button>
       </div>
 
-      {/* variantes de acabamento — cada miniatura é outro produto */}
-      {swatches.length > 1 && (
-        <div className="mt-3.5 flex items-center gap-2">
-          {swatches.map((v) => {
-            const on = v.productId === p.id;
-            return (
-              <button
-                key={v.productId}
-                onClick={() => { setVariantId(v.productId); setShot(0); }}
-                aria-label={`Ver acabamento ${v.label}`}
-                aria-pressed={on}
-                title={v.label}
-                className="relative h-10 w-10 cursor-pointer overflow-hidden transition-[outline-color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.06]"
-                style={{
-                  background: "linear-gradient(158deg, #fbfbfc, #eaecee)",
-                  borderRadius: "8px",
-                  outline: on ? "1.5px solid var(--ink-strong)" : "1px solid var(--edge)",
-                  outlineOffset: "-1.5px",
-                }}
-              >
-                <ImageWithFallback src={v.image} alt="" className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />
-              </button>
-            );
-          })}
-        </div>
-      )}
+      {/* variantes de acabamento — cada miniatura é outro produto. A fileira
+          existe em todo card, com uma miniatura no mínimo: além de manter
+          nome e preço na mesma altura em toda a fileira (cada card mede a
+          própria coluna), o card de produto sem irmã de cor deixa de parecer
+          um card quebrado ao lado dos que têm três. */}
+      <div className="mt-3.5 flex items-center gap-2">
+        {acabamentos.map((v) => {
+          const on = v.productId === p.id;
+          const unico = acabamentos.length === 1;
+          return (
+            <button
+              key={v.productId}
+              disabled={unico}
+              onClick={() => { setVariantId(v.productId); setShot(0); }}
+              aria-label={unico ? `Acabamento ${v.label}` : `Ver acabamento ${v.label}`}
+              aria-pressed={on}
+              title={v.label}
+              className={`relative h-10 w-10 overflow-hidden transition-[outline-color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${unico ? "cursor-default" : "cursor-pointer hover:scale-[1.06]"}`}
+              style={{
+                background: "linear-gradient(158deg, #fbfbfc, #eaecee)",
+                borderRadius: "8px",
+                outline: on ? "2px solid var(--ink-soft)" : "1px solid var(--edge)",
+                outlineOffset: "-2px",
+              }}
+            >
+              <ImageWithFallback src={v.image} alt="" className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />
+            </button>
+          );
+        })}
+      </div>
 
+      {/* uma linha e trunca: nome de catálogo de instrumento vem com modelo,
+          medida e código ("Violão Elétrico Ámbar 41" - Folk - Tampo em Mogno -
+          EQ 5 Bandas"), e duas linhas deixavam cada card de uma altura — a
+          fileira inteira desalinha no preço. O nome completo está na PDP. */}
       <Link
         to={to}
-        className="mt-3.5 line-clamp-2"
-        style={{ fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 400, lineHeight: 1.4, color: "#333333" }}
+        className="mt-3.5 truncate"
+        title={p.name}
+        style={{ fontFamily: "var(--font-family-inter)", fontSize: "16px", fontWeight: 500, lineHeight: 1.4, color: "#333333" }}
       >
         {p.name}
       </Link>
@@ -300,18 +341,36 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
         <Stars rating={p.rating} reviews={p.reviews} />
       </div>
 
-      <div className="mt-1.5 flex items-baseline gap-2">
-        <span
-          className="num"
-          style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: discount > 0 ? GREEN : "#333333" }}
-        >
-          {formatBRL(getPixPrice(p))}
-        </span>
-        {p.oldPriceNum && (
-          <span className="num" style={{ fontSize: "14px", color: "#8a8a8a", textDecoration: "line-through" }}>
-            {formatBRL(p.oldPriceNum)}
+      {/* bloco de preço em três andares, na ordem em que a decisão acontece:
+          de quanto era → quanto é à vista → como parcela. O verde é do PIX e
+          só dele; o desconto já se anuncia no riscado e no selo sobre a foto,
+          então o valor grande fica em tinta normal e o olho não disputa. */}
+      <div className="mt-1.5">
+        {/* A linha do riscado ocupa altura MESMO sem desconto: numa fileira
+            mista, os cards com promoção empurravam o preço 17px pra baixo e a
+            linha de preço da dobra voltava a ficar em serra — o mesmo defeito
+            que a faixa de variantes tinha. */}
+        <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13px", color: "#8a8a8a", textDecoration: "line-through", lineHeight: 1.3, minHeight: "17px" }}>
+          {discount > 0 && p.oldPriceNum ? formatBRL(p.oldPriceNum) : "\u00a0"}
+        </div>
+        <div className="flex flex-wrap items-baseline gap-x-2">
+          <span
+            className="num"
+            style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+          >
+            {formatBRL(getPixPrice(p))}
           </span>
-        )}
+          <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", fontWeight: 600, color: GREEN, whiteSpace: "nowrap" }}>
+            à vista no PIX
+          </span>
+        </div>
+        {/* a linha sai em TODO card, inclusive quando o plano dá 1x (parcela
+            mínima de R$50, ver productEnhancements): card sem ela ficava mais
+            baixo que o vizinho e a fileira desalinhava de novo — e o "sem
+            juros no cartão" é informação de pagamento, não só de parcelamento. */}
+        <div className="num truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "#6b6b6b", marginTop: "3px", lineHeight: 1.3 }}>
+          {parcelas}x de {formatBRL(valorParcela)} sem juros no cartão
+        </div>
       </div>
     </article>
   );

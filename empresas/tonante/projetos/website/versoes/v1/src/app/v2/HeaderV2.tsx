@@ -5,9 +5,10 @@ import { Link, useLocation, useNavigate } from "react-router";
 import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
   Instagram, Facebook, Youtube, Store, Headphones, Truck, CreditCard, Guitar,
-  Heart, Package, LogOut, HelpCircle, Hand,
+  Heart, Package, LogOut, HelpCircle, Hand, MessageCircle,
   type LucideIcon,
 } from "lucide-react";
+import { MusicianStoryModal } from "../components/MusicianStoryModal";
 import { useCart } from "../components/CartContext";
 import { useAuth } from "../components/AuthContext";
 import { useFavorites } from "../components/FavoritesContext";
@@ -53,17 +54,19 @@ const CATEGORIAS = [
   { label: "Suportes", category: "Suportes" },
 ];
 
+/* depois das categorias, os atalhos que não são catálogo */
 const NAV = [
   { label: "Ofertas", href: "/produtos?promo=1" },
-  { label: "Linhas Tonante", href: getCatalogHref({ category: "Violões" }) },
   { label: "Monte seu kit", href: "/produtos" },
-  { label: "A Tonante", href: "/quem-somos" },
 ];
 
 /* Conteúdo do mega menu derivado do catálogo — subcategorias reais e os
    destaques mais avaliados de cada categoria. */
 const catalog = getVisibleCatalogProducts(allProducts);
 const norm = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+/* tags que são família de produto, não tipo — não viram bolha de subcategoria */
+const TAGS_FORA = new Set(["cabo", "cabos", "acessorios", "suportes", "capa", "microfone", "baterias"]);
 
 const MEGA = CATEGORIAS.map(({ label, category }) => {
   const scope = catalog.filter((p) => p.category === category);
@@ -74,13 +77,20 @@ const MEGA = CATEGORIAS.map(({ label, category }) => {
   for (const p of scope) {
     for (const t of p.tags ?? []) {
       if (norm(t) === norm(label) || norm(t) === norm(category)) continue;
+      if (TAGS_FORA.has(norm(t))) continue;
       freq.set(t, (freq.get(t) ?? 0) + 1);
     }
   }
   const tipos = [...freq.entries()]
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 8)
-    .map(([t, n]) => ({ label: t, count: n, href: getCatalogHref({ category, search: t }) }));
+    .slice(0, 6)
+    .map(([t, n]) => {
+      // foto da bolha: o produto mais avaliado que carrega a tag
+      const capa = [...scope]
+        .filter((p) => (p.tags ?? []).some((x) => norm(x) === norm(t)))
+        .sort((a, b) => (b.reviews ?? 0) * (b.rating ?? 0) - (a.reviews ?? 0) * (a.rating ?? 0))[0];
+      return { label: t, count: n, href: getCatalogHref({ category, search: t }), img: capa ? getPrimaryProductImage(capa) : "" };
+    });
 
   // marcas só aparecem onde há mais de uma (instrumento é tudo Tonante)
   const marcas = [...new Set(scope.map((p) => p.brand).filter(Boolean) as string[])];
@@ -119,13 +129,24 @@ export function HeaderV2() {
   const { pathname } = useLocation();
 
   const [aviso, setAviso] = useState(0);
+  /* história do músico: o vídeo + depoimento que já existiam no site e não
+     tinham gatilho nenhum. Abre pelo ícone de recado da faixa preta. */
+  const [historia, setHistoria] = useState<number | null>(null);
   const cats = useHoverPanel();
   const conta = useHoverPanel();
   const [catAtiva, setCatAtiva] = useState(MEGA[0].label);
 
-  // ao rolar, o header gruda no topo e a faixa de navegação colapsa —
-  // ficam só avisos + busca/conta/carrinho
+  /* Headroom: descendo, a faixa de navegação colapsa e ficam só avisos +
+     busca/conta/carrinho; subindo, ela volta na hora, sem precisar chegar ao
+     topo. Quem rola pra cima está procurando alguma coisa — quase sempre o
+     menu —, e obrigar a subir a página inteira pra recuperá-lo é pedágio. */
   const [scrolled, setScrolled] = useState(false);
+  const ultimoY = useRef(0);
+  /* A faixa volta deslizando por baixo do cursor parado e o browser dispara
+     mouseover sozinho: o mega-menu abria na cara de quem só estava rolando
+     pra cima. O hover só reabre depois que o mouse se mexer de verdade. */
+  const hoverArmado = useRef(true);
+  const colapsado = useRef(false);
   // altura do header expandido, reservada no fluxo por um spacer fixo: o
   // header é `fixed`, então colapsar/expandir não muda a altura da página
   // (era isso que fazia o scroll "pular" ao voltar pro topo)
@@ -153,10 +174,29 @@ export function HeaderV2() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
+    ultimoY.current = window.scrollY;
+    const onScroll = () => {
+      const y = Math.max(0, window.scrollY);
+      const delta = y - ultimoY.current;
+      // limiar: trackpad e scroll suave mandam deltas de 1-2px e o header
+      // ficaria piscando entre os dois estados a cada micro-oscilação
+      if (Math.abs(delta) < 8) return;
+      ultimoY.current = y;
+      // perto do topo o header é sempre inteiro, em qualquer direção
+      const colapsa = y > 80 && delta > 0;
+      if (colapsado.current && !colapsa) hoverArmado.current = false;
+      colapsado.current = colapsa;
+      setScrolled(colapsa);
+    };
+    const rearma = () => { hoverArmado.current = true; };
+    colapsado.current = window.scrollY > 80;
+    setScrolled(colapsado.current);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("mousemove", rearma, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", rearma);
+    };
   }, []);
 
   // Esc fecha qualquer painel aberto
@@ -189,7 +229,18 @@ export function HeaderV2() {
       <div data-keep-dark style={{ background: "var(--ink-strong)" }}>
         <div className="mx-auto flex h-11 w-full items-center gap-4 px-5 md:px-12" style={{ maxWidth: "1680px" }}>
           <div className="flex items-center gap-3.5">
-            {SOCIAL_LINKS.map(({ label, href }) => {
+            {/* Recado da Tonante no lugar do Instagram: a faixa levava a três
+                perfis externos e nenhum deles trazia o cliente de volta. O
+                rodapé continua listando os três. */}
+            <button
+              type="button"
+              onClick={() => setHistoria(0)}
+              aria-label="Ver o recado de quem toca Tonante"
+              className="cursor-pointer text-white/60 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none"
+            >
+              <MessageCircle size={16} strokeWidth={1.8} />
+            </button>
+            {SOCIAL_LINKS.filter(({ label }) => label !== "Instagram").map(({ label, href }) => {
               const Icon = ICONE_SOCIAL[label];
               return (
                 <a
@@ -242,7 +293,7 @@ export function HeaderV2() {
 
       {/* faixa principal */}
       <div className="mx-auto flex w-full items-center gap-5 px-5 py-4 md:gap-16 md:px-12" style={{ maxWidth: "1680px" }}>
-        <Link to="/" aria-label="Tonante — início" className="flex-shrink-0 transition-opacity duration-200 hover:opacity-70">
+        <Link to="/" aria-label="Tonante, início" className="flex-shrink-0 transition-opacity duration-200 hover:opacity-70">
           <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-9 md:h-11" style={{ width: "auto" }} />
         </Link>
 
@@ -341,7 +392,7 @@ export function HeaderV2() {
              que é onde o carrinho tem frete, brinde e cupom. */}
           <button
             onClick={() => setIsOpen(true)}
-            aria-label={`Abrir carrinho${totalItems > 0 ? ` — ${totalItems} item(ns)` : ""}`}
+            aria-label={`Abrir carrinho${totalItems > 0 ? `, ${totalItems} item(ns)` : ""}`}
             className="group/cart relative grid h-[52px] w-[52px] cursor-pointer place-items-center rounded-full transition-[background-color,box-shadow,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-12px_rgba(17,17,17,0.65)] active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/30 focus-visible:ring-offset-2"
             style={{ background: "var(--ink-strong)", color: "#ffffff" }}
           >
@@ -382,22 +433,30 @@ export function HeaderV2() {
         aria-hidden={scrolled}
       >
         <div className="mx-auto flex w-full items-center gap-6 overflow-x-auto px-5 py-3 md:px-12" style={{ maxWidth: "1680px" }}>
-          <button
-            onMouseEnter={cats.enter}
-            onMouseLeave={cats.leave}
-            onClick={() => cats.setOpen(!cats.open)}
-            aria-expanded={cats.open}
-            aria-haspopup="true"
-            className="group/cat relative inline-flex flex-shrink-0 cursor-pointer items-center gap-1.5 py-1 focus-visible:outline-none"
-            style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 600, color: "var(--ink-strong)" }}
-          >
-            Categorias
-            <ChevronDown size={16} strokeWidth={2.2} style={{ transform: cats.open ? "rotate(180deg)" : "none", transition: "transform .2s" }} />
-            <span
-              className="absolute -bottom-0.5 left-0 h-[2px] transition-all duration-250 ease-out group-hover/cat:w-full"
-              style={{ width: cats.open ? "100%" : 0, background: "var(--ink-strong)" }}
-            />
-          </button>
+          {/* categorias direto na faixa: navegar sem passar por dropdown.
+             O mega abre no hover e já mostra a categoria apontada. */}
+          {MEGA.map((m) => {
+            const ativa = cats.open && m.label === catAtiva;
+            return (
+              <Link
+                key={m.label}
+                to={m.href}
+                onMouseEnter={() => { if (!hoverArmado.current) return; setCatAtiva(m.label); cats.enter(); }}
+                onFocus={() => { setCatAtiva(m.label); cats.enter(); }}
+                onMouseLeave={cats.leave}
+                aria-expanded={ativa}
+                className="group/cat relative inline-flex flex-shrink-0 items-center gap-1 py-1 focus-visible:outline-none"
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 600, color: "var(--ink-strong)" }}
+              >
+                {m.label}
+                <ChevronDown size={14} strokeWidth={2.2} style={{ transform: ativa ? "rotate(180deg)" : "none", transition: "transform .2s", opacity: 0.55 }} />
+                <span
+                  className="absolute -bottom-0.5 left-0 h-[2px] transition-all duration-250 ease-out group-hover/cat:w-full"
+                  style={{ width: ativa ? "100%" : 0, background: "var(--ink-strong)" }}
+                />
+              </Link>
+            );
+          })}
 
           {NAV.map((n) => (
             <Link
@@ -412,8 +471,8 @@ export function HeaderV2() {
           ))}
 
           {/* serviços — equivalente ao "picking up / delivery" do Local */}
-          <div className="ml-auto hidden items-center gap-8 lg:flex">
-            <ServicoLink to="/onde-encontrar" icon={Store} eyebrow="Quer tocar antes?" label="Lojas pra experimentar" />
+          <div className="ml-auto hidden items-center gap-8 2xl:flex">
+            <ServicoLink to="/onde-encontrar" icon={Store} eyebrow="Quer tocar antes?" label="Lojas para experimentar" />
             <ServicoLink to="/fale-conosco" icon={Headphones} eyebrow="Na dúvida do modelo?" label="Fale com um músico" />
           </div>
         </div>
@@ -422,7 +481,7 @@ export function HeaderV2() {
       {/* ── mega menu de categorias ─────────────────────────────
           Fora da faixa colapsável: lá dentro o overflow:hidden recortava. */}
       <div
-        onMouseEnter={cats.enter}
+        onMouseEnter={() => { if (hoverArmado.current) cats.enter(); }}
         onMouseLeave={cats.leave}
         className="absolute inset-x-0 top-full origin-top"
         style={{
@@ -434,31 +493,7 @@ export function HeaderV2() {
         aria-hidden={!cats.open}
       >
         <div style={{ background: "#ffffff", borderTop: "1px solid var(--border)", boxShadow: "0 24px 48px -32px rgba(17,17,17,0.45)" }}>
-          <div className="mx-auto grid w-full gap-8 px-5 py-7 md:grid-cols-[232px_1fr_300px] md:px-12" style={{ maxWidth: "1680px" }}>
-            {/* trilho de categorias */}
-            <nav className="flex flex-col gap-0.5">
-              {MEGA.map((m) => {
-                const ativa = m.label === catAtiva;
-                return (
-                  <Link
-                    key={m.label}
-                    to={m.href}
-                    onMouseEnter={() => setCatAtiva(m.label)}
-                    onFocus={() => setCatAtiva(m.label)}
-                    className="flex items-center justify-between rounded-[10px] px-3 py-2.5 transition-colors duration-150"
-                    style={{
-                      background: ativa ? "var(--surface-2)" : "transparent",
-                      fontFamily: "var(--font-family-inter)", fontSize: "15px",
-                      fontWeight: ativa ? 700 : 500, color: "var(--ink-strong)",
-                    }}
-                  >
-                    <span>{m.label}</span>
-                    <Arrow size={15} strokeWidth={2} style={{ opacity: ativa ? 0.75 : 0.25, transition: "opacity .15s" }} />
-                  </Link>
-                );
-              })}
-            </nav>
-
+          <div className="mx-auto grid w-full gap-8 px-5 py-7 md:grid-cols-[1fr_300px] md:px-12" style={{ maxWidth: "1680px" }}>
             {/* subcategorias da categoria ativa */}
             <div>
               <div className="mb-3 flex items-baseline gap-3">
@@ -469,16 +504,37 @@ export function HeaderV2() {
                   {mega.count} produtos
                 </span>
               </div>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
+              <div className="grid grid-cols-3 gap-x-5 gap-y-4 sm:grid-cols-6">
                 {mega.tipos.map((t) => (
-                  <Link
-                    key={t.label}
-                    to={t.href}
-                    className="group/sub flex items-baseline gap-2 rounded-[8px] py-2 transition-colors duration-150 hover:text-[var(--ink-strong)]"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "14.5px", color: "var(--ink-muted)" }}
-                  >
-                    <span className="transition-transform duration-200 group-hover/sub:translate-x-0.5">{t.label}</span>
-                    <span className="num" style={{ fontSize: "12px", color: "var(--ink-subtle)" }}>{t.count}</span>
+                  <Link key={t.label} to={t.href} className="group/sub flex flex-col items-center gap-2">
+                    {/* mesma caixa de foto do painel de busca e do card de
+                        produto: quadrada, raio de card, fundo "well" com
+                        borda. O círculo era o único lugar da loja que cortava
+                        instrumento em redondo — headstock e cutaway sumiam. */}
+                    <div
+                      className="relative flex aspect-square w-full items-center justify-center overflow-hidden transition-all"
+                      style={{
+                        background: "var(--well)",
+                        borderRadius: "var(--radius-card-md)",
+                        border: "1px solid var(--border)",
+                      }}
+                    >
+                      {t.img ? (
+                        <img
+                          src={t.img}
+                          alt=""
+                          aria-hidden="true"
+                          className="absolute inset-0 h-full w-full object-contain p-[14%] transition-transform duration-300 group-hover/sub:scale-105"
+                          style={{ mixBlendMode: "multiply" }}
+                        />
+                      ) : null}
+                    </div>
+                    <span
+                      className="text-center line-clamp-2"
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "13.5px", fontWeight: 500, color: "var(--ink-strong)", lineHeight: 1.25 }}
+                    >
+                      {t.label}
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -547,6 +603,10 @@ export function HeaderV2() {
         </div>
       </div>
     </header>
+
+    {historia !== null && (
+      <MusicianStoryModal index={historia} onClose={() => setHistoria(null)} onNav={setHistoria} />
+    )}
     </>
   );
 }

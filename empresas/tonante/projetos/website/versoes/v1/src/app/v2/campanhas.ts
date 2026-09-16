@@ -55,7 +55,7 @@ export const CAMPANHAS: Campanha[] = [
     key: "back-to-70s",
     eyebrow: "Back to 70's",
     title: "Violões e guitarras com timbre de estúdio antigo",
-    subtitle: "Madeiras escuras, som encorpado — o que a Tonante faz desde 1954.",
+    subtitle: "Madeiras escuras, som encorpado: o que a Tonante faz desde 1954.",
     ctaLabel: "Ver instrumentos",
     href: "/produtos",
     produtos: idsDe(instrumentos(12, ["Violões", "Guitarras", "Contrabaixos"])),

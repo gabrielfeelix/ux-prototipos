@@ -341,7 +341,7 @@ function ProductCardClassic({
                 style={{
                   borderRadius: 6,
                   background: "var(--well)",
-                  border: active ? "1.5px solid var(--ink-strong)" : "1px solid var(--border)",
+                  border: active ? "2px solid var(--ink-soft)" : "1px solid var(--border)",
                 }}
               >
                 <ImageWithFallback

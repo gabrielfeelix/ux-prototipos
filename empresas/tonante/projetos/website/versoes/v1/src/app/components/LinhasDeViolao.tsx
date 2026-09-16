@@ -14,9 +14,9 @@ import { playStrum } from "../lib/strum";
 type Line = { name: string; vibe: string; tone: [string, string]; desc: string };
 const LINES: Line[] = [
   { name: "Coral", vibe: "Calor de roda de bar", tone: ["#b5793c", "#6e4220"], desc: "Madeira escura, som encorpado. A linha que aquece qualquer roda e pede uma canção de boteco." },
-  { name: "Volcano", vibe: "Energia que erupciona", tone: ["#d2a86a", "#9a6a33"], desc: "Eletroacústico pronto pro palco. Projeção potente pra quem toca pra ser ouvido." },
+  { name: "Volcano", vibe: "Energia que erupciona", tone: ["#d2a86a", "#9a6a33"], desc: "Eletroacústico pronto para o palco. Projeção potente para quem toca para ser ouvido." },
   { name: "Etna", vibe: "Intensidade premium", tone: ["#b5793c", "#6e4220"], desc: "O topo da linha. Madeiras nobres e um som que preenche o ambiente do primeiro acorde." },
-  { name: "Ônix", vibe: "Elegância na escuridão", tone: ["#3a352f", "#16130f"], desc: "Preto acetinado, atitude pura. Pra quem quer presença no visual e no timbre." },
+  { name: "Ônix", vibe: "Elegância na escuridão", tone: ["#3a352f", "#16130f"], desc: "Preto acetinado, atitude pura. Para quem quer presença no visual e no timbre." },
   { name: "Citrino", vibe: "Brilho jovem", tone: ["#c9a06a", "#8a5e2c"], desc: "Leve e claro, fácil de tocar. O som que combina com o primeiro show e o primeiro amor." },
   { name: "Lorenzzo", vibe: "Tradição clássica", tone: ["#c9a06a", "#8a5e2c"], desc: "Nylon atemporal. O clássico que ensinou gerações inteiras a tocar." },
 ];

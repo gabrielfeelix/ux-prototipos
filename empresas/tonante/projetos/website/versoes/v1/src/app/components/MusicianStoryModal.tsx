@@ -87,7 +87,7 @@ export function MusicianStoryModal({ index, onClose, onNav }: { index: number; o
                 aria-label={`Vídeo de ${m.name}`}
               />
             ) : (
-              <ImageWithFallback src={m.photo} alt={`${m.name} — ${m.role}`} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "grayscale(1)" }} />
+              <ImageWithFallback src={m.photo} alt={`${m.name}, ${m.role}`} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "grayscale(1)" }} />
             )}
           </div>
         </div>

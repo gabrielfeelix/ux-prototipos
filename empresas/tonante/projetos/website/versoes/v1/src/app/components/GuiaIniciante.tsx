@@ -23,7 +23,7 @@ const heroProduct =
   allProducts[0];
 
 const BULLETS = [
-  "O tamanho certo pra você",
+  "O tamanho certo para você",
   "Nylon ou aço? A gente explica",
   "Já sai com o kit completo",
 ];

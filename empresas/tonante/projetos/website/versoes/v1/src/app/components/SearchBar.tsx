@@ -57,7 +57,7 @@ export function SearchBar({
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && searchPanelOpen) {
+      if (e.key === "Escape" && (searchPanelOpen || searchCategoryOpen)) {
         setSearchPanelOpen(false);
         setSearchCategoryOpen(false);
         searchInputRef.current?.blur();
@@ -65,10 +65,10 @@ export function SearchBar({
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [searchPanelOpen]);
+  }, [searchPanelOpen, searchCategoryOpen]);
 
   useEffect(() => {
-    if (!searchPanelOpen) return;
+    if (!searchPanelOpen && !searchCategoryOpen) return;
     const handler = (e: MouseEvent) => {
       const target = e.target as Node;
       if (searchPanelRef.current && !searchPanelRef.current.contains(target)) {
@@ -78,7 +78,7 @@ export function SearchBar({
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [searchPanelOpen]);
+  }, [searchPanelOpen, searchCategoryOpen]);
 
   const searchCategoryMatch = useMemo(() => {
     const map: Record<string, string[]> = {
@@ -143,7 +143,7 @@ export function SearchBar({
                 e.stopPropagation();
                 setSearchCategoryOpen((p) => !p);
               }}
-              className="flex h-full items-center gap-1.5 pl-5 pr-3 text-ink transition-colors hover:text-ink-strong"
+              className="flex h-full cursor-pointer items-center gap-1.5 pl-5 pr-3 text-ink transition-colors hover:text-ink-strong"
               style={{ fontFamily: "var(--font-family-inter)", fontSize: lg ? "15px" : "var(--text-sm)", fontWeight: 600 }}
             >
               <span className="hidden xl:inline">{searchCategory}</span>
@@ -227,10 +227,10 @@ export function SearchBar({
                     setSearchCategory(cat);
                     setSearchCategoryOpen(false);
                   }}
-                  className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors ${
+                  className={`flex w-full cursor-pointer items-center justify-between px-4 py-2.5 text-left transition-colors ${
                     searchCategory === cat
                       ? "bg-foreground/[0.08] text-ink-strong"
-                      : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
+                      : "text-ink hover:bg-[var(--surface-2)] hover:text-ink-strong"
                   }`}
                   style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 500 }}
                 >

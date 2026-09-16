@@ -128,10 +128,28 @@
   --gradient-brand:           linear-gradient(135deg, var(--primary) 0%, #e08c12 100%);
   --gradient-discount:        linear-gradient(135deg, #b3261e 0%, #8f1d17 100%);
   /* compra/carrinho = VERDE (decisão Gabriel): destaca o "comprar" do âmbar
-     de marca. Âmbar continua sendo o acento; verde é só ação de compra. */
-  --buy-green:                #1a1a1a;
-  --buy-green-deep:           #000000;
-  --gradient-buy:             linear-gradient(135deg, #1f1f1f 0%, #000000 100%);
+     de marca. Âmbar continua sendo o acento; verde é só ação de compra.
+
+     Mesmo verde do selo de desconto e do "à vista no PIX" do card:
+     quem compra encontra um verde só na página, e ele quer dizer sempre a
+     mesma coisa. Hover e pressed escurecem em degraus iguais — o pressed
+     precisa ser visivelmente mais fundo que o hover, senão o clique não dá
+     retorno em tela sensível ao toque, onde não existe hover.
+
+     #12924c dá 4.01:1 contra texto branco, um degrau abaixo do mínimo AA de
+     4.5 (o verde que passava era #148747, mais fechado). Escolha de design do
+     Gabriel por um verde mais aberto; se um dia isso for auditado, é aqui que
+     se ajusta — e o texto do botão é branco e bold, o que ameniza sem
+     resolver. */
+  --buy-green:                #12924c;
+  --buy-green-hover:          #0f7a3f;
+  --buy-green-press:          #0b6333;
+  --buy-green-deep:           #0b6333;
+  --gradient-buy:             linear-gradient(135deg, #169051 0%, #0f6b3c 100%);
+  /* Novidade = azul, o único azul da página. Não disputa com o âmbar da marca
+     (que é acento), com o verde de compra nem com o laranja da pré-venda —
+     quatro pills no mesmo card precisam dizer quatro coisas diferentes. */
+  --gradient-novelty-blue:    linear-gradient(135deg, #1f3f73 0%, #2f66b5 100%);
   --gradient-preorder-orange: linear-gradient(135deg, #e08c12 0%, #c87800 100%);
   --gradient-preorder-red:    linear-gradient(135deg, #c87800 0%, #a05f00 100%);
   --gradient-hero-stroke:     linear-gradient(135deg, rgba(17,17,17,0.14) 0%, rgba(17,17,17,0.05) 100%);
@@ -251,6 +269,32 @@
 .deals-track::-webkit-scrollbar,
 .essentials-track::-webkit-scrollbar,
 .profile-tabs::-webkit-scrollbar { display: none; }
+
+/* Scrollbar que só existe enquanto se rola.
+   Em repouso o polegar é transparente — a lista fica limpa. O JS marca
+   `is-scrolling` ao rolar e tira meio segundo depois, e a transição faz o
+   aparecer/sumir. `overlay` onde houver: a barra flutua por cima e não
+   rouba largura, senão o conteúdo pula ao aparecer. */
+.scroll-fade {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 350ms ease;
+}
+.scroll-fade.is-scrolling { scrollbar-color: rgba(17, 17, 17, 0.26) transparent; }
+.scroll-fade::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-fade::-webkit-scrollbar-track { background: transparent; }
+.scroll-fade::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 9999px;
+  transition: background-color 350ms ease;
+}
+.scroll-fade.is-scrolling::-webkit-scrollbar-thumb { background-color: rgba(17, 17, 17, 0.26); }
+.scroll-fade.is-scrolling:hover::-webkit-scrollbar-thumb { background-color: rgba(17, 17, 17, 0.38); }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade, .scroll-fade::-webkit-scrollbar-thumb { transition: none; }
+}
 
 /* Hover de cards — base âmbar suave (substitui o hover vermelho neon). */
 .essential-card { transition: border-color 300ms ease, box-shadow 300ms ease; }

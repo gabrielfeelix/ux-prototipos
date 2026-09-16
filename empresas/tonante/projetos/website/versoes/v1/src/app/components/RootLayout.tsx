@@ -20,7 +20,7 @@ export function RootLayout() {
   // HeaderV2 é o cabeçalho do site inteiro (já inclui a faixa de avisos).
   // Só /legado — a home antiga — segue com Navbar + AnnouncementBar.
   const isLegacyChrome = pathname === "/legado" || pathname.startsWith("/legado/");
-  const hideHeader = pathname === "/checkout" || pathname === "/monte-seu-pc";
+  const hideHeader = pathname === "/monte-seu-pc";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,7 +45,7 @@ export function RootLayout() {
                 {isLegacyChrome && <AnnouncementBar />}
                 {!hideHeader && (isLegacyChrome ? <Navbar /> : <HeaderV2 />)}
                 <div data-page-light-scope className="contents">
-                  {pathname !== "/checkout" && <CartDrawer />}
+                  <CartDrawer />
                   <AuthModal />
                   <WelcomePopup />
                   <CookieConsent />

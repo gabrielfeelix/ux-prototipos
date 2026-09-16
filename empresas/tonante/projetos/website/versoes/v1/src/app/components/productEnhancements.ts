@@ -111,7 +111,7 @@ const LUTHIERS: Record<number, Luthier> = {
     name: "Mestre Élcio Navarro",
     title: "Luthier responsável · linha Lorenzzo",
     photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&q=80&auto=format&fit=crop",
-    bio: "Trinta anos de bancada. Ajusta cada tampo e regula cada braço da linha clássica antes de liberar pro acabamento.",
+    bio: "Trinta anos de bancada. Ajusta cada tampo e regula cada braço da linha clássica antes de liberar para o acabamento.",
   },
   // Violão Elétrico Coral
   52: {

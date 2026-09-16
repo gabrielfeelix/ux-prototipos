@@ -12,6 +12,9 @@ import { cn } from "../ui/utils";
  *   block   = largura total
  *   as      = "button" (default) | "link" (navega via react-router, visual identico)
  *
+ * Estados de cor moram no variant: `buy` tem repouso, hover e pressed via
+ * token (--buy-green, --buy-green-hover, --buy-green-press).
+ *
  * Forma unica: pilha (rounded-pill). A sombra deriva de variant+size.
  * Onde um consumidor precisa de sombra fora do padrao do tamanho, sobrescreva via className.
  */
@@ -19,11 +22,15 @@ const ctaVariants = cva(
   // [color:#fff] e não text-[#fff]: tailwind-merge não distingue arbitrários
   // text-* (cor vs tamanho) e o text-[var(--text-sm)] do size engolia a cor —
   // todo CTA ficava com fonte ink sobre âmbar.
-  "inline-flex items-center justify-center gap-2 rounded-pill [color:#fff] [&_svg]:text-[#fff] whitespace-nowrap font-bold transition-transform disabled:pointer-events-none disabled:opacity-50 hover:scale-[1.02] active:scale-[0.97] outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 rounded-pill [color:#fff] [&_svg]:text-[#fff] whitespace-nowrap font-bold transition-[transform,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] disabled:pointer-events-none disabled:opacity-50 hover:scale-[1.02] active:scale-[0.97] outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        buy: "[background-image:var(--gradient-buy)] tracking-[0.04em]",
+        /* verde CHAPADO, não gradiente: background-image não transiciona, e
+           sem transição o hover trocava de cor num corte seco. Cor sólida
+           anima, e o botão ganha os três estados que o clique pede —
+           repouso, hover e pressed. */
+        buy: "[background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] tracking-[0.04em]",
         preorder: "[background-image:var(--gradient-preorder-orange)] tracking-[0.04em]",
         brand: "[background-image:var(--gradient-brand)] tracking-[0.05em] uppercase",
       },

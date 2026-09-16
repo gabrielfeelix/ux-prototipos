@@ -100,6 +100,21 @@ export function getProductSubcategory(product: Pick<Product, "name" | "category"
   return "Produtos";
 }
 
+/* Placeholder do Magento: o CDN responde 200 com o logo cinza da plataforma
+   (1.692 bytes, 262x262), então nem a URL nem o status denunciam — só o
+   conteúdo. Estes três foram achados baixando a foto principal dos 282
+   produtos e agrupando por hash md5; os arquivos batem byte a byte.
+   Se aparecer outro produto sem foto na vitrine, é o mesmo procedimento:
+   baixar, comparar o hash com os daqui, e acrescentar a URL na lista. */
+const FOTOS_PLACEHOLDER_MAGENTO = [
+  /* 10 · Suporte de Parede Para Guitarra, Baixo e Violão */
+  "/1/0/106946-17523128018929446.jpeg",
+  /* 77 · Suporte Triplo Para Guitarra, Baixo e Violão */
+  "/1/4/146108-17459061237573801.jpeg",
+  /* 274 · Capotraste Para Violao em Alumínio - Preto */
+  "/1/-/1-17522997159603437.jpeg",
+];
+
 export function isPlaceholderProductImage(image?: string) {
   if (!image) return true;
 
@@ -107,7 +122,8 @@ export function isPlaceholderProductImage(image?: string) {
   return (
     normalized.startsWith("/home/") ||
     normalized.includes("category-") ||
-    normalized.includes("release-keyboard-context")
+    normalized.includes("release-keyboard-context") ||
+    FOTOS_PLACEHOLDER_MAGENTO.some((trecho) => normalized.includes(trecho))
   );
 }
 

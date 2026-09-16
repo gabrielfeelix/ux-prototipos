@@ -70,11 +70,11 @@ export interface HistoriaDoProduto {
 /** O que cada madeira faz com o som. Frase curta, sem adjetivo solto. */
 const TIMBRE_DA_MADEIRA: Record<string, string> = {
   Spruce: "o spruce é a madeira que mais projeta: ataque rápido e agudo aberto, do tipo que atravessa uma roda de violão",
-  Mahogany: "o mogno puxa pros médios — timbre quente e redondo, que acompanha voz sem brigar com ela",
-  Zebrawood: "o zebrano tem veio listrado que ninguém confunde e resposta seca, boa pra dedilhado",
+  Mahogany: "o mogno puxa para os médios: timbre quente e redondo, que acompanha voz sem brigar com ela",
+  Zebrawood: "o zebrano tem veio listrado que ninguém confunde e resposta seca, boa para dedilhado",
   Walnut: "a nogueira fica no meio do caminho: o brilho do spruce com o corpo do mogno",
   Sapele: "o sapele é primo do mogno, com um brilho a mais nos agudos",
-  Basswood: "o basswood é leve e equilibrado, sem pico de frequência pra atrapalhar",
+  Basswood: "o basswood é leve e equilibrado, sem pico de frequência para atrapalhar",
   Cedro: "o cedro responde rápido no dedo, com médios doces e ataque macio",
   Dao: "o dao tem veio marcante e resposta equilibrada de ponta a ponta",
   KOA: "o koa começa brilhante e vai encorpando conforme o instrumento é tocado",
@@ -83,13 +83,13 @@ const TIMBRE_DA_MADEIRA: Record<string, string> = {
 
 /** Como o corpo muda o resultado. */
 const CORPO_POR_TAMANHO: Record<string, string> = {
-  "41": "corpo 41\", o tamanho cheio — é dele que sai o grave",
+  "41": "corpo 41\", o tamanho cheio, é dele que sai o grave",
   "40": "corpo 40\", um palmo menor que o folk tradicional e mais confortável sentado",
   "39": "corpo 39\" clássico, de braço largo e postura tradicional",
   "38": "corpo 38\", enxuto de segurar",
   "36": "corpo 36\", mini de verdade: cabe no banco de trás e no colo de quem tem mão pequena",
-  "34": "corpo 34\", formato baby — leva na mochila",
-  "30": "corpo 30\", feito pra mão de criança",
+  "34": "corpo 34\", formato baby, leva na mochila",
+  "30": "corpo 30\", feito para mão de criança",
 };
 
 const ACABAMENTOS: Record<string, string> = {
@@ -195,13 +195,13 @@ function aberturaViolao(p: Product, a: ProductAttributes): string {
     return juntaFrases([
       `${nome} é ${porte}.`,
       tampo ? `No tampo, ${tampo}.` : undefined,
-      "Quatro cordas de nylon, afinação GCEA e nenhuma desculpa pra não começar hoje.",
+      "Quatro cordas de nylon, afinação GCEA e nenhuma desculpa para não começar hoje.",
     ]);
   }
 
   if (ehInfantil(p)) {
     return juntaFrases([
-      `${nome} é um violão de tamanho reduzido, feito pra mão que ainda está crescendo.`,
+      `${nome} é um violão de tamanho reduzido, feito para mão que ainda está crescendo.`,
       corda === "Nylon" ? "Corda de nylon, que é macia e não machuca a ponta do dedo na primeira semana." : undefined,
       corpo ? `É ${corpo}.` : undefined,
       "Muita gente aqui começou exatamente assim.",
@@ -214,20 +214,20 @@ function aberturaViolao(p: Product, a: ProductAttributes): string {
   const plugavel = Boolean(a.eq) || a.tipo === "Eletroacústico";
   const papel = plugavel
     ? variante([
-        "é pra quem toca pra fora de casa",
-        "sai da sala e vai pro palco sem trocar de instrumento",
-        "é feito pra ser ligado",
+        "é para quem toca para fora de casa",
+        "sai da sala e vai para o palco sem trocar de instrumento",
+        "é feito para ser ligado",
       ], p)
     : variante([
         "é de sala, de roda e de estudo",
         "é o acústico puro: sem cabo, sem bateria, sem pré",
-        "é pra tocar sentado, sem depender de tomada",
+        "é para tocar sentado, sem depender de tomada",
       ], p);
 
   return juntaFrases([
     `${nome} ${papel}.`,
     tampo ? `${tampo.charAt(0).toUpperCase()}${tampo.slice(1)}.` : undefined,
-    corpo ? `É ${corpo}${a.cutaway ? ", com cutaway pra alcançar as casas agudas sem torcer o pulso" : ""}.` : undefined,
+    corpo ? `É ${corpo}${a.cutaway ? ", com cutaway para alcançar as casas agudas sem torcer o pulso" : ""}.` : undefined,
     a.eq
       ? `O pré-amplificador de ${a.eq.replace(/^EQ /, "")} resolve o som na mesa ou no amplificador.`
       : plugavel
@@ -248,14 +248,14 @@ function aberturaGuitarra(p: Product, a: ProductAttributes): string {
   const captacao = a.config === "SSS"
     ? "Três single-coils: do limpo cristalino ao crunch, passando por todo blues que você já ouviu."
     : a.config === "SS"
-      ? "Dois captadores, cinco posições de uso real — nada de chave sobrando."
+      ? "Dois captadores, cinco posições de uso real. Nada de chave sobrando."
       : a.config
         ? `Configuração ${a.config}.`
         : undefined;
 
   if (/70 aniversário|70 anos/i.test(p.name)) {
     return juntaFrases([
-      `${nome} é a edição que a Tonante fez pros próprios 70 anos.`,
+      `${nome} é a edição que a Tonante fez para os próprios 70 anos.`,
       cor ? `Acabamento ${cor}, série comemorativa.` : undefined,
       captacao,
       "Quem comprou o primeiro instrumento com a gente há trinta anos vai reconhecer o logo na cabeça.",
@@ -267,9 +267,9 @@ function aberturaGuitarra(p: Product, a: ProductAttributes): string {
     captacao,
     cor ? `Acabamento ${cor}.` : undefined,
     variante([
-      "Chega afinada, com ação regulada de fábrica — plugou, tocou.",
+      "Chega afinada, com ação regulada de fábrica. Plugou, tocou.",
       "Sai da caixa regulada: ação baixa, traste nivelado, tarraxa firme.",
-      "Vem pronta pra plugar no amplificador e começar o ensaio.",
+      "Vem pronta para plugar no amplificador e começar o ensaio.",
     ], p),
   ]);
 }
@@ -283,12 +283,12 @@ function aberturaContrabaixo(p: Product, a: ProductAttributes): string {
       ? "Captação no estilo PB: grave grosso e encorpado, o som que segura a banda por baixo."
       : undefined;
   return juntaFrases([
-    `${nome} é contrabaixo de ${cordas} cordas${cordas === 5 ? " — a quinta abre o Si grave, que muda o repertório inteiro" : ""}.`,
+    `${nome} é contrabaixo de ${cordas} cordas${cordas === 5 ? ", e a quinta abre o Si grave, que muda o repertório inteiro" : ""}.`,
     familia,
     detectaCor(p.name) ? `Acabamento ${detectaCor(p.name)}.` : undefined,
     variante([
-      "Braço fino, tarraxa blindada e tensor dual action pra manter a regulagem.",
-      "Corpo leve pra aguentar show inteiro em pé.",
+      "Braço fino, tarraxa blindada e tensor dual action para manter a regulagem.",
+      "Corpo leve para aguentar show inteiro em pé.",
       "Escala em rosewood e trastes jumbo, que facilitam a mão esquerda.",
     ], p),
   ]);
@@ -299,7 +299,7 @@ function aberturaBateria(p: Product): string {
   return juntaFrases([
     "A Sonora é a bateria acústica da Tonante: cascos em poplar, ferragem própria e todas as peças que faltam em kit de entrada.",
     cor ? `Acabamento ${cor}.` : undefined,
-    "Serve pra sala de ensaio, estúdio pequeno e primeiro show — que costuma ser o mesmo lugar.",
+    "Serve para sala de ensaio, estúdio pequeno e primeiro show, que costuma ser o mesmo lugar.",
   ]);
 }
 
@@ -309,9 +309,9 @@ function aberturaAcessorio(p: Product, a: ProductAttributes): string {
     return juntaFrases([
       `Palheta ${a.espessura ? `de ${a.espessura}` : ""}${a.quantidade ? `, pacote com ${a.quantidade}` : ""}.`,
       a.espessura && parseFloat(a.espessura) >= 1
-        ? "Espessura firme: ataque definido, boa pra solo e pra baixo."
-        : "Espessura fina: flexível, boa pra batida de violão e acompanhamento.",
-      "Palheta some — por isso vem em pacote.",
+        ? "Espessura firme: ataque definido, boa para solo e para baixo."
+        : "Espessura fina: flexível, boa para batida de violão e acompanhamento.",
+      "Palheta some, por isso vem em pacote.",
     ]);
   }
   if (/cabo/i.test(p.name)) {
@@ -319,12 +319,12 @@ function aberturaAcessorio(p: Product, a: ProductAttributes): string {
       `Cabo ${a.conectores ?? "P10"}${a.comprimento ? ` de ${a.comprimento}` : ""}.`,
       /textil|angel tx/i.test(p.name) ? "Capa têxtil, que embola menos no chão do palco." : "Blindagem contra ruído de fonte e lâmpada.",
       a.comprimento && parseFloat(a.comprimento) >= 4.5
-        ? "Comprimento de palco: dá pra andar."
+        ? "Comprimento de palco: dá para andar."
         : "Comprimento de ensaio e estúdio.",
     ]);
   }
   if (/microfone/i.test(p.name)) {
-    return `Microfone ${marca ?? ""} para captação direta — voz, instrumento e transmissão ao vivo.`.replace(/\s+/g, " ");
+    return `Microfone ${marca ?? ""} para captação direta de voz, instrumento e transmissão ao vivo.`.replace(/\s+/g, " ");
   }
   if (/capotraste|capo/i.test(p.name)) {
     return "Capotraste de mola: prende firme sem desafinar, muda de casa com uma mão só.";
@@ -351,7 +351,7 @@ function aberturaCordas(p: Product, a: ProductAttributes): string {
     material === "Nylon"
       ? "Nylon é corda de violão clássico: toque macio e timbre redondo."
       : material === "Aço"
-        ? "Aço projeta mais e marca o ataque — é a corda do violão folk."
+        ? "Aço projeta mais e marca o ataque. É a corda do violão folk."
         : material === "Níquel"
           ? "Níquel é o padrão de guitarra: brilho controlado e vida longa."
           : undefined,
@@ -365,7 +365,7 @@ function aberturaSuporte(p: Product, a: ProductAttributes): string {
     Parede: "Suporte de parede: tira o instrumento do chão e transforma ele em objeto de sala.",
     Cavalete: "Cavalete de chão: apoia o instrumento no intervalo sem encostar na parede.",
     Girafa: "Pedestal girafa: alcança a altura e o ângulo que o microfone precisa.",
-    Tripé: "Pedestal de tripé: base firme, altura regulável, dobra pra transportar.",
+    Tripé: "Pedestal de tripé: base firme, altura regulável, dobra para transportar.",
     Triplo: "Suporte triplo: três instrumentos em pé, ocupando o espaço de um.",
     Tubular: "Estrutura tubular, que aguenta peso sem entortar.",
     Estante: "Estante de partitura: altura e inclinação reguláveis, dobra e vai junto.",
@@ -373,7 +373,7 @@ function aberturaSuporte(p: Product, a: ProductAttributes): string {
   return juntaFrases([
     tipo ? mapa[tipo] : "Suporte para instrumento.",
     a.dobravel ? "Dobrável, cabe no bag junto com o resto." : undefined,
-    "Instrumento encostado na parede cai — é sempre assim que quebra.",
+    "Instrumento encostado na parede cai, e é sempre assim que quebra.",
   ]);
 }
 
@@ -427,7 +427,7 @@ function blocosDeInstrumento(p: Product, a: ProductAttributes): TextoDeBloco[] {
           : undefined,
         solido
           ? "Madeira maciça abre com o tempo: o violão de daqui a cinco anos soa melhor que o de hoje."
-          : "Cada peça é conferida antes da montagem — veio torto ou mancha de cola não passa.",
+          : "Cada peça é conferida antes da montagem: veio torto ou mancha de cola não passa.",
       ]),
     });
   }
@@ -443,7 +443,7 @@ function blocosDeInstrumento(p: Product, a: ProductAttributes): TextoDeBloco[] {
       texto: juntaFrases([
         braco ? `Braço em ${braco}${escala ? ` e escala em ${escala}` : ""}.` : escala ? `Escala em ${escala}.` : undefined,
         trastes ? `${trastes} trastes, nivelados e com as pontas rebaixadas.` : "Trastes nivelados e com as pontas rebaixadas, que é o detalhe que separa instrumento bom de instrumento barato.",
-        spec("Tensor") ? `Tensor ${spec("Tensor")!.toLowerCase()}: dá pra corrigir a curvatura nos dois sentidos conforme o clima muda.` : "A ação sai regulada de fábrica e o tensor permite ajuste fino depois.",
+        spec("Tensor") ? `Tensor ${spec("Tensor")!.toLowerCase()}: dá para corrigir a curvatura nos dois sentidos conforme o clima muda.` : "A ação sai regulada de fábrica e o tensor permite ajuste fino depois.",
         a.cutaway ? "O cutaway libera as casas do fim da escala." : undefined,
       ]),
     });
@@ -459,7 +459,7 @@ function blocosDeInstrumento(p: Product, a: ProductAttributes): TextoDeBloco[] {
         a.eq ? `Pré-amplificador de ${a.eq.replace(/^EQ /, "")} embutido na lateral, ao alcance da mão direita enquanto você toca.` : undefined,
         captacao ? `${captacao}.` : undefined,
         spec("Controles") ? `Controles: ${spec("Controles")!.toLowerCase()}.` : undefined,
-        a.eq ? "Saída P10 na base do corpo — o mesmo cabo de guitarra serve." : undefined,
+        a.eq ? "Saída P10 na base do corpo. O mesmo cabo de guitarra serve." : undefined,
       ]),
     });
   }
@@ -484,11 +484,11 @@ function blocosDeInstrumento(p: Product, a: ProductAttributes): TextoDeBloco[] {
               corTranslucida(cor)
                 ? [
                     "O verniz é conferido na luz rasante antes de embalar: risco, bolha e casca de laranja não passam.",
-                    "A cor é aplicada em demãos finas, pra não afogar o veio da madeira.",
+                    "A cor é aplicada em demãos finas, para não afogar o veio da madeira.",
                     "Tarraxa, botão de correia e parafuso saem apertados no torque de fábrica.",
                   ]
                 : [
-                    "Cor sólida, lixada entre demãos e polida no fim — sem casca de laranja na curva do corpo.",
+                    "Cor sólida, lixada entre demãos e polida no fim, sem casca de laranja na curva do corpo.",
                     "O verniz é conferido na luz rasante antes de embalar: risco e bolha não passam.",
                     "Tarraxa, botão de correia e parafuso saem apertados no torque de fábrica.",
                   ],
@@ -511,20 +511,20 @@ function blocosDeBateria(p: Product): TextoDeBloco[] {
     {
       prefere: "cena",
       titulo: "Cascos em poplar",
-      texto: "Seis folhas de poplar por casco, prensadas e com o aro torneado no mesmo ângulo em todas as peças. O resultado é uma ressonância funda e parelha — afinou uma vez, fica.",
+      texto: "Seis folhas de poplar por casco, prensadas e com o aro torneado no mesmo ângulo em todas as peças. O resultado é uma ressonância funda e parelha. Afinou uma vez, fica.",
     },
     {
       prefere: "cena",
       titulo: "O que vem no kit",
       texto: juntaFrases([
         pecas.length ? `${lista(pecas).charAt(0).toUpperCase()}${lista(pecas).slice(1)}.` : undefined,
-        "Vem com máquina de hi-hat, pedal de bumbo, banco, estantes e pratos — o kit que dá pra sentar e tocar no mesmo dia, sem lista de compra extra.",
+        "Vem com máquina de hi-hat, pedal de bumbo, banco, estantes e pratos: o kit que dá para sentar e tocar no mesmo dia, sem lista de compra extra.",
       ]),
     },
     {
       prefere: "cena",
       titulo: "Ferragem que aguenta ensaio",
-      texto: "Tubo duplo nas estantes, borboleta de aperto grande e memory lock onde importa. Ferragem fina é o que entrega kit de entrada — essa não é.",
+      texto: "Tubo duplo nas estantes, borboleta de aperto grande e memory lock onde importa. Ferragem fina é o que entrega kit de entrada. Essa não é.",
     },
   ];
 }
@@ -562,8 +562,8 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
       texto: juntaFrases([
         a.material === "Nylon"
           ? "Nylon estica: depois de montar, deixe o instrumento afinado por um dia e reafine algumas vezes até estabilizar."
-          : "Corda com alma de aço estabiliza rápido — esticar cada corda com a mão depois de montar adianta o processo.",
-        "Cada corda vem em sachê próprio, identificada, pra não montar na ordem errada.",
+          : "Corda com alma de aço estabiliza rápido, e esticar cada corda com a mão depois de montar adianta o processo.",
+        "Cada corda vem em sachê próprio, identificada, para não montar na ordem errada.",
       ]),
     });
     return blocos;
@@ -579,8 +579,8 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
       prefere: "macroFinal",
       titulo: a.dobravel ? "Monta e desmonta sem ferramenta" : "Firme onde precisa ser",
       texto: a.dobravel
-        ? "Dobra pra caber no bag e volta a montar com a mão, sem chave nem parafuso solto pra perder no caminho do show."
-        : "Tubo e solda dimensionados pro peso do instrumento, com regulagem que trava — não é o suporte que cede no meio do ensaio.",
+        ? "Dobra para caber no bag e volta a montar com a mão, sem chave nem parafuso solto para perder no caminho do show."
+        : "Tubo e solda dimensionados para o peso do instrumento, com regulagem que trava. Não é o suporte que cede no meio do ensaio.",
     });
     return blocos;
   }
@@ -591,12 +591,12 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
       titulo: "A espessura muda o ataque",
       texto: a.espessura && parseFloat(a.espessura) >= 1
         ? "Palheta grossa quase não flexiona: o ataque sai definido e o volume, parelho. É a escolha de quem toca solo, riff pesado e baixo."
-        : "Palheta fina flexiona no ataque e suaviza o acento — é o que dá aquela batida uniforme no acompanhamento de violão.",
+        : "Palheta fina flexiona no ataque e suaviza o acento. É o que dá aquela batida uniforme no acompanhamento de violão.",
     });
     blocos.push({
       prefere: "macroFinal",
       titulo: "Compre sempre mais de uma",
-      texto: "Palheta cai no meio do show, some dentro do violão, vira brinquedo de cachorro. Por isso vem em pacote — deixe uma no bag, uma no bolso e uma no suporte do microfone.",
+      texto: "Palheta cai no meio do show, some dentro do violão, vira brinquedo de cachorro. Por isso vem em pacote: deixe uma no bag, uma no bolso e uma no suporte do microfone.",
     });
     return blocos;
   }
@@ -605,7 +605,7 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
     blocos.push({
       prefere: "cena",
       titulo: "Blindagem é o que separa cabo bom de cabo ruim",
-      texto: "Malha de cobre em volta do condutor é o que barra o zumbido de fonte chaveada, dimmer de luz e lâmpada de LED — o chiado que aparece só quando você liga o instrumento na casa de show.",
+      texto: "Malha de cobre em volta do condutor é o que barra o zumbido de fonte chaveada, dimmer de luz e lâmpada de LED, o chiado que aparece só quando você liga o instrumento na casa de show.",
     });
     blocos.push({
       prefere: "macroFinal",
@@ -613,8 +613,8 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
       texto: juntaFrases([
         a.comprimento ? `${a.comprimento} de cabo.` : undefined,
         parseFloat(a.comprimento ?? "0") >= 4.5
-          ? "Dá pra andar até a boca do palco sem arrancar o amplificador junto."
-          : "Sobra o suficiente pra sentar, levantar e virar de lado sem tensionar o plugue.",
+          ? "Dá para andar até a boca do palco sem arrancar o amplificador junto."
+          : "Sobra o suficiente para sentar, levantar e virar de lado sem tensionar o plugue.",
         "Enrole em laçada larga na hora de guardar: dobra fechada é o que rompe a malha por dentro.",
       ]),
     });
@@ -625,12 +625,12 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
     blocos.push({
       prefere: "cena",
       titulo: "Muda de tom sem mudar de acorde",
-      texto: "Sobe a tonalidade da música pro lugar onde a sua voz fica confortável, mantendo as mesmas formas de acorde. É o acessório que mais resolve problema por menos dinheiro.",
+      texto: "Sobe a tonalidade da música para o lugar onde a sua voz fica confortável, mantendo as mesmas formas de acorde. É o acessório que mais resolve problema por menos dinheiro.",
     });
     blocos.push({
       prefere: "macroFinal",
       titulo: "Pressão certa, sem desafinar",
-      texto: "Mola calibrada pra prender a corda no traste sem puxar a afinação pra cima. Borracha na base, que não marca o braço nem encardece o verniz claro.",
+      texto: "Mola calibrada para prender a corda no traste sem puxar a afinação para cima. Borracha na base, que não marca o braço nem encardece o verniz claro.",
     });
     return blocos;
   }
@@ -639,12 +639,12 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
     blocos.push({
       prefere: "cena",
       titulo: "Lê pela vibração, não pelo som",
-      texto: "O clipe prende na cabeça do instrumento e capta a vibração da madeira, então funciona com barulho em volta — passagem de som, aula com a turma inteira tocando, rua.",
+      texto: "O clipe prende na cabeça do instrumento e capta a vibração da madeira, então funciona com barulho em volta: passagem de som, aula com a turma inteira tocando, rua.",
     });
     blocos.push({
       prefere: "macroFinal",
       titulo: "Afinar é o primeiro hábito",
-      texto: "Instrumento desafinado ensina o ouvido errado. Cinco segundos antes de começar resolvem — e é por isso que o afinador tem que ficar preso no bag, não na gaveta.",
+      texto: "Instrumento desafinado ensina o ouvido errado. Cinco segundos antes de começar resolvem, e é por isso que o afinador tem que ficar preso no bag, não na gaveta.",
     });
     return blocos;
   }
@@ -662,7 +662,7 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
     blocos.push({
       prefere: "cena",
       titulo: "Plug and play",
-      texto: "Conecta na USB e o computador reconhece sem driver. Serve pra voz, amplificador microfonado, live e gravação caseira.",
+      texto: "Conecta na USB e o computador reconhece sem driver. Serve para voz, amplificador microfonado, live e gravação caseira.",
     });
     return blocos;
   }
@@ -673,7 +673,7 @@ function blocosDeAcessorio(p: Product, a: ProductAttributes): TextoDeBloco[] {
     titulo: ehTonante(p) ? "Catálogo Tonante" : `Por que ${p.brand ?? "essa marca"} entra aqui`,
     texto: ehTonante(p)
       ? "Item da linha própria, conferido no mesmo padrão dos instrumentos que saem da fábrica."
-      : `Mais de meio século de música dá critério: ${p.brand ?? "a marca"} entra no catálogo porque passa no teste de uso — o que a gente não usaria no próprio palco não fica na prateleira.`,
+      : `Mais de meio século de música dá critério: ${p.brand ?? "a marca"} entra no catálogo porque passa no teste de uso: o que a gente não usaria no próprio palco não fica na prateleira.`,
   });
   return blocos;
 }
@@ -866,7 +866,7 @@ export function getHistoriaDoProduto(p: Product): HistoriaDoProduto {
   const legendaDetalhes = macrosDisponiveis.length >= 3
     ? variante([
         "As fotos que a prateleira não mostra: boca, cavalete, junta do braço e a saída do cabo.",
-        "De perto é onde o acabamento se entrega — ou se prova.",
+        "De perto é onde o acabamento se entrega, ou se prova.",
         "Os mesmos pontos que a gente confere na fábrica, um por um.",
       ], p)
     : undefined;

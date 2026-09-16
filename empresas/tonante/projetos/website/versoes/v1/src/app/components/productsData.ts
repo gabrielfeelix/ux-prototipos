@@ -53,7 +53,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/1/5/152273_2-17459165074785513.jpeg",
     ],
     "inStock": true,
-    "description": "Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD — Ibox, marca parceira selecionada pela Tonante.",
+    "description": "Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD. Ibox é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD</h2><p>Selecionado pela Tonante, o Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Palheta",
@@ -105,7 +105,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/1/7/17415.jpg-17458886356477024.jpeg",
     ],
     "inStock": true,
-    "description": "Suporte P/ Microfone Girafa Smmax Preto — SMMax, marca parceira selecionada pela Tonante.",
+    "description": "Suporte P/ Microfone Girafa Smmax Preto. SMMax é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte P/ Microfone Girafa Smmax Preto</h2><p>Selecionado pela Tonante, o Suporte P/ Microfone Girafa Smmax Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -156,7 +156,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/2/9/29570_2-17459181526727946.jpeg",
     ],
     "inStock": true,
-    "description": "Suporte de Parede P/ Violao/guitarra AGS — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede P/ Violao/guitarra AGS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede P/ Violao/guitarra AGS</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede P/ Violao/guitarra AGS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -212,7 +212,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/37641-17523305064321759.jpeg",
     ],
     "inStock": true,
-    "description": "Microfone com Cabo USB PODCAST-400U Preto — tradição Tonante desde 1954.",
+    "description": "Microfone com Cabo USB PODCAST-400U Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone com Cabo USB PODCAST-400U Preto</h2><p>Parte da linha Tonante de acessórios, o Microfone com Cabo USB PODCAST-400U Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone · Cabo",
@@ -265,7 +265,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106936-17522920464015416.jpeg"
     ],
     "inStock": true,
-    "description": "Estante Para Partitura Portátil com Ajuste de Altura - Dobrável com BAG - TNE1954 — tradição Tonante desde 1954.",
+    "description": "Estante Para Partitura Portátil com Ajuste de Altura - Dobrável com BAG - TNE1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Estante Para Partitura Portátil com Ajuste de Altura - Dobrável com BAG - TNE1954</h2><p>Parte da linha Tonante de suportes, o Estante Para Partitura Portátil com Ajuste de Altura - Dobrável com BAG - TNE1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Dobrável · Capa",
@@ -317,7 +317,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106942-17522545549759688.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Dobrável",
@@ -369,7 +369,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106943-17522519523585391.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte Para Guitarra, Baixo e Violão - Tubular - Dobrável - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Dobrável",
@@ -421,7 +421,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106944-17522514183928029.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Dobrável",
@@ -476,7 +476,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106945_3-17458116913004011.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Teclado - Dobrável - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte Para Teclado - Dobrável - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Teclado - Dobrável - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte Para Teclado - Dobrável - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Dobrável",
@@ -530,7 +530,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106946-17523128018929446.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede Para Guitarra, Baixo e Violão - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede Para Guitarra, Baixo e Violão - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede Para Guitarra, Baixo e Violão - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede Para Guitarra, Baixo e Violão - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -582,7 +582,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106947-17523431730061566.jpeg"
     ],
     "inStock": true,
-    "description": "Pedestal Para Microfone Girafa com Cachimbo - TNP1954 — tradição Tonante desde 1954.",
+    "description": "Pedestal Para Microfone Girafa com Cachimbo - TNP1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Pedestal Para Microfone Girafa com Cachimbo - TNP1954</h2><p>Parte da linha Tonante de suportes, o Pedestal Para Microfone Girafa com Cachimbo - TNP1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -634,7 +634,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/106949-17523362357634390.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte Para Guitarra, Baixo e Violão - Tipo Cavalete - Dobrável - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Dobrável",
@@ -673,6 +673,7 @@ const rawProducts: Product[] = [
     "name": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Snow White - TV1954SW",
     "price": "R$ 437,90",
     "priceNum": 437.90,
+    "badge": "Novidade",
     "rating": 4.6,
     "reviews": 438,
     "category": "Guitarras",
@@ -689,7 +690,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108160/108160-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Snow White - TV1954SW — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Snow White - TV1954SW. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>A VALENTINE'S</h2><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>A VALENTINE'S</h3><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>OPÇÕES PARA TODOS OS GOSTOS!</h3><p>Como de costume, a Tonante trouxe um lançamento com várias cores disponíveis para você poder escolher exatamente aquela que combina com o seu estilo.\nConheça agora nossas opções, cores disponíveis:</p>",
     "features": [
       "Formato: Ergonômico",
@@ -744,7 +745,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108167/108167-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Deep Dark - TV1954DD — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Deep Dark - TV1954DD. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>A VALENTINE'S</h2><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>A VALENTINE'S</h3><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>OPÇÕES PARA TODOS OS GOSTOS!</h3><p>Como de costume, a Tonante trouxe um lançamento com várias cores disponíveis para você poder escolher exatamente aquela que combina com o seu estilo.\nConheça agora nossas opções, cores disponíveis:</p>",
     "features": [
       "Tipo: Guitarra elétrica",
@@ -833,7 +834,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108168/108168-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Sunset - TV1954SS — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Sunset - TV1954SS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>A VALENTINE'S</h2><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>A VALENTINE'S</h3><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>OPÇÕES PARA TODOS OS GOSTOS!</h3><p>Como de costume, a Tonante trouxe um lançamento com várias cores disponíveis para você poder escolher exatamente aquela que combina com o seu estilo.\nConheça agora nossas opções, cores disponíveis:</p>",
     "features": [
       "Tipo: Guitarra elétrica",
@@ -909,6 +910,7 @@ const rawProducts: Product[] = [
     "name": "Guitarra Elétrica Valentine's - Modelo St-sss - Lipstick RED - TV1954LR",
     "price": "R$ 437,90",
     "priceNum": 437.90,
+    "badge": "Novidade",
     "rating": 4.8,
     "reviews": 188,
     "category": "Guitarras",
@@ -1006,7 +1008,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108171/108171-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Blue Ocean - TV1954BO — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Valentine's - Modelo ST- SSS - Blue Ocean - TV1954BO. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>A VALENTINE'S</h2><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>A VALENTINE'S</h3><p>Essa nossa linha apresenta uma guitarra totalmente nova que incorpora avanços evolutivos no design, indicada principalmente para iniciantes, de todas as idades. É um instrumento marcante pela sua versatilidade e além de claro, carregar o legado da Tonante.</p><h3>OPÇÕES PARA TODOS OS GOSTOS!</h3><p>Como de costume, a Tonante trouxe um lançamento com várias cores disponíveis para você poder escolher exatamente aquela que combina com o seu estilo.\nConheça agora nossas opções, cores disponíveis:</p>",
     "features": [
       "Tipo: Guitarra elétrica",
@@ -1094,7 +1096,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108174/108174-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Cecille - Modelo TL - Cobalt Blue - TLC1954CB — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Cecille - Modelo TL - Cobalt Blue - TLC1954CB. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>A CECILLE</h2><p>Apresenta design de corpo sólido em basswood, headstock e escudo customizados, controles separados de volume e tom e um braço parafusado, tem dois captadores e um tensor ajustável no braço. Esse instrumento tem aparência, sensação e som próprios. Muitas vezes descrito como \"twang\", o som será imediatamente apreciado por uma grande variedade de músicos.</p><h3>VERSÁTIL</h3><p>A simplicidade da Guitarra Elétrica Cecille, modelo TL, faz com que ela tenha um desempenho versátil. É uma ferramenta indispensável tanto para músicos de rock quanto de country e se tornou indelevelmente ligada a artistas individuais de ambos os gêneros, também é um dos modelos mais recomendados quando o assunto é Worship.</p><h3>PATRIMÔNIO E LEGADO</h3><p>Atualmente, a Cecille está disponível em uma variedade de cores para aproveitar!\nCORES DISPONÍVEIS:</p>",
     "features": [
       "Tipo: Guitarra elétrica",
@@ -1253,6 +1255,7 @@ const rawProducts: Product[] = [
     "name": "Contrabaixo Elétrico - Jazzmine - Deep Dark - 4 Cordas - TBJM1954DD",
     "price": "R$ 609,90",
     "priceNum": 609.90,
+    "badge": "Novidade",
     "rating": 4.6,
     "reviews": 342,
     "category": "Contrabaixos",
@@ -1268,7 +1271,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108179/108179-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Jazzmine - Deep Dark - 4 Cordas - TBJM1954DD — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Jazzmine - Deep Dark - 4 Cordas - TBJM1954DD. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O JazzMine</h2><p>Foi desenvolvido com o objetivo de proporcionar aos músicos um timbre mais limpo e articulado. Um dos baixos mais flexíveis e amplamente utilizados em vários gêneros musicais.</p><h3>Design Próprio Tonante</h3><p>Nosso instrumento foi meticulosamente projetado, desde a modelação e acabamento da madeira, até ao cuidado e consideração de cada detalhe.\nImagem do banner - Design Próprio Tonante</p><h3>Estilo para todos os gostos</h3><p>Outras cores estão disponíveis, elaboradas para satisfazer todos os estilos de artistas!</p>",
     "features": [
       "Tipo: Contrabaixo modelo JB 4 cordas",
@@ -1532,7 +1535,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108182/108182-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Theodor - Merlot - 4 Cordas - TT1954ML — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Theodor - Merlot - 4 Cordas - TT1954ML. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O Theodor</h2><p>É um baixo projetado para músicos que buscam qualidade &amp; versatilidade em um instrumento.\nCom corpo em Basswood, este instrumento oferece um som equilibrado, com boa definição e excelente resposta em todas as frequências. O braço em Maple garante resistência e durabilidade.</p><h3>Disponível em três opções de cores:</h3><p>- Nude Wood;\n- Merlot;\n- Deep Dark\nO Theodor oferece um visual elegante e moderno.</p>",
     "features": [
       "Tipo: Contrabaixo elétrico",
@@ -1605,6 +1608,7 @@ const rawProducts: Product[] = [
     "name": "Contrabaixo Elétrico - Theodor - Deep Dark - 4 Cordas - TT1954DD",
     "price": "R$ 717,90",
     "priceNum": 717.90,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 261,
     "category": "Contrabaixos",
@@ -1620,7 +1624,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/108183/108183-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Theodor - Deep Dark - 4 Cordas - TT1954DD — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Theodor - Deep Dark - 4 Cordas - TT1954DD. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O Theodor</h2><p>É um baixo projetado para músicos que buscam qualidade &amp; versatilidade em um instrumento.\nCom corpo em Basswood, este instrumento oferece um som equilibrado, com boa definição e excelente resposta em todas as frequências. O braço em Maple garante resistência e durabilidade.</p><h3>Disponível em três opções de cores:</h3><p>- Nude Wood;\n- Merlot;\n- Deep Dark\nO Theodor oferece um visual elegante e moderno.</p>",
     "features": [
       "Tipo: Contrabaixo elétrico",
@@ -1711,7 +1715,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/108184_1-17692867433513200.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Lorenzzo 39\" - Nylon - Natural - VTL1954N — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Lorenzzo 39\" - Nylon - Natural - VTL1954N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Lorenzzo 39\" - Nylon - Natural - VTL1954N</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Lorenzzo 39\" - Nylon - Natural - VTL1954N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -1765,7 +1769,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/108186_1-17691781042869388.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Lorenzzo 39\" - Nylon - Brown - VTL1954M — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Lorenzzo 39\" - Nylon - Brown - VTL1954M. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Lorenzzo 39\" - Nylon - Brown - VTL1954M</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Lorenzzo 39\" - Nylon - Brown - VTL1954M carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -1822,7 +1826,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/108187_1-17458610515934347.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Natural Fosco - VTLSC1954N — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Natural Fosco - VTLSC1954N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Natural Fosco - VTLSC1954N</h2><p>Parte da linha Tonante de violões, o Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Natural Fosco - VTLSC1954N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -1861,6 +1865,7 @@ const rawProducts: Product[] = [
     "name": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Brown Fosco - VTLSC1954M",
     "price": "R$ 399,90",
     "priceNum": 399.90,
+    "badge": "Novidade",
     "rating": 4.7,
     "reviews": 441,
     "category": "Violões",
@@ -1876,7 +1881,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/108189_1-17459144899983650.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Brown Fosco - VTLSC1954M — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Brown Fosco - VTLSC1954M. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Brown Fosco - VTLSC1954M</h2><p>Parte da linha Tonante de violões, o Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon - Brown Fosco - VTLSC1954M carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -1931,7 +1936,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10964_1-17573495018096459.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guitarra Ninja Cable 0,20 MM P10/P10 10FT 3,05M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guitarra Ninja Cable 0,20 MM P10/P10 10FT 3,05M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guitarra Ninja Cable 0,20 MM P10/P10 10FT 3,05M Preto</h2><p>Selecionado pela Tonante, o Cabo de Guitarra Ninja Cable 0,20 MM P10/P10 10FT 3,05M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -1986,7 +1991,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10966_1-17573496127964037.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/ XLR F. 03FT 0,91CM T — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/ XLR F. 03FT 0,91CM T. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Microf. Ninja HG 0,20 MM P10/ XLR F. 03FT 0,91CM T</h2><p>Selecionado pela Tonante, o Cabo de Microf. Ninja HG 0,20 MM P10/ XLR F. 03FT 0,91CM T é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -2038,7 +2043,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10967_1-17573496501567971.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 10FT 3,05M PT — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 10FT 3,05M PT. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 10FT 3,05M PT</h2><p>Selecionado pela Tonante, o Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 10FT 3,05M PT é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -2090,7 +2095,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10968_1-17573497860192444.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/XLR Femea 15FT 4,57M PT — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/XLR Femea 15FT 4,57M PT. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Microf. Ninja HG 0,20 MM P10/XLR Femea 15FT 4,57M PT</h2><p>Selecionado pela Tonante, o Cabo de Microf. Ninja HG 0,20 MM P10/XLR Femea 15FT 4,57M PT é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -2143,7 +2148,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10969-17458757270742827.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo Para Microfone XLR M / XLR F Ninja LW 03FT 0,91M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo Para Microfone XLR M / XLR F Ninja LW 03FT 0,91M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo Para Microfone XLR M / XLR F Ninja LW 03FT 0,91M Preto</h2><p>Selecionado pela Tonante, o Cabo Para Microfone XLR M / XLR F Ninja LW 03FT 0,91M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone · Cabo",
@@ -2195,7 +2200,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10971-17457919131095456.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F Ninja 15FT 4,57M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F Ninja 15FT 4,57M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F Ninja 15FT 4,57M Preto</h2><p>Selecionado pela Tonante, o Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F Ninja 15FT 4,57M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -2246,7 +2251,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/11002.jpg-17459198268275043.jpeg"
     ],
     "inStock": true,
-    "description": "Plug P10 Mono Ninja C/ Mola — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Plug P10 Mono Ninja C/ Mola. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Plug P10 Mono Ninja C/ Mola</h2><p>Selecionado pela Tonante, o Plug P10 Mono Ninja C/ Mola é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -2298,7 +2303,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/11008.jpg-17460176305482622.jpeg"
     ],
     "inStock": true,
-    "description": "Plug XLR SAS 3 Pinos Linha Fêmea Niquelado L3FNN01 — tradição Tonante desde 1954.",
+    "description": "Plug XLR SAS 3 Pinos Linha Fêmea Niquelado L3FNN01. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Plug XLR SAS 3 Pinos Linha Fêmea Niquelado L3FNN01</h2><p>Parte da linha Tonante de acessórios, o Plug XLR SAS 3 Pinos Linha Fêmea Niquelado L3FNN01 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Níquel",
@@ -2337,6 +2342,7 @@ const rawProducts: Product[] = [
     "name": "Guitarra Elétrica Cecille - Modelo TL - Sangria - TLC1954SG",
     "price": "R$ 544,90",
     "priceNum": 544.90,
+    "badge": "Novidade",
     "rating": 4.5,
     "reviews": 291,
     "category": "Guitarras",
@@ -2352,7 +2358,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/111578/111578-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Cecille - Modelo TL - Sangria - TLC1954SG — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Cecille - Modelo TL - Sangria - TLC1954SG. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>A CECILLE</h2><p>Apresenta design de corpo sólido em basswood, headstock e escudo customizados, controles separados de volume e tom e um braço parafusado, tem dois captadores e um tensor ajustável no braço. Esse instrumento tem aparência, sensação e som próprios. Muitas vezes descrito como \"twang\", o som será imediatamente apreciado por uma grande variedade de músicos.</p><h3>VERSÁTIL</h3><p>A simplicidade da Guitarra Elétrica Cecille, modelo TL, faz com que ela tenha um desempenho versátil. É uma ferramenta indispensável tanto para músicos de rock quanto de country e se tornou indelevelmente ligada a artistas individuais de ambos os gêneros, também é um dos modelos mais recomendados quando o assunto é Worship.</p><h3>PATRIMÔNIO E LEGADO</h3><p>Atualmente, a Cecille está disponível em uma variedade de cores para aproveitar!\nCORES DISPONÍVEIS:</p>",
     "features": [
       "Tipo: Guitarra elétrica",
@@ -2437,7 +2443,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111593-17522971558727672.jpeg"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Star Light- SS - RED Sunset - TSL21954RS — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Star Light- SS - RED Sunset - TSL21954RS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Guitarra Elétrica Star Light- SS - RED Sunset - TSL21954RS</h2><p>Parte da linha Tonante de guitarras, o Guitarra Elétrica Star Light- SS - RED Sunset - TSL21954RS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Guitarras",
@@ -2476,6 +2482,7 @@ const rawProducts: Product[] = [
     "name": "Guitarra Elétrica Star Light -SS - Vanilla - TSL21954V",
     "price": "R$ 699,90",
     "priceNum": 699.90,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 319,
     "category": "Guitarras",
@@ -2488,7 +2495,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111594-17523728616964867.jpeg"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Star Light -SS - Vanilla - TSL21954V — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Star Light -SS - Vanilla - TSL21954V. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Guitarra Elétrica Star Light -SS - Vanilla - TSL21954V</h2><p>Parte da linha Tonante de guitarras, o Guitarra Elétrica Star Light -SS - Vanilla - TSL21954V carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Guitarras",
@@ -2527,6 +2534,7 @@ const rawProducts: Product[] = [
     "name": "Guitarra Elétrica Star Light - SS - Azure - TSL21954AZ",
     "price": "R$ 699,90",
     "priceNum": 699.90,
+    "badge": "Novidade",
     "rating": 4.8,
     "reviews": 348,
     "category": "Guitarras",
@@ -2539,7 +2547,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111597-17523185382683191.jpeg"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Star Light - SS - Azure - TSL21954AZ — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Star Light - SS - Azure - TSL21954AZ. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Guitarra Elétrica Star Light - SS - Azure - TSL21954AZ</h2><p>Parte da linha Tonante de guitarras, o Guitarra Elétrica Star Light - SS - Azure - TSL21954AZ carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Guitarras",
@@ -2581,6 +2589,7 @@ const rawProducts: Product[] = [
     "name": "Contrabaixo Elétrico - Jazzmine - Yellow Cake - 5 Cordas - TBJM1954YC5",
     "price": "R$ 674,90",
     "priceNum": 674.90,
+    "badge": "Novidade",
     "rating": 4.8,
     "reviews": 174,
     "category": "Contrabaixos",
@@ -2596,7 +2605,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/111599/111599-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Jazzmine - Yellow Cake - 5 Cordas - TBJM1954YC5 — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Jazzmine - Yellow Cake - 5 Cordas - TBJM1954YC5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O JazzMine</h2><p>Foi desenvolvido com o objetivo de proporcionar aos músicos um timbre mais limpo e articulado. Um dos baixos mais flexíveis e amplamente utilizados em vários gêneros musicais.</p><h3>Design Próprio Tonante</h3><p>Nosso instrumento foi meticulosamente projetado, desde a modelação e acabamento da madeira, até ao cuidado e consideração de cada detalhe.</p><h3>Estilo para todos os gostos</h3><p>Outras cores estão disponíveis, elaboradas para satisfazer todos os estilos de artistas!</p>",
     "features": [
       "Tipo: Contrabaixo modelo JB 5 cordas",
@@ -2665,6 +2674,7 @@ const rawProducts: Product[] = [
     "name": "Contrabaixo Elétrico - Jazzmine- Deep Dark- 5 Cordas - TBJM1954DD5",
     "price": "R$ 674,90",
     "priceNum": 674.90,
+    "badge": "Novidade",
     "rating": 4.6,
     "reviews": 462,
     "category": "Contrabaixos",
@@ -2680,7 +2690,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/111601/111601-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Jazzmine- Deep Dark- 5 Cordas - TBJM1954DD5 — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Jazzmine- Deep Dark- 5 Cordas - TBJM1954DD5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O JazzMine</h2><p>Foi desenvolvido com o objetivo de proporcionar aos músicos um timbre mais limpo e articulado. Um dos baixos mais flexíveis e amplamente utilizados em vários gêneros musicais.</p><h3>Design Próprio Tonante</h3><p>Nosso instrumento foi meticulosamente projetado, desde a modelação e acabamento da madeira, até ao cuidado e consideração de cada detalhe.</p><h3>Estilo para todos os gostos</h3><p>Outras cores estão disponíveis, elaboradas para satisfazer todos os estilos de artistas!</p>",
     "features": [
       "Tipo: Contrabaixo modelo JB 5 cordas",
@@ -2752,6 +2762,7 @@ const rawProducts: Product[] = [
     "name": "Contrabaixo Elétrico - Jazzmine- Sunset - 5 Cordas - TBJM1954SS5",
     "price": "R$ 674,90",
     "priceNum": 674.90,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 79,
     "category": "Contrabaixos",
@@ -2767,7 +2778,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/111602/111602-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Jazzmine- Sunset - 5 Cordas - TBJM1954SS5 — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Jazzmine- Sunset - 5 Cordas - TBJM1954SS5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O JazzMine</h2><p>Foi desenvolvido com o objetivo de proporcionar aos músicos um timbre mais limpo e articulado. Um dos baixos mais flexíveis e amplamente utilizados em vários gêneros musicais.</p><h3>Design Próprio Tonante</h3><p>Nosso instrumento foi meticulosamente projetado, desde a modelação e acabamento da madeira, até ao cuidado e consideração de cada detalhe.</p><h3>Estilo para todos os gostos</h3><p>Outras cores estão disponíveis, elaboradas para satisfazer todos os estilos de artistas!</p>",
     "features": [
       "Tipo: Contrabaixo modelo JB 5 cordas",
@@ -2851,7 +2862,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/111604/111604-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Theodor - Nude Wood - 5 Cordas - TT1954NW5 — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Theodor - Nude Wood - 5 Cordas - TT1954NW5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O Theodor</h2><p>É um baixo projetado para músicos que buscam qualidade &amp; versatilidade em um instrumento.\nCom corpo em Basswood, este instrumento oferece um som equilibrado, com boa definição e excelente resposta em todas as frequências. O braço em Maple garante resistência e durabilidade.</p><h3>Disponível em três opções de cores:</h3><p>- Nude Wood;\n- Merlot;\n- Deep Dark\nO Theodor oferece um visual elegante e moderno.</p>",
     "features": [
       "Tipo: Contrabaixo elétrico",
@@ -2924,6 +2935,7 @@ const rawProducts: Product[] = [
     "name": "Contrabaixo Elétrico - Theodor - Merlot - 5 Cordas - TT1954ML5",
     "price": "R$ 777,90",
     "priceNum": 777.90,
+    "badge": "Novidade",
     "rating": 4.7,
     "reviews": 137,
     "category": "Contrabaixos",
@@ -2939,7 +2951,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/Empresa/Produtos/Cabos/SKU123456/8"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Theodor - Merlot - 5 Cordas - TT1954ML5 — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Theodor - Merlot - 5 Cordas - TT1954ML5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O Theodor</h2><p>É um baixo projetado para músicos que buscam qualidade &amp; versatilidade em um instrumento.\nCom corpo em Basswood, este instrumento oferece um som equilibrado, com boa definição e excelente resposta em todas as frequências. O braço em Maple garante resistência e durabilidade.</p><h3>Disponível em três opções de cores:</h3><p>- Nude Wood;\n- Merlot;\n- Deep Dark\nO Theodor oferece um visual elegante e moderno.</p>",
     "features": [
       "Tipo: Contrabaixo elétrico",
@@ -3027,7 +3039,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/111605/111605-A6.png"
     ],
     "inStock": true,
-    "description": "Contrabaixo Elétrico - Theodor - Deep Dark - 5 Cordas - TT1954DD5 — tradição Tonante desde 1954.",
+    "description": "Contrabaixo Elétrico - Theodor - Deep Dark - 5 Cordas - TT1954DD5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>O Theodor</h2><p>É um baixo projetado para músicos que buscam qualidade &amp; versatilidade em um instrumento.\nCom corpo em Basswood, este instrumento oferece um som equilibrado, com boa definição e excelente resposta em todas as frequências. O braço em Maple garante resistência e durabilidade.</p><h3>Disponível em três opções de cores:</h3><p>- Nude Wood;\n- Merlot;\n- Deep Dark\nO Theodor oferece um visual elegante e moderno.</p>",
     "features": [
       "Tipo: Contrabaixo elétrico",
@@ -3112,7 +3124,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111613_1-17522907229355352.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Abalone 40\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VGAB1954N40 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Abalone 40\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VGAB1954N40. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Abalone 40\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VGAB1954N40</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Abalone 40\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VGAB1954N40 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3163,7 +3175,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111614_1-17496758262554069.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Abalone 41\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VFA1954N41 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Abalone 41\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VFA1954N41. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Abalone 41\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VFA1954N41</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Abalone 41\" - Natural - Tampo Sólido EM Spruce - EQ 3 Bandas - Fosco - VFA1954N41 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3217,7 +3229,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111616_-17774682560112308.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Quartzo 40\" - Tampo Sólido EM Mahogany - Fosco - EQ 4 Bandas - VGAQ1954N40 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Quartzo 40\" - Tampo Sólido EM Mahogany - Fosco - EQ 4 Bandas - VGAQ1954N40. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Quartzo 40\" - Tampo Sólido EM Mahogany - Fosco - EQ 4 Bandas - VGAQ1954N40</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Quartzo 40\" - Tampo Sólido EM Mahogany - Fosco - EQ 4 Bandas - VGAQ1954N40 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3268,7 +3280,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111630_1-17774819634096250.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Safira 41\" - Tampo EM Zebra - EQ 4 Bandas - Fosco - VSZ1954N41Z — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Safira 41\" - Tampo EM Zebra - EQ 4 Bandas - Fosco - VSZ1954N41Z. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Safira 41\" - Tampo EM Zebra - EQ 4 Bandas - Fosco - VSZ1954N41Z</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Safira 41\" - Tampo EM Zebra - EQ 4 Bandas - Fosco - VSZ1954N41Z carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3319,7 +3331,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111631_1-17774820006368463.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Safira 41\"- Tampo EM Spruce - EQ 4 Bandas - Fosco - VSL1954N41L — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Safira 41\"- Tampo EM Spruce - EQ 4 Bandas - Fosco - VSL1954N41L. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Safira 41\"- Tampo EM Spruce - EQ 4 Bandas - Fosco - VSL1954N41L</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Safira 41\"- Tampo EM Spruce - EQ 4 Bandas - Fosco - VSL1954N41L carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3370,7 +3382,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111643-17522980454421331.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN41 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN41. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN41</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN41 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3424,7 +3436,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111644-17522908245393531.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW41 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW41. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW41</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW41 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3478,7 +3490,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111645-17523725954076509.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS41 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS41. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS41</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS41 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3517,6 +3529,7 @@ const rawProducts: Product[] = [
     "name": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Sunset - EQ 3 Bandas - VGAC1954S41",
     "price": "R$ 519,90",
     "priceNum": 519.90,
+    "badge": "Novidade",
     "rating": 4.5,
     "reviews": 427,
     "category": "Violões",
@@ -3529,7 +3542,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111646-17523286356236629.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Sunset - EQ 3 Bandas - VGAC1954S41 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Sunset - EQ 3 Bandas - VGAC1954S41. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Sunset - EQ 3 Bandas - VGAC1954S41</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Sunset - EQ 3 Bandas - VGAC1954S41 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3580,7 +3593,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111647-17522981473449179.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Blue Wood - EQ 3 Bandas - VGAC1954BW41 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Blue Wood - EQ 3 Bandas - VGAC1954BW41. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Blue Wood - EQ 3 Bandas - VGAC1954BW41</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 41\" - Tampo Sólido EM Spruce - Blue Wood - EQ 3 Bandas - VGAC1954BW41 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3634,7 +3647,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111648-17522982449924071.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN40 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN40. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN40</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Clear Natural - EQ 3 Bandas - VGAC1954CN40 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3685,7 +3698,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111649-17523723615448329.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW40 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW40. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW40</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Wood - EQ 3 Bandas - VGAC1954DW40 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3739,7 +3752,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/111650-17523496277887760.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS40 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS40. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS40</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Coral 40\" - Tampo Sólido EM Spruce - Dark Spruce - EQ 3 Bandas - VGAC1954DS40 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3790,7 +3803,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112213-17523500660374203.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Magma 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 4 Bandas - TVM1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Magma 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 4 Bandas - TVM1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Magma 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 4 Bandas - TVM1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Magma 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 4 Bandas - TVM1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3842,7 +3855,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112214-17523569234116658.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Opala 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 3 Bandas - TVOP1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Opala 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 3 Bandas - TVOP1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Opala 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 3 Bandas - TVOP1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Opala 40\" - Tampo EM Mahogany - Acabamento Gloss - EQ 3 Bandas - TVOP1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3881,6 +3894,7 @@ const rawProducts: Product[] = [
     "name": "Violão Elétrico Ônix 40\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVO1954",
     "price": "R$ 529,90",
     "priceNum": 529.90,
+    "badge": "Novidade",
     "rating": 4.6,
     "reviews": 440,
     "category": "Violões",
@@ -3893,7 +3907,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112217-17523634973322788.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Ônix 40\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVO1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Ônix 40\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVO1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Ônix 40\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVO1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Ônix 40\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVO1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3944,7 +3958,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112218-17522509662142752.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Ametista Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - VTAM1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Ametista Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - VTAM1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Ametista Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - VTAM1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Ametista Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - VTAM1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -3998,7 +4012,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112220_2-17458647598892637.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Granada 40\" - Tampo EM Walnut - Acabamento Fosco - EQ 3 Bandas - VTG1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Granada 40\" - Tampo EM Walnut - Acabamento Fosco - EQ 3 Bandas - VTG1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Granada 40\" - Tampo EM Walnut - Acabamento Fosco - EQ 3 Bandas - VTG1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Granada 40\" - Tampo EM Walnut - Acabamento Fosco - EQ 3 Bandas - VTG1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -4050,7 +4064,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112362-17459262031402442.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO EJ11 012 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO EJ11 012. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO EJ11 012</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO EJ11 012 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -4102,7 +4116,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/112392-1-17642509856531753.jpeg"
     ],
     "inStock": true,
-    "description": "Microfones Pulse PRO 2 sem FIO + Receiver - SP801 — tradição Tonante desde 1954.",
+    "description": "Microfones Pulse PRO 2 sem FIO + Receiver - SP801. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfones Pulse PRO 2 sem FIO + Receiver - SP801</h2><p>Parte da linha Tonante de acessórios, o Microfones Pulse PRO 2 sem FIO + Receiver - SP801 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -4154,7 +4168,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/1/11706.jpg-17523313462302649.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone Profissional MC-200 Prata — tradição Tonante desde 1954.",
+    "description": "Microfone Profissional MC-200 Prata. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone Profissional MC-200 Prata</h2><p>Parte da linha Tonante de acessórios, o Microfone Profissional MC-200 Prata carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -4209,7 +4223,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13201_1-17573494242192622.png"
     ],
     "inStock": true,
-    "description": "Cabo de Guitarra Angel TX 0,30MM P10/P10 90º 10FT 3,05M Textil — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guitarra Angel TX 0,30MM P10/P10 90º 10FT 3,05M Textil. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guitarra Angel TX 0,30MM P10/P10 90º 10FT 3,05M Textil</h2><p>Selecionado pela Tonante, o Cabo de Guitarra Angel TX 0,30MM P10/P10 90º 10FT 3,05M Textil é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -4264,7 +4278,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13202_1-17573492321702087.png"
     ],
     "inStock": true,
-    "description": "Cabo de Guitarra Angel TX 0,30 MM P10/P10 90º 15FT 4,57M Textil — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guitarra Angel TX 0,30 MM P10/P10 90º 15FT 4,57M Textil. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guitarra Angel TX 0,30 MM P10/P10 90º 15FT 4,57M Textil</h2><p>Selecionado pela Tonante, o Cabo de Guitarra Angel TX 0,30 MM P10/P10 90º 15FT 4,57M Textil é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -4316,7 +4330,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13205_1-17573497533487480.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 25FT 7,62M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 25FT 7,62M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 25FT 7,62M Preto</h2><p>Selecionado pela Tonante, o Cabo de Microf. Ninja HG 0,20 MM P10/XLR F. 25FT 7,62M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -4371,7 +4385,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13206-17569949626965955.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F 20FT 6,10M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F 20FT 6,10M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F 20FT 6,10M Preto</h2><p>Selecionado pela Tonante, o Cabo Para Microf. Ninja LW 0,20 MM XLR M/ XLR F 20FT 6,10M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -4427,7 +4441,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13207-17569946547853736.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo Para Microfone XLR M / XLR F Ninja LW 25FT 7,62M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo Para Microfone XLR M / XLR F Ninja LW 25FT 7,62M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo Para Microfone XLR M / XLR F Ninja LW 25FT 7,62M Preto</h2><p>Selecionado pela Tonante, o Cabo Para Microfone XLR M / XLR F Ninja LW 25FT 7,62M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone · Cabo",
@@ -4479,7 +4493,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13228_1-17573491218686946.png"
     ],
     "inStock": true,
-    "description": "Cabo de Guitarra Angel L 0,30MM P10/P10 90º 10FT 3,05 M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guitarra Angel L 0,30MM P10/P10 90º 10FT 3,05 M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guitarra Angel L 0,30MM P10/P10 90º 10FT 3,05 M Preto</h2><p>Selecionado pela Tonante, o Cabo de Guitarra Angel L 0,30MM P10/P10 90º 10FT 3,05 M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -4534,7 +4548,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13230_1-17573491788535710.png"
     ],
     "inStock": true,
-    "description": "Cabo de Guitarra Angel L 0,30MM P10/P10 90º 20FT 6,10M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guitarra Angel L 0,30MM P10/P10 90º 20FT 6,10M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guitarra Angel L 0,30MM P10/P10 90º 20FT 6,10M Preto</h2><p>Selecionado pela Tonante, o Cabo de Guitarra Angel L 0,30MM P10/P10 90º 20FT 6,10M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -4586,7 +4600,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/4/1403-1-17484544833202985.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone Profissional SM58 P4 BK Preto Fosco — tradição Tonante desde 1954.",
+    "description": "Microfone Profissional SM58 P4 BK Preto Fosco. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone Profissional SM58 P4 BK Preto Fosco</h2><p>Parte da linha Tonante de acessórios, o Microfone Profissional SM58 P4 BK Preto Fosco carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -4638,7 +4652,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/4/143025-3-17637380795897290.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone Dinamico Preto Brilhante MC200 — tradição Tonante desde 1954.",
+    "description": "Microfone Dinamico Preto Brilhante MC200. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone Dinamico Preto Brilhante MC200</h2><p>Parte da linha Tonante de acessórios, o Microfone Dinamico Preto Brilhante MC200 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -4689,7 +4703,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/4/146108-17459061237573801.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Triplo Para Guitarra, Baixo e Violão -TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte Triplo Para Guitarra, Baixo e Violão -TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Triplo Para Guitarra, Baixo e Violão -TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte Triplo Para Guitarra, Baixo e Violão -TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -4740,7 +4754,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/4/146109-17523709938482355.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede Para Guitarra, Baixo e Violão Slatwall com Regulagem - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede Para Guitarra, Baixo e Violão Slatwall com Regulagem - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede Para Guitarra, Baixo e Violão Slatwall com Regulagem - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede Para Guitarra, Baixo e Violão Slatwall com Regulagem - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -4791,7 +4805,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/4/146110-17522530403104114.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede Para Guitarra, Baixo e Violão com Trava - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede Para Guitarra, Baixo e Violão com Trava - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede Para Guitarra, Baixo e Violão com Trava - TNS1954</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede Para Guitarra, Baixo e Violão com Trava - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -4843,7 +4857,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/4/14855.jpg-17573354444459416.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone com FIO Profissional FNK5 — tradição Tonante desde 1954.",
+    "description": "Microfone com FIO Profissional FNK5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone com FIO Profissional FNK5</h2><p>Parte da linha Tonante de acessórios, o Microfone com FIO Profissional FNK5 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -4894,7 +4908,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152259-17458629760564369.jpeg"
     ],
     "inStock": true,
-    "description": "Damper em Couro e TAG em Metal Prata Metal DMMD01 — tradição Tonante desde 1954.",
+    "description": "Damper em Couro e TAG em Metal Prata Metal DMMD01. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Damper em Couro e TAG em Metal Prata Metal DMMD01</h2><p>Parte da linha Tonante de acessórios, o Damper em Couro e TAG em Metal Prata Metal DMMD01 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -4945,7 +4959,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152260-17458693297278892.jpeg"
     ],
     "inStock": true,
-    "description": "Damper em Couro e TAG em Metal Dourado Metalico DMMD02 — tradição Tonante desde 1954.",
+    "description": "Damper em Couro e TAG em Metal Dourado Metalico DMMD02. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Damper em Couro e TAG em Metal Dourado Metalico DMMD02</h2><p>Parte da linha Tonante de acessórios, o Damper em Couro e TAG em Metal Dourado Metalico DMMD02 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -4997,7 +5011,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152261-17458494703688373.jpeg"
     ],
     "inStock": true,
-    "description": "Damper Ibox em Couro e TAG em Metal Vermelho Metalico DMMD04 — Ibox, marca parceira selecionada pela Tonante.",
+    "description": "Damper Ibox em Couro e TAG em Metal Vermelho Metalico DMMD04. Ibox é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Damper Ibox em Couro e TAG em Metal Vermelho Metalico DMMD04</h2><p>Selecionado pela Tonante, o Damper Ibox em Couro e TAG em Metal Vermelho Metalico DMMD04 é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5048,7 +5062,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152262-17459240515504932.jpeg"
     ],
     "inStock": true,
-    "description": "Damper em Couro e TAG em Metal Preto DSMD02 — tradição Tonante desde 1954.",
+    "description": "Damper em Couro e TAG em Metal Preto DSMD02. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Damper em Couro e TAG em Metal Preto DSMD02</h2><p>Parte da linha Tonante de acessórios, o Damper em Couro e TAG em Metal Preto DSMD02 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5099,7 +5113,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152264-17458916992041633.jpeg"
     ],
     "inStock": true,
-    "description": "Damper em Poliester e TAG em Metal Marrom DTMD18 — tradição Tonante desde 1954.",
+    "description": "Damper em Poliester e TAG em Metal Marrom DTMD18. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Damper em Poliester e TAG em Metal Marrom DTMD18</h2><p>Parte da linha Tonante de acessórios, o Damper em Poliester e TAG em Metal Marrom DTMD18 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5151,7 +5165,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152268-17458725957963934.jpeg"
     ],
     "inStock": true,
-    "description": "Palheta Ibox 1.0MM C/ 20 pçs Preto PLP100BK — Ibox, marca parceira selecionada pela Tonante.",
+    "description": "Palheta Ibox 1.0MM C/ 20 pçs Preto PLP100BK. Ibox é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Palheta Ibox 1.0MM C/ 20 pçs Preto PLP100BK</h2><p>Selecionado pela Tonante, o Palheta Ibox 1.0MM C/ 20 pçs Preto PLP100BK é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Palheta",
@@ -5203,7 +5217,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152269_2-17458614645401589.jpeg"
     ],
     "inStock": true,
-    "description": "Palheta Ibox 1.00MM C/ 20 pçs Azul PLP100BL — Ibox, marca parceira selecionada pela Tonante.",
+    "description": "Palheta Ibox 1.00MM C/ 20 pçs Azul PLP100BL. Ibox é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Palheta Ibox 1.00MM C/ 20 pçs Azul PLP100BL</h2><p>Selecionado pela Tonante, o Palheta Ibox 1.00MM C/ 20 pçs Azul PLP100BL é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Palheta",
@@ -5255,7 +5269,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152272-17459172713903504.jpeg"
     ],
     "inStock": true,
-    "description": "Palheta Ibox 1.00MM C/ 20 pçs Laranja PLP100OG — Ibox, marca parceira selecionada pela Tonante.",
+    "description": "Palheta Ibox 1.00MM C/ 20 pçs Laranja PLP100OG. Ibox é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Palheta Ibox 1.00MM C/ 20 pçs Laranja PLP100OG</h2><p>Selecionado pela Tonante, o Palheta Ibox 1.00MM C/ 20 pçs Laranja PLP100OG é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Palheta",
@@ -5310,7 +5324,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152273_2-17459165074785513.jpeg"
     ],
     "inStock": true,
-    "description": "Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD — Ibox, marca parceira selecionada pela Tonante.",
+    "description": "Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD. Ibox é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD</h2><p>Selecionado pela Tonante, o Palheta Ibox 1.0MM C/ 20 pçs Vermelho PLP100RD é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Palheta",
@@ -5361,7 +5375,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152274-17457143736195612.jpeg"
     ],
     "inStock": true,
-    "description": "Roldanas Cromadas P/ Correias de Instrumento RD01C — tradição Tonante desde 1954.",
+    "description": "Roldanas Cromadas P/ Correias de Instrumento RD01C. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Roldanas Cromadas P/ Correias de Instrumento RD01C</h2><p>Parte da linha Tonante de acessórios, o Roldanas Cromadas P/ Correias de Instrumento RD01C carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5412,7 +5426,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152275_2-17458148519187147.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Comfort 5CM Listras CK505 PT VM BR e CZ — tradição Tonante desde 1954.",
+    "description": "Correia Comfort 5CM Listras CK505 PT VM BR e CZ. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Comfort 5CM Listras CK505 PT VM BR e CZ</h2><p>Parte da linha Tonante de acessórios, o Correia Comfort 5CM Listras CK505 PT VM BR e CZ carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5466,7 +5480,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152276-17458438836352559.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Comfort 5CM CK518 Marrom — tradição Tonante desde 1954.",
+    "description": "Correia Comfort 5CM CK518 Marrom. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Comfort 5CM CK518 Marrom</h2><p>Parte da linha Tonante de acessórios, o Correia Comfort 5CM CK518 Marrom carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5517,7 +5531,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152277_1-17458299597156385.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Comfort 5CM CK520 Cinza — tradição Tonante desde 1954.",
+    "description": "Correia Comfort 5CM CK520 Cinza. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Comfort 5CM CK520 Cinza</h2><p>Parte da linha Tonante de acessórios, o Correia Comfort 5CM CK520 Cinza carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5568,7 +5582,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152278-17458725286366677.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Luxo CL72I Preta — tradição Tonante desde 1954.",
+    "description": "Correia Luxo CL72I Preta. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Luxo CL72I Preta</h2><p>Parte da linha Tonante de acessórios, o Correia Luxo CL72I Preta carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5623,7 +5637,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152280_3-17458928618705847.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Tripe P/ Caixa de Som Acustica Profissional TR3 — tradição Tonante desde 1954.",
+    "description": "Suporte Tripe P/ Caixa de Som Acustica Profissional TR3. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Tripe P/ Caixa de Som Acustica Profissional TR3</h2><p>Parte da linha Tonante de suportes, o Suporte Tripe P/ Caixa de Som Acustica Profissional TR3 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico",
@@ -5676,7 +5690,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152309-17522774362702068.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit.shogun 0,75MM P10/P10 90º 20FT 6,10M PT — tradição Tonante desde 1954.",
+    "description": "Cabo de Guit.shogun 0,75MM P10/P10 90º 20FT 6,10M PT. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit.shogun 0,75MM P10/P10 90º 20FT 6,10M PT</h2><p>Parte da linha Tonante de acessórios, o Cabo de Guit.shogun 0,75MM P10/P10 90º 20FT 6,10M PT carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -5729,7 +5743,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152310-17522773803622010.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit. Shogun 0,75MM P10/P10 90º 15FT 4,57M PT — tradição Tonante desde 1954.",
+    "description": "Cabo de Guit. Shogun 0,75MM P10/P10 90º 15FT 4,57M PT. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit. Shogun 0,75MM P10/P10 90º 15FT 4,57M PT</h2><p>Parte da linha Tonante de acessórios, o Cabo de Guit. Shogun 0,75MM P10/P10 90º 15FT 4,57M PT carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -5781,7 +5795,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152315-17523406741251824.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit. Samurai 0,30 MM P10/P10 15FT 4,57M PT — tradição Tonante desde 1954.",
+    "description": "Cabo de Guit. Samurai 0,30 MM P10/P10 15FT 4,57M PT. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit. Samurai 0,30 MM P10/P10 15FT 4,57M PT</h2><p>Parte da linha Tonante de acessórios, o Cabo de Guit. Samurai 0,30 MM P10/P10 15FT 4,57M PT carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -5834,7 +5848,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152321-17569947824839406.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo Para Microfone XLR M / XLR F Ninja LW 30FT 9,15M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo Para Microfone XLR M / XLR F Ninja LW 30FT 9,15M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo Para Microfone XLR M / XLR F Ninja LW 30FT 9,15M Preto</h2><p>Selecionado pela Tonante, o Cabo Para Microfone XLR M / XLR F Ninja LW 30FT 9,15M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone · Cabo",
@@ -5888,7 +5902,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152324-17458522658976617.jpeg"
     ],
     "inStock": true,
-    "description": "Plug P10 Ninja Estereo com Mola — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Plug P10 Ninja Estereo com Mola. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Plug P10 Ninja Estereo com Mola</h2><p>Selecionado pela Tonante, o Plug P10 Ninja Estereo com Mola é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -5940,7 +5954,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157084_1-17573490355671638.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 10FT 3,05M PT — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 10FT 3,05M PT. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 10FT 3,05M PT</h2><p>Selecionado pela Tonante, o Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 10FT 3,05M PT é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -5995,7 +6009,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157085_1-17573490616384565.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 15FT 4,57M PT — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 15FT 4,57M PT. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 15FT 4,57M PT</h2><p>Selecionado pela Tonante, o Cabo de Guit. Ninja L Cable 0,20 MM P10/P10 90° 15FT 4,57M PT é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -6047,7 +6061,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157089_1-17573495851921192.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Micrf. Ninja L Cable 0,20 MM P10/P10 90° 30FT 9,15M Preto — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Micrf. Ninja L Cable 0,20 MM P10/P10 90° 30FT 9,15M Preto. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Micrf. Ninja L Cable 0,20 MM P10/P10 90° 30FT 9,15M Preto</h2><p>Selecionado pela Tonante, o Cabo de Micrf. Ninja L Cable 0,20 MM P10/P10 90° 30FT 9,15M Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -6102,7 +6116,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157090_1-17573495266677054.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit.ninja Cable 0,20 MM P10/P10 30FT 9,15M PT — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guit.ninja Cable 0,20 MM P10/P10 30FT 9,15M PT. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit.ninja Cable 0,20 MM P10/P10 30FT 9,15M PT</h2><p>Selecionado pela Tonante, o Cabo de Guit.ninja Cable 0,20 MM P10/P10 30FT 9,15M PT é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -6154,7 +6168,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157093_1-17573495532412015.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Guit.ninja Cable 0,20 MM P10/10 20FT 6,10M PT — Santo Angelo, marca parceira selecionada pela Tonante.",
+    "description": "Cabo de Guit.ninja Cable 0,20 MM P10/10 20FT 6,10M PT. Santo Angelo é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Guit.ninja Cable 0,20 MM P10/10 20FT 6,10M PT</h2><p>Selecionado pela Tonante, o Cabo de Guit.ninja Cable 0,20 MM P10/10 20FT 6,10M PT é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cabo",
@@ -6207,7 +6221,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157101-17523339457239813.jpeg"
     ],
     "inStock": true,
-    "description": "Cabo de Microfone X30 0,30MM 100 MT Preto — tradição Tonante desde 1954.",
+    "description": "Cabo de Microfone X30 0,30MM 100 MT Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cabo de Microfone X30 0,30MM 100 MT Preto</h2><p>Parte da linha Tonante de acessórios, o Cabo de Microfone X30 0,30MM 100 MT Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone · Cabo",
@@ -6262,7 +6276,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/7/17415.jpg-17458886356477024.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte P/ Microfone Girafa Smmax Preto — SMMax, marca parceira selecionada pela Tonante.",
+    "description": "Suporte P/ Microfone Girafa Smmax Preto. SMMax é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte P/ Microfone Girafa Smmax Preto</h2><p>Selecionado pela Tonante, o Suporte P/ Microfone Girafa Smmax Preto é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -6316,7 +6330,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/7/17416.jpg-17460175670737556.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Portatil Para Violao SGV Preto — tradição Tonante desde 1954.",
+    "description": "Suporte Portatil Para Violao SGV Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Portatil Para Violao SGV Preto</h2><p>Parte da linha Tonante de suportes, o Suporte Portatil Para Violao SGV Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -6367,7 +6381,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/7/17417.jpg-17458804361727651.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Teclado X30 Preto — tradição Tonante desde 1954.",
+    "description": "Suporte Para Teclado X30 Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Teclado X30 Preto</h2><p>Parte da linha Tonante de suportes, o Suporte Para Teclado X30 Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -6418,7 +6432,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/7/17418_2-17459223422141673.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede P/ Violao/guitarra SPF — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede P/ Violao/guitarra SPF. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede P/ Violao/guitarra SPF</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede P/ Violao/guitarra SPF carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -6469,7 +6483,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18566.jpg-17458371989119780.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Guitarra EXL110 .010-.046 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Guitarra EXL110 .010-.046. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Guitarra EXL110 .010-.046</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Guitarra EXL110 .010-.046 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -6521,7 +6535,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18568.jpg-17458843227533971.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Guitarra EXL120-B .009.042 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Guitarra EXL120-B .009.042. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Guitarra EXL120-B .009.042</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Guitarra EXL120-B .009.042 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -6573,7 +6587,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18569.jpg-17460175467907563.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO EZ890-B 009.045 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO EZ890-B 009.045. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO EZ890-B 009.045</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO EZ890-B 009.045 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -6625,7 +6639,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18571.jpg-17460175416358217.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO EZ910 .011-.052 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO EZ910 .011-.052. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO EZ910 .011-.052</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO EZ910 .011-.052 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -6677,7 +6691,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18572.jpg-17460175364713837.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO EZ920 .012-.054 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO EZ920 .012-.054. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO EZ920 .012-.054</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO EZ920 .012-.054 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -6729,7 +6743,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18574_1.jpg-17458989310906177.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao Nylon EJ27N — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao Nylon EJ27N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao Nylon EJ27N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao Nylon EJ27N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -6780,7 +6794,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18591.jpg-17458368755831633.jpeg"
     ],
     "inStock": true,
-    "description": "Flauta Soprano (barroco) YRS-24B — tradição Tonante desde 1954.",
+    "description": "Flauta Soprano (barroco) YRS-24B. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Flauta Soprano (barroco) YRS-24B</h2><p>Parte da linha Tonante de acessórios, o Flauta Soprano (barroco) YRS-24B carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -6831,7 +6845,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18593_1-17621817484905162.jpeg"
     ],
     "inStock": true,
-    "description": "Limpador e Lubrificante de Cordas D'addario - PW-XLR8 — D'Addario, marca parceira selecionada pela Tonante.",
+    "description": "Limpador e Lubrificante de Cordas D'addario - PW-XLR8. D'Addario é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Limpador e Lubrificante de Cordas D'addario - PW-XLR8</h2><p>Selecionado pela Tonante, o Limpador e Lubrificante de Cordas D'addario - PW-XLR8 é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -6884,7 +6898,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18789.jpg-17523582192987850.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Acustico Estudo Nylon N-14N Natural — tradição Tonante desde 1954.",
+    "description": "Violao Acustico Estudo Nylon N-14N Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Acustico Estudo Nylon N-14N Natural</h2><p>Parte da linha Tonante de violões, o Violao Acustico Estudo Nylon N-14N Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico",
@@ -6923,6 +6937,7 @@ const rawProducts: Product[] = [
     "name": "Violao Acustico Estudo Nylon N-14BK Preto",
     "price": "R$ 169,00",
     "priceNum": 169.00,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 407,
     "category": "Violões",
@@ -6937,7 +6952,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/9/19065.jpg-17460175121472345.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Acustico Estudo Nylon N-14BK Preto — tradição Tonante desde 1954.",
+    "description": "Violao Acustico Estudo Nylon N-14BK Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Acustico Estudo Nylon N-14BK Preto</h2><p>Parte da linha Tonante de violões, o Violao Acustico Estudo Nylon N-14BK Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico",
@@ -6993,7 +7008,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/9/19066_1-17477610742189055.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Acustico Estudo ACO S-14N Natural — tradição Tonante desde 1954.",
+    "description": "Violao Acustico Estudo ACO S-14N Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Acustico Estudo ACO S-14N Natural</h2><p>Parte da linha Tonante de violões, o Violao Acustico Estudo ACO S-14N Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Acústico",
@@ -7044,7 +7059,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/9/191674-17523643663122196.jpeg"
     ],
     "inStock": true,
-    "description": "Pedestal Para Caixa de Som - Preto - TNP1954 — tradição Tonante desde 1954.",
+    "description": "Pedestal Para Caixa de Som - Preto - TNP1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Pedestal Para Caixa de Som - Preto - TNP1954</h2><p>Parte da linha Tonante de suportes, o Pedestal Para Caixa de Som - Preto - TNP1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -7098,7 +7113,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/9/193101-17523399793398010.jpeg"
     ],
     "inStock": true,
-    "description": "Violao ACO Eletroacustico Performance Plus GGC Plus CEQ NS — tradição Tonante desde 1954.",
+    "description": "Violao ACO Eletroacustico Performance Plus GGC Plus CEQ NS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao ACO Eletroacustico Performance Plus GGC Plus CEQ NS</h2><p>Parte da linha Tonante de violões, o Violao ACO Eletroacustico Performance Plus GGC Plus CEQ NS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Eletroacústico · Acústico",
@@ -7150,7 +7165,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/9/195081_2-17458511815431511.jpeg"
     ],
     "inStock": true,
-    "description": "Adaptador P2/P10 ST Vermelho — tradição Tonante desde 1954.",
+    "description": "Adaptador P2/P10 ST Vermelho. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Adaptador P2/P10 ST Vermelho</h2><p>Parte da linha Tonante de acessórios, o Adaptador P2/P10 ST Vermelho carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "6 cordas",
@@ -7203,7 +7218,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/2/22169_1-17480114599803745.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Acustico CS-14N Natural — tradição Tonante desde 1954.",
+    "description": "Cavaco Acustico CS-14N Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Acustico CS-14N Natural</h2><p>Parte da linha Tonante de acessórios, o Cavaco Acustico CS-14N Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico",
@@ -7245,6 +7260,7 @@ const rawProducts: Product[] = [
     "name": "Violao Infantil 3/4 Nylon 36'' N6-BK Preto",
     "price": "R$ 187,00",
     "priceNum": 187.00,
+    "badge": "Novidade",
     "rating": 4.4,
     "reviews": 420,
     "category": "Violões",
@@ -7258,7 +7274,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/2/22170_2.jpg-17459057290766561.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Infantil 3/4 Nylon 36'' N6-BK Preto — tradição Tonante desde 1954.",
+    "description": "Violao Infantil 3/4 Nylon 36'' N6-BK Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Infantil 3/4 Nylon 36'' N6-BK Preto</h2><p>Parte da linha Tonante de violões, o Violao Infantil 3/4 Nylon 36'' N6-BK Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -7297,6 +7313,7 @@ const rawProducts: Product[] = [
     "name": "Violao Infantil 3/4 Nylon 36'' N6-N Natural",
     "price": "R$ 348,90",
     "priceNum": 348.90,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 449,
     "category": "Violões",
@@ -7310,7 +7327,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/2/22171.jpg-17523395007519935.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Infantil 3/4 Nylon 36'' N6-N Natural — tradição Tonante desde 1954.",
+    "description": "Violao Infantil 3/4 Nylon 36'' N6-N Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Infantil 3/4 Nylon 36'' N6-N Natural</h2><p>Parte da linha Tonante de violões, o Violao Infantil 3/4 Nylon 36'' N6-N Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -7362,7 +7379,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/2/22173.jpg-17523519288882252.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Infantil 1/4 Nylon 30'' Nr-n Natural — tradição Tonante desde 1954.",
+    "description": "Violao Infantil 1/4 Nylon 30'' Nr-n Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Infantil 1/4 Nylon 30'' Nr-n Natural</h2><p>Parte da linha Tonante de violões, o Violao Infantil 1/4 Nylon 30'' Nr-n Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -7414,7 +7431,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/2/22426_1.jpg-17522752639264211.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone Profissional SM58 P4* Champanhe — tradição Tonante desde 1954.",
+    "description": "Microfone Profissional SM58 P4* Champanhe. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone Profissional SM58 P4* Champanhe</h2><p>Parte da linha Tonante de acessórios, o Microfone Profissional SM58 P4* Champanhe carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -7467,7 +7484,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/2/22474.jpg-17458502973616093.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Acustica VS-14N Natural — tradição Tonante desde 1954.",
+    "description": "Viola Acustica VS-14N Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Acustica VS-14N Natural</h2><p>Parte da linha Tonante de acessórios, o Viola Acustica VS-14N Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico · Viola",
@@ -7519,7 +7536,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/23175.jpg-17459113365166824.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone sem FIO UHF Lapela Mini-iii — tradição Tonante desde 1954.",
+    "description": "Microfone sem FIO UHF Lapela Mini-iii. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone sem FIO UHF Lapela Mini-iii</h2><p>Parte da linha Tonante de acessórios, o Microfone sem FIO UHF Lapela Mini-iii carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -7570,7 +7587,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/2321_1-17551165977171574.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Guitarra Geegst 9 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Guitarra Geegst 9. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Guitarra Geegst 9</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Guitarra Geegst 9 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -7621,7 +7638,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/2322_1-17551166325417073.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Guitarra Geegst 10 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Guitarra Geegst 10. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Guitarra Geegst 10</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Guitarra Geegst 10 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -7674,7 +7691,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/2323-17457546825968998.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Baixo 4 Cordas Geebrl — tradição Tonante desde 1954.",
+    "description": "Encordoamento Baixo 4 Cordas Geebrl. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Baixo 4 Cordas Geebrl</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Baixo 4 Cordas Geebrl carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "4 cordas",
@@ -7727,7 +7744,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/2324-17460177147754550.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Baixo 5 Cordas Geebrl 5 — tradição Tonante desde 1954.",
+    "description": "Encordoamento Baixo 5 Cordas Geebrl 5. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Baixo 5 Cordas Geebrl 5</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Baixo 5 Cordas Geebrl 5 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "5 cordas",
@@ -7780,7 +7797,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/23608.jpg-17459004968496374.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Caixa Acustica TR2 Preto — tradição Tonante desde 1954.",
+    "description": "Suporte Para Caixa Acustica TR2 Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Caixa Acustica TR2 Preto</h2><p>Parte da linha Tonante de suportes, o Suporte Para Caixa Acustica TR2 Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico",
@@ -7834,7 +7851,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253640-17523302860378686.jpeg"
     ],
     "inStock": true,
-    "description": "Estante Para Partitura Maestro com Ajuste de Altura - TNE1954 — tradição Tonante desde 1954.",
+    "description": "Estante Para Partitura Maestro com Ajuste de Altura - TNE1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Estante Para Partitura Maestro com Ajuste de Altura - TNE1954</h2><p>Parte da linha Tonante de suportes, o Estante Para Partitura Maestro com Ajuste de Altura - TNE1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -7885,7 +7902,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253646-17522530861643318.jpeg"
     ],
     "inStock": true,
-    "description": "Apoio de PE Para Violonista - cor Preta - TNS1954 — tradição Tonante desde 1954.",
+    "description": "Apoio de PE Para Violonista - cor Preta - TNS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Apoio de PE Para Violonista - cor Preta - TNS1954</h2><p>Parte da linha Tonante de acessórios, o Apoio de PE Para Violonista - cor Preta - TNS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -7937,7 +7954,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253874-5-17458280901488103.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Nylon Cobre Prata Tens. Alta Pesada P/ Violao 0.029 - 0.044 - Tnvch — tradição Tonante desde 1954.",
+    "description": "Encordoamento Nylon Cobre Prata Tens. Alta Pesada P/ Violao 0.029 - 0.044 - Tnvch. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Nylon Cobre Prata Tens. Alta Pesada P/ Violao 0.029 - 0.044 - Tnvch</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Nylon Cobre Prata Tens. Alta Pesada P/ Violao 0.029 - 0.044 - Tnvch carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -7993,7 +8010,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253880-17459063280908387.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento 011 Aço Bronze 85 15 P/ Violão 0.011 - 0.052 - TNVA11B85 — tradição Tonante desde 1954.",
+    "description": "Encordoamento 011 Aço Bronze 85 15 P/ Violão 0.011 - 0.052 - TNVA11B85. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento 011 Aço Bronze 85 15 P/ Violão 0.011 - 0.052 - TNVA11B85</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento 011 Aço Bronze 85 15 P/ Violão 0.011 - 0.052 - TNVA11B85 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Bronze",
@@ -8048,7 +8065,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253891-17459046427284450.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento 009 Níquel Plated Steel P/ Guitarra 0.009 - 0.042 - TNGE09N — tradição Tonante desde 1954.",
+    "description": "Encordoamento 009 Níquel Plated Steel P/ Guitarra 0.009 - 0.042 - TNGE09N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento 009 Níquel Plated Steel P/ Guitarra 0.009 - 0.042 - TNGE09N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento 009 Níquel Plated Steel P/ Guitarra 0.009 - 0.042 - TNGE09N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Níquel",
@@ -8100,7 +8117,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253893-17458727054976449.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento 011 Níquel Plated Steel P/ Guitarra 0.011 - 0.049 - TNGE11N — tradição Tonante desde 1954.",
+    "description": "Encordoamento 011 Níquel Plated Steel P/ Guitarra 0.011 - 0.049 - TNGE11N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento 011 Níquel Plated Steel P/ Guitarra 0.011 - 0.049 - TNGE11N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento 011 Níquel Plated Steel P/ Guitarra 0.011 - 0.049 - TNGE11N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Níquel",
@@ -8152,7 +8169,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253894-17458998293186562.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento 010 Níquel Plated Steel P/ Guitarra 0.010 - 0.046 - TNGE10N — tradição Tonante desde 1954.",
+    "description": "Encordoamento 010 Níquel Plated Steel P/ Guitarra 0.010 - 0.046 - TNGE10N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento 010 Níquel Plated Steel P/ Guitarra 0.010 - 0.046 - TNGE10N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento 010 Níquel Plated Steel P/ Guitarra 0.010 - 0.046 - TNGE10N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Níquel",
@@ -8204,7 +8221,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253895-2-17458688921571993.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Níquel Plated Steel C/ Bolinha P/ Cavaco 0.011 - 0.029 - RVCA11N — tradição Tonante desde 1954.",
+    "description": "Encordoamento Níquel Plated Steel C/ Bolinha P/ Cavaco 0.011 - 0.029 - RVCA11N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Níquel Plated Steel C/ Bolinha P/ Cavaco 0.011 - 0.029 - RVCA11N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Níquel Plated Steel C/ Bolinha P/ Cavaco 0.011 - 0.029 - RVCA11N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Níquel",
@@ -8257,7 +8274,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/253898-17459126435768742.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento 040 Níquel Plated Steel P/ Baixo 4 Cordas 0.040 - 0.095 - TNBE40N — tradição Tonante desde 1954.",
+    "description": "Encordoamento 040 Níquel Plated Steel P/ Baixo 4 Cordas 0.040 - 0.095 - TNBE40N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento 040 Níquel Plated Steel P/ Baixo 4 Cordas 0.040 - 0.095 - TNBE40N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento 040 Níquel Plated Steel P/ Baixo 4 Cordas 0.040 - 0.095 - TNBE40N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "4 cordas · Níquel",
@@ -8312,7 +8329,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/2/5/253899-3-17894557870062845.jpeg",
     ],
     "inStock": true,
-    "description": "Encordoamento 045 Níquel Plated Steel P/ Baixo 4 Cordas 0.045 - 0.100 - TNBE45N — tradição Tonante desde 1954.",
+    "description": "Encordoamento 045 Níquel Plated Steel P/ Baixo 4 Cordas 0.045 - 0.100 - TNBE45N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento 045 Níquel Plated Steel P/ Baixo 4 Cordas 0.045 - 0.100 - TNBE45N</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento 045 Níquel Plated Steel P/ Baixo 4 Cordas 0.045 - 0.100 - TNBE45N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "4 cordas · Níquel",
@@ -8364,7 +8381,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25413-17457928895827627.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao Nylon Genwbg — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao Nylon Genwbg. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao Nylon Genwbg</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao Nylon Genwbg carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -8416,7 +8433,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25415_1-17551166609139939.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao Nylon Genwbs — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao Nylon Genwbs. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao Nylon Genwbs</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao Nylon Genwbs carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -8468,7 +8485,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25416-17460173986615019.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao Nylon Genws — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao Nylon Genws. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao Nylon Genws</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao Nylon Genws carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -8520,7 +8537,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25417-17458472193001700.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO Geswal — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO Geswal. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO Geswal</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO Geswal carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -8572,7 +8589,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25418.jpg-17460173930315426.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO Geswam — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO Geswam. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO Geswam</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO Geswam carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -8624,7 +8641,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25419-17459203436056562.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO Gespw — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO Gespw. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO Gespw</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO Gespw carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -8676,7 +8693,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25420-17458330766554249.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO Geewak — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO Geewak. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO Geewak</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO Geewak carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -8728,7 +8745,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25421-17460173874314202.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO Geefle — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO Geefle. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO Geefle</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO Geefle carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -8780,7 +8797,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25422-17460173820938679.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO Geeflk — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO Geeflk. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO Geeflk</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO Geeflk carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -8831,7 +8848,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/2/5/25424-17894526011104641.jpeg",
     ],
     "inStock": true,
-    "description": "Encordoamento Guitarra GESGT9 — Giannini, marca parceira selecionada pela Tonante.",
+    "description": "Encordoamento Guitarra GESGT9. Giannini é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Guitarra GESGT9</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Guitarra GESGT9 é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -8882,7 +8899,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25425.jpg-17459152659418611.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Guitarra GESGT10 — Giannini, marca parceira selecionada pela Tonante.",
+    "description": "Encordoamento Guitarra GESGT10. Giannini é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Guitarra GESGT10</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Guitarra GESGT10 é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -8933,7 +8950,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25664.jpg-17459261245325728.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte em X Para Teclado X20 — tradição Tonante desde 1954.",
+    "description": "Suporte em X Para Teclado X20. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte em X Para Teclado X20</h2><p>Parte da linha Tonante de suportes, o Suporte em X Para Teclado X20 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -8972,6 +8989,7 @@ const rawProducts: Product[] = [
     "name": "Violão Nylon Eletroacústico Performance GNF-3 CEQ Translucent Dark Wine (tdw)",
     "price": "R$ 812,00",
     "priceNum": 812.00,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 431,
     "category": "Violões",
@@ -8987,7 +9005,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/6/264289_-_1-17459009948087158.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Nylon Eletroacústico Performance GNF-3 CEQ Translucent Dark Wine (tdw) — tradição Tonante desde 1954.",
+    "description": "Violão Nylon Eletroacústico Performance GNF-3 CEQ Translucent Dark Wine (tdw). Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Nylon Eletroacústico Performance GNF-3 CEQ Translucent Dark Wine (tdw)</h2><p>Parte da linha Tonante de violões, o Violão Nylon Eletroacústico Performance GNF-3 CEQ Translucent Dark Wine (tdw) carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Eletroacústico · Acústico",
@@ -9039,7 +9057,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/7/27752-17460173238325331.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Eletrico ACO Cutaway GF1D CEQ WS — tradição Tonante desde 1954.",
+    "description": "Violao Eletrico ACO Cutaway GF1D CEQ WS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Eletrico ACO Cutaway GF1D CEQ WS</h2><p>Parte da linha Tonante de violões, o Violao Eletrico ACO Cutaway GF1D CEQ WS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -9091,7 +9109,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/7/27757-17460173129464204.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Eletrico Nylon GNF3 CEQ NS — tradição Tonante desde 1954.",
+    "description": "Violao Eletrico Nylon GNF3 CEQ NS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Eletrico Nylon GNF3 CEQ NS</h2><p>Parte da linha Tonante de violões, o Violao Eletrico Nylon GNF3 CEQ NS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -9144,7 +9162,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/7/27759-17460173074465728.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Eletroacustico CS-14 EP Preto — tradição Tonante desde 1954.",
+    "description": "Cavaco Eletroacustico CS-14 EP Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Eletroacustico CS-14 EP Preto</h2><p>Parte da linha Tonante de acessórios, o Cavaco Eletroacustico CS-14 EP Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Eletroacústico · Acústico",
@@ -9183,6 +9201,7 @@ const rawProducts: Product[] = [
     "name": "Cavaco Eletroacustico CS-14 EP Natural",
     "price": "R$ 393,90",
     "priceNum": 393.90,
+    "badge": "Novidade",
     "rating": 4.6,
     "reviews": 480,
     "category": "Violões",
@@ -9197,7 +9216,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/7/27760_1-17482937404663813.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Eletroacustico CS-14 EP Natural — tradição Tonante desde 1954.",
+    "description": "Cavaco Eletroacustico CS-14 EP Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Eletroacustico CS-14 EP Natural</h2><p>Parte da linha Tonante de acessórios, o Cavaco Eletroacustico CS-14 EP Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Eletroacústico · Acústico",
@@ -9251,7 +9270,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28102-17458588494637857.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Eletroacustica VS-14 EQ Preta — tradição Tonante desde 1954.",
+    "description": "Viola Eletroacustica VS-14 EQ Preta. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Eletroacustica VS-14 EQ Preta</h2><p>Parte da linha Tonante de acessórios, o Viola Eletroacustica VS-14 EQ Preta carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Eletroacústico · Acústico · Viola",
@@ -9302,7 +9321,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28463_1-17587373213956392.jpeg"
     ],
     "inStock": true,
-    "description": "Caixa Amplificada Elevate LP Usb/sd/bt 15'' 800W RMS — tradição Tonante desde 1954.",
+    "description": "Caixa Amplificada Elevate LP Usb/sd/bt 15'' 800W RMS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Caixa Amplificada Elevate LP Usb/sd/bt 15'' 800W RMS</h2><p>Parte da linha Tonante de acessórios, o Caixa Amplificada Elevate LP Usb/sd/bt 15'' 800W RMS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -9354,7 +9373,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28568-17522937053434790.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Eletrico ACO GD1 EQ Vsbs Sunburst Satin — tradição Tonante desde 1954.",
+    "description": "Violao Eletrico ACO GD1 EQ Vsbs Sunburst Satin. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Eletrico ACO GD1 EQ Vsbs Sunburst Satin</h2><p>Parte da linha Tonante de violões, o Violao Eletrico ACO GD1 EQ Vsbs Sunburst Satin carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -9406,7 +9425,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28777_1-17480112038168219.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Acústico CS-14BK Preto — tradição Tonante desde 1954.",
+    "description": "Cavaco Acústico CS-14BK Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Acústico CS-14BK Preto</h2><p>Parte da linha Tonante de acessórios, o Cavaco Acústico CS-14BK Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico",
@@ -9459,7 +9478,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28778-17523238807972305.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Acustica VS-14BK Preta — tradição Tonante desde 1954.",
+    "description": "Viola Acustica VS-14BK Preta. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Acustica VS-14BK Preta</h2><p>Parte da linha Tonante de acessórios, o Viola Acustica VS-14BK Preta carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico · Viola",
@@ -9511,7 +9530,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28993-17458134330301208.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone sem FIO de MAO VHF695 — tradição Tonante desde 1954.",
+    "description": "Microfone sem FIO de MAO VHF695. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone sem FIO de MAO VHF695</h2><p>Parte da linha Tonante de acessórios, o Microfone sem FIO de MAO VHF695 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -9566,7 +9585,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/8/28997-17539630769207113.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone com FIO Profissional PRO — tradição Tonante desde 1954.",
+    "description": "Microfone com FIO Profissional PRO. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone com FIO Profissional PRO</h2><p>Parte da linha Tonante de acessórios, o Microfone com FIO Profissional PRO carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -9618,7 +9637,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29033-1-17683257513625501.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao Nylon Genwpa — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao Nylon Genwpa. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao Nylon Genwpa</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao Nylon Genwpa carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -9671,7 +9690,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29035-1-17683257903503315.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao Nylon Genwpm — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao Nylon Genwpm. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao Nylon Genwpm</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao Nylon Genwpm carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon",
@@ -9723,7 +9742,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29036-17460172807882125.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Cavaco ACO Gescl — tradição Tonante desde 1954.",
+    "description": "Encordoamento Cavaco ACO Gescl. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Cavaco ACO Gescl</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Cavaco ACO Gescl carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -9776,7 +9795,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29038-17458341002875961.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Viola ACO Cobra Gesvl — tradição Tonante desde 1954.",
+    "description": "Encordoamento Viola ACO Cobra Gesvl. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Viola ACO Cobra Gesvl</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Viola ACO Cobra Gesvl carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Viola",
@@ -9829,7 +9848,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29039-17460172732108806.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Viola ACO Cobra Gesvm — tradição Tonante desde 1954.",
+    "description": "Encordoamento Viola ACO Cobra Gesvm. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Viola ACO Cobra Gesvm</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Viola ACO Cobra Gesvm carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Viola",
@@ -9883,7 +9902,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29040-17458228270786678.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Viola ACO Cobra Gesvp — tradição Tonante desde 1954.",
+    "description": "Encordoamento Viola ACO Cobra Gesvp. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Viola ACO Cobra Gesvp</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Viola ACO Cobra Gesvp carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Viola",
@@ -9935,7 +9954,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29056-17522879776268390.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Eletrico ACO GSF-1D CEQ NG Natural — tradição Tonante desde 1954.",
+    "description": "Violao Eletrico ACO GSF-1D CEQ NG Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Eletrico ACO GSF-1D CEQ NG Natural</h2><p>Parte da linha Tonante de violões, o Violao Eletrico ACO GSF-1D CEQ NG Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -9987,7 +10006,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29096-17460172576404085.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento Violao ACO EJ13-B — tradição Tonante desde 1954.",
+    "description": "Encordoamento Violao ACO EJ13-B. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento Violao ACO EJ13-B</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento Violao ACO EJ13-B carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -10042,7 +10061,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29405-17458536562491594.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Eletrico Flat ACO SF-14 CEQ N Natural — tradição Tonante desde 1954.",
+    "description": "Violao Eletrico Flat ACO SF-14 CEQ N Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Eletrico Flat ACO SF-14 CEQ N Natural</h2><p>Parte da linha Tonante de violões, o Violao Eletrico Flat ACO SF-14 CEQ N Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço",
@@ -10093,7 +10112,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29438-17458657133267478.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Para Violao GT1 Preto — tradição Tonante desde 1954.",
+    "description": "Suporte Para Violao GT1 Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Para Violao GT1 Preto</h2><p>Parte da linha Tonante de suportes, o Suporte Para Violao GT1 Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -10147,7 +10166,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29440-17458496461946713.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte Parede P/ Violao/guitarra Spfr — tradição Tonante desde 1954.",
+    "description": "Suporte Parede P/ Violao/guitarra Spfr. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte Parede P/ Violao/guitarra Spfr</h2><p>Parte da linha Tonante de suportes, o Suporte Parede P/ Violao/guitarra Spfr carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -10201,7 +10220,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29441-17459045229614227.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede Fixo 24CM 25KG SPC177 — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede Fixo 24CM 25KG SPC177. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede Fixo 24CM 25KG SPC177</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede Fixo 24CM 25KG SPC177 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -10252,7 +10271,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29442-17459255409714100.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede Regulavel 35KG Spcr — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede Regulavel 35KG Spcr. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede Regulavel 35KG Spcr</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede Regulavel 35KG Spcr carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -10303,7 +10322,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29570_2-17459181526727946.jpeg"
     ],
     "inStock": true,
-    "description": "Suporte de Parede P/ Violao/guitarra AGS — tradição Tonante desde 1954.",
+    "description": "Suporte de Parede P/ Violao/guitarra AGS. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Suporte de Parede P/ Violao/guitarra AGS</h2><p>Parte da linha Tonante de suportes, o Suporte de Parede P/ Violao/guitarra AGS carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Suportes",
@@ -10355,7 +10374,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/29581-1-17707778359919208.png"
     ],
     "inStock": true,
-    "description": "Microfone C/ Fio Profissional LS58 Champanhe — tradição Tonante desde 1954.",
+    "description": "Microfone C/ Fio Profissional LS58 Champanhe. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone C/ Fio Profissional LS58 Champanhe</h2><p>Parte da linha Tonante de acessórios, o Microfone C/ Fio Profissional LS58 Champanhe carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -10410,7 +10429,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/M/I/MICROFONE_UHF_DUPLA_FREQUENCIA_FIXA_TRANSMISSAO_DIGITAL-17483502582767010.png"
     ],
     "inStock": true,
-    "description": "Microfone UHF Dupla Frequência Fixa Transmissão Digital — tradição Tonante desde 1954.",
+    "description": "Microfone UHF Dupla Frequência Fixa Transmissão Digital. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone UHF Dupla Frequência Fixa Transmissão Digital</h2><p>Parte da linha Tonante de acessórios, o Microfone UHF Dupla Frequência Fixa Transmissão Digital carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -10462,7 +10481,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/9/296015_1.jpg-17479413198836920.png"
     ],
     "inStock": true,
-    "description": "Microfone UHF Duplo Multi-frequência 2X300 Canais Transmissão Digital — tradição Tonante desde 1954.",
+    "description": "Microfone UHF Duplo Multi-frequência 2X300 Canais Transmissão Digital. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone UHF Duplo Multi-frequência 2X300 Canais Transmissão Digital</h2><p>Parte da linha Tonante de acessórios, o Microfone UHF Duplo Multi-frequência 2X300 Canais Transmissão Digital carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -10513,7 +10532,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303442_1-17510478646444437.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Polipropileno Lisa Preta- TN01P — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Polipropileno Lisa Preta- TN01P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Polipropileno Lisa Preta- TN01P</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Polipropileno Lisa Preta- TN01P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10567,7 +10586,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303447_1-17510493049895374.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Polipropileno Lisa Vermelha - TN04P — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Polipropileno Lisa Vermelha - TN04P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Polipropileno Lisa Vermelha - TN04P</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Polipropileno Lisa Vermelha - TN04P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10618,7 +10637,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303448_1-17510493653606832.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Polipropileno Lisa Azul-escura - TN03P — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Polipropileno Lisa Azul-escura - TN03P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Polipropileno Lisa Azul-escura - TN03P</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Polipropileno Lisa Azul-escura - TN03P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10669,7 +10688,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303449_1-17510494293286907.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Polipropileno Lisa Verde - TN05P — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Polipropileno Lisa Verde - TN05P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Polipropileno Lisa Verde - TN05P</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Polipropileno Lisa Verde - TN05P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10723,7 +10742,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303453_1-17510495448917238.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Polipropileno Lisa Violeta- TN06P — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Polipropileno Lisa Violeta- TN06P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Polipropileno Lisa Violeta- TN06P</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Polipropileno Lisa Violeta- TN06P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10777,7 +10796,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303456_1-17510497854449071.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Polipropileno Lisa Azul-clara - TN031P — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Polipropileno Lisa Azul-clara - TN031P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Polipropileno Lisa Azul-clara - TN031P</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Polipropileno Lisa Azul-clara - TN031P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10828,7 +10847,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303472_1-17510503865329860.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Design Woodstock Vermelha - TN11S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Design Woodstock Vermelha - TN11S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Design Woodstock Vermelha - TN11S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Design Woodstock Vermelha - TN11S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10879,7 +10898,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303489_1-17510505050882630.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Animal Print Chita - TN09S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Animal Print Chita - TN09S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Animal Print Chita - TN09S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Animal Print Chita - TN09S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10931,7 +10950,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303490_-17510506271663693.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Animal Print Cobra - TN09S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Animal Print Cobra - TN09S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Animal Print Cobra - TN09S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Animal Print Cobra - TN09S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -10982,7 +11001,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303493_-17510508085356723.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Animal Print Tigre - TN09S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Animal Print Tigre - TN09S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Animal Print Tigre - TN09S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Animal Print Tigre - TN09S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11033,7 +11052,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303506_1-17510507444664915.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Animal Print Vaca - TN09S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Animal Print Vaca - TN09S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Animal Print Vaca - TN09S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Animal Print Vaca - TN09S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11084,7 +11103,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303507_1-17510515846911976.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Estampa Floral Laranja - TN10S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Estampa Floral Laranja - TN10S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Estampa Floral Laranja - TN10S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Estampa Floral Laranja - TN10S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11135,7 +11154,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303508_1-17510516524816332.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Estampa Floral Rosa - TN10S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Estampa Floral Rosa - TN10S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Estampa Floral Rosa - TN10S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Estampa Floral Rosa - TN10S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11186,7 +11205,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303509_1-17510516987597580.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Estampa Floral Violeta - TN10S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Estampa Floral Violeta - TN10S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Estampa Floral Violeta - TN10S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Estampa Floral Violeta - TN10S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11240,7 +11259,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303510_1-17510517774514117.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Poliéster Estampa Floral Branca e Preta - TN10S — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Poliéster Estampa Floral Branca e Preta - TN10S. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Poliéster Estampa Floral Branca e Preta - TN10S</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Poliéster Estampa Floral Branca e Preta - TN10S carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11291,7 +11310,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303571_1-17510518269735458.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Couro Argentino cor Preta -TN01C — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Couro Argentino cor Preta -TN01C. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Couro Argentino cor Preta -TN01C</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Couro Argentino cor Preta -TN01C carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11342,7 +11361,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303572_1-17510518891916846.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Couro Argentino cor Marrom - TN02C — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Couro Argentino cor Marrom - TN02C. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Couro Argentino cor Marrom - TN02C</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Couro Argentino cor Marrom - TN02C carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11393,7 +11412,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303622_1-17510519470696200.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Couro Argentino cor Azul-escuro - TN03C — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Couro Argentino cor Azul-escuro - TN03C. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Couro Argentino cor Azul-escuro - TN03C</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Couro Argentino cor Azul-escuro - TN03C carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11444,7 +11463,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303624_1-17510519966317051.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Couro Argentino cor Verde Militar - TN051C — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Couro Argentino cor Verde Militar - TN051C. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Couro Argentino cor Verde Militar - TN051C</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Couro Argentino cor Verde Militar - TN051C carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11495,7 +11514,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303562-17601019297722082.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Jade Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas- VTJM1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Jade Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas- VTJM1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Jade Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas- VTJM1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Jade Mini 36\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas- VTJM1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -11546,7 +11565,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303655_-17510520416651491.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Couro Argentino cor Caramelo- TN12C — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Couro Argentino cor Caramelo- TN12C. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Couro Argentino cor Caramelo- TN12C</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Couro Argentino cor Caramelo- TN12C carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11585,6 +11604,7 @@ const rawProducts: Product[] = [
     "name": "Violão Elétrico Masaya 41\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVMS1954",
     "price": "R$ 649,90",
     "priceNum": 649.90,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 415,
     "category": "Violões",
@@ -11597,7 +11617,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303656-17601040478759442.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Masaya 41\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVMS1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Masaya 41\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVMS1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Masaya 41\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVMS1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Masaya 41\" - Tampo EM Spruce - Acabamento Fosco - EQ 3 Bandas - TVMS1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -11648,7 +11668,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303658_1-17510520925152157.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Camurça Argentina cor Preta -TN01CA — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Camurça Argentina cor Preta -TN01CA. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Camurça Argentina cor Preta -TN01CA</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Camurça Argentina cor Preta -TN01CA carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11699,7 +11719,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303659_1-17510521839201627.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante de Camurça Argentina cor Marrom - TN02CA — tradição Tonante desde 1954.",
+    "description": "Correia Tonante de Camurça Argentina cor Marrom - TN02CA. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante de Camurça Argentina cor Marrom - TN02CA</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante de Camurça Argentina cor Marrom - TN02CA carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11753,7 +11773,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303661_1-17691716109475930.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon- Sunburst- VTLSC1954SB — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon- Sunburst- VTLSC1954SB. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon- Sunburst- VTLSC1954SB</h2><p>Parte da linha Tonante de violões, o Violão Clássico Eletro-acústico Lorenzzo 39\" - Slim Cutaway - Nylon- Sunburst- VTLSC1954SB carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -11804,7 +11824,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/0/303663_1-17510522306704028.jpeg"
     ],
     "inStock": true,
-    "description": "Correia Tonante Talabarte de Polipropileno cor Preta- TN01T — tradição Tonante desde 1954.",
+    "description": "Correia Tonante Talabarte de Polipropileno cor Preta- TN01T. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Correia Tonante Talabarte de Polipropileno cor Preta- TN01T</h2><p>Parte da linha Tonante de acessórios, o Correia Tonante Talabarte de Polipropileno cor Preta- TN01T carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -11856,7 +11876,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/31350-17522877064491910.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Soprano GUK-21 ZW Zebra — tradição Tonante desde 1954.",
+    "description": "Ukulele Soprano GUK-21 ZW Zebra. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Soprano GUK-21 ZW Zebra</h2><p>Parte da linha Tonante de violões, o Ukulele Soprano GUK-21 ZW Zebra carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -11908,7 +11928,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/31351-17458455072014652.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Concerto GUK-23 WS Sapele — tradição Tonante desde 1954.",
+    "description": "Ukulele Concerto GUK-23 WS Sapele. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Concerto GUK-23 WS Sapele</h2><p>Parte da linha Tonante de violões, o Ukulele Concerto GUK-23 WS Sapele carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -11960,7 +11980,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/31352-17522686935888342.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Concerto GUK-23 ZW Zebra — tradição Tonante desde 1954.",
+    "description": "Ukulele Concerto GUK-23 ZW Zebra. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Concerto GUK-23 ZW Zebra</h2><p>Parte da linha Tonante de violões, o Ukulele Concerto GUK-23 ZW Zebra carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -12012,7 +12032,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/31353-17523314915317577.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Soprano UKS-21 NS Natural — tradição Tonante desde 1954.",
+    "description": "Ukulele Soprano UKS-21 NS Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Soprano UKS-21 NS Natural</h2><p>Parte da linha Tonante de violões, o Ukulele Soprano UKS-21 NS Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -12066,7 +12086,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314787_1-17693492338688925.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Eletroacústica Tonante - Natural - VTN1954NE — tradição Tonante desde 1954.",
+    "description": "Viola Eletroacústica Tonante - Natural - VTN1954NE. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Eletroacústica Tonante - Natural - VTN1954NE</h2><p>Parte da linha Tonante de acessórios, o Viola Eletroacústica Tonante - Natural - VTN1954NE carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Eletroacústico · Acústico · Viola",
@@ -12119,7 +12139,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314791_1-17692712428874405.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Acústica Tonante- Natural - VTN1954N — tradição Tonante desde 1954.",
+    "description": "Viola Acústica Tonante- Natural - VTN1954N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Acústica Tonante- Natural - VTN1954N</h2><p>Parte da linha Tonante de acessórios, o Viola Acústica Tonante- Natural - VTN1954N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico · Viola",
@@ -12174,7 +12194,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314824_1-17693088323616088.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Eletroacústica Tonante - Black - VTN1954BKE — tradição Tonante desde 1954.",
+    "description": "Viola Eletroacústica Tonante - Black - VTN1954BKE. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Eletroacústica Tonante - Black - VTN1954BKE</h2><p>Parte da linha Tonante de acessórios, o Viola Eletroacústica Tonante - Black - VTN1954BKE carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Eletroacústico · Acústico · Viola",
@@ -12228,7 +12248,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314826_1-17693261760092628.jpeg"
     ],
     "inStock": true,
-    "description": "Viola Acústica Tonante - Black - VTN1954BK — tradição Tonante desde 1954.",
+    "description": "Viola Acústica Tonante - Black - VTN1954BK. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Viola Acústica Tonante - Black - VTN1954BK</h2><p>Parte da linha Tonante de acessórios, o Viola Acústica Tonante - Black - VTN1954BK carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico · Viola",
@@ -12279,7 +12299,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314827_1-17691726250833262.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Elétrico Tonante - Natural - CTN1954NE — tradição Tonante desde 1954.",
+    "description": "Cavaco Elétrico Tonante - Natural - CTN1954NE. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Elétrico Tonante - Natural - CTN1954NE</h2><p>Parte da linha Tonante de acessórios, o Cavaco Elétrico Tonante - Natural - CTN1954NE carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -12318,6 +12338,7 @@ const rawProducts: Product[] = [
     "name": "Cavaco Acústico Tonante - Natural - CTN1954N",
     "price": "R$ 269,90",
     "priceNum": 269.90,
+    "badge": "Novidade",
     "rating": 4.6,
     "reviews": 446,
     "category": "Violões",
@@ -12331,7 +12352,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314828_-17691727384089153.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Acústico Tonante - Natural - CTN1954N — tradição Tonante desde 1954.",
+    "description": "Cavaco Acústico Tonante - Natural - CTN1954N. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Acústico Tonante - Natural - CTN1954N</h2><p>Parte da linha Tonante de acessórios, o Cavaco Acústico Tonante - Natural - CTN1954N carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico",
@@ -12383,7 +12404,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314830_1-17691728390817499.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Elétrico Tonante - Preto - CTN1954PE — tradição Tonante desde 1954.",
+    "description": "Cavaco Elétrico Tonante - Preto - CTN1954PE. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Elétrico Tonante - Preto - CTN1954PE</h2><p>Parte da linha Tonante de acessórios, o Cavaco Elétrico Tonante - Preto - CTN1954PE carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -12435,7 +12456,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314831_1-17691729356873364.jpeg"
     ],
     "inStock": true,
-    "description": "Cavaco Acústico Tonante - Preto - CTN1954P — tradição Tonante desde 1954.",
+    "description": "Cavaco Acústico Tonante - Preto - CTN1954P. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cavaco Acústico Tonante - Preto - CTN1954P</h2><p>Parte da linha Tonante de acessórios, o Cavaco Acústico Tonante - Preto - CTN1954P carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acústico",
@@ -12487,7 +12508,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314833-17692591430362710.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Soprano - Haka - Mahogany - USH1954M — tradição Tonante desde 1954.",
+    "description": "Ukulele Soprano - Haka - Mahogany - USH1954M. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Soprano - Haka - Mahogany - USH1954M</h2><p>Parte da linha Tonante de violões, o Ukulele Soprano - Haka - Mahogany - USH1954M carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -12539,7 +12560,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314834-17692600882486556.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Concert - Haka - Mahogany - UCH1954M — tradição Tonante desde 1954.",
+    "description": "Ukulele Concert - Haka - Mahogany - UCH1954M. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Concert - Haka - Mahogany - UCH1954M</h2><p>Parte da linha Tonante de violões, o Ukulele Concert - Haka - Mahogany - UCH1954M carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -12594,7 +12615,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/1/314850-17693262784312119.jpeg"
     ],
     "inStock": true,
-    "description": "Ukulele Soprano - Haka - KOA - USH1954K — tradição Tonante desde 1954.",
+    "description": "Ukulele Soprano - Haka - KOA - USH1954K. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Ukulele Soprano - Haka - KOA - USH1954K</h2><p>Parte da linha Tonante de violões, o Ukulele Soprano - Haka - KOA - USH1954K carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Ukulele",
@@ -12646,7 +12667,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/320127_3-17491297447224493.jpeg"
     ],
     "inStock": true,
-    "description": "KIT de 7 Microfones Para Bateria SADRUM7 — tradição Tonante desde 1954.",
+    "description": "KIT de 7 Microfones Para Bateria SADRUM7. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>KIT de 7 Microfones Para Bateria SADRUM7</h2><p>Parte da linha Tonante de acessórios, o KIT de 7 Microfones Para Bateria SADRUM7 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -12698,7 +12719,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/320131_1-17493168254213103.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone PRO UHF S/fio Duplo de MAO Saclarity-ii — tradição Tonante desde 1954.",
+    "description": "Microfone PRO UHF S/fio Duplo de MAO Saclarity-ii. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone PRO UHF S/fio Duplo de MAO Saclarity-ii</h2><p>Parte da linha Tonante de acessórios, o Microfone PRO UHF S/fio Duplo de MAO Saclarity-ii carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -12753,7 +12774,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/320137_1-17493303038668576.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone UHF Duplo UF224 — tradição Tonante desde 1954.",
+    "description": "Microfone UHF Duplo UF224. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone UHF Duplo UF224</h2><p>Parte da linha Tonante de acessórios, o Microfone UHF Duplo UF224 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone",
@@ -12804,7 +12825,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32515-17459237286197861.jpeg"
     ],
     "inStock": true,
-    "description": "Anti-feedback Abafador Violao Folk Boca Redonda Affk — tradição Tonante desde 1954.",
+    "description": "Anti-feedback Abafador Violao Folk Boca Redonda Affk. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Anti-feedback Abafador Violao Folk Boca Redonda Affk</h2><p>Parte da linha Tonante de violões, o Anti-feedback Abafador Violao Folk Boca Redonda Affk carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -12858,7 +12879,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32516-17460171746788185.jpeg"
     ],
     "inStock": true,
-    "description": "Anti-feedback Abafador Violao Classsico Boca Redonda Afcl — tradição Tonante desde 1954.",
+    "description": "Anti-feedback Abafador Violao Classsico Boca Redonda Afcl. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Anti-feedback Abafador Violao Classsico Boca Redonda Afcl</h2><p>Parte da linha Tonante de violões, o Anti-feedback Abafador Violao Classsico Boca Redonda Afcl carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -12909,7 +12930,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32517-17459001808633468.jpeg"
     ],
     "inStock": true,
-    "description": "Anti-feedback Abafador Violao de Boca Oval Afov — tradição Tonante desde 1954.",
+    "description": "Anti-feedback Abafador Violao de Boca Oval Afov. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Anti-feedback Abafador Violao de Boca Oval Afov</h2><p>Parte da linha Tonante de violões, o Anti-feedback Abafador Violao de Boca Oval Afov carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -12960,7 +12981,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32563-17458348511256942.jpeg"
     ],
     "inStock": true,
-    "description": "Encordoamento P/ Cavaco C/ Bolinha Gescb — tradição Tonante desde 1954.",
+    "description": "Encordoamento P/ Cavaco C/ Bolinha Gescb. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Encordoamento P/ Cavaco C/ Bolinha Gescb</h2><p>Parte da linha Tonante de cordas &amp; encordoamentos, o Encordoamento P/ Cavaco C/ Bolinha Gescb carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Cordas & Encordoamentos",
@@ -13014,7 +13035,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328663_1-17715118271743254.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Nylon TN39N Natural – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Nylon TN39N Natural – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Nylon TN39N Natural – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Nylon TN39N Natural – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -13053,6 +13074,7 @@ const rawProducts: Product[] = [
     "name": "Violão Clássico Acústico Nylon TN39NB Brown – TON",
     "price": "R$ 229,90",
     "priceNum": 229.90,
+    "badge": "Novidade",
     "rating": 4.9,
     "reviews": 437,
     "category": "Violões",
@@ -13068,7 +13090,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328664_1-17706909607789746.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Nylon TN39NB Brown – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Nylon TN39NB Brown – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Nylon TN39NB Brown – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Nylon TN39NB Brown – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -13107,6 +13129,7 @@ const rawProducts: Product[] = [
     "name": "Violão Clássico Acústico Nylon TN39P Preto – TON",
     "price": "R$ 229,90",
     "priceNum": 229.90,
+    "badge": "Novidade",
     "rating": 4.4,
     "reviews": 408,
     "category": "Violões",
@@ -13122,7 +13145,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328665_1-17706507254418513.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Nylon TN39P Preto – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Nylon TN39P Preto – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Nylon TN39P Preto – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Nylon TN39P Preto – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -13175,7 +13198,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328666-17706560169716879.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Cutaway com EQ Nylon TN39NCE Natural – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Cutaway com EQ Nylon TN39NCE Natural – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Cutaway com EQ Nylon TN39NCE Natural – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Cutaway com EQ Nylon TN39NCE Natural – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Clássico",
@@ -13215,6 +13238,7 @@ const rawProducts: Product[] = [
     "name": "Violão Clássico Cutaway com EQ Nylon TN39NBCE Brown – TON",
     "price": "R$ 319,90",
     "priceNum": 319.90,
+    "badge": "Novidade",
     "rating": 4.8,
     "reviews": 466,
     "category": "Violões",
@@ -13229,7 +13253,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328667_1-17710630262929039.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Cutaway com EQ Nylon TN39NBCE Brown – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Cutaway com EQ Nylon TN39NBCE Brown – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Cutaway com EQ Nylon TN39NBCE Brown – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Cutaway com EQ Nylon TN39NBCE Brown – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Clássico",
@@ -13268,6 +13292,7 @@ const rawProducts: Product[] = [
     "name": "Violão Clássico Acústico Infantil 3/4 Nylon TN36N Natural – TON",
     "price": "R$ 239,90",
     "priceNum": 239.90,
+    "badge": "Novidade",
     "rating": 4.5,
     "reviews": 423,
     "category": "Violões",
@@ -13283,7 +13308,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328671-17714456835354326.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Infantil 3/4 Nylon TN36N Natural – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Infantil 3/4 Nylon TN36N Natural – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Infantil 3/4 Nylon TN36N Natural – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Infantil 3/4 Nylon TN36N Natural – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -13337,7 +13362,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/328671_-17706654255026292.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Infantil 3/4 Nylon TN36P Preto – TON — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Infantil 3/4 Nylon TN36P Preto – TON. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Infantil 3/4 Nylon TN36P Preto – TON</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Infantil 3/4 Nylon TN36P Preto – TON carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -13509,7 +13534,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/330553/330553-A5.png"
     ],
     "inStock": true,
-    "description": "Suporte Duplo Para Teclado em X Desmontável TNS1954D — tradição Tonante desde 1954.",
+    "description": "Suporte Duplo Para Teclado em X Desmontável TNS1954D. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>ESTRUTURA DUPLA PARA MAIS POSSIBILIDADES</h2><p>Possui estrutura reforçada em X, garantindo firmeza durante a execução, além de ajustes de altura e largura para melhor adaptação ao músico.</p><h3>PENSADO PARA PERFORMANCE PROFISSIONAL</h3><p>Desenvolvido para teclados maiores e pianos digitais, o suporte amplia suas possibilidades com máxima estabilidade. Oferece firmeza, organização e praticidade, garantindo mais controle, segurança e liberdade para o músico focar totalmente na execução.</p>",
     "features": [
       "Altura ajustável: 1–96 cm",
@@ -13630,7 +13655,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/330672/330672-A5.png"
     ],
     "inStock": true,
-    "description": "Banqueta Para Teclado Musical Dobrável Preta&nbsp; - TN1954BT — tradição Tonante desde 1954.",
+    "description": "Banqueta Para Teclado Musical Dobrável Preta&nbsp; - TN1954BT. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>CONFORTO AJUSTÁVEL PARA MELHOR PERFORMANCE</h2><p>Conta com altura ajustável em três níveis, permitindo adaptação à posição ideal de uso. Possui assento amplo e acolchoado, com espuma de alta densidade que proporciona maior conforto, além de revestimento resistente que garante durabilidade no dia a dia.</p><h3>PENSADA PARA SUA EVOLUÇÃO MUSICAL</h3><p>Desenvolvida para oferecer postura correta e mais conforto ao tocar, a nossa banqueta contribui diretamente para uma performance mais segura e consistente.</p>",
     "features": [
       "Ajuste de altura: 3 níveis",
@@ -13750,7 +13775,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/3/33697-17522380235431762.jpeg"
     ],
     "inStock": true,
-    "description": "Teclado Musical Casiotone Vermelho - CT-S200RDC2-BR — tradição Tonante desde 1954.",
+    "description": "Teclado Musical Casiotone Vermelho - CT-S200RDC2-BR. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Teclado Musical Casiotone Vermelho - CT-S200RDC2-BR</h2><p>Parte da linha Tonante de acessórios, o Teclado Musical Casiotone Vermelho - CT-S200RDC2-BR carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -13801,7 +13826,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/3/33698-17510322186809476.jpeg"
     ],
     "inStock": true,
-    "description": "Teclado Musical Casiotone Preto - CT-S300C2-BR — tradição Tonante desde 1954.",
+    "description": "Teclado Musical Casiotone Preto - CT-S300C2-BR. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Teclado Musical Casiotone Preto - CT-S300C2-BR</h2><p>Parte da linha Tonante de acessórios, o Teclado Musical Casiotone Preto - CT-S300C2-BR carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -13855,7 +13880,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/338666/338666-A6.png"
     ],
     "inStock": true,
-    "description": "Capotraste Para Violão em Alumínio - Prata - CPT — tradição Tonante desde 1954.",
+    "description": "Capotraste Para Violão em Alumínio - Prata - CPT. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Praticidade e precisão para acompanhar sua música</h2><p>Os Capotrastes Tonante CPT-30 foram desenvolvidos para proporcionar mudanças rápidas de tonalidade com segurança, conforto e praticidade. Disponíveis nas versões prata e preta, são ideais para violões com cordas de nylon, oferecendo excelente fixação e ótimo custo-benefício para músicos de todos os níveis.</p><h3>Leveza, resistência e encaixe seguro</h3><p>Produzidos em alumínio leve e resistente, os modelos CPT-30 garantem durabilidade e praticidade no uso diário. Seu sistema de encaixe facilita trocas rápidas durante apresentações, ensaios ou estudos, mantendo firmeza nas cordas e estabilidade na afinação.</p><h3>O acessório ideal para acompanhar cada acorde</h3><p>Compactos, resistentes e fáceis de transportar, os Capotrastes Tonante CPT-30 oferecem conforto e praticidade para músicos que buscam agilidade nas mudanças de tom sem abrir mão da qualidade. Uma solução versátil para diferentes estilos musicais e momentos de performance.</p>",
     "features": [
       "Modelo: CPT-30PR",
@@ -14007,7 +14032,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/4/34160-17522531913581922.jpeg"
     ],
     "inStock": true,
-    "description": "Afinador Cromatico Digital AF10 Preto — tradição Tonante desde 1954.",
+    "description": "Afinador Cromatico Digital AF10 Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Afinador Cromatico Digital AF10 Preto</h2><p>Parte da linha Tonante de acessórios, o Afinador Cromatico Digital AF10 Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Afinador",
@@ -14276,7 +14301,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/342292/342292-A6.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Ukulele Concert White Nylon .024 .032 .038 .028 - Tnukcnw — tradição Tonante desde 1954.",
+    "description": "Encordoamento Ukulele Concert White Nylon .024 .032 .038 .028 - Tnukcnw. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>PROJEÇÃO E RESPOSTA SUPERIOR</h2><p>Oferece timbre cristalino com boa projeção e resposta rápida, garantindo definição em cada nota.</p><h3>APLICAÇÃO E USO</h3><p>Ideal para quem busca mais presença sonora em ensaios, apresentações ou gravações.\nEntrega conforto ao tocar e um som equilibrado, valorizando cada acorde.</p><h3>MAIS DETALHES</h3><p>Desenvolvido para músicos que buscam qualidade e desempenho.\nConforto e projeção que acompanham sua evolução musical!</p>",
     "features": [
       "Tipo: Encordoamento para ukulele concert",
@@ -14337,7 +14362,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/342294/342294-A6.png"
     ],
     "inStock": true,
-    "description": "Encordoamento Viola Caipira Média Níquel com Bolinha Cebolao RÉ - Tnvnr — tradição Tonante desde 1954.",
+    "description": "Encordoamento Viola Caipira Média Níquel com Bolinha Cebolao RÉ - Tnvnr. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>TRADIÇÃO E RESISTÊNCIA NA CONSTRUÇÃO</h2><p>O revestimento em níquel com proteção anticorrosiva oferece maior vida útil e desempenho consistente.\nA construção com bolinha proporciona fixação segura e prática, mantendo a afinação estável no uso diário.</p><h3>APLICAÇÃO E USO</h3><p>Ideal para moda de viola e estilos da raiz brasileira.</p><h3>MAIS DETALHES</h3><p>Disponível nas versões Cebolão Ré (média) e Cebolão Mi (leve), atendendo diferentes preferências de tocabilidade.\nUm encordoamento feito para quem carrega a tradição da viola, com resistência e qualidade para acompanhar o dia a dia.</p>",
     "features": [
       "Tipo: Encordoamento para viola caipira",
@@ -14473,7 +14498,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/4/34236-17522656450145170.jpeg"
     ],
     "inStock": true,
-    "description": "Afinador Cromatico Digital AF10 Azul — tradição Tonante desde 1954.",
+    "description": "Afinador Cromatico Digital AF10 Azul. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Afinador Cromatico Digital AF10 Azul</h2><p>Parte da linha Tonante de acessórios, o Afinador Cromatico Digital AF10 Azul carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Afinador",
@@ -14525,7 +14550,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/4/34237-17523016710621689.jpeg"
     ],
     "inStock": true,
-    "description": "Afinador Cromatico Digital AF10 Vermelho — tradição Tonante desde 1954.",
+    "description": "Afinador Cromatico Digital AF10 Vermelho. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Afinador Cromatico Digital AF10 Vermelho</h2><p>Parte da linha Tonante de acessórios, o Afinador Cromatico Digital AF10 Vermelho carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Afinador",
@@ -14577,7 +14602,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/4/34238-17523015964855195.jpeg"
     ],
     "inStock": true,
-    "description": "Afinador Cromatico Digital AF10 Branco — tradição Tonante desde 1954.",
+    "description": "Afinador Cromatico Digital AF10 Branco. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Afinador Cromatico Digital AF10 Branco</h2><p>Parte da linha Tonante de acessórios, o Afinador Cromatico Digital AF10 Branco carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Afinador",
@@ -14631,7 +14656,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/4/34578_2-17459257445047516.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Tonante Acústico Infantil Nylon 34\" (1/2) - TN34 Natural — tradição Tonante desde 1954.",
+    "description": "Violao Tonante Acústico Infantil Nylon 34\" (1/2) - TN34 Natural. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Tonante Acústico Infantil Nylon 34\" (1/2) - TN34 Natural</h2><p>Parte da linha Tonante de violões, o Violao Tonante Acústico Infantil Nylon 34\" (1/2) - TN34 Natural carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico",
@@ -14670,6 +14695,7 @@ const rawProducts: Product[] = [
     "name": "Violao Tonante Acústico Nylon Estudo - TNA39 Preto",
     "price": "R$ 249,90",
     "priceNum": 249.90,
+    "badge": "Novidade",
     "rating": 4.8,
     "reviews": 422,
     "category": "Violões",
@@ -14684,7 +14710,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/4/34582-17522621963484168.jpeg"
     ],
     "inStock": true,
-    "description": "Violao Tonante Acústico Nylon Estudo - TNA39 Preto — tradição Tonante desde 1954.",
+    "description": "Violao Tonante Acústico Nylon Estudo - TNA39 Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violao Tonante Acústico Nylon Estudo - TNA39 Preto</h2><p>Parte da linha Tonante de violões, o Violao Tonante Acústico Nylon Estudo - TNA39 Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico",
@@ -14735,7 +14761,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/352800_1-17648493815847936.jpeg"
     ],
     "inStock": true,
-    "description": "Polidor Creme Restore D'addario - Pwpl — D'Addario, marca parceira selecionada pela Tonante.",
+    "description": "Polidor Creme Restore D'addario - Pwpl. D'Addario é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Polidor Creme Restore D'addario - Pwpl</h2><p>Selecionado pela Tonante, o Polidor Creme Restore D'addario - Pwpl é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -14786,7 +14812,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/352804_1-17648494161855651.jpeg"
     ],
     "inStock": true,
-    "description": "Cera Liquida Protetora de Carnauba D'addario - Pw-pl — D'Addario, marca parceira selecionada pela Tonante.",
+    "description": "Cera Liquida Protetora de Carnauba D'addario - Pw-pl. D'Addario é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Cera Liquida Protetora de Carnauba D'addario - Pw-pl</h2><p>Selecionado pela Tonante, o Cera Liquida Protetora de Carnauba D'addario - Pw-pl é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -14838,7 +14864,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/352805_1-17621818172457670.jpeg"
     ],
     "inStock": true,
-    "description": "Condicionador Hidratante Para Escalas D'addario - Pw-fbc — D'Addario, marca parceira selecionada pela Tonante.",
+    "description": "Condicionador Hidratante Para Escalas D'addario - Pw-fbc. D'Addario é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Condicionador Hidratante Para Escalas D'addario - Pw-fbc</h2><p>Selecionado pela Tonante, o Condicionador Hidratante Para Escalas D'addario - Pw-fbc é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -14889,7 +14915,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/352813_1-17648494554714414.jpeg"
     ],
     "inStock": true,
-    "description": "Polidor Spray Shine D'addario - PW-PL03 — D'Addario, marca parceira selecionada pela Tonante.",
+    "description": "Polidor Spray Shine D'addario - PW-PL03. D'Addario é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Polidor Spray Shine D'addario - PW-PL03</h2><p>Selecionado pela Tonante, o Polidor Spray Shine D'addario - PW-PL03 é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -14940,7 +14966,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/352833_1-17621817720784471.jpeg"
     ],
     "inStock": true,
-    "description": "Óleo de Limão Para Limpeza D'addario - Pw-lmn — D'Addario, marca parceira selecionada pela Tonante.",
+    "description": "Óleo de Limão Para Limpeza D'addario - Pw-lmn. D'Addario é marca parceira selecionada pela Tonante.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Óleo de Limão Para Limpeza D'addario - Pw-lmn</h2><p>Selecionado pela Tonante, o Óleo de Limão Para Limpeza D'addario - Pw-lmn é de uma marca parceira que passa pela curadoria Tonante: só entra no catálogo o que a gente usaria no próprio palco.</p><h3>Curadoria de quem entende</h3><p>Mais de meio século de música nos dá critério: testamos e escolhemos parceiros que entregam qualidade de verdade.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Acessórios",
@@ -14994,7 +15020,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/355802_1-17798893654568500.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Clássico Acústico Lorenzzo 39\" - Nylon - Sunburst - VTL1954SB — tradição Tonante desde 1954.",
+    "description": "Violão Clássico Acústico Lorenzzo 39\" - Nylon - Sunburst - VTL1954SB. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Clássico Acústico Lorenzzo 39\" - Nylon - Sunburst - VTL1954SB</h2><p>Parte da linha Tonante de violões, o Violão Clássico Acústico Lorenzzo 39\" - Nylon - Sunburst - VTL1954SB carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Nylon · Acústico · Clássico",
@@ -15033,6 +15059,7 @@ const rawProducts: Product[] = [
     "name": "Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Blue (ctb)",
     "price": "R$ 603,90",
     "priceNum": 603.90,
+    "badge": "Novidade",
     "rating": 4.4,
     "reviews": 444,
     "category": "Violões",
@@ -15048,7 +15075,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/357159_1-17678224568006415.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Blue (ctb) — tradição Tonante desde 1954.",
+    "description": "Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Blue (ctb). Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Blue (ctb)</h2><p>Parte da linha Tonante de violões, o Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Blue (ctb) carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Eletroacústico · Acústico",
@@ -15103,7 +15130,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/5/357160_1-17677966635888053.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Black (ctbk) — tradição Tonante desde 1954.",
+    "description": "Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Black (ctbk). Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Black (ctbk)</h2><p>Parte da linha Tonante de violões, o Violão Aço Eletroacústico Performance GDC-1 CEQ Color TOP Black (ctbk) carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Aço · Eletroacústico · Acústico",
@@ -15155,7 +15182,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/-/1-17458696672894743.jpeg"
     ],
     "inStock": true,
-    "description": "Capotraste Para Violao em Alumínio - Prata - CPT10 — tradição Tonante desde 1954.",
+    "description": "Capotraste Para Violao em Alumínio - Prata - CPT10. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Capotraste Para Violao em Alumínio - Prata - CPT10</h2><p>Parte da linha Tonante de acessórios, o Capotraste Para Violao em Alumínio - Prata - CPT10 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Capotraste",
@@ -15210,7 +15237,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/-/1-17522997159603437.jpeg"
     ],
     "inStock": true,
-    "description": "Capotraste Para Violao em Alumínio - Preto - CPT10 — tradição Tonante desde 1954.",
+    "description": "Capotraste Para Violao em Alumínio - Preto - CPT10. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Capotraste Para Violao em Alumínio - Preto - CPT10</h2><p>Parte da linha Tonante de acessórios, o Capotraste Para Violao em Alumínio - Preto - CPT10 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Capotraste",
@@ -15265,7 +15292,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/-/1-17459253901688909.jpeg"
     ],
     "inStock": true,
-    "description": "Capotraste Para Violao em Liga de Zinco - Preto - CPT20 — tradição Tonante desde 1954.",
+    "description": "Capotraste Para Violao em Liga de Zinco - Preto - CPT20. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Capotraste Para Violao em Liga de Zinco - Preto - CPT20</h2><p>Parte da linha Tonante de acessórios, o Capotraste Para Violao em Liga de Zinco - Preto - CPT20 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Capotraste",
@@ -15320,7 +15347,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/360326/360326-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Tonante - Edição 70 Aniversário - Satin Black - TN70THBK — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Tonante - Edição 70 Aniversário - Satin Black - TN70THBK. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Celebre 70 anos de história</h2><p>A Guitarra Elétrica 70th Anniversary Edition foi criada para homenagear o legado da Tonante com um instrumento exclusivo, sofisticado e de alta performance. Com corpo em Alder, braço em Roasted Maple e captadores duplos Humbucker, ela entrega versatilidade sonora, tocabilidade moderna e um visual marcante em quatro acabamentos especiais.</p><h3>Performance incomparável</h3><p>Cada detalhe foi cuidadosamente desenvolvido para oferecer uma experiência única. Dos trastes Jumbo em inox ao tensor Spoke Wheel, passando pelo acabamento premium e hardware exclusivo de cada versão, esta guitarra representa o encontro perfeito entre tradição, inovação e excelência musical.</p><h3>Quatro acabamentos exclusivos</h3><p>Escolha a versão que mais combina com o seu estilo. \nDisponível em quatro cores:\nSatin Military Green  |  Satin Black  |  Metallic Blue  |  Olympic White</p>",
     "features": [
       "Formato do Corpo: Jazz Master",
@@ -15412,7 +15439,7 @@ const rawProducts: Product[] = [
       "https://cdn.oderco.com.br/produtos/360327/360327-A6.png"
     ],
     "inStock": true,
-    "description": "Guitarra Elétrica Tonante - Edição 70 Aniversário - Metallic Blue - TN70THMB — tradição Tonante desde 1954.",
+    "description": "Guitarra Elétrica Tonante - Edição 70 Aniversário - Metallic Blue - TN70THMB. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Celebre 70 anos de história</h2><p>A Guitarra Elétrica 70th Anniversary Edition foi criada para homenagear o legado da Tonante com um instrumento exclusivo, sofisticado e de alta performance. Com corpo em Alder, braço em Roasted Maple e captadores duplos Humbucker, ela entrega versatilidade sonora, tocabilidade moderna e um visual marcante em quatro acabamentos especiais.</p><h3>Performance incomparável</h3><p>Cada detalhe foi cuidadosamente desenvolvido para oferecer uma experiência única. Dos trastes Jumbo em inox ao tensor Spoke Wheel, passando pelo acabamento premium e hardware exclusivo de cada versão, esta guitarra representa o encontro perfeito entre tradição, inovação e excelência musical.</p><h3>Quatro acabamentos exclusivos</h3><p>Escolha a versão que mais combina com o seu estilo. \nDisponível em quatro cores:\nSatin Military Green  |  Satin Black  |  Metallic Blue  |  Olympic White</p>",
     "features": [
       "Formato do Corpo: Jazz Master",
@@ -15588,7 +15615,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/6/36758-17522568871905769.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Ágata 40\"- Cutaway - Natural - EQ 3 Bandas - ACTNA1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Ágata 40\"- Cutaway - Natural - EQ 3 Bandas - ACTNA1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Ágata 40\"- Cutaway - Natural - EQ 3 Bandas - ACTNA1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Ágata 40\"- Cutaway - Natural - EQ 3 Bandas - ACTNA1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -15639,7 +15666,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/6/36759-17523524803061187.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Jade 41\" - Natural - EQ 3 Bandas - ACTNJ1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Jade 41\" - Natural - EQ 3 Bandas - ACTNJ1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Jade 41\" - Natural - EQ 3 Bandas - ACTNJ1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Jade 41\" - Natural - EQ 3 Bandas - ACTNJ1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -15690,7 +15717,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/6/36760-17523571405014983.jpeg"
     ],
     "inStock": true,
-    "description": "Violão Elétrico Ametista 41\" - Tobacco - EQ 3 Bandas - ACTNAB1954 — tradição Tonante desde 1954.",
+    "description": "Violão Elétrico Ametista 41\" - Tobacco - EQ 3 Bandas - ACTNAB1954. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Violão Elétrico Ametista 41\" - Tobacco - EQ 3 Bandas - ACTNAB1954</h2><p>Parte da linha Tonante de violões, o Violão Elétrico Ametista 41\" - Tobacco - EQ 3 Bandas - ACTNAB1954 carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Violões",
@@ -15746,7 +15773,7 @@ const rawProducts: Product[] = [
       "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/7/37641-17523305064321759.jpeg"
     ],
     "inStock": true,
-    "description": "Microfone com Cabo USB PODCAST-400U Preto — tradição Tonante desde 1954.",
+    "description": "Microfone com Cabo USB PODCAST-400U Preto. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Microfone com Cabo USB PODCAST-400U Preto</h2><p>Parte da linha Tonante de acessórios, o Microfone com Cabo USB PODCAST-400U Preto carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
       "Microfone · Cabo",
@@ -15786,8 +15813,16 @@ const rawProducts: Product[] = [
    que só existem no site institucional da Tonante (ver productsSiteOficial.ts).
    Tudo que consome catálogo usa allProducts, então não há dois caminhos pra
    achar um produto. */
-export const allProducts: Product[] = [...rawProducts, ...extraProducts, ...siteOficialProducts];
+/* A viola caipira mora dentro de "Violões" no catálogo, e buscar por "viola"
+   traz todo violão junto (o normalizador vê "viola" dentro de "violao").
+   A tag abaixo dá um termo exclusivo pra home linkar a família direto. */
+const TAG_VIOLA = "Viola Caipira";
+const isViolaCaipira = (p: Product) => p.category === "Violões" && /^viola\b/i.test(p.name);
+
+export const allProducts: Product[] = [...rawProducts, ...extraProducts, ...siteOficialProducts].map((p) =>
+  isViolaCaipira(p) && !p.tags.includes(TAG_VIOLA) ? { ...p, tags: [...p.tags, TAG_VIOLA] } : p,
+);
 
 export const categories = ["Violões","Guitarras","Contrabaixos","Baterias","Acessórios","Cordas & Encordoamentos","Suportes"];
-export const allTags = ["Acessórios","Palheta","Suportes","Microfone","Cabo","Dobrável","Capa","Guitarras","Single-coil","6 cordas","Contrabaixos","4 cordas","Violões","Nylon","Acústico","Clássico","Níquel","5 cordas","Cordas & Encordoamentos","Aço","Eletroacústico","Viola","Bronze","Ukulele","Capotraste","Afinador","Baterias","Pro Series","Legacy","Volcano","Abalone","Safira","Coral","Baby","Muriel's","Star Light","Cecille","Sonora"];
+export const allTags = ["Acessórios","Palheta","Suportes","Microfone","Cabo","Dobrável","Capa","Guitarras","Single-coil","6 cordas","Contrabaixos","4 cordas","Violões","Nylon","Acústico","Clássico","Níquel","5 cordas","Cordas & Encordoamentos","Aço","Eletroacústico","Viola","Bronze","Ukulele","Capotraste","Afinador","Baterias","Pro Series","Legacy","Volcano","Abalone","Safira","Coral","Baby","Muriel's","Star Light","Cecille","Sonora","Viola Caipira"];
 export const brands = ["Tonante"];

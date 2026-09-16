@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import { Link, useLocation } from "react-router";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { allProducts } from "../components/productsData";
 import { getPrimaryProductImage, getCatalogHref } from "../components/productPresentation";
 
-/* CategoriasV2 — "Compre por categoria" (referência: tema Local).
-   Card branco, arte centralizada com sombra de contato, nome embaixo.
+/* CategoriasV2 — "Compre por categoria".
+   Grade de 6 por linha: círculo cinza com a arte dentro e o nome embaixo.
    `art` aponta para /categorias/<slug>.png; enquanto a arte final não
    existe, cai no produto mais bem avaliado da categoria. */
 
@@ -33,24 +32,35 @@ type Cat = {
   zoom?: number;
   /** ajuste fino do tamanho da arte sem crop (1 = padrão) */
   artScale?: number;
+  /** espelha a arte — todo instrumento aponta pra direita no grid */
+  flip?: boolean;
+  /** recentraliza a arte no círculo, em % do quadro (já contando o zoom) */
+  offsetX?: number;
 };
 
 const CATS: Cat[] = [
+  /* 1ª linha — instrumentos, na ordem de tamanho do catálogo */
   { crop: true, focus: "50% 100%", zoom: 1.4, label: "Violões", art: "/categorias/violao.png", href: getCatalogHref({ category: "Violões" }), fallbackImg: fallback("Violões") },
-  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Guitarras", art: "/categorias/guitarra.png", href: getCatalogHref({ category: "Guitarras" }), fallbackImg: fallback("Guitarras") },
-  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Contrabaixos", art: "/categorias/contrabaixo.png", href: getCatalogHref({ category: "Contrabaixos" }), fallbackImg: fallback("Contrabaixos") },
-  { artScale: 0.85, label: "Cordas & Encordoamentos", art: "/categorias/encordoamento.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), fallbackImg: fallback("Cordas & Encordoamentos") },
-  { label: "Acessórios", art: "/categorias/microfone.png", href: getCatalogHref({ category: "Acessórios" }), fallbackImg: fallback("Acessórios") },
-  { label: "Suportes", art: "/categorias/suporte.png", href: getCatalogHref({ category: "Suportes" }), fallbackImg: fallback("Suportes") },
-  { label: "Afinadores", art: "/categorias/afinadores.png", href: getCatalogHref({ category: "Acessórios", search: "afinador" }), fallbackImg: fallback("Acessórios", "afinador") },
-  { label: "Capas & Bags", art: "/categorias/capas.png", href: getCatalogHref({ category: "Acessórios", search: "capa" }), fallbackImg: fallback("Acessórios", "capa") },
-  { label: "Palhetas", art: "/categorias/palhetas.png", href: getCatalogHref({ category: "Acessórios", search: "palheta" }), fallbackImg: fallback("Acessórios", "palheta") },
-  { label: "Cabos", art: "/categorias/cabos.png", href: getCatalogHref({ category: "Acessórios", search: "cabo" }), fallbackImg: fallback("Acessórios", "cabo") },
-  { label: "Correias", art: "/categorias/correias.png", href: getCatalogHref({ category: "Acessórios", search: "correia" }), fallbackImg: fallback("Acessórios", "correia") },
-  { label: "Microfones", art: "/categorias/microfones.png", href: getCatalogHref({ category: "Acessórios", search: "microfone" }), fallbackImg: fallback("Acessórios", "microfone") },
-];
+  /* /categorias/guitarra.png é um contrabaixo preto (4 cordas, 4 tarraxas em
+     linha, corpo Jazz Bass) — mesmo instrumento do card ao lado. Até a arte
+     certa existir, cai na foto de uma guitarra de verdade do catálogo. */
+  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Guitarras", art: "/categorias/guitarra-eletrica.png", href: getCatalogHref({ category: "Guitarras" }), fallbackImg: fallback("Guitarras", "star light") },
+  { crop: true, focus: "50% 100%", zoom: 1.4, flip: true, offsetX: 3.5, label: "Contrabaixos", art: "/categorias/contrabaixo.png", href: getCatalogHref({ category: "Contrabaixos" }), fallbackImg: fallback("Contrabaixos") },
+  /* Baterias é linha própria da Tonante (Sonora) e não aparecia na home */
+  { label: "Baterias", art: "/categorias/bateria.png", href: getCatalogHref({ category: "Baterias" }), fallbackImg: fallback("Baterias") },
+  /* Violas e ukuleles moram dentro de "Violões": sem vitrine aqui ninguém acha */
+  { crop: true, focus: "50% 100%", zoom: 1.4, offsetX: 8, label: "Violas", art: "/categorias/viola.png", href: getCatalogHref({ category: "Violões", search: "viola caipira" }), fallbackImg: fallback("Violões", "viola ") },
+  { crop: true, focus: "50% 100%", zoom: 1.4, label: "Ukuleles", art: "/categorias/ukulele.png", href: getCatalogHref({ category: "Violões", search: "ukulele" }), fallbackImg: fallback("Violões", "ukulele") },
 
-const PER_PAGE = 6;
+  /* 2ª linha — o que se compra junto do instrumento */
+  { artScale: 0.85, label: "Cordas & Encordoamentos", art: "/categorias/encordoamento.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), fallbackImg: fallback("Cordas & Encordoamentos") },
+  { label: "Suportes & Pedestais", art: "/categorias/suporte.png", href: getCatalogHref({ category: "Suportes" }), fallbackImg: fallback("Suportes") },
+  { label: "Correias", art: "/categorias/correias.png", href: getCatalogHref({ category: "Acessórios", search: "correia" }), fallbackImg: fallback("Acessórios", "correia") },
+  { label: "Cabos", art: "/categorias/cabos.png", href: getCatalogHref({ category: "Acessórios", search: "cabo" }), fallbackImg: fallback("Acessórios", "shogun") },
+  /* a arte de microfone estava no card genérico "Acessórios"; é aqui que ela conta uma história */
+  { label: "Microfones", art: "/categorias/microfone.png", href: getCatalogHref({ category: "Acessórios", search: "microfone" }), fallbackImg: fallback("Acessórios", "microfone") },
+  { label: "Palhetas", art: "/categorias/palhetas.png", href: getCatalogHref({ category: "Acessórios", search: "palheta" }), fallbackImg: fallback("Acessórios", "palheta") },
+];
 
 function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
   const [src, setSrc] = useState(cat.art);
@@ -76,10 +86,14 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
       <div
         className={
           round
-            ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden rounded-full p-6 transition-shadow hover:shadow-[var(--shadow-card)]`
+            ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden rounded-full p-6 transition-colors`
             : "flex min-h-0 w-full flex-1 items-end justify-center overflow-hidden"
         }
-        style={round ? { background: "#ffffff", border: "1px solid var(--border)" } : undefined}
+        style={
+          round
+            ? { background: "var(--surface-2)" }
+            : undefined
+        }
       >
         {cat.crop ? (
           <div className="relative h-full w-full overflow-hidden">
@@ -92,7 +106,7 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
               style={{
                 mixBlendMode: "multiply",
                 /* sobe um pouco pra sombra de contato não encostar na borda */
-                transform: `translateY(-3%) scale(${(cat.zoom ?? 1.4) * (round ? 1.18 : 1) * (hover ? 1.06 : 1)})`,
+                transform: `translate(${cat.offsetX ?? 0}%, -3%) scale(${(cat.zoom ?? 1.4) * (round ? 1.18 : 1) * (hover ? 1.06 : 1)})${cat.flip ? " scaleX(-1)" : ""}`,
                 transformOrigin: cat.focus ?? "50% 70%",
                 transition: "transform .45s ease-out",
               }}
@@ -107,7 +121,7 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
             className={`max-h-[86%] w-auto max-w-[70%] object-contain ${round ? "object-center" : "object-bottom"}`}
             style={{
               mixBlendMode: "multiply",
-              transform: `scale(${(cat.artScale ?? 1) * (hover ? 1.06 : 1)})`,
+              transform: `translateX(${cat.offsetX ?? 0}%) scale(${(cat.artScale ?? 1) * (hover ? 1.06 : 1)})${cat.flip ? " scaleX(-1)" : ""}`,
               transformOrigin: round ? "50% 50%" : "50% 100%",
               transition: "transform .45s ease-out",
             }}
@@ -131,8 +145,6 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
 export function CategoriasV2() {
   // círculo é o padrão; /?cat=card volta à versão em card retangular
   const round = new URLSearchParams(useLocation().search).get("cat") !== "card";
-  const [page, setPage] = useState(0);
-  const pages = Math.ceil(CATS.length / PER_PAGE);
 
   return (
     <section className="px-5 py-14 md:px-12" style={{ background: "#ffffff" }}>
@@ -144,58 +156,13 @@ export function CategoriasV2() {
           Compre por categoria
         </h2>
 
-        {/* trilho deslizante: a troca de página desliza em vez de trocar seco */}
-        <div className="mt-7 overflow-hidden">
-          <div
-            className="flex"
-            style={{
-              width: `${pages * 100}%`,
-              transform: `translateX(-${page * (100 / pages)}%)`,
-              // ease-in-out longo: entra acelerando e assenta devagar
-              transition: "transform .85s cubic-bezier(.65,0,.25,1)",
-            }}
-          >
-            {Array.from({ length: pages }).map((_, pi) => (
-              <div
-                key={pi}
-                className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6"
-                style={{ width: `${100 / pages}%` }}
-                aria-hidden={pi !== page}
-              >
-                {CATS.slice(pi * PER_PAGE, pi * PER_PAGE + PER_PAGE).map((c) => (
-                  <CatCard key={c.label} cat={c} round={round} />
-                ))}
-              </div>
-            ))}
-          </div>
+        {/* grade única: as 12 categorias de uma vez, 6 por linha */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-8">
+          {CATS.map((c) => (
+            <CatCard key={c.label} cat={c} round={round} />
+          ))}
         </div>
 
-        {pages > 1 && (
-          <div className="mt-8 flex items-center justify-center gap-4">
-            <button onClick={() => setPage((i) => (i - 1 + pages) % pages)} aria-label="Categorias anteriores" className="cursor-pointer" style={{ color: "var(--ink-strong)" }}>
-              <ChevronLeft size={20} strokeWidth={2} />
-            </button>
-            <div className="flex items-center gap-2">
-              {Array.from({ length: pages }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPage(i)}
-                  aria-label={`Página ${i + 1}`}
-                  aria-current={i === page}
-                  className="cursor-pointer rounded-pill"
-                  style={{
-                    height: 5, width: i === page ? 34 : 5,
-                    background: i === page ? "var(--ink-strong)" : "rgba(17,17,17,0.25)",
-                    transition: "width .3s ease, background .3s ease",
-                  }}
-                />
-              ))}
-            </div>
-            <button onClick={() => setPage((i) => (i + 1) % pages)} aria-label="Próximas categorias" className="cursor-pointer" style={{ color: "var(--ink-strong)" }}>
-              <ChevronRight size={20} strokeWidth={2} />
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

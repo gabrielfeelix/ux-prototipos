@@ -27,7 +27,7 @@ type Familia = {
 const FAMILIAS: Familia[] = [
   {
     key: "nylon-violao",
-    eyebrow: "Macia pros dedos",
+    eyebrow: "Macia para os dedos",
     title: "Nylon para violão",
     href: getCatalogHref({ category: "Cordas & Encordoamentos", search: "nylon" }),
     bg: "linear-gradient(90deg, #e3c19a 0.0%, #e2bd95 12.5%, #dfba91 25.0%, #dcb88f 37.5%, #dab58a 50.0%, #d9b388 62.5%, #d5af84 75.0%, #d2ab81 87.5%, #cfaa80 100.0%)",
@@ -114,7 +114,7 @@ export function EncordoamentosV2() {
               Qual corda é a sua?
             </h2>
             <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", color: "var(--ink-soft)", margin: "8px 0 0" }}>
-              Escolha pela família — a gente explica o resto.
+              Escolha pela família. A gente explica o resto.
             </p>
           </div>
           <Link

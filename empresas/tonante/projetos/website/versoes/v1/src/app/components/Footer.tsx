@@ -92,7 +92,7 @@ export function Footer() {
               <ImageWithFallback src={brandLogoDark} alt="Tonante" className="h-[34px] w-auto object-contain" />
             </Link>
             <p className="max-w-md text-[var(--text-sm)] text-foreground/60" style={{ fontFamily: "var(--font-family-inter)", lineHeight: "1.6" }}>
-              Desde 1954, a Tonante conecta pessoas à música. Violões, guitarras, contrabaixos e acessórios feitos pra fazer parte da história de cada artista.
+              Desde 1954, a Tonante conecta pessoas à música. Violões, guitarras, contrabaixos e acessórios feitos para fazer parte da história de cada artista.
             </p>
             <div className="flex flex-col items-center gap-2 pt-4">
               <span className="label" style={{ color: "var(--amber-deep)", fontSize: 10 }}>Pague com</span>
@@ -139,7 +139,7 @@ export function Footer() {
           >
             Desde 1954, a Tonante é o primeiro acorde de milhões de brasileiros.
             <br />
-            <em style={{ color: "var(--amber)" }}>Feita de Histórias. Feita pra tocar.</em>
+            <em style={{ color: "var(--amber)" }}>Feita de Histórias. Feita para tocar.</em>
           </p>
           <Link
             to="/quem-somos"
@@ -254,7 +254,7 @@ export function Footer() {
         >
           <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 12.5, color: "rgba(233,225,212,.55)", lineHeight: 1.6 }}>
             <strong style={{ color: "rgba(233,225,212,.72)", fontWeight: 700 }}>Tonante · Grupo Oderço</strong>
-            {" — "}Oderço Distribuidora de Eletrônicos LTDA · CNPJ 09.301.845/0001-91
+            {" · "}Oderço Distribuidora de Eletrônicos LTDA · CNPJ 09.301.845/0001-91
             <br className="hidden md:block" />
             {" "}Av. Paranavaí, 1906 - Maringá - PR · &copy; {new Date().getFullYear()} Tonante · Todos os direitos reservados.
           </p>

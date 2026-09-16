@@ -28,7 +28,7 @@ export function CardBrandLogo({ brand, className, style }: { brand: string; clas
   const bg = FALLBACK_COLORS[key] ?? "linear-gradient(135deg, #404044 0%, #1a1a1c 100%)";
   const label = brand && brand.toLowerCase() !== "cartão" && brand.toLowerCase() !== "cartao"
     ? brand
-    : "—";
+    : "-";
   return (
     <div className={className} style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center", background: bg }}>
       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 800, letterSpacing: "0.04em", textTransform: "uppercase", color: "rgba(var(--foreground-rgb), 0.95)", textShadow: "0 1px 2px rgba(0,0,0,0.3)" }}>

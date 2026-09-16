@@ -637,7 +637,7 @@ export const siteOficialProducts: Product[] = [
     images: ["/produtos/oficial/36754/36754.webp"],
     inStock: true,
     description:
-      "Guitarra Elétrica Strato Muriel's - SSS - Red Berry - GTRM1954 — instrumento Tonante, tradição brasileira desde 1954.",
+      "Guitarra Elétrica Strato Muriel's - SSS - Red Berry - GTRM1954. Instrumento Tonante, tradição brasileira desde 1954.",
     features: ["Muriel's", "Fabricação Tonante", "Garantia de 2 anos", "Tradição brasileira desde 1954"],
     specs: [
       { label: "SKU", value: "CP36754" },
@@ -671,7 +671,7 @@ export const siteOficialProducts: Product[] = [
     images: ["/produtos/oficial/36755/36755.webp"],
     inStock: true,
     description:
-      "Guitarra Elétrica Strato Muriel's - SSS - Deep Dark - GTRM1954 — instrumento Tonante, tradição brasileira desde 1954.",
+      "Guitarra Elétrica Strato Muriel's - SSS - Deep Dark - GTRM1954. Instrumento Tonante, tradição brasileira desde 1954.",
     features: ["Muriel's", "Fabricação Tonante", "Garantia de 2 anos", "Tradição brasileira desde 1954"],
     specs: [
       { label: "SKU", value: "CP36755" },
@@ -705,7 +705,7 @@ export const siteOficialProducts: Product[] = [
     images: ["/produtos/oficial/36756/36756.webp"],
     inStock: true,
     description:
-      "Guitarra Elétrica Strato Muriel's - SSS - Sunset - GTRM1954 — instrumento Tonante, tradição brasileira desde 1954.",
+      "Guitarra Elétrica Strato Muriel's - SSS - Sunset - GTRM1954. Instrumento Tonante, tradição brasileira desde 1954.",
     features: ["Muriel's", "Fabricação Tonante", "Garantia de 2 anos", "Tradição brasileira desde 1954"],
     specs: [
       { label: "SKU", value: "CP36756" },
@@ -739,7 +739,7 @@ export const siteOficialProducts: Product[] = [
     images: ["/produtos/oficial/36757/36757.webp"],
     inStock: true,
     description:
-      "Guitarra Elétrica Strato Muriel's - SSS - Snow White - GTRM1954 — instrumento Tonante, tradição brasileira desde 1954.",
+      "Guitarra Elétrica Strato Muriel's - SSS - Snow White - GTRM1954. Instrumento Tonante, tradição brasileira desde 1954.",
     features: ["Muriel's", "Fabricação Tonante", "Garantia de 2 anos", "Tradição brasileira desde 1954"],
     specs: [
       { label: "SKU", value: "CP36757" },

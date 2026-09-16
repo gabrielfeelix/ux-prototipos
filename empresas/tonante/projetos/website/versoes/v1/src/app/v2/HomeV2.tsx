@@ -2,8 +2,8 @@ import { CardVariantProvider } from "../components/CardVariantContext";
 import { HeroBannersV2 } from "./HeroBannersV2";
 import { CategoriasV2 } from "./CategoriasV2";
 import { OfertasV2 } from "./OfertasV2";
+import { NovidadesV2 } from "./NovidadesV2";
 import { ProductShelf } from "../components/ProductShelf";
-import { MonteSeuKit } from "../components/MonteSeuKit";
 import { EncordoamentosV2 } from "./EncordoamentosV2";
 import { Video70Anos } from "./Video70Anos";
 import { MusicosTonante } from "../components/MusicosTonante";
@@ -11,13 +11,15 @@ import { Newsletter } from "../components/Newsletter";
 import { Footer } from "../components/Footer";
 import { getCatalogHref } from "../components/productPresentation";
 import { CAMPANHA_ATIVA } from "./campanhas";
+import { PRE_ORDER_ITEMS } from "../components/PreOrderData";
 import {
-  acessoriosDeTocar,
+  acessoriosBonitos,
+  catalogo,
   idsDe,
+  selecionar,
   lancamentos,
   maisVendidos,
   primeiroInstrumento,
-  resumoDeItens,
 } from "./curadoria";
 
 /* HomeV2 — home do site.
@@ -28,11 +30,12 @@ import {
      hero          o que a marca está anunciando
      promoção      o que está barato agora            → preço
      categorias    onde fica o que eu quero           → navegação
-     primeiro viol. nunca toquei, por onde começo     → público
+     novidades     o que acabou de chegar             → novidade
      70 anos       posso confiar nessa loja           → marca
-     mais vendidos o que os outros estão levando      → prova social
+     primeiro viol. nunca toquei, por onde começo     → público
+     pré-venda     o que ainda vai chegar             → antecipação
      cordas        o que eu recompro                  → recompra
-     kit           leva tudo junto e paga menos       → combo
+     mais vendidos o que os outros estão levando      → prova social
      linhas        qual violão combina comigo         → marca
      acessórios    o que falta pra eu tocar hoje      → anexo
 
@@ -54,18 +57,33 @@ import {
 
 const promoIds = CAMPANHA_ATIVA.produtos;
 
-const iniciantes = primeiroInstrumento(12, 1200, promoIds);
+/* Ordem de ESCOLHA, que não é a ordem em que as dobras aparecem: quem tem o
+   estoque mais estreito escolhe primeiro. Novidade é o que a loja marcou como
+   novidade — doze produtos — enquanto "primeiro violão" tem setenta e oito
+   violões de entrada pra escolher. Deixando o primeiro violão na frente, ele
+   levava quase todos os marcados e a dobra Novidades terminava preenchida
+   pelo catálogo geral, sem a pill "Novidade" que o card promete. */
+/* Pré-venda sai de PreOrderData, não da curadoria: é uma lista editorial com
+   data de lançamento e lote, a mesma que abre o card de reserva na PDP. Sem
+   dobra própria, esses seis produtos não apareciam em lugar nenhum da home —
+   a pill do card existia e nunca era vista. */
+const preVendaTodos = new Set(PRE_ORDER_ITEMS.map((item) => item.productId));
+/* Passa pela mesma peneira das outras dobras porque a lista editorial traz a
+   Guitarra 70 Anos em três acabamentos: sem deduplicar por família, a fileira
+   abria com a mesma guitarra três vezes — e o card já mostra as cores em
+   miniatura embaixo da foto. */
+const preVendaIds = idsDe(selecionar({ pool: catalogo.filter((p) => preVendaTodos.has(p.id)), n: 12 }));
+
+const novidadesIds = idsDe(lancamentos(9, [...promoIds, ...preVendaIds]));
+
+const iniciantes = primeiroInstrumento(12, 1200, [...promoIds, ...preVendaIds, ...novidadesIds]);
 const iniciantesIds = idsDe(iniciantes);
 
-const usadosAteAqui = [...promoIds, ...iniciantesIds];
+const usadosAteAqui = [...promoIds, ...preVendaIds, ...novidadesIds, ...iniciantesIds];
 
 const topIds = idsDe(maisVendidos(12, usadosAteAqui));
-const novidadesIds = idsDe(lancamentos(8, [...usadosAteAqui, ...topIds]));
-const acessorios = acessoriosDeTocar(10, [...usadosAteAqui, ...topIds, ...novidadesIds]);
-const acessoriosIds = idsDe(acessorios);
-/* título lido da própria grade — ver resumoDeItens em v2/curadoria.ts */
-const acessoriosResumo = resumoDeItens(acessorios, 3);
-const acessoriosMenorPreco = Math.min(...acessorios.map((p) => p.priceNum));
+/* seleção fixa, escolhida pela foto — ver ACESSORIOS_BONITOS em v2/curadoria.ts */
+const acessoriosIds = idsDe(acessoriosBonitos());
 
 export function HomeV2() {
   return (
@@ -78,7 +96,6 @@ export function HomeV2() {
         <ProductShelf
           label={CAMPANHA_ATIVA.eyebrow}
           title={CAMPANHA_ATIVA.title}
-          subtitle={CAMPANHA_ATIVA.subtitle}
           href={CAMPANHA_ATIVA.href}
           ctaLabel={CAMPANHA_ATIVA.ctaLabel}
           productIds={CAMPANHA_ATIVA.produtos}
@@ -88,13 +105,36 @@ export function HomeV2() {
         {/* 3. navegação por categoria */}
         <CategoriasV2 />
 
-        {/* 4. público: quem nunca tocou — banner + trilho de violão de estudo */}
-        <OfertasV2 productIds={iniciantesIds} />
+        {/* 4. novidade: o lote novo. Era uma aba de "Mais vendidos", e aba
+               escondia o recorte atrás de um clique. */}
+        <NovidadesV2 productIds={novidadesIds} />
 
         {/* 5. institucional: respiro, cor e história */}
         <Video70Anos />
 
-        {/* 6. prova social — o que sai mais / o que acabou de chegar */}
+        {/* 6. público: quem nunca tocou — banner + trilho de violão de estudo.
+               Espelha a dobra de novidades: banner do outro lado, com o vídeo
+               entre as duas pra nenhuma leitura ficar repetida. */}
+        <OfertasV2 productIds={iniciantesIds} />
+
+        {/* 7. antecipação: o que ainda não saiu da fábrica. Vem logo depois do
+               lote que acabou de chegar — as duas dobras contam o mesmo
+               calendário, uma do lado de cá e outra do lado de lá. */}
+        <ProductShelf
+          label="Pré-venda"
+          title="Reserve antes de sair da fábrica"
+          productIds={preVendaIds}
+          href="/pre-venda"
+          ctaLabel="Ver todas as pré-vendas"
+        />
+
+        {/* 8. recompra: cordas. Sobe pra cima de "Mais vendidos" — pré-venda e
+               mais vendidos são duas vitrines de instrumento seguidas, e a
+               dobra de corda entre elas troca o assunto antes de cansar. */}
+        <EncordoamentosV2 />
+
+        {/* 9. prova social — o que os outros estão levando. Sem abas: sobrou
+               um recorte só, e uma aba única é moldura sem função. */}
         <ProductShelf
           label="Mais vendidos"
           title="Os mais vendidos da semana"
@@ -102,44 +142,31 @@ export function HomeV2() {
           href="/produtos"
           ctaLabel="Ver o catálogo"
           showRanking
-          tabs={[
-            {
-              tabLabel: "Mais vendidos",
-              eyebrow: "Mais vendidos",
-              title: "Os mais vendidos da semana",
-              subtitle: "O que mais saiu da loja nos últimos sete dias.",
-              productIds: topIds,
-              showRanking: true,
-            },
-            {
-              tabLabel: "Chegou agora",
-              eyebrow: "Novidades",
-              title: "Chegou agora na Tonante",
-              subtitle: "Últimos modelos a entrar no catálogo, ainda em primeiro lote.",
-              productIds: novidadesIds,
-            },
-          ]}
         />
 
-        {/* 7. recompra: cordas */}
-        <EncordoamentosV2 />
-
-        {/* 8. combo — instrumento + o que ele pede junto */}
-        <MonteSeuKit />
-
-        {/* 9. anexo — ticket baixo, grid de varredura (ninguém leva uma
+        {/* 10. anexo — ticket baixo, grid de varredura (ninguém leva uma
                palheta só). Microfone e afinador abrem; suporte entra no fim. */}
         <ProductShelf
-          label="Acessórios"
-          title={`Leva junto: ${acessoriosResumo}`}
-          subtitle={`O que falta pra você tocar hoje. A partir de ${acessoriosMenorPreco.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}, com frete grátis acima de R$ 299.`}
+          label="Para levar junto"
+          title="Acessórios para o seu instrumento"
           href={getCatalogHref({ category: "Acessórios" })}
           ctaLabel="Ver todos os acessórios"
           productIds={acessoriosIds}
           layout="grid"
+          stickyBanner={{
+            headline: "Complete o seu instrumento",
+            sub: "Correia, afinador, palheta e cabo escolhidos com a mesma curadoria do violão.",
+            cta: "Ver todos os acessórios",
+            href: getCatalogHref({ category: "Acessórios" }),
+            art: "/ofertas/acessorios.jpg",
+            /* os objetos ocupam o terço de cima da foto; centralizado, o corte
+               deixava metade da dobra em mesa vazia */
+            focus: "center 22%",
+            img: "https://images.unsplash.com/photo-1558098329-a11cff621064?w=1400&q=85&auto=format&fit=crop",
+          }}
         />
 
-        {/* 10. marca + captura */}
+        {/* 11. marca + captura */}
         <MusicosTonante />
         <Newsletter />
         <Footer />

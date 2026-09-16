@@ -57,7 +57,7 @@ export function QuemSomosPage() {
   return (
     <>
       <SEO
-        title="Nossa história — desde 1954"
+        title="Nossa história desde 1954"
         description="Dois irmãos portugueses, uma oficina na Lapa e o primeiro violão de gerações de brasileiros. Conheça os 70 anos da Tonante."
         canonicalPath="/quem-somos"
       />
@@ -138,7 +138,7 @@ export function QuemSomosPage() {
                   um plano de negócios inteiro: <strong style={{ color: "var(--ink-strong)" }}>Ao Rei dos Violões</strong>.
                 </p>
                 <p>
-                  Da Lapa para o Piqueri, do Piqueri para Itupeva — a oficina virou fábrica e a
+                  Da Lapa para o Piqueri, do Piqueri para Itupeva, a oficina virou fábrica e a
                   fábrica virou a maior porta de entrada da música brasileira: violões, guitarras,
                   contrabaixos, cavaquinhos, banjos e bandolins ao alcance de quem nunca tinha
                   podido pagar por um instrumento.
@@ -155,7 +155,7 @@ export function QuemSomosPage() {
                 />
               </div>
               <figcaption className="mt-3" style={{ fontFamily: INTER, fontSize: 12, color: "var(--ink-meta)" }}>
-                Imagem ilustrativa — acervo histórico em digitalização.
+                Imagem ilustrativa, acervo histórico em digitalização.
               </figcaption>
             </motion.figure>
           </div>
@@ -181,13 +181,13 @@ export function QuemSomosPage() {
             </h2>
             <div className="mt-7 grid gap-8 lg:grid-cols-2 lg:gap-16">
               <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "rgba(255,255,255,0.88)", margin: 0 }}>
-                Anos 60. A Jovem Guarda explode na TV e todo jovem quer montar uma banda — mas
+                Anos 60. A Jovem Guarda explode na TV e todo jovem quer montar uma banda, mas
                 instrumento importado é artigo de luxo. A Tonante era a guitarra que a classe
                 média conseguia pagar. Foi assim que o rock brasileiro começou em milhares de
                 garagens: com uma Tonante no colo.
               </p>
               <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "rgba(255,255,255,0.88)", margin: 0 }}>
-                O ícone da era foi a <strong style={{ color: "#fff" }}>Finder</strong> — corpo de
+                O ícone da era foi a <strong style={{ color: "#fff" }}>Finder</strong>, corpo de
                 cedro, escala de ipê, captadores Malagoli. Madeira brasileira e o famoso braço
                 grosso, feito de propósito para não empenar. Honestidade construtiva, do jeito
                 que a casa sempre entendeu qualidade.
@@ -225,9 +225,9 @@ export function QuemSomosPage() {
               </h2>
               <div className="mt-7 flex flex-col gap-5" style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "var(--ink-soft)" }}>
                 <p>
-                  Diz a lenda que uma Tonante afinada jamais desafina. A gente conhece a piada —
+                  Diz a lenda que uma Tonante afinada jamais desafina. A gente conhece a piada,
                   e sorri junto. Porque quem zoava era quem tinha tido uma. O primeiro acorde, o
-                  primeiro calo no dedo, a primeira música inteira: pra milhões de brasileiros,
+                  primeiro calo no dedo, a primeira música inteira: para milhões de brasileiros,
                   tudo isso aconteceu em cima de uma Tonante.
                 </p>
                 <p>
@@ -250,7 +250,7 @@ export function QuemSomosPage() {
               </span>
               <p className="mt-3" style={{ fontFamily: FIGTREE, fontStyle: "italic", fontSize: "clamp(20px, 2.2vw, 27px)", lineHeight: 1.4, color: "var(--ink-strong)", margin: 0 }}>
                 O Tonante foi o meu primeiro violão. Foi com ele que aprendi os primeiros acordes
-                e os primeiros solos — e graças a ele tenho orgulho do violonista que sou hoje.
+                e os primeiros solos, e graças a ele tenho orgulho do violonista que sou hoje.
               </p>
               <footer className="mt-6 flex items-center gap-3" style={{ fontFamily: INTER, fontSize: 13, color: "var(--ink-meta)" }}>
                 <span className="h-px w-8" style={{ background: "var(--amber)", opacity: 0.5 }} />
@@ -288,11 +288,11 @@ export function QuemSomosPage() {
                 Quando o galpão de Itupeva fechou, parte dos funcionários usou o dinheiro da
                 rescisão para comprar as máquinas e seguir fabricando instrumentos. A fábrica
                 morreu; o ofício, não. E pelo país, colecionadores restaurando Finders antigas
-                mantiveram a chama acesa por anos — em fóruns, oficinas e clubes de fãs.
+                mantiveram a chama acesa por anos, em fóruns, oficinas e clubes de fãs.
               </p>
               <p style={{ fontFamily: INTER, fontSize: 16.5, lineHeight: 1.7, color: "#d6d6d6", margin: 0 }}>
                 Em 2021, o <strong style={{ color: "#fff" }}>Grupo Oderço</strong> trouxe a marca
-                de volta: <em>"os instrumentos que marcaram gerações estão de volta — neste
+                de volta: <em>"os instrumentos que marcaram gerações estão de volta, neste
                 recomeço, esperamos que vocês construam ainda mais histórias."</em> As primeiras
                 guitarras da nova era saíram numeradas com um código que diz tudo:{" "}
                 <strong className="num" style={{ color: "var(--amber-bright)" }}>GTRM1954</strong>.
@@ -311,7 +311,7 @@ export function QuemSomosPage() {
               className="mx-auto mt-6 max-w-[18ch] text-ink-strong"
               style={{ fontFamily: FIGTREE, fontSize: "clamp(30px, 3.8vw, 52px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.05 }}
             >
-              Setenta anos depois, a história continua — <em style={{ color: "var(--amber-deep)" }}>nas suas mãos.</em>
+              Setenta anos depois, a história continua <em style={{ color: "var(--amber-deep)" }}>nas suas mãos.</em>
             </h2>
           </motion.div>
           <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

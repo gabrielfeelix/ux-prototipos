@@ -3,13 +3,14 @@ import { useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useTheme } from "./ThemeProvider";
 import { X, ShoppingBag, Trash2, Truck, Tag, Check, ChevronDown, Gift } from "lucide-react";
+import { useFadingScrollbar, useLockBodyScroll } from "./useFadingScrollbar";
 import { useCart } from "./CartContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { allProducts } from "./productsData";
 import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPresentation";
 import { PcyesCoin } from "./PcyesCoin";
 import { useCheckoutPrefs } from "./CheckoutPrefsContext";
-import { BrindePill, QtyStepper } from "./section";
+import { BrindePill, CTAButton, QtyStepper } from "./section";
 
 const MOCK_SHIPPING: Record<string, { name: string; price: number; days: string }[]> = {
   default: [
@@ -26,13 +27,24 @@ const COUPONS: Record<string, number> = {
   TONANTE10: 10, PROMO20: 20, BEMVINDO: 15,
 };
 
-const GIFT_THRESHOLD = 950;
+/* Brinde só em compra grande: a R$ 950 o modal pulava na cara de quem levou
+   um violão de estudo, que é a compra mais comum da loja. R$ 7.000 é ticket
+   de quem está montando setup — aí o presente soa como agrado, não como
+   interrupção. */
+const GIFT_THRESHOLD = 7000;
 const FREE_SHIPPING_THRESHOLD = 299;
 
 const USER_PCYES_POINTS = 480;
 
 export function CartDrawer() {
-  const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, lastAdded, setGiftItem, clearCart } = useCart();
+  const { items, isOpen, setIsOpen, removeItem, updateQuantity, totalItems, setGiftItem, clearCart } = useCart();
+
+  /* Com o painel aberto a página atrás não rola: a roda do mouse pertence à
+     lista do carrinho, não ao catálogo embaixo. */
+  useLockBodyScroll(isOpen);
+  const itemsScrollRef = useFadingScrollbar<HTMLDivElement>();
+  const summaryScrollRef = useFadingScrollbar<HTMLDivElement>();
+  const giftScrollRef = useFadingScrollbar<HTMLDivElement>();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark" || resolvedTheme === undefined;
   const navigate = useNavigate();
@@ -157,21 +169,23 @@ export function CartDrawer() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
-          <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 right-0 bottom-0 z-[61] flex w-full max-w-[460px] flex-col overflow-hidden"
+          {/* Painel flutuante, não gaveta colada na borda: sobra um respiro dos
+              quatro lados e os cantos arredondam por inteiro, então ele lê como
+              algo POR CIMA da página e não como um pedaço dela. No celular a
+              folga encolhe — 460px de painel com 16px de cada lado não cabem. */}
+          <motion.div initial={{ x: "104%" }} animate={{ x: 0 }} exit={{ x: "104%" }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-y-2 right-2 z-[61] flex w-[calc(100%-1rem)] max-w-[520px] flex-col overflow-hidden md:inset-y-4 md:right-4 md:w-full"
             style={{
               background: isDark ? "#161617" : "white",
-              borderTopLeftRadius: "var(--radius-card-lg)",
-              borderBottomLeftRadius: "var(--radius-card-lg)",
-              borderLeft: "1px solid rgba(var(--foreground-rgb), 0.06)",
-              boxShadow: "var(--shadow-drawer-side)",
+              borderRadius: "var(--radius-card-xl)",
+              boxShadow: "0 32px 80px -24px rgba(17,17,17,.38), 0 4px 16px -8px rgba(17,17,17,.18)",
             }}
           >
             <div className="flex items-center justify-between border-b border-foreground/5 px-7 py-5">
               <div className="flex items-center gap-3">
                 <ShoppingBag size={18} className="text-foreground" strokeWidth={1.5} />
                 <span className="text-foreground" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: "var(--font-weight-medium)" }}>Carrinho</span>
-                <span className="px-2 py-0.5 bg-primary text-primary-foreground" style={{ borderRadius: "var(--radius-pill)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>{totalItems}</span>
+                <span className="num px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "var(--ink-strong)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>{totalItems}</span>
                 <span className="flex items-center gap-1 px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(17, 17, 17, 0.08)", color: "var(--amber-deep)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>
                   <PcyesCoin size={14} />
                   {formatInt(USER_PCYES_POINTS)}
@@ -190,14 +204,14 @@ export function CartDrawer() {
             {paidItems.length > 0 && (
               <div className="border-b border-foreground/5 px-7 py-3.5">
                 <div className="mb-2 flex items-center gap-2">
-                  <Truck size={15} className="text-primary" strokeWidth={2} />
+                  <Truck size={15} className="text-foreground/55" strokeWidth={2} />
                   {freeShipUnlocked ? (
                     <span className="num text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>
                       🎉 Você ganhou frete grátis!
                     </span>
                   ) : (
                     <span className="num text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
-                      Faltam <strong style={{ color: "var(--amber-deep)" }}>{formatPrice(remainingForFreeShip)}</strong> para frete grátis
+                      Faltam <strong className="num text-ink-strong">{formatPrice(remainingForFreeShip)}</strong> para frete grátis
                     </span>
                   )}
                 </div>
@@ -239,7 +253,7 @@ export function CartDrawer() {
               </div>
             )}
 
-            <div className="flex-1 overflow-y-auto px-7 py-5" style={{ scrollbarWidth: "none" }}>
+            <div ref={itemsScrollRef} className="scroll-fade min-h-0 flex-1 overflow-y-auto px-7 py-5">
               {items.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-foreground/5">
@@ -249,14 +263,30 @@ export function CartDrawer() {
                   <p className="text-foreground/30" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Adicione produtos para começar</p>
                 </div>
               ) : (
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-5">
+                  {/* Sem moldura por item: um card dentro de um painel que já é
+                      um card empilha três bordas na mesma vertical. Linha
+                      divisória basta pra separar, e a foto continua na sua
+                      caixa — ela é o que o olho usa pra achar o item. */}
                   <AnimatePresence>
                     {items.map((item) => (
                       <motion.div key={item.cartKey} layout initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30, height: 0 }} transition={{ duration: 0.3 }}
-                        className={`flex gap-4 p-3.5 border ${lastAdded?.cartKey === item.cartKey ? "border-foreground/10 bg-foreground/[0.04]" : item.isGift ? "border-foreground/10 bg-foreground/[0.04]" : "border-edge-subtle bg-surface-1"} transition-colors duration-700`}
-                        style={{ borderRadius: "var(--radius-card)" }}
+                        className="border-b border-foreground/8 pb-5 last:border-b-0 last:pb-0"
                       >
-                        <div className="w-[84px] flex-shrink-0 self-stretch overflow-hidden relative min-h-[84px]" style={{ borderRadius: "var(--radius)", background: "var(--well)", boxShadow: "inset 0 0 0 1px rgba(17,17,17,0.06)" }}>
+                        <div
+                          /* só o brinde ganha fundo. O realce de "acabou de
+                             entrar" ficava 1~2s no item recém-adicionado e lia
+                             como hover preso — a animação de entrada da linha
+                             já diz o que chegou. */
+                          className={`-mx-3 -my-2 flex gap-4 rounded-[10px] px-3 py-2 ${
+                            item.isGift ? "bg-foreground/[0.04]" : ""
+                          }`}
+                        >
+                        {/* mesma caixa do card da home: o degradê cinza é o
+                            fundo padrão de foto de produto do site, e a caixa
+                            lisa do drawer fazia o mesmo instrumento parecer
+                            outro recorte. Ver ProductCardV2. */}
+                        <div className="w-[84px] flex-shrink-0 self-stretch overflow-hidden relative min-h-[84px]" style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}>
                           <ImageWithFallback src={item.image} alt={item.name} className="absolute inset-0 h-full w-full object-contain p-2.5" style={{ mixBlendMode: "multiply" }} />
                           {item.isGift && (
                             <div className="absolute left-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
@@ -267,7 +297,7 @@ export function CartDrawer() {
                         <div className="flex min-w-0 flex-1 flex-col justify-between">
                           <div>
                             <div className="flex items-center gap-2">
-                              <p className="truncate text-foreground mb-0.5" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-sm)", fontWeight: "var(--font-weight-medium)" }}>{item.name}</p>
+                              <p className="truncate text-foreground mb-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, lineHeight: 1.4 }}>{item.name}</p>
                               {item.isGift && <BrindePill />}
                             </div>
                             <div className="flex items-center gap-2">
@@ -299,6 +329,7 @@ export function CartDrawer() {
                             </button>
                           </div>
                         </div>
+                        </div>
                       </motion.div>
                     ))}
                   </AnimatePresence>
@@ -307,34 +338,39 @@ export function CartDrawer() {
             </div>
 
             {items.length > 0 && (
-              <div className="border-t border-foreground/5 px-7 py-5 space-y-3 max-h-[55vh] overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+              <div ref={summaryScrollRef} className="scroll-fade flex-shrink-0 border-t border-foreground/5 px-7 py-5 space-y-3 max-h-[58vh] overflow-y-auto">
+                {/* O rodapé não rola junto nem se estica: `flex-shrink-0` prende
+                    os botões e as bandeiras no fim do painel, e quem cede altura
+                    é a lista (min-h-0 acima). Sem isso, lista + rodapé somavam
+                    mais que 100% e o CTA caía pra fora da tela. */}
                 <div>
                   <button onClick={() => setCouponOpen(!couponOpen)}
                     className={`flex items-center justify-between w-full py-2 px-3 cursor-pointer group transition-colors ${
-                      appliedCoupon ? "rounded-[var(--radius-card-sm)] border border-green-500/20 bg-green-500/5" : ""
+                      appliedCoupon ? "rounded-[var(--radius-card-sm)] border" : ""
                     }`}
+                    style={appliedCoupon ? { borderColor: "rgba(18, 146, 76, 0.30)", background: "rgba(18, 146, 76, 0.07)" } : undefined}
                   >
                     <div className="flex items-center gap-2">
                       {appliedCoupon ? (
-                        <Check size={13} className="text-green-500" />
+                        <Check size={13} style={{ color: 'var(--buy-green)' }} />
                       ) : (
                         <Tag size={12} className="text-foreground/45" />
                       )}
                       <span
-                        className={appliedCoupon ? "text-green-400" : "text-foreground/65 group-hover:text-foreground/85 transition-colors"}
-                        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: appliedCoupon ? 600 : 600 }}
+                        className={appliedCoupon ? "" : "text-foreground/65 group-hover:text-foreground/85 transition-colors"}
+                        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: appliedCoupon ? "var(--buy-green-press)" : undefined }}
                       >
                         {appliedCoupon ? `Cupom ${appliedCoupon} aplicado` : "Cupom de desconto"}
                       </span>
                       {appliedCoupon && (
-                        <span className="text-green-500/70" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--buy-green)" }}>
                           −{discountPct}%
                         </span>
                       )}
                     </div>
                     <span
-                      className={appliedCoupon ? "text-green-500/70" : "text-foreground/35 group-hover:text-foreground/55 transition-colors"}
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                      className={appliedCoupon ? "" : "text-foreground/35 group-hover:text-foreground/55 transition-colors"}
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: appliedCoupon ? "var(--buy-green-press)" : undefined, textDecoration: appliedCoupon ? "underline" : undefined, textUnderlineOffset: "3px" }}
                     >
                       {appliedCoupon ? "Alterar" : <ChevronDown size={11} className={`transition-transform duration-300 ${couponOpen ? "rotate-180" : ""}`} />}
                     </span>
@@ -344,11 +380,11 @@ export function CartDrawer() {
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
                         <div className="pt-3">
                           {appliedCoupon ? (
-                            <div className="flex items-center justify-between px-3 py-2 border border-green-500/20 bg-green-500/5" style={{ borderRadius: "var(--radius-button)" }}>
+                            <div className="flex items-center justify-between border px-3 py-2" style={{ borderRadius: "var(--radius-button)", borderColor: "rgba(18, 146, 76, 0.30)", background: "rgba(18, 146, 76, 0.07)" }}>
                               <div className="flex items-center gap-2">
-                                <Check size={13} className="text-green-500" />
-                                <span className="text-green-400" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>{appliedCoupon}</span>
-                                <span className="text-green-500/60" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>(-{discountPct}%)</span>
+                                <Check size={13} style={{ color: "var(--buy-green)" }} />
+                                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "var(--buy-green-press)" }}>{appliedCoupon}</span>
+                                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "var(--buy-green)" }}>(-{discountPct}%)</span>
                               </div>
                               <button onClick={() => { setAppliedCoupon(null); setCoupon(""); }} aria-label="Remover cupom" className="text-foreground/30 hover:text-foreground transition-colors cursor-pointer"><X size={13} aria-hidden="true" /></button>
                             </div>
@@ -383,8 +419,8 @@ export function CartDrawer() {
                   </div>
                   {discountValue > 0 && (
                     <div className="flex items-center justify-between">
-                      <span className="text-green-500" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Desconto ({discountPct}%)</span>
-                      <span className="text-green-500" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>-{formatPrice(discountValue)}</span>
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--buy-green-press)" }}>Desconto ({discountPct}%)</span>
+                      <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--buy-green-press)" }}>-{formatPrice(discountValue)}</span>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
@@ -398,24 +434,29 @@ export function CartDrawer() {
                   <span className="text-foreground num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-xl)", fontWeight: 700 }}>{formatPrice(total)}</span>
                 </div>
 
-                <button
-                  className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-4 transition-transform hover:scale-[1.01] active:scale-[0.98]"
-                  style={{
-                    background: "var(--gradient-buy)",
-                    color: "#fff",
-                    fontFamily: "var(--font-family-inter)",
-                    fontSize: "var(--text-sm)",
-                    fontWeight: 700,
-                    boxShadow: "var(--shadow-buy-cta-sm)",
-                  }}
-                  onClick={() => { setIsOpen(false); navigate("/checkout"); }}
-                  aria-label="Finalizar pedido"
-                ><ShoppingBag size={17} strokeWidth={2} /> Finalizar pedido</button>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center justify-center border border-foreground/12 bg-transparent text-foreground/55 hover:text-foreground/85 hover:border-foreground/22 transition-colors cursor-pointer rounded-full"
-                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, minHeight: "44px" }}
-                >Continuar comprando</button>
+                {/* Dois botões na mesma linha: um embaixo do outro, a ação
+                    secundária ganhava a mesma largura da principal e as duas
+                    pareciam ter o mesmo peso. Lado a lado, quem manda é a cor. */}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="flex min-h-[52px] cursor-pointer items-center justify-center rounded-full border border-foreground/12 bg-transparent px-2 text-center text-foreground/70 transition-colors hover:border-foreground/22 hover:text-foreground"
+                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                  >Continuar comprando</button>
+                  <button
+                    className="flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-full transition-[transform,background-color] duration-200 hover:scale-[1.01] active:scale-[0.98] [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)]"
+                    style={{
+                      color: "#fff",
+                      fontFamily: "var(--font-family-inter)",
+                      fontSize: "var(--text-caption)",
+                      fontWeight: 700,
+                      boxShadow: "var(--shadow-buy-cta-sm)",
+                    }}
+                    onClick={() => { setIsOpen(false); navigate("/checkout"); }}
+                    aria-label="Revisar pedido"
+                  ><ShoppingBag size={15} strokeWidth={2} /> Revisar pedido</button>
+                </div>
+
                 <div className="flex items-center justify-center pt-1">
                   <button
                     onClick={() => clearCart()}
@@ -426,6 +467,18 @@ export function CartDrawer() {
                     <Trash2 size={12} strokeWidth={2} />
                     Limpar carrinho
                   </button>
+                </div>
+
+                {/* Bandeiras por último: é a linha de fecho do painel, a última
+                    dúvida antes do checkout ("dá para pagar como?"). Mesma arte
+                    do rodapé (/img/pagamentos.png). */}
+                <div className="flex justify-center border-t border-foreground/5 pt-4">
+                  <ImageWithFallback
+                    src="/img/pagamentos.png"
+                    alt="Formas de pagamento: Visa, Mastercard, Amex, Hipercard, Elo, Pix e Boleto"
+                    className="h-6 w-auto max-w-full object-contain"
+                    style={{ opacity: 0.75 }}
+                  />
                 </div>
               </div>
             )}
@@ -445,7 +498,12 @@ export function CartDrawer() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 18, scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex h-auto max-h-[92dvh] w-full max-w-[860px] flex-col overflow-hidden rounded-t-[28px] md:max-h-[calc(100dvh-3rem)] md:rounded-[var(--radius-card-xl)]"
+                  /* Modal pequeno: são três opções de brinde, não uma vitrine.
+                     A versão anterior abria 860px com cards de 210px de foto —
+                     tamanho de página de categoria pra uma escolha que se faz
+                     num piscar. Aqui cada opção é uma LINHA: foto pequena,
+                     nome, R$ 0,00 e o estado de seleção na ponta. */
+                  className="flex max-h-[88dvh] w-full max-w-[420px] flex-col overflow-hidden rounded-t-[22px] md:rounded-[var(--radius-card-lg)]"
                   style={{
                     background: "var(--surface-2)",
                     border: "1px solid rgba(var(--foreground-rgb), 0.08)",
@@ -453,132 +511,93 @@ export function CartDrawer() {
                   }}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="border-b border-edge-subtle px-6 py-6 md:px-9 md:py-8">
-                    <div className="flex items-start justify-between gap-5">
-                      <div>
-                        <div className="mb-3 flex items-center gap-2 text-primary">
-                          <Gift size={14} strokeWidth={2.2} />
-                          <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}>
-                            // BRINDE DESBLOQUEADO
-                          </span>
-                        </div>
-                        <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(24px, 6vw, 32px)", fontWeight: 600, lineHeight: 1.05, letterSpacing: "-0.02em" }}>
-                          Escolha seu presente
-                        </h3>
-                        <p className="mt-3 max-w-[560px] text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "clamp(12px, 3.4vw, 14px)", lineHeight: 1.6 }}>
-                          Você atingiu {formatPrice(GIFT_THRESHOLD)}. Selecione um produto pra entrar no carrinho com selo de presente e valor zerado.
-                        </p>
+                  <div className="flex items-start justify-between gap-4 px-6 pt-6 pb-4">
+                    <div className="min-w-0">
+                      <div className="mb-2 flex items-center gap-1.5 text-primary">
+                        <Gift size={13} strokeWidth={2.4} />
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "10.5px", fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                          Brinde desbloqueado
+                        </span>
                       </div>
-                      <button onClick={() => { setGiftModalOpen(false); setGiftDismissed(true); }} aria-label="Fechar oferta de brinde" className="flex h-11 w-11 md:h-10 md:w-10 items-center justify-center rounded-full border border-edge text-ink-muted transition-colors hover:text-ink-strong hover:bg-white/[0.06] cursor-pointer flex-shrink-0">
-                        <X size={16} />
-                      </button>
+                      <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "21px", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-0.02em" }}>
+                        Escolha seu presente
+                      </h3>
+                      <p className="mt-1.5 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13px", lineHeight: 1.45 }}>
+                        Sua compra passou de {formatPrice(GIFT_THRESHOLD)}. Um item entra no carrinho zerado.
+                      </p>
                     </div>
+                    <button
+                      onClick={() => { setGiftModalOpen(false); setGiftDismissed(true); }}
+                      aria-label="Fechar oferta de brinde"
+                      className="flex h-8 w-8 flex-shrink-0 cursor-pointer items-center justify-center rounded-full border border-edge text-ink-muted transition-colors hover:bg-foreground/5 hover:text-ink-strong"
+                    >
+                      <X size={15} />
+                    </button>
                   </div>
 
-                  <div className="min-h-0 flex-1 overflow-y-auto px-6 py-6 md:px-9 md:py-8">
-                    <div className="grid gap-4 md:grid-cols-3 md:gap-5">
-                    {giftOptions.map((product) => {
+                  <div ref={giftScrollRef} className="scroll-fade min-h-0 flex-1 overflow-y-auto px-3 pb-2">
+                    {giftOptions.map((product, index) => {
                       const isSelected = selectedGiftId === product.id;
                       return (
-                      <button
-                        key={`gift-option-${product.id}`}
-                        onClick={() => setSelectedGiftId(product.id)}
-                        aria-pressed={isSelected}
-                        className="group relative flex flex-row overflow-hidden text-left transition-all duration-300 cursor-pointer md:block"
-                        style={{
-                          borderRadius: "var(--radius-card-lg)",
-                          background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-                          border: isSelected ? "1.5px solid rgba(200, 120, 0,0.7)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
-                          boxShadow: isSelected
-                            ? "0 24px 60px -20px rgba(200, 120, 0,0.35), inset 0 1px 0 rgba(var(--foreground-rgb), 0.05)"
-                            : "var(--shadow-card-hairline)",
-                        }}
-                      >
-                        <div
-                          className="pointer-events-none absolute inset-0"
-                          style={{
-                            background: "radial-gradient(circle at 30% 25%, rgba(var(--foreground-rgb), 0.05) 0%, transparent 55%)",
-                            borderRadius: "var(--radius-card-lg)",
-                          }}
-                        />
-                        <div
-                          className="relative h-[132px] w-[132px] flex-shrink-0 overflow-hidden border-r border-edge-subtle md:h-[210px] md:w-full md:border-r-0 md:border-b"
-                          style={{ background: "radial-gradient(circle at top, rgba(17, 17, 17, 0.08) 0%, transparent 60%)" }}
+                        <div key={`gift-option-${product.id}`}>
+                          {index > 0 && (
+                            <div className="mx-3 h-px" style={{ background: "rgba(var(--foreground-rgb), 0.08)" }} aria-hidden="true" />
+                          )}
+                        <button
+                          onClick={() => setSelectedGiftId(product.id)}
+                          aria-pressed={isSelected}
+                          className="my-1 flex w-full cursor-pointer items-center gap-3.5 rounded-[10px] px-3 py-2.5 text-left transition-colors hover:bg-foreground/[0.05]"
                         >
-                          <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04] md:p-6" />
                           <div
-                            className="absolute left-2 top-2 flex h-7 w-7 items-center justify-center rounded-full text-ink-strong md:left-4 md:top-4 md:h-9 md:w-9"
+                            className="relative h-14 w-14 flex-shrink-0 overflow-hidden"
+                            style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
+                          >
+                            <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} className="absolute inset-0 h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13.5px", fontWeight: 500, lineHeight: 1.35 }}>
+                              {product.name}
+                            </p>
+                            <div className="mt-1 flex items-baseline gap-2">
+                              <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12px", color: "rgba(var(--foreground-rgb), 0.35)", textDecoration: "line-through" }}>
+                                {product.price}
+                              </span>
+                              <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 700, color: "var(--buy-green)" }}>
+                                R$ 0,00
+                              </span>
+                            </div>
+                          </div>
+                          {/* Estado de seleção como rádio: três linhas iguais e
+                              uma escolha só — a marca tem que dizer "esta" sem
+                              precisar de palavra. */}
+                          <span
+                            aria-hidden="true"
+                            className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full transition-colors"
                             style={{
-                              background: "var(--gradient-brand)",
-                              boxShadow: "var(--shadow-medallion)",
+                              border: isSelected ? "none" : "1.5px solid rgba(var(--foreground-rgb), 0.18)",
+                              background: isSelected ? "var(--buy-green)" : "transparent",
+                              color: "#fff",
                             }}
                           >
-                            <Gift size={12} strokeWidth={2.2} className="md:hidden" />
-                            <Gift size={14} strokeWidth={2.2} className="hidden md:block" />
-                          </div>
-                          {isSelected && (
-                            <div
-                              className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full text-ink-strong md:right-4 md:top-4 md:h-9 md:w-9"
-                              style={{
-                                background: "var(--gradient-brand)",
-                                boxShadow: "var(--shadow-medallion)",
-                              }}
-                            >
-                              <Check size={13} strokeWidth={2.4} className="md:hidden" />
-                              <Check size={15} strokeWidth={2.4} className="hidden md:block" />
-                            </div>
-                          )}
+                            {isSelected && <Check size={13} strokeWidth={3} />}
+                          </span>
+                        </button>
                         </div>
-                        <div className="relative flex flex-1 flex-col px-4 py-4 md:px-5 md:py-5">
-                          <p className="line-clamp-2 text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(14px, 3.8vw, 17px)", fontWeight: 600, lineHeight: 1.25, letterSpacing: "-0.01em" }}>
-                            {product.name}
-                          </p>
-                          <div className="mt-3 flex items-baseline gap-2 md:mt-4">
-                            <span className="line-through" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "rgba(var(--foreground-rgb), 0.32)" }}>
-                              {product.price}
-                            </span>
-                            <span style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(16px, 4.6vw, 22px)", fontWeight: 700, color: "#22c55e", letterSpacing: "-0.015em" }}>
-                              R$ 0,00
-                            </span>
-                          </div>
-                          <div className="mt-auto flex items-center justify-between pt-4 md:mt-4 md:pt-0">
-                            <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(var(--foreground-rgb), 0.4)" }}>
-                              PRESENTE TONANTE
-                            </span>
-                            <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.12em", color: isSelected ? "var(--primary)" : "rgba(var(--foreground-rgb), 0.45)" }}>
-                              {isSelected ? "SELECIONADO" : "SELECIONAR"}
-                            </span>
-                          </div>
-                        </div>
-                      </button>
                       );
                     })}
                   </div>
-                  </div>
 
-                  <div className="flex items-center justify-between border-t border-edge-subtle px-6 py-5 md:px-9 md:py-6">
+                  <div className="flex items-center justify-between gap-3 border-t border-edge-subtle px-6 py-4">
                     <button
                       onClick={() => { setGiftModalOpen(false); setGiftDismissed(true); setSelectedGiftId(null); }}
-                      className="inline-flex items-center cursor-pointer text-ink-muted transition-colors hover:text-ink min-h-[44px] px-3 md:min-h-0 md:px-0"
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, letterSpacing: "0.06em" }}
+                      className="inline-flex min-h-[40px] cursor-pointer items-center text-ink-muted transition-colors hover:text-ink"
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
                     >
                       Agora não
                     </button>
-                    <button
-                      onClick={confirmGift}
-                      disabled={!selectedGiftId}
-                      className="cursor-pointer rounded-full px-7 py-3 text-white transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:scale-100 min-h-[44px] md:min-h-0"
-                      style={{
-                        background: "var(--gradient-buy)",
-                        fontFamily: "var(--font-family-inter)",
-                        fontSize: "var(--text-sm)",
-                        fontWeight: 700,
-                        letterSpacing: "0.04em",
-                        boxShadow: "var(--shadow-brand-cta)",
-                      }}
-                    >
-                      Selecionar presente
-                    </button>
+                    <CTAButton variant="buy" size="md" onClick={confirmGift} disabled={!selectedGiftId} className="cursor-pointer disabled:cursor-not-allowed">
+                      Adicionar presente
+                    </CTAButton>
                   </div>
                 </motion.div>
               </motion.div>

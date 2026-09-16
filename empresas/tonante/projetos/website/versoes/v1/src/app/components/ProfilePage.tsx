@@ -594,7 +594,7 @@ export function ProfilePage() {
                       { done: !!user.phone, label: "Adicionar telefone", action: () => setProfileTab("data") },
                       { done: !!user.birthday, label: "Cadastrar data de nascimento", action: () => setProfileTab("data") },
                       { done: user.addresses.length > 0, label: "Cadastrar endereço de entrega", action: () => setProfileTab("addresses") },
-                      { done: user.cards.length > 0, label: "Salvar cartão pra checkout rápido", action: () => setProfileTab("cards") },
+                      { done: user.cards.length > 0, label: "Salvar cartão para checkout rápido", action: () => setProfileTab("cards") },
                       ...(user.orders.filter((o) => o.status === "delivered").length > 0
                         ? [{ done: false, label: "Avaliar pedidos entregues", action: () => setProfileTab("orders") }]
                         : []),
@@ -631,7 +631,7 @@ export function ProfilePage() {
                           </div>
                           <p className="text-foreground/60 mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                             {dynamicTier.next
-                              ? `${dynamicTier.ordersToNext.toFixed(1).replace(".0", "")} ${dynamicTier.ordersToNext === 1 ? "ponto" : "pontos"} pro ${dynamicTier.next.name}`
+                              ? `${dynamicTier.ordersToNext.toFixed(1).replace(".0", "")} ${dynamicTier.ordersToNext === 1 ? "ponto" : "pontos"} para o ${dynamicTier.next.name}`
                               : "Você atingiu o nível máximo!"}
                           </p>
                         </div>
@@ -659,7 +659,7 @@ export function ProfilePage() {
                     {missionsPending.length > 0 && (
                       <div className="px-5 pb-4">
                         <div className="flex items-center justify-between mb-2.5">
-                          <p className="text-foreground/65" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Missões pra avançar</p>
+                          <p className="text-foreground/65" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Missões para avançar</p>
                           <span className="text-foreground/55" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                             {missionsDone}/{missions.length} · +0.5 XP cada
                           </span>
@@ -717,7 +717,7 @@ export function ProfilePage() {
                         <PcyesCoin size={22} />
                         <div className="flex-1 text-left min-w-0">
                           <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
-                            Você tem <span style={{ color: "#facc15" }}>{(user.pcyesPoints ?? 0).toLocaleString("pt-BR")} pts</span> pra usar no próximo pedido
+                            Você tem <span style={{ color: "#facc15" }}>{(user.pcyesPoints ?? 0).toLocaleString("pt-BR")} pts</span> para usar no próximo pedido
                           </p>
                           <p className="text-foreground/55" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                             Vale R$ {((user.pcyesPoints ?? 0) * 0.1).toFixed(2).replace(".", ",")} em desconto
@@ -1437,7 +1437,7 @@ export function ProfilePage() {
                         <div className="text-center py-20 px-6" style={{ borderRadius: "var(--radius-card-sm)", background: isDark ? "rgba(var(--foreground-rgb), 0.02)" : "rgba(0,0,0,0.015)", border: isDark ? "1px solid rgba(var(--foreground-rgb), 0.06)" : "1px solid rgba(0,0,0,0.06)" }}>
                           <Package size={28} className="text-foreground/30 mx-auto mb-4" />
                           <p className="text-foreground/55 mb-2" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: "var(--font-weight-medium)" }}>Nenhum setup salvo ainda</p>
-                          <p className="text-foreground/45 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Monte sua build e clique em "Salvar" pra guardar aqui.</p>
+                          <p className="text-foreground/45 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Monte sua build e clique em "Salvar" para guardar aqui.</p>
                           <Link to="/monte-seu-pc" className="inline-block px-4 py-2 bg-primary text-primary-foreground hover:brightness-110 transition-all" style={{ borderRadius: "var(--radius-card)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>Montar PC</Link>
                         </div>
                       ) : (
@@ -1510,7 +1510,7 @@ export function ProfilePage() {
                     <div className="text-center py-20 px-6" style={{ borderRadius: "var(--radius-card-sm)", background: isDark ? "rgba(var(--foreground-rgb), 0.02)" : "rgba(0,0,0,0.015)", border: isDark ? "1px solid rgba(var(--foreground-rgb), 0.06)" : "1px solid rgba(0,0,0,0.06)" }}>
                       <Heart size={28} className="text-foreground/30 mx-auto mb-4" />
                       <p className="text-foreground/55 mb-2" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: "var(--font-weight-medium)" }}>Nenhum favorito ainda</p>
-                      <p className="text-foreground/45 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Clique no coração nos produtos pra salvá-los aqui.</p>
+                      <p className="text-foreground/45 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Clique no coração nos produtos para salvá-los aqui.</p>
                       <Link to="/produtos" className="inline-block px-4 py-2 bg-primary text-primary-foreground hover:brightness-110 transition-all" style={{ borderRadius: "var(--radius-card)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>Ver produtos</Link>
                     </div>
                   ) : (
@@ -1597,7 +1597,7 @@ export function ProfilePage() {
                     <div className="text-center py-20 px-6" style={{ borderRadius: "var(--radius-card-sm)", background: isDark ? "rgba(var(--foreground-rgb), 0.02)" : "rgba(0,0,0,0.015)", border: isDark ? "1px solid rgba(var(--foreground-rgb), 0.06)" : "1px solid rgba(0,0,0,0.06)" }}>
                       <MapPin size={28} className="text-foreground/35 mx-auto mb-4" />
                       <p className="text-foreground/55 mb-2" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: "var(--font-weight-medium)" }}>Nenhum endereço cadastrado</p>
-                      <p className="text-foreground/40 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Adicione um endereço pra receber seus pedidos.</p>
+                      <p className="text-foreground/40 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Adicione um endereço para receber seus pedidos.</p>
                       <button onClick={() => setAddressModal({ open: true, editing: null })} className="inline-flex items-center justify-center min-h-[44px] md:min-h-0 px-4 py-2 bg-primary text-primary-foreground hover:brightness-110 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]" style={{ borderRadius: "var(--radius-card)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>+ Adicionar endereço</button>
                     </div>
                   ) : (
@@ -1731,7 +1731,7 @@ export function ProfilePage() {
                     <div className="text-center py-20 px-6" style={{ borderRadius: "var(--radius-card-sm)", background: isDark ? "rgba(var(--foreground-rgb), 0.02)" : "rgba(0,0,0,0.015)", border: isDark ? "1px solid rgba(var(--foreground-rgb), 0.06)" : "1px solid rgba(0,0,0,0.06)" }}>
                       <CreditCard size={28} className="text-foreground/35 mx-auto mb-4" />
                       <p className="text-foreground/55 mb-2" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: "var(--font-weight-medium)" }}>Nenhum cartão salvo</p>
-                      <p className="text-foreground/40 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Adicione pra checkout mais rápido. Seus dados ficam criptografados.</p>
+                      <p className="text-foreground/40 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Adicione para checkout mais rápido. Seus dados ficam criptografados.</p>
                       <button onClick={() => setCardModal({ open: true, editing: null })} className="inline-flex items-center justify-center min-h-[44px] md:min-h-0 px-4 py-2 bg-primary text-primary-foreground hover:brightness-110 transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]" style={{ borderRadius: "var(--radius-card)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>+ Adicionar cartão</button>
                     </div>
                   ) : (

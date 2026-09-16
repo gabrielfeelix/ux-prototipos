@@ -24,6 +24,8 @@ import {
   Ticket,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { CTAButton, Eyebrow } from "./section";
+import { PcyesCoin } from "./PcyesCoin";
 import { useCart } from "./CartContext";
 import { useCheckoutPrefs } from "./CheckoutPrefsContext";
 import { useAuth } from "./AuthContext";
@@ -41,8 +43,8 @@ const STEPS = [
 ] as const;
 
 const COUPONS: Record<string, number> = {
-  PCYES10: 10,
-  PROMO20: 20,
+  TONANTE10: 10,
+  AFINADO20: 20,
   BEMVINDO: 15,
 };
 
@@ -54,10 +56,13 @@ function formatBRL(n: number): string {
   return `R$ ${n.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
 }
 
-const cardBg = "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)";
-const cardBorder = "1px solid rgba(var(--foreground-rgb), 0.08)";
-const inputBg = "rgba(var(--foreground-rgb), 0.03)";
-const inputBorder = "1px solid rgba(var(--foreground-rgb), 0.1)";
+/* Superfícies do checkout — mesma receita dos cards da home: papel branco,
+   hairline neutro e sombra baixa. O cinza chapado do tema antigo vinha de um
+   fundo escuro; sobre branco ele só sujava a página. */
+const cardBg = "var(--surface-1)";
+const cardBorder = "1px solid var(--border)";
+const inputBg = "var(--surface-2)";
+const inputBorder = "1px solid var(--edge-subtle)";
 
 interface Address {
   zip: string;
@@ -85,23 +90,24 @@ type WalletSheet = "apple" | "google" | "mercadopago" | null;
 const inputClass =
   "w-full text-ink-strong placeholder:text-ink-subtle focus:outline-none transition-all";
 const inputStyle: React.CSSProperties = {
-  padding: "12px 14px",
+  padding: "11px 13px",
   borderRadius: "var(--radius-card-sm)",
   border: inputBorder,
   background: inputBg,
   fontFamily: "var(--font-family-inter)",
-  fontWeight: 600,
-  letterSpacing: "0.01em",
+  fontSize: "var(--text-sm)",
+  fontWeight: 500,
+  color: "var(--ink-strong)",
 };
 
 function Field({ label, children, required, className }: { label: string; children: React.ReactNode; required?: boolean; className?: string }) {
   return (
     <div className={className}>
       <label
-        className="mb-1.5 block text-ink-muted"
-        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}
+        className="mb-1.5 block"
+        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(var(--foreground-rgb), 0.55)" }}
       >
-        {label} {required && <span className="text-primary">*</span>}
+        {label} {required && <span style={{ color: "var(--primary)" }}>*</span>}
       </label>
       {children}
     </div>
@@ -138,38 +144,40 @@ function PaymentOption({
   color?: string;
   accentBg?: string;
 }) {
+  /* Sobre papel branco a seleção não pode ser "fundo escuro + texto branco"
+     (herança do tema antigo, que sumia): é borda âmbar de 1.5px, um véu de
+     âmbar bem baixo e a mesma sombra curta dos cards da home. O texto fica
+     ink nos dois estados — só o peso do contorno muda. */
   const accent = color ?? "var(--primary)";
-  const activeBadgeBg = accentBg ?? "rgba(17, 17, 17, 0.08)";
+  const activeBadgeBg = accentBg ?? "rgba(200, 120, 0, 0.12)";
   return (
     <button
       onClick={onClick}
-      className="relative flex flex-col items-start gap-2 px-4 py-4 transition-all cursor-pointer text-left"
+      className="relative flex flex-col items-start gap-2 px-4 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer hover:border-[rgba(200,120,0,0.45)]"
       style={{
         borderRadius: "var(--radius-card-sm)",
-        background: active ? "rgba(var(--foreground-rgb), 0.06)" : "rgba(var(--foreground-rgb), 0.02)",
-        border: active ? `1.5px solid ${accent}` : "1px solid rgba(var(--foreground-rgb), 0.08)",
-        boxShadow: active ? `0 18px 40px -20px ${color ?? "rgba(200, 120, 0,0.5)"}, inset 0 1px 0 rgba(var(--foreground-rgb), 0.04)` : "none",
-        color: active ? "#fff" : "rgba(var(--foreground-rgb), 0.65)",
+        background: active ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
+        border: active ? `1.5px solid ${accent}` : "1px solid var(--border)",
+        boxShadow: active ? "var(--shadow-card)" : "none",
         minHeight: 84,
       }}
     >
       <div className="flex w-full items-center gap-2.5">
-        <span className="flex items-center justify-center" style={{ width: 32, height: 32, borderRadius: 9, background: active ? activeBadgeBg : "rgba(var(--foreground-rgb), 0.05)", color: active ? accent : "rgba(var(--foreground-rgb), 0.6)" }}>
+        <span className="flex items-center justify-center" style={{ width: 32, height: 32, borderRadius: "var(--radius-card-sm)", background: active ? activeBadgeBg : "var(--surface-2)", color: active ? accent : "var(--ink-muted)" }}>
           {icon}
         </span>
-        <span className="flex-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, letterSpacing: "0.01em", color: active ? "#fff" : "rgba(var(--foreground-rgb), 0.85)" }}>{label}</span>
+        <span className="flex-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--ink-strong)" }}>{label}</span>
         {badge && (
           <span
-            className="inline-flex items-center"
+            className="inline-flex items-center text-white"
             style={{
-              padding: "3px 7px",
-              borderRadius: "var(--radius-card)",
-              background: "rgba(34,197,94,0.18)",
-              color: "#22c55e",
+              padding: "3px 8px",
+              borderRadius: "var(--radius-pill)",
+              background: "#b3361f",
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-caption)",
-              fontWeight: 800,
-              letterSpacing: "0.04em",
+              fontWeight: 700,
+              lineHeight: 1,
             }}
           >
             {badge}
@@ -177,7 +185,7 @@ function PaymentOption({
         )}
       </div>
       {description && (
-        <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 500, color: active ? "rgba(var(--foreground-rgb), 0.7)" : "rgba(var(--foreground-rgb), 0.45)", lineHeight: 1.4 }}>
+        <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 500, color: "var(--ink-meta)", lineHeight: 1.4 }}>
           {description}
         </p>
       )}
@@ -190,19 +198,19 @@ function ReviewCard({ icon, label, onEdit, children }: { icon: React.ReactNode; 
     <div
       className="rounded-[var(--radius-card-sm)] p-4"
       style={{
-        background: "rgba(var(--foreground-rgb), 0.02)",
-        border: "1px solid rgba(var(--foreground-rgb), 0.06)",
+        background: "var(--surface-2)",
+        border: "1px solid var(--border)",
       }}
     >
       <div className="mb-2 flex items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-1.5 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase" }}>
+        <span className="inline-flex items-center gap-1.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(var(--foreground-rgb), 0.55)" }}>
           {icon}
           {label}
         </span>
         <button
           onClick={onEdit}
-          className="text-primary transition-opacity hover:opacity-70"
-          style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}
+          className="transition-opacity hover:opacity-70"
+          style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--amber-text)" }}
         >
           Alterar
         </button>
@@ -296,15 +304,16 @@ function FakeQrCode() {
 function Line({ label, value, positive }: { label: string; value: string; positive?: boolean }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
+      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--ink-meta)" }}>
         {label}
       </span>
       <span
+        className="num"
         style={{
           fontFamily: "var(--font-family-inter)",
           fontSize: "var(--text-sm)",
           fontWeight: 700,
-          color: positive ? "#22c55e" : "rgba(var(--foreground-rgb), 0.85)",
+          color: positive ? "var(--buy-green-deep)" : "var(--ink-strong)",
         }}
       >
         {value}
@@ -468,7 +477,7 @@ export function CheckoutPage() {
 
   const paymentLabel = (() => {
     switch (payment) {
-      case "pix": return "PIX · 10% OFF";
+      case "pix": return "PIX · 10% de desconto";
       case "credit": return `Cartão · ${installments}× sem juros`;
       case "apple": return "Apple Pay";
       case "google": return "Google Pay";
@@ -563,7 +572,7 @@ export function CheckoutPage() {
   }, [selectedCardId, user]);
 
   const copyPix = () => {
-    const code = "00020126360014BR.GOV.BCB.PIX0114pcyes@pcyes.com5204000053039865802BR5913PCYES Gamer6009Maringa62070503***6304ABCD";
+    const code = "00020126360014BR.GOV.BCB.PIX0114contato@tonante.com.br5204000053039865802BR5913Tonante Music6009Maringa62070503***6304ABCD";
     navigator.clipboard?.writeText(code);
     setPixCopied(true);
     setTimeout(() => setPixCopied(false), 2000);
@@ -572,14 +581,9 @@ export function CheckoutPage() {
   if (items.length === 0 && !orderConfirmed) {
     return (
       <>
-        <div className="pt-3 md:pt-[142px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
+        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
           <div className="mx-auto flex max-w-[640px] flex-col items-center px-5 py-24 text-center">
-            <p
-              className="mb-3 text-primary"
-              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}
-            >
-              // CHECKOUT VAZIO
-            </p>
+            <Eyebrow className="mb-3">Carrinho vazio</Eyebrow>
             <h1
               className="mb-6 text-ink-strong"
               style={{
@@ -589,24 +593,12 @@ export function CheckoutPage() {
                 letterSpacing: "-0.025em",
               }}
             >
-              Adicione itens ao carrinho primeiro
+              Seu carrinho ainda está vazio
             </h1>
-            <Link
-              to="/produtos"
-              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-ink-strong transition-transform hover:scale-[1.03]"
-              style={{
-                background: "var(--gradient-brand)",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 700,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                boxShadow: "var(--shadow-brand-cta)",
-              }}
-            >
+            <CTAButton as="link" to="/produtos" variant="brand" size="lg">
               Explorar produtos
               <ArrowRight size={14} strokeWidth={2.4} />
-            </Link>
+            </CTAButton>
           </div>
         </div>
         <Footer />
@@ -615,19 +607,14 @@ export function CheckoutPage() {
   }
 
   if (pixWaiting && !orderConfirmed) {
-    const pixCode = "00020126360014BR.GOV.BCB.PIX0114pcyes@pcyes.com5204000053039865802BR5913PCYES Gamer6009Maringa62070503***6304ABCD";
+    const pixCode = "00020126360014BR.GOV.BCB.PIX0114contato@tonante.com.br5204000053039865802BR5913Tonante Music6009Maringa62070503***6304ABCD";
     const m = Math.floor(pixTimer / 60).toString().padStart(2, "0");
     const s = (pixTimer % 60).toString().padStart(2, "0");
     return (
       <>
-        <div className="pt-3 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 120px)" }}>
+        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 120px)" }}>
           <div className="mx-auto max-w-[720px] px-5 py-10 md:px-8">
-            <p
-              className="mb-3 text-primary"
-              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}
-            >
-              // PEDIDO #{Math.floor(Math.random() * 90000 + 10000)}
-            </p>
+            <Eyebrow className="mb-3">Pedido #{Math.floor(Math.random() * 90000 + 10000)}</Eyebrow>
             <h1
               className="mb-2 text-ink-strong"
               style={{
@@ -641,7 +628,7 @@ export function CheckoutPage() {
               Pague com PIX
             </h1>
             <p className="mb-6 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.55 }}>
-              Escaneie o QR Code ou copie o código. Liberação instantânea.
+              Escaneie o QR Code ou copie o código. A confirmação é na hora.
             </p>
 
             <div
@@ -659,9 +646,9 @@ export function CheckoutPage() {
                 role="status"
                 className="mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5"
                 style={{
-                  background: "rgba(255,193,7,0.1)",
-                  border: "1px solid rgba(255,193,7,0.3)",
-                  color: "#facc15",
+                  background: "rgba(200,120,0,0.1)",
+                  border: "1px solid rgba(200,120,0,0.3)",
+                  color: "var(--amber-deep)",
                   fontFamily: "var(--font-family-inter)",
                   fontSize: "var(--text-caption)",
                   fontWeight: 700,
@@ -670,8 +657,8 @@ export function CheckoutPage() {
                 }}
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-65" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-yellow-400" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--amber)] opacity-65" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--amber)]" />
                 </span>
                 Aguardando pagamento
               </div>
@@ -681,12 +668,12 @@ export function CheckoutPage() {
                 <Clock size={15} strokeWidth={2.2} />
                 <span
                   className="tabular-nums"
-                  style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 800, letterSpacing: "0.04em" }}
+                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-lg)", fontWeight: 700, letterSpacing: "0.02em", color: "var(--ink-strong)" }}
                 >
                   {m}:{s}
                 </span>
                 <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                  pra expirar
+                  para expirar
                 </span>
               </div>
 
@@ -697,7 +684,7 @@ export function CheckoutPage() {
                   style={{
                     borderRadius: "var(--radius-card-md)",
                     background: "#fff",
-                    border: "1px solid rgba(var(--foreground-rgb), 0.1)",
+                    border: "1px solid var(--border)",
                     padding: "12px",
                   }}
                 >
@@ -709,7 +696,7 @@ export function CheckoutPage() {
                   <p className="mb-2 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase" }}>
                     Valor a pagar
                   </p>
-                  <p className="mb-5" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-2xl)", fontWeight: 800, color: "#22c55e", letterSpacing: "-0.025em", lineHeight: 1 }}>
+                  <p className="num mb-5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-2xl)", fontWeight: 700, color: "var(--ink-strong)", letterSpacing: "-0.02em", lineHeight: 1 }}>
                     {formatBRL(total)}
                   </p>
 
@@ -719,8 +706,8 @@ export function CheckoutPage() {
                   <div
                     className="mb-3 break-all rounded-[var(--radius-card-sm)] p-3 text-ink-muted"
                     style={{
-                      background: "rgba(var(--foreground-rgb), 0.03)",
-                      border: "1px solid rgba(var(--foreground-rgb), 0.08)",
+                      background: "var(--surface-2)",
+                      border: "1px solid var(--border)",
                       fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
                       fontSize: "var(--text-caption)",
                       lineHeight: 1.5,
@@ -728,35 +715,26 @@ export function CheckoutPage() {
                   >
                     {pixCode.slice(0, 70)}…
                   </div>
-                  <button
+                  <CTAButton
                     onClick={copyPix}
                     aria-label="Copiar código PIX"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400/60"
-                    style={{
-                      background: pixCopied
-                        ? "var(--gradient-buy)"
-                        : "var(--gradient-brand)",
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-sm)",
-                      fontWeight: 800,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      boxShadow: pixCopied ? "var(--shadow-buy-cta)" : "var(--shadow-brand-cta)",
-                    }}
+                    variant={pixCopied ? "buy" : "brand"}
+                    size="lg"
+                    block
                   >
                     {pixCopied ? <Check size={14} strokeWidth={2.6} /> : <Copy size={13} strokeWidth={2.4} />}
                     {pixCopied ? "Código copiado" : "Copiar código PIX"}
-                  </button>
+                  </CTAButton>
                 </div>
               </div>
 
               <div
                 className="mt-6 flex items-start gap-3 rounded-card-sm p-3.5"
-                style={{ background: "rgba(var(--foreground-rgb), 0.02)", border: "1px solid rgba(var(--foreground-rgb), 0.06)" }}
+                style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
               >
-                <ShieldCheck size={14} strokeWidth={2} className="mt-0.5 flex-shrink-0 text-green-500" />
+                <ShieldCheck size={14} strokeWidth={2} className="mt-0.5 flex-shrink-0 text-[var(--buy-green-deep)]" />
                 <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.55 }}>
-                  Abra o app do seu banco, escolha PIX, escaneie o QR ou cole o código. A confirmação chega em segundos e atualizamos sua tela.
+                  Abra o app do seu banco, escolha PIX e escaneie o QR ou cole o código. A confirmação chega em segundos e a tela atualiza sozinha.
                 </p>
               </div>
             </div>
@@ -771,27 +749,22 @@ export function CheckoutPage() {
     const snap = confirmedSnapshot;
     return (
       <>
-        <div className="pt-3 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
+        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
           <div className="mx-auto max-w-[720px] px-5 py-12 md:px-8">
             <div className="mb-10 flex flex-col items-center text-center">
               <motion.div
                 initial={{ scale: 0.4, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="mb-7 flex h-24 w-24 items-center justify-center rounded-full text-ink-strong"
+                className="mb-7 flex h-24 w-24 items-center justify-center rounded-full text-white"
                 style={{
-                  background: "var(--gradient-buy)",
-                  boxShadow: "0 30px 80px -16px rgba(34,197,94,0.55), 0 0 0 6px rgba(34,197,94,0.12)",
+                  background: "var(--buy-green)",
+                  boxShadow: "0 24px 60px -28px rgba(17,17,17,0.35), 0 0 0 6px rgba(18,146,76,0.10)",
                 }}
               >
                 <Check size={42} strokeWidth={3} />
               </motion.div>
-              <p
-                className="mb-3 text-primary"
-                style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}
-              >
-                // GG PURCHASE · PEDIDO #{Math.floor(Math.random() * 90000 + 10000)}
-              </p>
+              <Eyebrow className="mb-3">Pedido #{Math.floor(Math.random() * 90000 + 10000)}</Eyebrow>
               <h1
                 className="mb-4 text-ink-strong"
                 style={{
@@ -808,7 +781,7 @@ export function CheckoutPage() {
                 className="max-w-md text-ink-muted"
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)", lineHeight: 1.55 }}
               >
-                Sua build tá a caminho. Os detalhes foram pro seu email.
+                Seu instrumento já entrou na fila de embalagem. Os detalhes foram para o seu e-mail.
               </p>
             </div>
 
@@ -826,18 +799,13 @@ export function CheckoutPage() {
                 }}
               >
                 <div className="mb-5 flex items-center justify-between">
-                  <p
-                    className="text-primary"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}
-                  >
-                    // SUA BUILD
-                  </p>
+                  <Eyebrow>Seu pedido</Eyebrow>
                   <span
                     className="inline-flex items-center gap-1.5 rounded-full px-3 py-1"
                     style={{
-                      background: "rgba(34,197,94,0.1)",
-                      border: "1px solid rgba(34,197,94,0.3)",
-                      color: "#22c55e",
+                      background: "rgba(18,146,76,0.1)",
+                      border: "1px solid rgba(18,146,76,0.3)",
+                      color: "var(--buy-green-deep)",
                       fontFamily: "var(--font-family-inter)",
                       fontSize: "var(--text-caption)",
                       fontWeight: 800,
@@ -859,30 +827,26 @@ export function CheckoutPage() {
                       transition={{ duration: 0.3, delay: 0.3 + i * 0.06 }}
                       className="flex items-center gap-3 rounded-[var(--radius-card-sm)] p-3"
                       style={{
-                        background: "rgba(var(--foreground-rgb), 0.02)",
-                        border: "1px solid rgba(var(--foreground-rgb), 0.06)",
+                        background: "var(--surface-2)",
+                        border: "1px solid var(--border)",
                       }}
                     >
                       <div className="relative h-16 w-16 flex-shrink-0">
                         <div
                           className="h-full w-full overflow-hidden"
-                          style={{
-                            borderRadius: "var(--radius-card-sm)",
-                            background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.08) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-                            border: "1px solid rgba(var(--foreground-rgb), 0.08)",
-                          }}
+                          style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                         >
-                          <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" />
+                          <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
                         </div>
                         {item.quantity > 1 && (
                           <span
-                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-ink-strong"
+                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-white"
                             style={{
-                              background: "var(--gradient-brand)",
+                              background: "var(--primary)",
                               fontFamily: "var(--font-family-inter)",
                               fontSize: "var(--text-caption)",
-                              fontWeight: 800,
-                              boxShadow: "0 4px 12px -4px rgba(200, 120, 0,0.55)",
+                              fontWeight: 700,
+                              boxShadow: "var(--shadow-brand-pill)",
                             }}
                           >
                             {item.quantity}
@@ -898,44 +862,32 @@ export function CheckoutPage() {
                             fontFamily: "var(--font-family-inter)",
                             fontSize: "var(--text-caption)",
                             fontWeight: 700,
-                            color: item.isGift ? "#22c55e" : "rgba(var(--foreground-rgb), 0.55)",
+                            color: item.isGift ? "var(--buy-green-deep)" : "var(--ink-meta)",
                             marginTop: "3px",
                           }}
                         >
-                          {item.isGift ? "Brinde · Cortesia PCYES" : `${item.quantity}× ${item.price}`}
+                          {item.isGift ? "Brinde · Cortesia Tonante" : `${item.quantity}× ${item.price}`}
                         </p>
                       </div>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="my-5 h-px bg-white/5" />
+                <div className="my-5 h-px" style={{ background: "var(--border)" }} />
 
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase" }}>
                       {snap.paymentLabel}
                     </p>
-                    <p className="mt-1" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 800, color: "#22c55e", letterSpacing: "-0.02em" }}>
+                    <p className="num mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-xl)", fontWeight: 700, color: "var(--ink-strong)", letterSpacing: "-0.02em" }}>
                       {formatBRL(snap.total)}
                     </p>
                   </div>
-                  <Link
-                    to="/"
-                    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-ink-strong transition-transform hover:scale-[1.03]"
-                    style={{
-                      background: "var(--gradient-brand)",
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-caption)",
-                      fontWeight: 800,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      boxShadow: "var(--shadow-brand-cta)",
-                    }}
-                  >
-                    Voltar pra home
+                  <CTAButton as="link" to="/" variant="brand" size="md">
+                    Voltar para a home
                     <ArrowRight size={13} strokeWidth={2.4} />
-                  </Link>
+                  </CTAButton>
                 </div>
               </motion.div>
             )}
@@ -948,7 +900,7 @@ export function CheckoutPage() {
 
   return (
     <>
-      <div className="pt-3 md:pt-[88px] pb-24 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
+      <div className="pt-[80px] md:pt-[88px] pb-24 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
         <div className="mx-auto max-w-[1320px] px-5 py-4 md:px-8 md:py-6">
           <Link
             to="/carrinho"
@@ -956,16 +908,11 @@ export function CheckoutPage() {
             style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
           >
             <ChevronLeft size={14} strokeWidth={2} />
-            Voltar pro carrinho
+            Voltar para o carrinho
           </Link>
 
           <div className="mb-6">
-            <p
-              className="mb-2 text-primary"
-              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}
-            >
-              // CHECKOUT
-            </p>
+            <Eyebrow className="mb-2">Checkout</Eyebrow>
             <h1
               className="text-ink-strong"
               style={{
@@ -997,17 +944,13 @@ export function CheckoutPage() {
                       className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-all"
                       style={{
                         background: active
-                          ? "var(--gradient-brand)"
+                          ? "var(--primary)"
                           : done
-                          ? "var(--gradient-buy)"
-                          : "rgba(var(--foreground-rgb), 0.06)",
-                        border: active || done ? "none" : "1px solid rgba(var(--foreground-rgb), 0.1)",
-                        color: active || done ? "#fff" : "rgba(var(--foreground-rgb), 0.4)",
-                        boxShadow: active
-                          ? "0 8px 22px -6px rgba(200, 120, 0,0.5)"
-                          : done
-                          ? "0 8px 22px -6px rgba(34,197,94,0.45)"
-                          : "none",
+                          ? "var(--buy-green)"
+                          : "var(--surface-2)",
+                        border: active || done ? "none" : "1px solid var(--border)",
+                        color: active || done ? "#fff" : "var(--ink-subtle)",
+                        boxShadow: active || done ? "var(--shadow-brand-pill)" : "none",
                       }}
                     >
                       {done ? <Check size={14} strokeWidth={2.6} /> : <Icon size={14} strokeWidth={2.2} />}
@@ -1019,7 +962,7 @@ export function CheckoutPage() {
                       {s.label}
                     </span>
                     {i < STEPS.length - 1 && (
-                      <div className="hidden h-px flex-1 md:block" style={{ background: done ? "rgba(34,197,94,0.4)" : "rgba(var(--foreground-rgb), 0.08)" }} />
+                      <div className="hidden h-px flex-1 md:block" style={{ background: done ? "rgba(18,146,76,0.45)" : "var(--border)" }} />
                     )}
                   </button>
                 );
@@ -1059,7 +1002,7 @@ export function CheckoutPage() {
                         Endereço de entrega
                       </h2>
                       <p className="mb-6 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                        Pra onde mandamos sua build?
+                        Pra onde levamos seu instrumento?
                       </p>
 
                       {/* Saved addresses picker — só renderiza se logado com endereços salvos. */}
@@ -1079,17 +1022,17 @@ export function CheckoutPage() {
                                   className="relative text-left p-3 min-h-[44px] transition-all cursor-pointer"
                                   onClick={() => setSelectedAddressId(a.id)}
                                   style={{
-                                    borderRadius: 12,
-                                    background: sel ? "rgba(17, 17, 17, 0.08)" : "rgba(var(--foreground-rgb), 0.02)",
-                                    border: sel ? "1.5px solid rgba(200, 120, 0,0.45)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
+                                    borderRadius: "var(--radius-card-sm)",
+                                    background: sel ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
+                                    border: sel ? "1.5px solid var(--primary)" : "1px solid var(--border)",
                                   }}
                                 >
                                   <div className="flex items-start gap-2.5">
-                                    <span className="mt-0.5 flex items-center justify-center shrink-0" style={{ width: 16, height: 16, borderRadius: 9999, border: sel ? "5px solid var(--primary)" : "1.5px solid rgba(var(--foreground-rgb), 0.4)", background: sel ? "var(--primary)" : "transparent", boxShadow: sel ? "inset 0 0 0 2px #161617" : "none" }} />
+                                    <span className="mt-0.5 flex items-center justify-center shrink-0" style={{ width: 16, height: 16, borderRadius: 9999, border: sel ? "5px solid var(--primary)" : "1.5px solid var(--edge-strong)", background: sel ? "var(--primary)" : "transparent", boxShadow: sel ? "inset 0 0 0 2px var(--surface-0)" : "none" }} />
                                     <div className="min-w-0 flex-1">
                                       <div className="flex items-center gap-2">
                                         <span className="text-ink-strong truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>{a.label}</span>
-                                        {a.isDefault && <span className="px-1.5 py-0.5 bg-foreground/[0.06] text-primary" style={{ borderRadius: 999, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
+                                        {a.isDefault && <span className="px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(200, 120, 0, 0.12)", color: "var(--amber-text)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
                                       </div>
                                       <p className="text-ink-muted truncate mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                                         {a.street}, {a.number} · {a.city}/{a.state}
@@ -1100,7 +1043,7 @@ export function CheckoutPage() {
                                         type="button"
                                         onClick={(e) => { e.stopPropagation(); setSelectedAddressId(null); }}
                                         className="flex-shrink-0 inline-flex items-center px-3 py-1 min-h-[44px] md:min-h-0 md:px-2 text-ink hover:text-ink-strong transition-all cursor-pointer"
-                                        style={{ borderRadius: 6, background: "rgba(var(--foreground-rgb), 0.06)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                                        style={{ borderRadius: "var(--radius-pill)", background: "var(--surface-2)", border: "1px solid var(--border)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
                                       >
                                         Editar
                                       </button>
@@ -1115,13 +1058,13 @@ export function CheckoutPage() {
                               onClick={() => setAddressModalOpen(true)}
                               className="flex items-center gap-2 justify-center p-3 transition-all cursor-pointer hover:brightness-110"
                               style={{
-                                borderRadius: 12,
-                                background: "rgba(17, 17, 17, 0.04)",
-                                border: "1.5px dashed rgba(200, 120, 0,0.35)",
+                                borderRadius: "var(--radius-card-sm)",
+                                background: "var(--surface-2)",
+                                border: "1.5px dashed rgba(200, 120, 0, 0.45)",
                                 minHeight: 60,
                               }}
                             >
-                              <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(17, 17, 17, 0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
+                              <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(200, 120, 0, 0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
                               <span className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo endereço</span>
                             </button>
                           </div>
@@ -1234,7 +1177,7 @@ export function CheckoutPage() {
                         Como entregar?
                       </h2>
                       <p className="mb-6 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                        Para {address.city || "—"}/{address.state || "—"}
+                        Para {address.city || "-"}/{address.state || "-"}
                       </p>
                       <div className="flex flex-col gap-3">
                         {shippingOptions.map((opt) => {
@@ -1246,21 +1189,21 @@ export function CheckoutPage() {
                               className="flex items-center gap-2.5 md:gap-4 p-4 text-left transition-all"
                               style={{
                                 borderRadius: "var(--radius-card-sm)",
-                                background: active ? "rgba(34,197,94,0.06)" : "rgba(var(--foreground-rgb), 0.02)",
-                                border: active ? "1.5px solid rgba(34,197,94,0.5)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
-                                boxShadow: active ? "0 16px 36px -16px rgba(34,197,94,0.35)" : "none",
+                                background: active ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
+                                border: active ? "1.5px solid var(--primary)" : "1px solid var(--border)",
+                                boxShadow: active ? "var(--shadow-card)" : "none",
                               }}
                             >
                               <div
                                 className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
                                 style={{
-                                  background: active ? "var(--gradient-buy)" : "transparent",
-                                  border: active ? "none" : "1.5px solid rgba(var(--foreground-rgb), 0.25)",
+                                  background: active ? "var(--primary)" : "transparent",
+                                  border: active ? "none" : "1.5px solid var(--edge-strong)",
                                 }}
                               >
-                                {active && <Check size={11} strokeWidth={3} className="text-ink-strong" />}
+                                {active && <Check size={11} strokeWidth={3} className="text-white" />}
                               </div>
-                              <Truck size={18} strokeWidth={1.8} className={active ? "text-green-400" : "text-ink-muted"} />
+                              <Truck size={18} strokeWidth={1.8} className={active ? "text-[var(--amber-text)]" : "text-ink-muted"} />
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-2">
                                   <p className="text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
@@ -1268,18 +1211,16 @@ export function CheckoutPage() {
                                   </p>
                                   {opt.badge && (
                                     <span
-                                      className="inline-flex items-center text-ink-strong"
+                                      className="inline-flex items-center text-white"
                                       style={{
-                                        padding: "2px 8px",
+                                        padding: "3px 9px",
                                         borderRadius: "var(--radius-pill)",
-                                        background:
-                                          opt.badge === "GRÁTIS"
-                                            ? "var(--gradient-buy)"
-                                            : "var(--gradient-brand)",
+                                        background: opt.badge === "GRÁTIS" ? "var(--buy-green)" : "var(--primary)",
                                         fontFamily: "var(--font-family-inter)",
                                         fontSize: "var(--text-caption)",
-                                        fontWeight: 800,
-                                        letterSpacing: "0.1em",
+                                        fontWeight: 700,
+                                        lineHeight: 1,
+                                        letterSpacing: "0.06em",
                                       }}
                                     >
                                       {opt.badge}
@@ -1293,11 +1234,11 @@ export function CheckoutPage() {
                               <p
                                 className="flex-shrink-0"
                                 style={{
-                                  fontFamily: "var(--font-family-figtree)",
+                                  fontFamily: "var(--font-family-inter)",
                                   fontSize: "var(--text-base)",
-                                  fontWeight: 800,
-                                  color: opt.price === 0 ? "#22c55e" : "#fff",
-                                  letterSpacing: "-0.015em",
+                                  fontWeight: 700,
+                                  color: opt.price === 0 ? "var(--buy-green-deep)" : "var(--ink-strong)",
+                                  letterSpacing: "-0.01em",
                                 }}
                               >
                                 {opt.price === 0 ? "Grátis" : formatBRL(opt.price)}
@@ -1315,7 +1256,7 @@ export function CheckoutPage() {
                         Como vai pagar?
                       </h2>
                       <p className="mb-6 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                        Escolha um método. PIX dá 10% off automático.
+                        Escolha a forma de pagamento. No PIX o desconto de 10% entra sozinho.
                       </p>
 
                       {/* Express checkout — 1-click */}
@@ -1323,7 +1264,7 @@ export function CheckoutPage() {
                         <button
                           onClick={() => { setPayment("apple"); setWalletSheet("apple"); }}
                           aria-label="Pagar com Apple Pay"
-                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a1a]"
+                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                           style={{
                             background: "#000",
                             color: "#fff",
@@ -1340,7 +1281,7 @@ export function CheckoutPage() {
                         <button
                           onClick={() => { setPayment("google"); setWalletSheet("google"); }}
                           aria-label="Pagar com Google Pay"
-                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a1a]"
+                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                           style={{
                             background: "#fff",
                             color: "#000",
@@ -1361,7 +1302,7 @@ export function CheckoutPage() {
                         <button
                           onClick={() => { setPayment("mercadopago"); setWalletSheet("mercadopago"); }}
                           aria-label="Pagar com Mercado Pago"
-                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a1a]"
+                          className="inline-flex h-12 items-center justify-center gap-2 rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--amber)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                           style={{
                             background: "#009ee3",
                             color: "#fff",
@@ -1382,20 +1323,20 @@ export function CheckoutPage() {
 
                       {/* Divider OR */}
                       <div className="mb-5 flex items-center gap-4">
-                        <div className="h-px flex-1 bg-white/8" />
+                        <div className="h-px flex-1" style={{ background: "var(--border)" }} />
                         <span
                           className="text-ink-subtle"
                           style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em", textTransform: "uppercase" }}
                         >
                           ou
                         </span>
-                        <div className="h-px flex-1 bg-white/8" />
+                        <div className="h-px flex-1" style={{ background: "var(--border)" }} />
                       </div>
 
                       {/* Traditional methods */}
                       <div className="grid grid-cols-1 gap-3 md:grid-cols-3 mb-6">
-                        <PaymentOption icon={<PixLogo size={18} />} label="Pix" description="Aprovação instantânea · 10% OFF" badge="-10%" active={payment === "pix"} onClick={() => setPayment("pix")} color="#22c55e" accentBg="rgba(34,197,94,0.14)" />
-                        <PaymentOption icon={<CreditCard size={18} strokeWidth={2} />} label="Cartão" description="Até 10x · seu cartão salvo" active={payment === "credit"} onClick={() => setPayment("credit")} />
+                        <PaymentOption icon={<PixLogo size={18} />} label="Pix" description="Cai na conta em segundos" badge="-10%" active={payment === "pix"} onClick={() => setPayment("pix")} color="var(--buy-green-deep)" accentBg="rgba(18,146,76,0.14)" />
+                        <PaymentOption icon={<CreditCard size={18} strokeWidth={2} />} label="Cartão" description="Até 10x sem juros" active={payment === "credit"} onClick={() => setPayment("credit")} />
                         <PaymentOption icon={<Wallet size={18} strokeWidth={2} />} label="Boleto" description="Vence em 3 dias úteis" active={payment === "boleto"} onClick={() => setPayment("boleto")} />
                       </div>
 
@@ -1426,16 +1367,16 @@ export function CheckoutPage() {
                                         onClick={() => setSelectedCardId(c.id)}
                                         className="text-left p-3 transition-all cursor-pointer flex items-center gap-2.5 relative"
                                         style={{
-                                          borderRadius: 12,
-                                          background: sel ? "rgba(17, 17, 17, 0.08)" : "rgba(var(--foreground-rgb), 0.02)",
-                                          border: sel ? "1.5px solid rgba(200, 120, 0,0.45)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
+                                          borderRadius: "var(--radius-card-sm)",
+                                          background: sel ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
+                                          border: sel ? "1.5px solid var(--primary)" : "1px solid var(--border)",
                                         }}
                                       >
-                                        <span className="flex items-center justify-center shrink-0" style={{ width: 16, height: 16, borderRadius: 9999, border: sel ? "5px solid var(--primary)" : "1.5px solid rgba(var(--foreground-rgb), 0.4)", background: sel ? "var(--primary)" : "transparent", boxShadow: sel ? "inset 0 0 0 2px #161617" : "none" }} />
+                                        <span className="flex items-center justify-center shrink-0" style={{ width: 16, height: 16, borderRadius: 9999, border: sel ? "5px solid var(--primary)" : "1.5px solid var(--edge-strong)", background: sel ? "var(--primary)" : "transparent", boxShadow: sel ? "inset 0 0 0 2px var(--surface-0)" : "none" }} />
                                         <div className="min-w-0 flex-1">
                                           <div className="flex items-center gap-2">
                                             <span className="text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}>{c.brand}</span>
-                                            {c.isDefault && <span className="px-1.5 py-0.5 bg-foreground/[0.06] text-primary" style={{ borderRadius: 999, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
+                                            {c.isDefault && <span className="px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(200, 120, 0, 0.12)", color: "var(--amber-text)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
                                           </div>
                                           <p className="text-ink font-mono mt-0.5" style={{ fontSize: "var(--text-caption)", fontWeight: 600, letterSpacing: "0.05em" }}>•••• {c.last4}</p>
                                           <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Validade {c.expiry}</p>
@@ -1445,7 +1386,7 @@ export function CheckoutPage() {
                                             type="button"
                                             onClick={(e) => { e.stopPropagation(); setSelectedCardId(null); }}
                                             className="flex-shrink-0 inline-flex items-center px-3 py-1 min-h-[44px] md:min-h-0 md:px-2 text-ink hover:text-ink-strong transition-all cursor-pointer"
-                                            style={{ borderRadius: 6, background: "rgba(var(--foreground-rgb), 0.06)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                                            style={{ borderRadius: "var(--radius-pill)", background: "var(--surface-2)", border: "1px solid var(--border)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
                                           >
                                             Editar
                                           </button>
@@ -1459,13 +1400,13 @@ export function CheckoutPage() {
                                     onClick={() => setCardModalOpen(true)}
                                     className="flex items-center gap-2 justify-center p-3 transition-all cursor-pointer hover:brightness-110"
                                     style={{
-                                      borderRadius: 12,
-                                      background: "rgba(17, 17, 17, 0.04)",
-                                      border: "1.5px dashed rgba(200, 120, 0,0.35)",
+                                      borderRadius: "var(--radius-card-sm)",
+                                      background: "var(--surface-2)",
+                                      border: "1.5px dashed rgba(200, 120, 0, 0.45)",
                                       minHeight: 60,
                                     }}
                                   >
-                                    <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(17, 17, 17, 0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
+                                    <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(200, 120, 0, 0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
                                     <span className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo cartão</span>
                                   </button>
                                 </div>
@@ -1557,17 +1498,17 @@ export function CheckoutPage() {
                             <div
                               className="flex items-start gap-3 rounded-[var(--radius-card-sm)] p-4"
                               style={{
-                                background: "rgba(34,197,94,0.06)",
-                                border: "1px solid rgba(34,197,94,0.25)",
+                                background: "rgba(18,146,76,0.06)",
+                                border: "1px solid rgba(18,146,76,0.25)",
                               }}
                             >
-                              <Zap size={18} strokeWidth={2.4} className="mt-0.5 text-green-400 flex-shrink-0" fill="currentColor" />
+                              <Zap size={18} strokeWidth={2.4} className="mt-0.5 text-[var(--buy-green-deep)] flex-shrink-0" fill="currentColor" />
                               <div>
-                                <p className="text-green-300" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
-                                  10% OFF automático no PIX
+                                <p className="text-[var(--buy-green-deep)]" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
+                                  10% de desconto no PIX, automático
                                 </p>
                                 <p className="mt-1 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.5 }}>
-                                  Após finalizar, vamos gerar o QR Code pra pagamento instantâneo. Compensação em até 1 minuto.
+                                  Após finalizar, vamos gerar o QR Code para pagamento instantâneo. Compensação em até 1 minuto.
                                 </p>
                               </div>
                             </div>
@@ -1577,7 +1518,7 @@ export function CheckoutPage() {
                         {(payment === "apple" || payment === "google") && (
                           <motion.div key="wallet" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                             <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.5 }}>
-                              Autenticação acontece direto no seu dispositivo. Toque em finalizar pra abrir o {payment === "apple" ? "Apple Pay" : "Google Pay"}.
+                              Autenticação acontece direto no seu dispositivo. Toque em finalizar para abrir o {payment === "apple" ? "Apple Pay" : "Google Pay"}.
                             </p>
                           </motion.div>
                         )}
@@ -1599,7 +1540,7 @@ export function CheckoutPage() {
                         Revisão final
                       </h2>
                       <p className="mb-6 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                        Confirme se tá tudo certo antes de fechar.
+                        Confira se está tudo certo antes de fechar o pedido.
                       </p>
 
                       <div className="space-y-4">
@@ -1627,7 +1568,7 @@ export function CheckoutPage() {
 
                         <ReviewCard icon={<CreditCard size={14} strokeWidth={2} />} label="Pagamento" onEdit={() => setStep(2)}>
                           <p className="text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>
-                            {payment === "pix" && "PIX · 10% OFF automático"}
+                            {payment === "pix" && "PIX · 10% de desconto, automático"}
                             {payment === "credit" && `Cartão de crédito · ${installments}× sem juros`}
                             {payment === "apple" && "Apple Pay"}
                             {payment === "google" && "Google Pay"}
@@ -1637,7 +1578,7 @@ export function CheckoutPage() {
 
                         <div
                           className="rounded-[var(--radius-card-sm)] p-4"
-                          style={{ background: "rgba(var(--foreground-rgb), 0.02)", border: "1px solid rgba(var(--foreground-rgb), 0.06)" }}
+                          style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
                         >
                           <p
                             className="mb-3 text-ink-muted"
@@ -1650,13 +1591,9 @@ export function CheckoutPage() {
                               <div key={item.cartKey} className="flex items-center gap-3">
                                 <div
                                   className="h-12 w-12 flex-shrink-0 overflow-hidden"
-                                  style={{
-                                    borderRadius: "var(--radius-card-sm)",
-                                    background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.08) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-                                    border: "1px solid rgba(var(--foreground-rgb), 0.06)",
-                                  }}
+                                  style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                                 >
-                                  <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" />
+                                  <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
                                 </div>
                                 <div className="min-w-0 flex-1">
                                   <p className="line-clamp-1 text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
@@ -1679,7 +1616,7 @@ export function CheckoutPage() {
               <div className="mt-6 flex items-center justify-between gap-3">
                 <button
                   onClick={() => (step === 0 ? navigate("/carrinho") : setStep((s) => (s - 1) as Step))}
-                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-5 py-3 min-h-[44px] md:min-h-0 text-ink-muted transition-colors hover:bg-white/[0.05] hover:text-ink-strong"
+                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-5 py-3 min-h-[44px] md:min-h-0 text-ink-muted transition-colors hover:bg-[var(--surface-2)] hover:text-ink-strong"
                   style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}
                 >
                   <ChevronLeft size={14} strokeWidth={2.4} />
@@ -1687,40 +1624,21 @@ export function CheckoutPage() {
                 </button>
 
                 {step < 3 ? (
-                  <button
+                  <CTAButton
                     onClick={() => setStep((s) => (s + 1) as Step)}
                     disabled={!canAdvance}
-                    className="hidden lg:inline-flex cursor-pointer items-center gap-2 rounded-full px-7 py-3 text-ink-strong transition-transform hover:scale-[1.03] active:scale-[0.97] disabled:opacity-35 disabled:cursor-not-allowed disabled:hover:scale-100"
-                    style={{
-                      background: "var(--gradient-brand)",
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-caption)",
-                      fontWeight: 800,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      boxShadow: "var(--shadow-brand-cta)",
-                    }}
+                    variant="brand"
+                    size="lg"
+                    className="hidden lg:inline-flex"
                   >
                     Continuar
                     <ChevronRight size={14} strokeWidth={2.6} />
-                  </button>
+                  </CTAButton>
                 ) : (
-                  <button
-                    onClick={handleFinish}
-                    className="hidden lg:inline-flex cursor-pointer items-center gap-2 rounded-full px-7 py-3 text-ink-strong transition-transform hover:scale-[1.03] active:scale-[0.97]"
-                    style={{
-                      background: "var(--gradient-buy)",
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-caption)",
-                      fontWeight: 800,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      boxShadow: "var(--shadow-buy-cta)",
-                    }}
-                  >
+                  <CTAButton onClick={handleFinish} variant="buy" size="lg" className="hidden lg:inline-flex">
                     <Lock size={13} strokeWidth={2.6} />
                     Finalizar pedido
-                  </button>
+                  </CTAButton>
                 )}
               </div>
             </div>
@@ -1735,12 +1653,7 @@ export function CheckoutPage() {
                   boxShadow: "var(--shadow-card)",
                 }}
               >
-                <p
-                  className="mb-5 text-primary"
-                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.3em" }}
-                >
-                  // RESUMO
-                </p>
+                <Eyebrow className="mb-5">Resumo</Eyebrow>
 
                 <div className="mb-4 max-h-[280px] space-y-3 overflow-y-auto pr-1">
                   {items.map((item) => (
@@ -1748,25 +1661,20 @@ export function CheckoutPage() {
                       <div className="relative h-14 w-14 flex-shrink-0">
                         <div
                           className="h-full w-full overflow-hidden"
-                          style={{
-                            borderRadius: "var(--radius-card-sm)",
-                            background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.08) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-                            border: "1px solid rgba(var(--foreground-rgb), 0.08)",
-                            boxShadow: "inset 0 1px 0 rgba(var(--foreground-rgb), 0.04)",
-                          }}
+                          style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                         >
-                          <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" />
+                          <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
                         </div>
                         {item.quantity > 1 && (
                           <span
                             aria-label={`Quantidade ${item.quantity}`}
-                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-ink-strong"
+                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-white"
                             style={{
-                              background: "var(--gradient-brand)",
+                              background: "var(--primary)",
                               fontFamily: "var(--font-family-inter)",
                               fontSize: "var(--text-caption)",
-                              fontWeight: 800,
-                              boxShadow: "0 4px 12px -4px rgba(200, 120, 0,0.55)",
+                              fontWeight: 700,
+                              boxShadow: "var(--shadow-brand-pill)",
                             }}
                           >
                             {item.quantity}
@@ -1782,7 +1690,7 @@ export function CheckoutPage() {
                             fontFamily: "var(--font-family-inter)",
                             fontSize: "var(--text-caption)",
                             fontWeight: 700,
-                            color: item.isGift ? "#22c55e" : "rgba(var(--foreground-rgb), 0.85)",
+                            color: item.isGift ? "var(--buy-green-deep)" : "var(--ink-strong)",
                             marginTop: "2px",
                           }}
                         >
@@ -1793,32 +1701,32 @@ export function CheckoutPage() {
                   ))}
                 </div>
 
-                <div className="h-px bg-white/5 mb-4" />
+                <div className="mb-4 h-px" style={{ background: "var(--border)" }} />
 
                 {/* Cupom inline (CheckoutPage) */}
                 <div className="mb-3">
                   <button
                     onClick={() => setCouponOpen((v) => !v)}
                     className={`flex w-full cursor-pointer items-center justify-between gap-3 px-3 py-2.5 min-h-[44px] md:min-h-0 transition-colors ${
-                      appliedCoupon ? "rounded-card-sm border border-green-500/25 bg-green-500/[0.06]" : "rounded-card-sm border border-edge-subtle hover:border-edge hover:bg-white/[0.03]"
+                      appliedCoupon ? "rounded-card-sm border border-[var(--buy-green)]/25 bg-[var(--buy-green)]/[0.06]" : "rounded-card-sm border border-edge-subtle hover:border-edge hover:bg-[var(--surface-2)]"
                     }`}
                     aria-expanded={couponOpen}
                   >
                     <span className="flex items-center gap-2">
-                      {appliedCoupon ? <Check size={13} className="text-green-500" strokeWidth={2.4} /> : <Ticket size={13} className="text-ink-muted" strokeWidth={2} />}
+                      {appliedCoupon ? <Check size={13} className="text-[var(--buy-green-deep)]" strokeWidth={2.4} /> : <Ticket size={13} className="text-ink-muted" strokeWidth={2} />}
                       <span
-                        className={appliedCoupon ? "text-green-400" : "text-ink-muted"}
+                        className={appliedCoupon ? "text-[var(--buy-green-deep)]" : "text-ink-muted"}
                         style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: appliedCoupon ? 700 : 600 }}
                       >
                         {appliedCoupon ? `${appliedCoupon} aplicado` : "Tenho um cupom"}
                       </span>
                       {appliedCoupon && (
-                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "rgba(34,197,94,0.75)" }}>
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "rgba(18,146,76,0.75)" }}>
                           −{discountPct}%
                         </span>
                       )}
                     </span>
-                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: appliedCoupon ? "rgba(34,197,94,0.75)" : "rgba(var(--foreground-rgb), 0.4)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: appliedCoupon ? "rgba(18,146,76,0.75)" : "rgba(var(--foreground-rgb), 0.4)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
                       {appliedCoupon ? "Alterar" : "Adicionar"}
                     </span>
                   </button>
@@ -1834,39 +1742,26 @@ export function CheckoutPage() {
                         <div className="mt-2 flex gap-2">
                           <input
                             type="text"
-                            placeholder="Ex: PCYES10"
+                            placeholder="Ex: TONANTE10"
                             value={coupon}
                             onChange={(e) => { setCoupon(e.target.value.toUpperCase()); setCouponError(""); }}
                             onKeyDown={(e) => e.key === "Enter" && handleApplyCoupon()}
                             aria-label="Código do cupom"
                             className="flex-1 rounded-[var(--radius-card-sm)] px-3 py-2 text-ink-strong placeholder:text-ink-subtle focus:outline-none"
                             style={{
-                              background: "rgba(var(--foreground-rgb), 0.03)",
-                              border: "1px solid rgba(var(--foreground-rgb), 0.1)",
+                              background: "var(--surface-2)",
+                              border: "1px solid var(--edge-subtle)",
                               fontFamily: "var(--font-family-inter)",
                               fontSize: "var(--text-caption)",
                               fontWeight: 600,
                             }}
                           />
-                          <button
-                            onClick={handleApplyCoupon}
-                            disabled={!coupon.trim()}
-                            className="cursor-pointer rounded-[var(--radius-card-sm)] px-4 py-2 min-h-[44px] md:min-h-0 text-ink-strong transition-transform hover:scale-[1.02] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
-                            style={{
-                              background: "var(--gradient-brand)",
-                              fontFamily: "var(--font-family-inter)",
-                              fontSize: "var(--text-caption)",
-                              fontWeight: 800,
-                              letterSpacing: "0.06em",
-                              textTransform: "uppercase",
-                              boxShadow: "var(--shadow-brand-cta-sm)",
-                            }}
-                          >
+                          <CTAButton onClick={handleApplyCoupon} disabled={!coupon.trim()} variant="brand" size="sm" className="shrink-0">
                             Aplicar
-                          </button>
+                          </CTAButton>
                         </div>
                         {couponError && (
-                          <p className="mt-2 text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
+                          <p className="mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--destructive)" }}>
                             {couponError}
                           </p>
                         )}
@@ -1875,12 +1770,12 @@ export function CheckoutPage() {
                   </AnimatePresence>
                 </div>
 
-                {/* PCYES Points inline (CheckoutPage) */}
+                {/* Tonante Points — clube de fidelidade (CheckoutPage) */}
                 <div
                   className={`mb-4 overflow-hidden rounded-card-sm transition-colors ${
                     pointsApplied
-                      ? "border border-yellow-300/40 bg-yellow-300/[0.05]"
-                      : "border border-edge-subtle hover:border-yellow-300/35 hover:bg-yellow-300/[0.05]"
+                      ? "border border-[var(--amber)]/35 bg-[var(--amber)]/[0.05]"
+                      : "border border-edge-subtle hover:border-[var(--amber)]/35 hover:bg-[var(--amber)]/[0.05]"
                   }`}
                 >
                   <button
@@ -1889,15 +1784,15 @@ export function CheckoutPage() {
                     aria-expanded={pointsApplied}
                   >
                     <span className="flex items-center gap-2">
-                      <PcyesCoinSmall />
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "#facc15" : "rgba(var(--foreground-rgb), 0.78)" }}>
-                        PCYES Points
+                      <PcyesCoin size={16} />
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.78)" }}>
+                        Tonante Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.4)" }}>
                         {userPoints} pts
                       </span>
                     </span>
-                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 800, letterSpacing: "0.1em", color: pointsApplied ? "#facc15" : "rgba(var(--foreground-rgb), 0.45)", textTransform: "uppercase" }}>
+                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 800, letterSpacing: "0.1em", color: pointsApplied ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.45)", textTransform: "uppercase" }}>
                       {pointsApplied ? "Aplicado" : "Usar"}
                     </span>
                   </button>
@@ -1910,9 +1805,9 @@ export function CheckoutPage() {
                         transition={{ duration: 0.22 }}
                         className="overflow-hidden"
                       >
-                        <div className="border-t px-3 pb-3 pt-3" style={{ borderColor: "rgba(250,204,21,0.2)" }}>
+                        <div className="border-t px-3 pb-3 pt-3" style={{ borderColor: "rgba(200,120,0,0.2)" }}>
                           <div className="mb-2.5 flex items-center justify-between gap-3">
-                            <NumberStepperRed
+                            <PointsStepper
                               value={pointsToUse}
                               onChange={setPointsToUse}
                               max={maxPointsRedeem}
@@ -1929,12 +1824,12 @@ export function CheckoutPage() {
                             step={10}
                             value={pointsToUse}
                             onChange={(e) => setPointsToUse(Number(e.target.value))}
-                            aria-label="Slider de pontos PCYES"
+                            aria-label="Tonante Points a usar"
                             className="w-full"
-                            style={{ accentColor: "#facc15" }}
+                            style={{ accentColor: "var(--amber-deep)" }}
                           />
                           <p className="mt-2 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                            Economia: <span style={{ color: "#facc15", fontWeight: 800 }}>{formatBRL(pointsValue)}</span>
+                            Economia: <span style={{ color: "var(--amber-deep)", fontWeight: 800 }}>{formatBRL(pointsValue)}</span>
                           </p>
                         </div>
                       </motion.div>
@@ -1948,32 +1843,33 @@ export function CheckoutPage() {
                   <Line label="Frete" value={shippingPrice === 0 ? "Grátis" : formatBRL(shippingPrice)} positive={shippingPrice === 0} />
                   {pointsValue > 0 && (
                     <div className="flex items-center justify-between">
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 600 }}>
-                        PCYES Points
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 600 }}>
+                        Tonante Points
                       </span>
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 700 }}>
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 700 }}>
                         −{formatBRL(pointsValue)}
                       </span>
                     </div>
                   )}
-                  {pixDiscount > 0 && <Line label="Desconto PIX (10%)" value={`−${formatBRL(pixDiscount)}`} positive />}
+                  {pixDiscount > 0 && <Line label="Desconto no PIX (10%)" value={`−${formatBRL(pixDiscount)}`} positive />}
                 </div>
 
                 <div
                   className="rounded-[var(--radius-card-sm)] p-4"
-                  style={{ background: "rgba(var(--foreground-rgb), 0.03)", border: "1px solid rgba(var(--foreground-rgb), 0.06)" }}
+                  style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
                 >
                   <div className="flex items-baseline justify-between">
                     <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
                       Total
                     </span>
                     <span
+                      className="num"
                       style={{
-                        fontFamily: "var(--font-family-figtree)",
-                        fontSize: "var(--text-xl)",
-                        fontWeight: 800,
-                        letterSpacing: "-0.02em",
-                        color: payment === "pix" ? "#22c55e" : "#fff",
+                        fontFamily: "var(--font-family-inter)",
+                        fontSize: "var(--text-price-xl)",
+                        fontWeight: 700,
+                        letterSpacing: "-0.01em",
+                        color: payment === "pix" ? "var(--buy-green)" : "var(--ink-strong)",
                       }}
                     >
                       {formatBRL(total)}
@@ -1981,15 +1877,15 @@ export function CheckoutPage() {
                   </div>
                   {payment !== "pix" && (
                     <p className="mt-1 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                      ou no PIX por {formatBRL(total - (subtotal - discountValue) * 0.1)}{" "}
-                      <span className="text-green-400 font-bold">−10%</span>
+                      ou no PIX por <strong className="num" style={{ color: "var(--buy-green)" }}>{formatBRL(total - (subtotal - discountValue) * 0.1)}</strong>{" "}
+                      <span style={{ color: "var(--buy-green)", fontWeight: 700 }}>−10%</span>
                     </p>
                   )}
                 </div>
 
                 <div className="mt-5 flex flex-col gap-2 text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
                   <span className="inline-flex items-center gap-1.5">
-                    <ShieldCheck size={12} strokeWidth={2} className="text-green-500" />
+                    <ShieldCheck size={12} strokeWidth={2} className="text-[var(--buy-green-deep)]" />
                     Compra 100% segura · SSL
                   </span>
                   <span className="inline-flex items-center gap-1.5">
@@ -2007,7 +1903,7 @@ export function CheckoutPage() {
       <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
         <div
           className="flex items-center gap-3 border-t border-edge px-4 py-3"
-          style={{ background: "rgba(14,14,14,0.95)", backdropFilter: "blur(20px)" }}
+          style={{ background: "rgba(255,255,255,0.94)", backdropFilter: "blur(20px)" }}
         >
           <div className="flex-1 min-w-0">
             <p
@@ -2017,49 +1913,28 @@ export function CheckoutPage() {
               Total
             </p>
             <p
-              className="text-ink-strong"
-              style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1 }}
+              className="num text-ink-strong"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-price-lg)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.1 }}
             >
               {formatBRL(total)}
             </p>
           </div>
           {step < 3 ? (
-            <button
+            <CTAButton
               onClick={() => setStep((s) => (s + 1) as Step)}
               disabled={!canAdvance}
-              className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full px-6 text-ink-strong transition-transform active:scale-[0.97] disabled:opacity-35 disabled:cursor-not-allowed disabled:active:scale-100"
-              style={{
-                minHeight: 46,
-                background: "var(--gradient-brand)",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-caption)",
-                fontWeight: 800,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                boxShadow: "var(--shadow-brand-cta)",
-              }}
+              variant="brand"
+              size="md"
+              className="shrink-0"
             >
               Continuar
               <ChevronRight size={14} strokeWidth={2.6} />
-            </button>
+            </CTAButton>
           ) : (
-            <button
-              onClick={handleFinish}
-              className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full px-6 text-ink-strong transition-transform active:scale-[0.97]"
-              style={{
-                minHeight: 46,
-                background: "var(--gradient-buy)",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-caption)",
-                fontWeight: 800,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                boxShadow: "var(--shadow-buy-cta)",
-              }}
-            >
+            <CTAButton onClick={handleFinish} variant="buy" size="md" className="shrink-0">
               <Lock size={13} strokeWidth={2.6} />
               Finalizar pedido
-            </button>
+            </CTAButton>
           )}
         </div>
       </div>
@@ -2087,8 +1962,8 @@ export function CheckoutPage() {
               className="w-full max-w-[480px] max-h-[90vh] overflow-y-auto"
               style={{
                 background: "var(--surface-1)",
-                color: "#fff",
-                borderRadius: "20px 20px 0 0",
+                color: "var(--ink-strong)",
+                borderRadius: "var(--radius-card-xl) var(--radius-card-xl) 0 0",
                 boxShadow: "0 -16px 40px -20px rgba(17,17,17,0.20)",
               }}
             >
@@ -2100,20 +1975,20 @@ export function CheckoutPage() {
                 <button
                   onClick={() => !walletConfirming && setWalletSheet(null)}
                   aria-label="Fechar Apple Pay"
-                  className="flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-white/[0.08] hover:text-ink-strong"
+                  className="flex h-11 w-11 md:h-8 md:w-8 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-[var(--surface-2)] hover:text-ink-strong"
                 >
                   <X size={16} />
                 </button>
               </div>
-              <div className="h-px bg-white/8" />
+              <div className="h-px" style={{ background: "var(--border)" }} />
 
               <div className="px-5 py-5">
                 <div className="mb-4 flex items-center justify-between">
-                  <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>PCYES Gamer</span>
-                  <span style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 700, letterSpacing: "-0.02em" }}>{formatBRL(total)}</span>
+                  <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Tonante Instrumentos</span>
+                  <span className="num text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-price-lg)", fontWeight: 700, letterSpacing: "-0.01em" }}>{formatBRL(total)}</span>
                 </div>
 
-                <div className="mb-3 rounded-card-sm p-3.5" style={{ background: "rgba(var(--foreground-rgb), 0.06)" }}>
+                <div className="mb-3 rounded-card-sm p-3.5" style={{ background: "var(--surface-2)" }}>
                   <div className="mb-1 flex items-center justify-between">
                     <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Pagar com</span>
                   </div>
@@ -2144,16 +2019,16 @@ export function CheckoutPage() {
                     animate={walletConfirming ? { scale: [1, 1.18, 1] } : { scale: 1 }}
                     transition={{ duration: 1.2, repeat: walletConfirming ? Infinity : 0 }}
                     className="flex h-14 w-14 items-center justify-center rounded-full"
-                    style={{ background: walletConfirming ? "rgba(34,197,94,0.18)" : "rgba(var(--foreground-rgb), 0.06)", border: "1px solid rgba(var(--foreground-rgb), 0.12)" }}
+                    style={{ background: walletConfirming ? "rgba(18,146,76,0.12)" : "var(--surface-2)", border: "1px solid var(--border)" }}
                   >
                     {walletConfirming ? (
-                      <Loader2 size={22} className="animate-spin text-green-400" strokeWidth={2.4} />
+                      <Loader2 size={22} className="animate-spin text-[var(--buy-green-deep)]" strokeWidth={2.4} />
                     ) : (
                       <Fingerprint size={22} strokeWidth={1.6} className="text-ink-strong" />
                     )}
                   </motion.div>
                   <p className="text-center text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                    {walletConfirming ? "Autenticando..." : "Pressione 2× no botão lateral pra confirmar"}
+                    {walletConfirming ? "Autenticando..." : "Pressione 2× no botão lateral para confirmar"}
                   </p>
                 </div>
                 <button
@@ -2215,7 +2090,7 @@ export function CheckoutPage() {
 
               <div className="px-5 pb-2">
                 <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#5f6368" }}>Pagando para</p>
-                <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)", fontWeight: 600, color: "#202124" }}>PCYES Gamer</p>
+                <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)", fontWeight: 600, color: "#202124" }}>Tonante Instrumentos</p>
                 <p className="mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-2xl)", fontWeight: 700, color: "#202124", letterSpacing: "-0.02em" }}>
                   {formatBRL(total)}
                 </p>
@@ -2299,7 +2174,7 @@ export function CheckoutPage() {
                   {formatBRL(total)}
                 </p>
                 <p className="mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "#737373" }}>
-                  PCYES Gamer · pedido #PCY{Math.floor(Math.random() * 90000 + 10000)}
+                  Tonante Instrumentos · pedido #TNT{Math.floor(Math.random() * 90000 + 10000)}
                 </p>
 
                 <div className="mt-5 space-y-2">
@@ -2432,40 +2307,9 @@ function CardBrand({ digits }: { digits: string }) {
   );
 }
 
-function PcyesCoinSmall({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <defs>
-        <radialGradient id="pcoin-grad-checkout" cx="35%" cy="30%" r="80%">
-          <stop offset="0%" stopColor="#fde68a" />
-          <stop offset="50%" stopColor="#facc15" />
-          <stop offset="100%" stopColor="#b45309" />
-        </radialGradient>
-        <radialGradient id="pcoin-shine-checkout" cx="30%" cy="25%" r="35%">
-          <stop offset="0%" stopColor="#fff" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <circle cx="16" cy="16" r="14" fill="url(#pcoin-grad-checkout)" stroke="#92400e" strokeWidth="1.2" />
-      <circle cx="16" cy="16" r="11" fill="none" stroke="#92400e" strokeWidth="0.7" strokeDasharray="1.5 1.2" opacity="0.45" />
-      <text
-        x="16"
-        y="21.5"
-        textAnchor="middle"
-        fontFamily="var(--font-family-figtree), system-ui, sans-serif"
-        fontSize="14"
-        fontWeight="900"
-        fill="#7c2d12"
-        letterSpacing="-0.04em"
-      >
-        P
-      </text>
-      <ellipse cx="12" cy="11" rx="4.5" ry="3" fill="url(#pcoin-shine-checkout)" />
-    </svg>
-  );
-}
-
-function NumberStepperRed({
+/* PointsStepper — mesma moldura hairline do QtyStepper do DS (borda
+   foreground/12, sem divisórias internas), só que com passo de 10. */
+function PointsStepper({
   value,
   onChange,
   min = 0,
@@ -2483,9 +2327,9 @@ function NumberStepperRed({
     <div
       className="inline-flex items-stretch overflow-hidden"
       style={{
-        borderRadius: "var(--radius-card-sm)",
-        background: "rgba(0,0,0,0.3)",
-        border: "1px solid rgba(250,204,21,0.35)",
+        borderRadius: "6px",
+        background: "var(--surface-0)",
+        border: "1px solid rgba(var(--foreground-rgb), 0.12)",
       }}
     >
       <input
@@ -2494,33 +2338,30 @@ function NumberStepperRed({
         value={value}
         onChange={(e) => onChange(clamp(Number(e.target.value.replace(/\D/g, "")) || 0))}
         aria-label="Quantidade de pontos"
-        className="w-14 bg-transparent px-2 py-1 text-center text-ink-strong focus:outline-none"
+        className="num w-14 bg-transparent px-2 py-1 text-center text-ink-strong focus:outline-none"
         style={{
-          fontFamily: "var(--font-family-figtree)",
-          fontSize: "var(--text-base)",
-          fontWeight: 800,
-          letterSpacing: "-0.01em",
+          fontFamily: "var(--font-family-inter)",
+          fontSize: "var(--text-sm)",
+          fontWeight: 600,
         }}
       />
-      <div className="flex flex-col border-l" style={{ borderColor: "rgba(var(--foreground-rgb), 0.08)" }}>
+      <div className="flex flex-col border-l" style={{ borderColor: "rgba(var(--foreground-rgb), 0.12)" }}>
         <button
           type="button"
           onClick={() => onChange(clamp(value + step))}
           aria-label="Aumentar"
-          className="flex h-4 w-7 min-h-[24px] min-w-[44px] md:min-h-0 md:min-w-0 items-center justify-center transition-colors hover:bg-white/[0.08]"
-          style={{ color: "#facc15" }}
+          className="flex h-4 w-7 min-h-[24px] min-w-[44px] md:min-h-0 md:min-w-0 items-center justify-center text-foreground/40 transition-colors hover:bg-foreground/5 hover:text-foreground"
         >
           <svg width="9" height="6" viewBox="0 0 10 6" fill="none" aria-hidden>
             <path d="M1 5L5 1L9 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <div className="h-px" style={{ background: "rgba(var(--foreground-rgb), 0.08)" }} />
+        <div className="h-px" style={{ background: "rgba(var(--foreground-rgb), 0.12)" }} />
         <button
           type="button"
           onClick={() => onChange(clamp(value - step))}
           aria-label="Diminuir"
-          className="flex h-4 w-7 min-h-[24px] min-w-[44px] md:min-h-0 md:min-w-0 items-center justify-center transition-colors hover:bg-white/[0.08]"
-          style={{ color: "#facc15" }}
+          className="flex h-4 w-7 min-h-[24px] min-w-[44px] md:min-h-0 md:min-w-0 items-center justify-center text-foreground/40 transition-colors hover:bg-foreground/5 hover:text-foreground"
         >
           <svg width="9" height="6" viewBox="0 0 10 6" fill="none" aria-hidden>
             <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

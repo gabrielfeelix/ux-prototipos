@@ -1,890 +1,627 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Como Encontrar – PCYES</title>
+  <title>Onde encontrar – Tonante</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+  /* ===========================================================================
+     TONANTE — Onde encontrar (localizador de lojas)
+     Identidade Tonante: fundo branco, tinta #111, âmbar #C87800 como acento,
+     Fraunces (display) + Hanken Grotesk (corpo), raios 8/10/12 e pílula,
+     hairlines em vez de glow. Sem dark mode — o site é light-only.
+     =========================================================================== */
 
-    /* ─── NOISE OVERLAY ─── */
-    #noise {
-      position: fixed; inset: 0; z-index: 100;
-      pointer-events: none; opacity: 0.028;
-      mix-blend-mode: overlay;
-    }
+  #pcyes-reseller-locator,
+  #pcyes-reseller-locator *,
+  #pcyes-reseller-locator *::before,
+  #pcyes-reseller-locator *::after {
+    box-sizing: border-box;
+  }
 
-    /* ─── CIRCUIT TRACES ─── */
-    .circuit {
-      position: fixed; top: 0; height: 100%;
-      width: 120px; pointer-events: none;
-      z-index: 2; opacity: 0.06;
-    }
-    .circuit--left  { left: 0; }
-    .circuit--right { right: 0; transform: scaleX(-1); }
-    @media (max-width: 1024px) { .circuit { display: none; } }
+  #pcyes-reseller-locator {
+    /* ---- tokens da marca ---- */
+    --ink:        #111111;
+    --ink-soft:   #4f463c;
+    --ink-meta:   #6b5f51;
+    --amber:      #c87800;
+    --amber-deep: #a05f00;
+    --surface:    #ffffff;
+    --surface-2:  #f5f5f5;
+    --surface-3:  #ebebeb;
+    --well:       #f4f4f4;
+    --hairline:        #e6e6e6;
+    --hairline-strong: #d6d1c8;
 
-    /* ─── HERO ─── */
-    .hero {
-      position: relative; overflow: hidden;
-    }
-    .hero__glow {
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 900px; height: 500px; pointer-events: none;
-      background: radial-gradient(ellipse at top center, rgba(255,0,0,0.08) 0%, transparent 70%);
-    }
-    .hero__inner {
-      position: relative; z-index: 1;
-      max-width: 1440px; margin: 0 auto;
-      padding: 96px 48px 64px;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .hero__badge {
-      display: inline-block;
-      background: rgba(255,0,0,0.9);
-      color: #cecece;
-      font-family: var(--inter);
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 4px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(0,0,0,0.06);
-    }
-    .hero__title {
-      font-family: var(--figtree); font-weight: 900;
-      font-size: clamp(36px, 5vw, 60px);
-      line-height: 1.05; text-align: center;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      margin-bottom: 24px;
-    }
-    .hero__title em { color: var(--primary); font-style: normal; }
-    .hero__sep {
-      width: 48px; height: 3px; border-radius: 9999px; margin: 0 auto 24px;
-      background: linear-gradient(90deg, var(--primary), var(--primary2));
-    }
-    .hero__desc {
-      font-family: var(--inter); font-size: 16px; color: var(--fg);
-      opacity: 0.5; line-height: 1.7; text-align: center;
-      max-width: 480px; margin-bottom: 40px;
-    }
+    --radius-sm:   8px;
+    --radius:     10px;
+    --radius-card: 12px;
+    --radius-pill: 9999px;
 
-    /* ─── STATS ─── */
-    .stats {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      border-radius: var(--radius-card);
-      background: var(--card-bg); border: 1px solid var(--border2);
-      max-width: 680px; width: 100%;
-    }
-    .stat {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      padding: 16px 24px;
-    }
-    .stat-divider {
-      display: none; width: 1px; align-self: stretch;
-      margin: 16px 0; background: var(--border2);
-    }
-    @media (min-width: 600px) { .stat-divider { display: block; } }
-    .stat__icon { color: var(--primary); opacity: 0.8; }
-    .stat__num {
-      font-family: var(--figtree); font-size: 28px; font-weight: 500;
-      color: var(--fg); line-height: 1;
-    }
-    .stat__label {
-      font-family: var(--inter); font-size: 12px;
-      color: var(--fg); opacity: 0.4; text-align: center;
-    }
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --sans:  'Hanken Grotesk', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
-    /* ─── GRADIENT DIVIDER ─── */
-    .gdiv {
-      position: relative; display: flex; justify-content: center; padding: 4px 0;
-    }
-    .gdiv__glow {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      width: 300px; height: 20px; border-radius: 9999px;
-      pointer-events: none;
-      background: radial-gradient(ellipse at center, rgba(255,0,4,0.25) 0%, rgba(255,0,4,0.08) 40%, transparent 70%);
-    }
-    .gdiv__line {
-      width: 100%; max-width: 384px; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,0,0,0.4), transparent);
-      position: relative; z-index: 1;
-    }
+    --shadow-card:  0 1px 2px rgba(17,17,17,0.04), 0 6px 20px -16px rgba(17,17,17,0.20);
+    --shadow-lift:  0 2px 4px rgba(17,17,17,0.05), 0 18px 40px -26px rgba(17,17,17,0.28);
+    --shadow-pop:   0 14px 36px -24px rgba(17,17,17,0.24);
+    --shadow-cta:   0 6px 16px -8px rgba(17,17,17,0.34);
 
-    /* ─── MAIN LAYOUT ─── */
-    .locator-main {
-      max-width: 1440px; margin: 0 auto;
-      padding: 48px 48px;
-      display: grid;
-      grid-template-columns: minmax(0,420px) 1fr;
-      gap: 40px;
-    }
-    @media (max-width: 1024px) {
-      .locator-main { grid-template-columns: 1fr; padding: 32px 24px; }
-    }
+    /* aliases legados (CSS/JS herdados do template) */
+    --fg: var(--ink);
+    --primary: var(--amber);
+    --figtree: var(--serif);
+    --inter: var(--sans);
 
-    /* ─── MAP PANEL ─── */
-    .map-panel {
-      position: sticky; top: 96px; height: fit-content;
-      align-self: start;
-      background: var(--card-bg); border: 1px solid var(--border2);
-      border-radius: var(--radius-card); padding: 24px;
-    }
-    @media (max-width: 1024px) {
-      .map-panel { position: static; top: auto; }
-    }
-    .map-panel h3 {
-      font-family: var(--figtree); font-size: 18px; font-weight: 500;
-      color: var(--fg); margin-bottom: 4px; line-height: 1.3;
-    }
-    .map-panel p {
-      font-family: var(--inter); font-size: 13px;
-      color: var(--fg); opacity: 0.4; margin-bottom: 24px;
-    }
-    #brazil-map {
-      position: relative;
-      width: 100%; max-width: 460px;
-      margin: 0 auto 16px;
-    }
-    #brazil-map::before {
-      content: "";
-      display: block;
-      padding-bottom: 115%;
-    }
-    #brazil-map .brazil-map__inner {
-      position: absolute;
-      inset: 0;
-    }
-    #brazil-map .region-group {
-      position: absolute;
-      inset: 0;
-    }
-    #brazil-map .region-shape {
-      position: absolute;
-      cursor: pointer;
-      z-index: 1;
-    }
-    #brazil-map .region-shape-inner {
-      position: absolute;
-    }
-    #brazil-map .region-shape svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-    #brazil-map .region-shape svg,
-    #brazil-map .region-shape path {
-      pointer-events: none;
-    }
-    #brazil-map .region-path {
-      fill: #2a2a2a;
-      stroke: #4a4a4a;
-      stroke-width: 1.06269;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: fill .3s ease, stroke .3s ease, filter .3s ease;
-    }
-    #brazil-map .region-group.is-hovered .region-path {
-      fill: rgba(255,255,255,0.1);
-      stroke: rgba(255,255,255,0.28);
-    }
-    #brazil-map .region-group.is-selected .region-path {
-      fill: rgba(255,0,0,0.25);
-      stroke: rgba(255,0,0,0.55);
-      filter: drop-shadow(0 0 10px rgba(255,0,0,0.22));
-    }
-    #brazil-map .region-label {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      z-index: 2;
-    }
-    #brazil-map .region-label__name {
-      font-family: var(--figtree);
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      color: rgba(255,255,255,0.5);
-      text-shadow: 0 1px 6px rgba(0,0,0,0.8);
-      white-space: nowrap;
-      transition: all .3s ease;
-    }
-    #brazil-map .region-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px 8px;
-      border-radius: 9999px;
-      font-family: var(--inter);
-      font-size: 8px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.35);
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: all .3s ease;
-      white-space: nowrap;
-    }
-    #brazil-map .region-group.is-hovered .region-label__name {
-      font-size: 11px;
-      color: rgba(255,255,255,0.9);
-    }
-    #brazil-map .region-group.is-selected .region-label__name {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-    #brazil-map .region-group.is-selected .region-badge {
-      color: rgba(255,0,0,0.9);
-      background: rgba(255,0,0,0.12);
-      border-color: rgba(255,0,0,0.2);
-    }
-    #brazil-map .region-group.is-hovered .region-badge {
-      color: rgba(255,255,255,0.75);
-      border-color: rgba(255,255,255,0.12);
-    }
-    .map-legend {
-      display: flex; flex-wrap: wrap; gap: 16px;
-      border-top: 1px solid var(--border2); padding-top: 12px;
-      margin-bottom: 16px;
-    }
-    .legend-item {
-      display: flex; align-items: center; gap: 6px;
-      font-family: var(--inter); font-size: 11px;
-      color: var(--fg); opacity: 0.4;
-    }
-    .legend-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-    }
-    .legend-dot--selected { background: var(--primary); }
-    .legend-dot--default { background: rgba(255,255,255,0.12); }
-    .map-region-btns {
-      display: flex; flex-wrap: wrap; gap: 8px;
-    }
-    .map-btn {
-      font-family: var(--inter); font-size: 12px; font-weight: 500;
-      padding: 6px 12px; border-radius: var(--radius-btn);
-      border: 1px solid var(--border2);
-      background: var(--card-bg2); color: var(--fg);
-      transition: all .2s; outline: none;
-    }
-    .map-btn:hover { border-color: rgba(255,0,0,0.3); }
-    .map-btn.active {
-      background: var(--primary); border-color: var(--primary);
-      color: #fff;
-    }
+    position: relative;
+    display: block;
+    isolation: isolate;
+    overflow: visible;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 0;
+  }
+  #pcyes-reseller-locator a { color: inherit; text-decoration: none; }
+  #pcyes-reseller-locator button { cursor: pointer; font: inherit; }
+  #pcyes-reseller-locator svg { display: block; }
 
-    /* ─── GRID PANEL ─── */
-    .grid-panel { min-width: 0; }
+  #pcyes-reseller-locator .hero__inner,
+  #pcyes-reseller-locator .locator-main,
+  #pcyes-reseller-locator .cta-wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  #pcyes-reseller-locator .search-row,
+  #pcyes-reseller-locator .filter-bar,
+  #pcyes-reseller-locator .cards-grid {
+    width: 100%;
+    min-width: 0;
+  }
 
-    /* ─── SEARCH BAR ─── */
-    .search-row {
-      display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
-    }
-    .search-field {
-      flex: 1; min-width: 200px; position: relative;
-    }
-    .search-field__icon {
-      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-      color: var(--fg); opacity: 0.3; pointer-events: none;
-    }
-    .search-field__icon--cep { color: var(--primary); opacity: 0.5; }
-    .search-input {
-      width: 100%; padding: 10px 14px 10px 38px;
-      font-family: var(--inter); font-size: 13px; color: var(--fg);
-      background: var(--card-bg2); border: 1px solid var(--border2);
-      border-radius: var(--radius); outline: none;
-      transition: border-color .2s;
-    }
-    .search-input::placeholder { color: var(--fg); opacity: 0.3; }
-    .search-input:focus { border-color: rgba(255,0,0,0.2); }
-    .search-field--cep { flex: 0 0 180px; }
-    .search-field--cep .search-input { border-color: rgba(255,0,0,0.15); }
+  /* ─────────────────────────────────────────────────────────
+     HERO — compacto. O wrapper do SPA já reserva a altura da
+     navbar, então o respiro aqui é só o da própria seção.
+     ───────────────────────────────────────────────────────── */
+  .hero { position: relative; }
+  .hero__inner {
+    padding: 44px 48px 36px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  @media (max-width: 768px) {
+    .hero__inner { padding: 30px 20px 26px; }
+  }
+  .hero__badge {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-bottom: 12px;
+  }
+  .hero__title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  .hero__title em { font-style: italic; font-weight: 500; color: var(--amber-deep); }
+  .hero__desc {
+    font-family: var(--sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--ink-meta);
+    text-align: center;
+    max-width: 520px;
+    margin: 0 0 28px;
+  }
 
-    /* ─── FILTER TOGGLE (mobile) ─── */
-    .filter-toggle-btn {
-      display: none; align-items: center; gap: 8px;
-      padding: 10px 16px;
-      font-family: var(--inter); font-size: 13px; color: var(--fg);
-      background: var(--card-bg2); border: 1px solid var(--border2);
-      border-radius: var(--radius); outline: none;
-    }
-    @media (max-width: 640px) { .filter-toggle-btn { display: flex; } }
+  /* ─── STATS — filete editorial, sem ícone ─── */
+  .stats {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    max-width: 640px; width: 100%;
+  }
+  .stat {
+    flex: 1 1 0; min-width: 110px;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 16px 18px;
+  }
+  .stat-divider {
+    display: none; width: 1px; align-self: stretch;
+    margin: 14px 0; background: var(--hairline);
+  }
+  @media (min-width: 600px) { .stat-divider { display: block; } }
+  .stat__num {
+    font-family: var(--serif); font-size: 30px; font-weight: 600;
+    letter-spacing: -0.02em; color: var(--ink); line-height: 1.05;
+  }
+  .stat__label {
+    font-family: var(--sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-meta); text-align: center;
+  }
 
-    /* ─── FILTER BAR ─── */
-    .filter-bar {
-      display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
-      margin-bottom: 24px;
-    }
-    @media (max-width: 640px) { .filter-bar.mobile-hidden { display: none; } }
-    .filter-dropdown { position: relative; }
-    .filter-btn {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 16px; min-width: 160px;
-      font-family: var(--inter); font-size: 13px; color: var(--fg);
-      background: var(--card-bg2); border: 1px solid var(--border2);
-      border-radius: var(--radius); outline: none;
-      transition: border-color .2s; white-space: nowrap;
-    }
-    .filter-btn span { flex: 1; text-align: left; opacity: 0.7; }
-    .filter-btn span.selected { opacity: 1; color: var(--fg); }
-    .filter-btn svg { opacity: 0.4; flex-shrink: 0; transition: transform .2s; }
-    .filter-btn.open svg { transform: rotate(180deg); }
-    .filter-btn.open { border-color: rgba(255,0,0,0.3); }
-    .filter-menu {
-      position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-      background: #1a1a1a; border: 1px solid var(--border2);
-      border-radius: var(--radius); z-index: 30;
-      overflow: hidden; max-height: 240px; overflow-y: auto;
-      display: none;
-    }
-    .filter-menu.open { display: block; }
-    .filter-option {
-      width: 100%; text-align: left; padding: 9px 16px;
-      font-family: var(--inter); font-size: 13px; color: var(--fg);
-      background: none; border: none; opacity: 0.6;
-      transition: background .15s, opacity .15s; outline: none;
-    }
-    .filter-option:hover { background: rgba(255,255,255,.04); opacity: 0.9; }
-    .filter-option.active { color: var(--primary); opacity: 1; background: rgba(255,0,0,.06); }
-    .clear-btn {
-      display: flex; align-items: center; gap: 6px;
-      font-family: var(--inter); font-size: 13px; color: var(--primary);
-      background: none; border: none; padding: 4px 0; outline: none;
-      transition: opacity .2s;
-    }
-    .clear-btn:hover { opacity: 0.8; }
-    .results-count {
-      margin-left: auto;
-      font-family: var(--inter); font-size: 12px;
-      color: var(--fg); opacity: 0.4;
-    }
+  /* ─── DIVISOR — hairline, sem brilho ─── */
+  .gdiv { display: flex; justify-content: center; padding: 0 48px; }
+  .gdiv__line { width: 100%; max-width: 1344px; height: 1px; background: var(--hairline); }
+  @media (max-width: 768px) { .gdiv { padding: 0 20px; } }
 
-    /* ─── ACTIVE TAGS ─── */
-    .active-tags {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
-    }
-    .tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 12px; border-radius: 9999px;
-      font-family: var(--inter); font-size: 12px;
-    }
-    .tag--region {
-      color: var(--primary);
-      background: rgba(255,0,0,.08);
-      border: 1px solid rgba(255,0,0,.15);
-    }
-    .tag--other {
-      color: var(--fg); opacity: 0.8;
-      background: var(--card-bg2);
-      border: 1px solid var(--border2);
-    }
-    .tag button {
-      background: none; border: none; padding: 0; line-height: 1;
-      color: inherit; opacity: 0.6; outline: none;
-      display: flex; align-items: center;
-      transition: opacity .2s;
-    }
-    .tag button:hover { opacity: 1; }
+  /* ─── LAYOUT ─── */
+  .locator-main {
+    padding: 40px 48px 48px;
+    display: grid;
+    grid-template-columns: minmax(0,400px) 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 1024px) {
+    .locator-main { grid-template-columns: 1fr; padding: 28px 20px 36px; }
+  }
 
-    /* ─── CARDS GRID ─── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 1280px) {
-      .cards-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .cards-grid { grid-template-columns: 1fr; }
-    }
+  /* ─── PAINEL DO MAPA ─── */
+  .map-panel {
+    position: sticky; top: 104px; height: fit-content;
+    align-self: start;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+  }
+  @media (max-width: 1024px) {
+    .map-panel { position: static; top: auto; }
+  }
+  .map-panel h3 {
+    font-family: var(--serif); font-size: 20px; font-weight: 600;
+    letter-spacing: -0.01em; color: var(--ink);
+    margin: 0 0 4px; line-height: 1.25;
+  }
+  .map-panel p {
+    font-family: var(--sans); font-size: 13px;
+    color: var(--ink-meta); margin: 0 0 20px;
+  }
 
-    /* ─── STORE CARD ─── */
-    .store-card {
-      position: relative;
-      display: flex; flex-direction: column; gap: 16px;
-      padding: 20px;
-      background: var(--card-bg2);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius-card);
-      transition: transform .4s cubic-bezier(0.22,1,0.36,1),
-                  box-shadow .4s cubic-bezier(0.22,1,0.36,1);
-      overflow: hidden;
-    }
-    .store-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(255,0,4,0.08), 0 0 0 1px rgba(255,255,255,0.08);
-    }
-    .store-card.highlighted {
-      border-color: rgba(255,0,0,0.2);
-    }
-    .store-card.highlighted::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-    .card__head {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 8px;
-    }
-    .card__info { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
-    .card__icon {
-      flex-shrink: 0; width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius);
-    }
-    .card__icon--online { background: rgba(255,0,0,0.1); }
-    .card__icon--offline { background: rgba(255,255,255,0.06); }
-    .card__icon--online svg  { color: var(--primary); }
-    .card__icon--offline svg { color: var(--fg); opacity: 0.5; }
-    .card__name {
-      font-family: var(--figtree); font-size: 15px; font-weight: 500;
-      color: var(--fg); line-height: 1.3; white-space: nowrap;
-      overflow: hidden; text-overflow: ellipsis;
-    }
-    .card__type {
-      font-family: var(--inter); font-size: 12px; margin-top: 2px;
-    }
-    .card__type--online   { color: var(--primary); }
-    .card__type--offline  { color: var(--muted); }
-    .card__state {
-      flex-shrink: 0;
-      font-family: var(--inter); font-size: 11px; font-weight: 500;
-      color: var(--fg); opacity: 0.5;
-      background: rgba(255,255,255,0.06); border: 1px solid var(--border2);
-      border-radius: var(--radius); padding: 2px 8px;
-    }
-    .card__body { display: flex; flex-direction: column; gap: 8px; }
-    .card__row {
-      display: flex; align-items: flex-start; gap: 8px;
-    }
-    .card__row svg { flex-shrink: 0; color: var(--fg); opacity: 0.3; margin-top: 1px; }
-    .card__row span {
-      font-family: var(--inter); font-size: 13px;
-      color: var(--fg); opacity: 0.5; line-height: 1.5;
-    }
-    .card__foot { margin-top: auto; display: flex; gap: 8px; }
-    .btn-visit {
-      display: inline-flex; align-items: center;
-      justify-content: center; gap: 6px;
-      padding: 8px 14px;
-      font-family: var(--inter); font-size: 13px; font-weight: 500;
-      color: #fff; background: var(--primary);
-      border: none; border-radius: var(--radius-btn);
-      text-decoration: none;
-      transition: filter .2s;
-    }
-    .btn-visit--full { flex: 1; }
-    .btn-visit:hover { filter: brightness(1.1); }
-    .btn-route {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 14px;
-      font-family: var(--inter); font-size: 13px; font-weight: 500;
-      color: var(--fg); opacity: 0.8;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border2); border-radius: var(--radius-btn);
-      text-decoration: none;
-      transition: opacity .2s, border-color .2s;
-    }
-    .btn-route:hover { opacity: 1; border-color: rgba(255,255,255,0.2); }
+  #brazil-map { position: relative; width: 100%; max-width: 440px; margin: 0 auto 16px; }
+  #brazil-map::before { content: ""; display: block; padding-bottom: 115%; }
+  #brazil-map .brazil-map__inner { position: absolute; inset: 0; }
+  #brazil-map .region-group { position: absolute; inset: 0; }
+  #brazil-map .region-shape { position: absolute; cursor: pointer; z-index: 1; }
+  #brazil-map .region-shape-inner { position: absolute; }
+  #brazil-map .region-shape svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  #brazil-map .region-shape svg,
+  #brazil-map .region-shape path { pointer-events: none; }
 
-    /* ─── EMPTY STATE ─── */
-    .empty {
-      grid-column: 1/-1;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; padding: 80px 40px;
-      background: var(--card-bg2); border: 1px solid var(--border2);
-      border-radius: var(--radius-card); text-align: center;
-    }
-    .empty svg { color: var(--fg); opacity: 0.1; margin-bottom: 16px; }
-    .empty p { font-family: var(--inter); color: var(--fg); opacity: 0.4; margin-bottom: 4px; }
-    .empty small { font-family: var(--inter); font-size: 13px; color: var(--fg); opacity: 0.25; margin-bottom: 24px; }
-    .empty button {
-      padding: 8px 20px; background: var(--primary); color: #fff;
-      border: none; border-radius: var(--radius-btn);
-      font-family: var(--inter); font-size: 13px; font-weight: 500;
-      transition: filter .2s;
-    }
-    .empty button:hover { filter: brightness(1.1); }
+  #brazil-map .region-path {
+    fill: #f0f0f0;
+    stroke: #e2e2e2;
+    stroke-width: 1.06269;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: fill .25s ease, stroke .25s ease;
+  }
+  #brazil-map .region-group.is-hovered .region-path {
+    fill: var(--amber);
+    stroke: var(--amber-deep);
+  }
+  #brazil-map .region-group.is-selected .region-path {
+    fill: var(--amber-deep);
+    stroke: #7d4a00;
+  }
+  #brazil-map .region-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none; user-select: none;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    z-index: 2;
+  }
+  #brazil-map .region-label__name {
+    font-family: var(--sans);
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--ink-meta);
+    white-space: nowrap;
+    transition: color .25s ease, font-size .25s ease;
+  }
+  #brazil-map .region-group.is-hovered .region-label__name { font-size: 11px; color: #fff; }
+  #brazil-map .region-group.is-selected .region-label__name { font-size: 11px; color: #fff; }
+  #brazil-map .region-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-family: var(--sans); font-size: 8px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--ink-meta);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    white-space: nowrap;
+    transition: background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  #brazil-map .region-group.is-hovered .region-badge { color: var(--ink); background: #fff; border-color: #fff; }
+  #brazil-map .region-group.is-selected .region-badge {
+    background: #fff; color: var(--amber-deep); border-color: #fff; font-weight: 700;
+  }
 
-    /* ─── CTA SECTION ─── */
-    .cta-wrap {
-      max-width: 1440px; margin: 0 auto;
-      padding: 0 48px 64px;
-    }
-    @media (max-width: 768px) { .cta-wrap { padding: 0 24px 48px; } }
-    .cta-box {
-      position: relative; overflow: hidden;
-      padding: 64px 48px; text-align: center;
-      background: var(--card-bg); border: 1px solid var(--border2);
-      border-radius: var(--radius-card);
-    }
-    .cta-box__glow {
-      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 400px; height: 200px; pointer-events: none;
-      background: radial-gradient(ellipse at top center, rgba(255,0,0,0.1) 0%, transparent 70%);
-    }
-    .cta-box__top-line {
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-      opacity: 0.3;
-    }
-    .cta-box__inner { position: relative; z-index: 1; }
-    .cta-box svg { color: var(--primary); opacity: 0.6; margin: 0 auto 16px; }
-    .cta-box h3 {
-      font-family: var(--figtree); font-size: clamp(22px, 3vw, 32px);
-      font-weight: 500; color: var(--fg); line-height: 1.2; margin-bottom: 12px;
-    }
-    .cta-box h3 em { color: var(--primary); font-style: normal; }
-    .cta-box p {
-      font-family: var(--inter); font-size: 16px; color: var(--fg);
-      opacity: 0.4; line-height: 1.7; max-width: 440px;
-      margin: 0 auto 32px;
-    }
-    /* ─── CTA BUTTON (pill, matching seja-revendedor style) ─── */
-    .btn-cta {
-      position: relative;
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 10px; min-height: 56px; padding: 0 32px;
-      border: 0; border-radius: 24px;
-      background: var(--primary); color: #fff;
-      font-family: var(--figtree); font-size: 15px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      text-decoration: none; overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(255,0,0,0.25), 0 0 30px rgba(255,0,0,0.18);
-      transition: background .3s ease, box-shadow .3s ease, transform .15s ease;
-    }
-    .btn-cta::before {
-      content: ''; position: absolute; inset: 0;
-      border-radius: inherit;
-      border: 1px solid rgba(255,255,255,0.12);
-      pointer-events: none; z-index: 1;
-    }
-    .btn-cta::after {
-      content: ''; position: absolute; inset: 0;
-      border-radius: inherit;
-      background: rgba(255,0,0,0.22);
-      filter: blur(18px); pointer-events: none;
-      animation: btn-glow 3s ease-in-out infinite;
-    }
-    .btn-cta span, .btn-cta svg { position: relative; z-index: 1; }
-    .btn-cta:hover {
-      background: #cc0000;
-      box-shadow: 0 0 0 1px rgba(255,0,0,0.3), 0 0 40px rgba(255,0,0,0.24);
-    }
-    .btn-cta:active { transform: scale(0.98); }
+  .map-legend {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    border-top: 1px solid var(--hairline);
+    padding-top: 12px; margin-bottom: 16px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--sans); font-size: 11px; color: var(--ink-meta);
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .legend-dot--selected { background: var(--amber-deep); }
+  .legend-dot--default { background: #dcdcdc; }
 
-    /* ─── ANIMATIONS ─── */
-    @keyframes btn-glow {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fade-up .5s ease both; }
-    .fade-up-d1 { animation-delay: .1s; }
-    .fade-up-d2 { animation-delay: .2s; }
-    .fade-up-d3 { animation-delay: .3s; }
-    .fade-up-d4 { animation-delay: .4s; }
-    .fade-up-d5 { animation-delay: .5s; }
+  /* ─── BOTÕES DE REGIÃO — pílula, ativo preto ─── */
+  .map-region-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .map-btn {
+    font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+    padding: 8px 16px; border-radius: var(--radius-pill);
+    border: 1px solid var(--hairline);
+    background: var(--surface); color: var(--ink);
+    transition: border-color .2s, background .2s, color .2s;
+    outline: none;
+  }
+  .map-btn:hover { border-color: var(--ink); }
+  .map-btn.active {
+    background: var(--ink); border-color: var(--ink); color: #fff;
+    box-shadow: var(--shadow-card);
+  }
 
-    /* Magento-safe wrapper to avoid theme collisions */
-    #pcyes-reseller-locator,
-    #pcyes-reseller-locator *,
-    #pcyes-reseller-locator *::before,
-    #pcyes-reseller-locator *::after {
-      box-sizing: border-box;
-    }
-    #pcyes-reseller-locator {
-      --bg:        #121212;
-      --fg:        #ffffff;
-      --primary:   #ff2b2e;
-      --primary2:  #ff5558;
-      --muted:     rgba(255,255,255,0.5);
-      --border:    rgba(255,255,255,0.08);
-      --border2:   rgba(255,255,255,0.05);
-      --card-bg:   rgba(255,255,255,0.03);
-      --card-bg2:  rgba(255,255,255,0.04);
-      --radius:    4px;
-      --radius-card: 8px;
-      --radius-btn: 4px;
-      --figtree: 'Figtree', sans-serif;
-      --inter:   'Inter', sans-serif;
-      position: relative;
-      display: block;
-      isolation: isolate;
-      overflow: visible;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--inter);
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      padding-top: 64px;
-    }
-    #pcyes-reseller-locator a { color: inherit; text-decoration: none; }
-    #pcyes-reseller-locator button { cursor: pointer; font: inherit; }
-    #pcyes-reseller-locator svg { display: block; }
-    #pcyes-reseller-locator #noise { position: absolute; inset: 0; z-index: 0; }
-    #pcyes-reseller-locator .circuit { position: absolute; z-index: 0; }
-    #pcyes-reseller-locator .hero,
-    #pcyes-reseller-locator .gdiv,
-    #pcyes-reseller-locator .locator-main,
-    #pcyes-reseller-locator .cta-wrap {
-      position: relative;
-      z-index: 1;
-    }
-    #pcyes-reseller-locator .hero__inner,
-    #pcyes-reseller-locator .locator-main,
-    #pcyes-reseller-locator .cta-wrap {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-    #pcyes-reseller-locator .search-row,
-    #pcyes-reseller-locator .filter-bar,
-    #pcyes-reseller-locator .cards-grid {
-      width: 100%;
-      min-width: 0;
-    }
-    #pcyes-reseller-locator .search-field { flex: 1 1 260px; min-width: 0; }
-    #pcyes-reseller-locator .search-field--cep { flex: 0 0 180px; }
-    #pcyes-reseller-locator .search-input,
-    #pcyes-reseller-locator .filter-btn,
-    #pcyes-reseller-locator .filter-toggle-btn,
-    #pcyes-reseller-locator .filter-option {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 100%;
-      box-shadow: none;
-    }
-    #pcyes-reseller-locator .search-field__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 16px;
-      height: 16px;
-      left: 14px;
-      top: 50%;
-      margin: 0;
-      line-height: 1;
-      z-index: 2;
-    }
-    #pcyes-reseller-locator .search-field__icon svg {
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
-    }
-    #pcyes-reseller-locator .search-input {
-      background: var(--card-bg2);
-      color: var(--fg);
-      border: 1px solid var(--border2);
-      min-height: 44px;
-      padding: 10px 14px 10px 38px;
-      font-family: var(--inter);
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.2;
-      border-radius: var(--radius);
-    }
-    #pcyes-reseller-locator .search-input::placeholder {
-      font-size: 13px;
-      line-height: 1.2;
-    }
-    #pcyes-reseller-locator .filter-dropdown { width: auto; min-width: 160px; }
-    #pcyes-reseller-locator .filter-btn {
-      width: auto;
-      min-width: 160px;
-      min-height: 44px;
-      padding: 10px 16px;
-      font-family: var(--inter);
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.2;
-      border-radius: var(--radius);
-    }
-    #pcyes-reseller-locator .filter-btn span {
-      font-size: 13px;
-      line-height: 1.2;
-    }
-    #pcyes-reseller-locator .filter-btn svg {
-      width: 14px;
-      height: 14px;
-      flex: 0 0 14px;
-    }
-    #pcyes-reseller-locator .filter-menu {
-      min-width: 160px;
-    }
-    #pcyes-reseller-locator .filter-option {
-      min-height: 0;
-      padding: 9px 16px;
-      font-family: var(--inter);
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.2;
-      text-transform: none;
-      letter-spacing: 0;
-    }
-    #pcyes-reseller-locator .map-region-btns {
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
-    #pcyes-reseller-locator .map-btn {
-      width: auto;
-      min-width: 0;
-      min-height: 0;
-      padding: 6px 12px;
-      font-family: var(--inter);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 1.2;
-      text-transform: none;
-      letter-spacing: 0;
-      white-space: nowrap;
-      box-shadow: none;
-    }
-    #pcyes-reseller-locator .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items: start;
-    }
-    #pcyes-reseller-locator .store-card {
-      min-width: 0;
-      width: 100%;
-    }
-    @media (max-width: 1280px) {
-      #pcyes-reseller-locator .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 767px) {
-      #pcyes-reseller-locator .stats { display: none; }
-      #pcyes-reseller-locator .hero__inner { padding-bottom: 32px; }
-    }
-    @media (max-width: 640px) {
-      #pcyes-reseller-locator .filter-dropdown {
-        width: 100%;
-      }
-      #pcyes-reseller-locator .filter-btn {
-        width: 100%;
-      }
-      #pcyes-reseller-locator .cards-grid { grid-template-columns: 1fr; }
-    }
+  /* ─── PAINEL DA GRADE ─── */
+  .grid-panel { min-width: 0; }
 
-/* ===== LIGHT MODE ===== */
-.light #pcyes-reseller-locator {
-  --bg: #fafafa;
-  --fg: #161616;
-  --primary: #dc1414;
-  --primary2: #ff5558;
-  --muted: rgba(22,22,22,0.5);
-  --border: rgba(0,0,0,0.08);
-  --border2: rgba(0,0,0,0.05);
-  --card-bg: rgba(0,0,0,0.02);
-  --card-bg2: rgba(0,0,0,0.03);
-}
-.light #pcyes-reseller-locator .hero__badge { background: rgba(220,20,20,0.9); color: rgba(22,22,22,0.7); }
-.light #pcyes-reseller-locator .hero__desc { color: rgba(22,22,22,0.5); }
-.light #pcyes-reseller-locator .map-panel { background: #ffffff; border-color: rgba(0,0,0,0.08); }
-.light #pcyes-reseller-locator .map-panel h3 { color: #161616; }
-.light #pcyes-reseller-locator .map-panel p { color: rgba(22,22,22,0.5); }
-.light #pcyes-reseller-locator #brazil-map .region-path { fill: #e0e0e0; stroke: rgba(0,0,0,0.15); }
-.light #pcyes-reseller-locator #brazil-map .region-group.is-hovered .region-path { fill: rgba(0,0,0,0.08); stroke: rgba(0,0,0,0.2); }
-.light #pcyes-reseller-locator #brazil-map .region-group.is-selected .region-path { fill: rgba(220,20,20,0.15); stroke: rgba(220,20,20,0.4); }
-.light #pcyes-reseller-locator #brazil-map .region-label__name { color: rgba(22,22,22,0.5); }
-.light #pcyes-reseller-locator #brazil-map .region-group.is-hovered .region-label__name { color: rgba(22,22,22,0.9); }
-.light #pcyes-reseller-locator #brazil-map .region-group.is-selected .region-label__name { color: #dc1414; }
-.light #pcyes-reseller-locator .region-badge { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.08); color: rgba(22,22,22,0.35); }
-.light #pcyes-reseller-locator .map-btn { background: #ffffff; border-color: rgba(0,0,0,0.08); color: #161616; }
-.light #pcyes-reseller-locator .map-btn:hover { border-color: rgba(220,20,20,0.3); }
-.light #pcyes-reseller-locator .map-btn.active { background: #dc1414; border-color: #dc1414; color: #fff; }
-.light #pcyes-reseller-locator .search-input { background: #ffffff; border-color: rgba(0,0,0,0.08); color: #161616; }
-.light #pcyes-reseller-locator .search-input::placeholder { color: rgba(22,22,22,0.35); }
-.light #pcyes-reseller-locator .filter-btn { background: #ffffff; border-color: rgba(0,0,0,0.08); color: #161616; }
-.light #pcyes-reseller-locator .filter-menu { background: #ffffff; border-color: rgba(0,0,0,0.08); }
-.light #pcyes-reseller-locator .filter-option { color: #161616; }
-.light #pcyes-reseller-locator .filter-option:hover { background: rgba(0,0,0,0.03); }
-.light #pcyes-reseller-locator .filter-option.active { color: #dc1414; background: rgba(220,20,20,0.06); }
-.light #pcyes-reseller-locator .store-card { background: #ffffff; border-color: rgba(0,0,0,0.08); }
-.light #pcyes-reseller-locator .store-card:hover { border-color: rgba(220,20,20,0.2); }
-.light #pcyes-reseller-locator .card__name { color: #161616; }
-.light #pcyes-reseller-locator .card__row span { color: rgba(22,22,22,0.5); }
-.light #pcyes-reseller-locator .btn-route { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); color: #161616; }
-.light #pcyes-reseller-locator .cta-box { background: #ffffff; border-color: rgba(0,0,0,0.08); }
-.light #pcyes-reseller-locator .cta-box h3 { color: #161616; }
-.light #pcyes-reseller-locator .cta-box p { color: rgba(22,22,22,0.5); }
-.light #pcyes-reseller-locator .empty { background: #ffffff; border-color: rgba(0,0,0,0.08); }
-.light #pcyes-reseller-locator .empty p { color: rgba(22,22,22,0.5); }
+  /* ─── BUSCA ─── */
+  .search-row { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .search-field { flex: 1 1 260px; min-width: 0; position: relative; }
+  .search-field--cep { flex: 0 0 180px; }
+  .search-field__icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    display: flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; margin: 0; line-height: 1; z-index: 2;
+    color: var(--ink-meta); pointer-events: none;
+  }
+  .search-field__icon svg { width: 16px; height: 16px; flex: 0 0 16px; }
+  .search-field__icon--cep { color: var(--amber-deep); }
+  .search-input {
+    appearance: none; -webkit-appearance: none;
+    width: 100%; min-height: 46px;
+    padding: 11px 18px 11px 42px;
+    font-family: var(--sans); font-size: 14px; font-weight: 400; line-height: 1.2;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+    box-shadow: none; outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .search-input::placeholder { color: var(--ink-meta); opacity: .75; font-size: 14px; }
+  .search-input:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(17,17,17,0.06); }
+  .search-field--cep .search-input { border-color: var(--hairline); }
 
+  /* ─── TOGGLE DE FILTROS (mobile) ─── */
+  .filter-toggle-btn {
+    display: none; align-items: center; justify-content: center; gap: 8px;
+    appearance: none; -webkit-appearance: none;
+    min-height: 46px; padding: 11px 20px;
+    font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+    outline: none; box-shadow: none;
+  }
+  @media (max-width: 640px) { .filter-toggle-btn { display: flex; width: 100%; } }
+
+  /* ─── BARRA DE FILTROS ─── */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 640px) { .filter-bar.mobile-hidden { display: none; } }
+  .filter-dropdown { position: relative; width: auto; min-width: 168px; }
+  .filter-btn {
+    appearance: none; -webkit-appearance: none;
+    display: flex; align-items: center; gap: 8px;
+    width: auto; min-width: 168px; min-height: 44px;
+    padding: 10px 18px;
+    font-family: var(--sans); font-size: 13.5px; font-weight: 500; line-height: 1.2;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+    box-shadow: none; outline: none;
+    transition: border-color .2s;
+    white-space: nowrap;
+  }
+  .filter-btn span { flex: 1; text-align: left; font-size: 13.5px; line-height: 1.2; color: var(--ink-meta); }
+  .filter-btn span.selected { color: var(--ink); font-weight: 600; }
+  .filter-btn svg { width: 14px; height: 14px; flex: 0 0 14px; color: var(--ink-meta); transition: transform .2s; }
+  .filter-btn.open { border-color: var(--ink); }
+  .filter-btn.open svg { transform: rotate(180deg); }
+  .filter-menu {
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    min-width: 168px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius); box-shadow: var(--shadow-pop);
+    z-index: 30; overflow: hidden; max-height: 260px; overflow-y: auto;
+    display: none; padding: 4px;
+  }
+  .filter-menu.open { display: block; }
+  .filter-option {
+    appearance: none; -webkit-appearance: none;
+    width: 100%; text-align: left;
+    min-height: 0; padding: 9px 14px;
+    font-family: var(--sans); font-size: 13.5px; font-weight: 500; line-height: 1.2;
+    text-transform: none; letter-spacing: 0;
+    color: var(--ink-meta);
+    background: none; border: none; border-radius: var(--radius-sm);
+    box-shadow: none; outline: none;
+    transition: background .15s, color .15s;
+  }
+  .filter-option:hover { background: var(--surface-2); color: var(--ink); }
+  .filter-option.active { background: var(--ink); color: #fff; font-weight: 600; }
+
+  .clear-btn {
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--sans); font-size: 13px; font-weight: 600;
+    color: var(--ink-meta);
+    background: none; border: none; padding: 4px 6px; outline: none;
+    text-decoration: underline; text-underline-offset: 3px;
+    transition: color .2s;
+  }
+  .clear-btn:hover { color: var(--ink); }
+  .results-count {
+    margin-left: auto;
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-meta);
+  }
+
+  /* ─── TAGS ATIVAS ─── */
+  .active-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: var(--radius-pill);
+    font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  }
+  .tag--region { color: #fff; background: var(--ink); border: 1px solid var(--ink); }
+  .tag--other  { color: var(--ink); background: var(--surface-2); border: 1px solid var(--hairline); }
+  .tag button {
+    background: none; border: none; padding: 0; line-height: 1;
+    color: inherit; opacity: .7; outline: none;
+    display: flex; align-items: center;
+    transition: opacity .2s;
+  }
+  .tag button:hover { opacity: 1; }
+
+  /* ─── GRADE DE CARDS ─── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 16px;
+  }
+  @media (max-width: 1280px) { .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px)  { .cards-grid { grid-template-columns: 1fr; } }
+
+  /* ─── CARD DE LOJA ─── */
+  .store-card {
+    position: relative;
+    min-width: 0; width: 100%;
+    display: flex; flex-direction: column; gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: transform .35s cubic-bezier(0.22,1,0.36,1),
+                box-shadow .35s cubic-bezier(0.22,1,0.36,1),
+                border-color .2s;
+    overflow: hidden;
+  }
+  .store-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+    border-color: var(--hairline-strong);
+  }
+  .card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  .card__info { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+  .card__icon {
+    flex-shrink: 0; width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+  .card__icon--online  { background: rgba(200,120,0,0.10); }
+  .card__icon--offline { background: var(--well); }
+  .card__icon--online svg  { color: var(--amber-deep); }
+  .card__icon--offline svg { color: var(--ink-soft); }
+  .card__name {
+    font-family: var(--serif); font-size: 16px; font-weight: 600;
+    letter-spacing: -0.01em; color: var(--ink); line-height: 1.25;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; overflow-wrap: anywhere;
+  }
+  .card__type {
+    font-family: var(--sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; margin-top: 3px;
+  }
+  .card__type--online  { color: var(--amber-deep); }
+  .card__type--offline { color: var(--ink-meta); }
+  .card__state {
+    flex-shrink: 0;
+    font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--ink-meta);
+    background: var(--surface-2); border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill); padding: 3px 10px;
+  }
+  .card__body { display: flex; flex-direction: column; gap: 8px; }
+  .card__row { display: flex; align-items: flex-start; gap: 8px; }
+  .card__row svg { flex-shrink: 0; color: var(--ink-meta); opacity: .75; margin-top: 2px; }
+  .card__row span {
+    font-family: var(--sans); font-size: 13.5px;
+    color: var(--ink-meta); line-height: 1.55;
+  }
+  .card__foot { margin-top: auto; display: flex; gap: 8px; }
+
+  /* Botão primário do card: preto, pílula.
+     Prefixado com o id porque o reset `#pcyes-reseller-locator a { color: inherit }`
+     tem um id de especificidade e engolia o branco do texto. */
+  #pcyes-reseller-locator .btn-visit {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 18px;
+    font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+    color: #fff; background: var(--ink);
+    border: 1px solid var(--ink); border-radius: var(--radius-pill);
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: background .2s, transform .15s;
+  }
+  #pcyes-reseller-locator .btn-visit--full { flex: 1; }
+  #pcyes-reseller-locator .btn-visit:hover { background: #000; transform: translateY(-1px); }
+  #pcyes-reseller-locator .btn-visit:active { transform: scale(0.98); }
+
+  /* Botão secundário do card: contorno */
+  #pcyes-reseller-locator .btn-route {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 18px;
+    font-family: var(--sans); font-size: 13px; font-weight: 600;
+    color: var(--ink); background: var(--surface);
+    border: 1px solid var(--hairline); border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  #pcyes-reseller-locator .btn-route:hover { border-color: var(--ink); background: var(--surface-2); }
+
+  /* ─── ESTADO VAZIO ─── */
+  .empty {
+    grid-column: 1/-1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 72px 40px;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    text-align: center;
+  }
+  .empty svg { color: var(--ink); opacity: .14; margin-bottom: 18px; }
+  .empty p {
+    font-family: var(--serif); font-size: 20px; font-weight: 600; letter-spacing: -0.01em;
+    color: var(--ink); margin: 0 0 6px;
+  }
+  .empty small { font-family: var(--sans); font-size: 13.5px; color: var(--ink-meta); margin-bottom: 22px; }
+  .empty button {
+    padding: 11px 24px;
+    background: var(--ink); color: #fff;
+    border: 1px solid var(--ink); border-radius: var(--radius-pill);
+    font-family: var(--sans); font-size: 13px; font-weight: 700;
+    box-shadow: var(--shadow-card);
+    transition: background .2s, transform .15s;
+  }
+  .empty button:hover { background: #000; transform: translateY(-1px); }
+
+  /* ─── CTA ─── */
+  .cta-wrap { padding: 0 48px 64px; }
+  @media (max-width: 768px) { .cta-wrap { padding: 0 20px 48px; } }
+  .cta-box {
+    position: relative; overflow: hidden;
+    padding: 56px 48px; text-align: center;
+    background: var(--well);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+  }
+  @media (max-width: 768px) { .cta-box { padding: 40px 24px; } }
+  .cta-box__inner { position: relative; z-index: 1; }
+  .cta-box svg { color: var(--amber-deep); margin: 0 auto 14px; }
+  .cta-box h3 {
+    font-family: var(--serif); font-size: clamp(24px, 3vw, 36px);
+    font-weight: 600; letter-spacing: -0.02em;
+    color: var(--ink); line-height: 1.15; margin: 0 0 12px;
+  }
+  .cta-box h3 em { font-style: italic; font-weight: 500; color: var(--amber-deep); }
+  .cta-box p {
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    color: var(--ink-meta); max-width: 460px; margin: 0 auto 28px;
+  }
+
+  /* CTA principal: pílula preta */
+  #pcyes-reseller-locator .btn-cta {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 10px; min-height: 52px; padding: 0 32px;
+    border: 1px solid var(--ink); border-radius: var(--radius-pill);
+    background: var(--ink); color: #fff;
+    font-family: var(--sans); font-size: 15px; font-weight: 700;
+    letter-spacing: 0.02em; text-decoration: none;
+    box-shadow: var(--shadow-cta);
+    transition: background .2s ease, transform .15s ease;
+  }
+  #pcyes-reseller-locator .btn-cta span,
+  #pcyes-reseller-locator .btn-cta svg,
+  #pcyes-reseller-locator .btn-visit svg { color: #fff; }
+  #pcyes-reseller-locator .btn-cta:hover { background: #000; transform: translateY(-1px); }
+  #pcyes-reseller-locator .btn-cta:active { transform: scale(0.98); }
+
+  /* ─── ANIMAÇÕES ─── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fade-up .5s cubic-bezier(0.22,1,0.36,1) both; }
+  .fade-up-d1 { animation-delay: .05s; }
+  .fade-up-d2 { animation-delay: .12s; }
+  .fade-up-d3 { animation-delay: .18s; }
+  .fade-up-d4 { animation-delay: .24s; }
+  .fade-up-d5 { animation-delay: .3s; }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { animation: none; }
+    .store-card, #pcyes-reseller-locator .btn-visit, #pcyes-reseller-locator .btn-cta { transition: none; }
+  }
+
+  @media (max-width: 767px) {
+    #pcyes-reseller-locator .stats { display: none; }
+  }
+  @media (max-width: 640px) {
+    #pcyes-reseller-locator .filter-dropdown { width: 100%; }
+    #pcyes-reseller-locator .filter-btn { width: 100%; }
+  }
   </style>
 </head>
 <body>
 <div id="pcyes-reseller-locator">
 
-<!-- ═══════════ NOISE OVERLAY ═══════════ -->
-<div id="noise" aria-hidden="true">
-  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <filter id="noise-f">
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/>
-        <feColorMatrix type="saturate" values="0"/>
-      </filter>
-    </defs>
-    <rect width="100%" height="100%" filter="url(#noise-f)"/>
-  </svg>
-</div>
-
-
-
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
-  <div class="hero__glow" aria-hidden="true"></div>
   <div class="hero__inner">
-    <div class="hero__badge fade-up fade-up-d1">
-      Localizador de Revendedores
-    </div>
-    <h1 class="hero__title fade-up fade-up-d2">Como <em>Encontrar</em></h1>
-    <div class="hero__sep fade-up fade-up-d3"></div>
-    <p class="hero__desc fade-up fade-up-d4">Encontre o revendedor PCYES mais próximo de você. Produtos originais com garantia de fábrica em todo o Brasil.</p>
+    <div class="hero__badge fade-up fade-up-d1">Lojas e revendas</div>
+    <h1 class="hero__title fade-up fade-up-d2">Onde experimentar um <em>Tonante</em></h1>
+    <p class="hero__desc fade-up fade-up-d3">Violão se escolhe no braço. Encontre a loja mais perto, pegue o instrumento na mão e ouça antes de decidir.</p>
 
-    <div class="stats fade-up fade-up-d5">
+    <div class="stats fade-up fade-up-d4">
       <div class="stat">
-        <div class="stat__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-        </div>
         <span class="stat__num" id="stat-total">98</span>
-        <span class="stat__label">Revendedores</span>
+        <span class="stat__label">Lojas</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <div class="stat__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
         <span class="stat__num" id="stat-cidades">65</span>
         <span class="stat__label">Cidades</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <div class="stat__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
         <span class="stat__num" id="stat-estados">24</span>
         <span class="stat__label">Estados</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
-        <div class="stat__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-        </div>
         <span class="stat__num">5</span>
         <span class="stat__label">Regiões</span>
       </div>
@@ -892,18 +629,17 @@
   </div>
 </section>
 
-<!-- ═══════════ DIVIDER ═══════════ -->
+<!-- ═══════════ DIVISOR ═══════════ -->
 <div class="gdiv" aria-hidden="true">
-  <div class="gdiv__glow"></div>
   <div class="gdiv__line"></div>
 </div>
 
 <!-- ═══════════ MAIN ═══════════ -->
 <div class="locator-main">
 
-  <!-- MAP PANEL -->
+  <!-- PAINEL DO MAPA -->
   <aside class="map-panel">
-    <h3>Selecione a Região</h3>
+    <h3>Selecione a região</h3>
     <p>Clique no mapa para filtrar por região</p>
 
     <div id="brazil-map" aria-label="Mapa do Brasil por regiao"></div>
@@ -914,57 +650,55 @@
     </div>
 
     <div class="map-region-btns">
-      <button class="map-btn" data-region="norte"       onclick="filterRegion('norte')">Norte</button>
-      <button class="map-btn" data-region="nordeste"    onclick="filterRegion('nordeste')">Nordeste</button>
+      <button class="map-btn" data-region="norte"        onclick="filterRegion('norte')">Norte</button>
+      <button class="map-btn" data-region="nordeste"     onclick="filterRegion('nordeste')">Nordeste</button>
       <button class="map-btn" data-region="centro-oeste" onclick="filterRegion('centro-oeste')">Centro-Oeste</button>
-      <button class="map-btn" data-region="sudeste"     onclick="filterRegion('sudeste')">Sudeste</button>
-      <button class="map-btn" data-region="sul"         onclick="filterRegion('sul')">Sul</button>
+      <button class="map-btn" data-region="sudeste"      onclick="filterRegion('sudeste')">Sudeste</button>
+      <button class="map-btn" data-region="sul"          onclick="filterRegion('sul')">Sul</button>
     </div>
   </aside>
 
-  <!-- GRID PANEL -->
+  <!-- PAINEL DA GRADE -->
   <div class="grid-panel">
-    <!-- Search -->
+    <!-- Busca -->
     <div class="search-row">
       <div class="search-field">
         <span class="search-field__icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </span>
-        <input class="search-input" id="q-name" type="text" placeholder="Buscar por nome, cidade..." oninput="applyFilters()" autocomplete="off"/>
+        <input class="search-input" id="q-name" type="text" placeholder="Buscar por loja, cidade..." oninput="applyFilters()" autocomplete="off"/>
       </div>
       <div class="search-field search-field--cep">
         <span class="search-field__icon search-field__icon--cep">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </span>
         <input class="search-input" id="q-cep" type="text" placeholder="Buscar CEP" oninput="handleCep(this)" maxlength="9" autocomplete="off"/>
       </div>
       <button class="filter-toggle-btn" onclick="toggleMobileFilters()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
         Filtros
       </button>
     </div>
 
-    <!-- Filters -->
+    <!-- Filtros -->
     <div class="filter-bar mobile-hidden" id="filter-bar">
-      <!-- Tipo -->
       <div class="filter-dropdown" id="dd-tipo">
         <button class="filter-btn" onclick="toggleDropdown('dd-tipo')" id="btn-tipo">
           <span id="lbl-tipo">Todos os tipos</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9"/></svg>
         </button>
         <div class="filter-menu" id="menu-tipo">
           <button class="filter-option active" onclick="selectFilter('tipo','','Todos os tipos')">Todos os tipos</button>
-          <button class="filter-option" onclick="selectFilter('tipo','fisica','Loja Física')">Loja Física</button>
-          <button class="filter-option" onclick="selectFilter('tipo','online','Loja Online')">Loja Online</button>
-          <button class="filter-option" onclick="selectFilter('tipo','autorizada','Autorizada')">Autorizada</button>
+          <button class="filter-option" onclick="selectFilter('tipo','fisica','Loja física')">Loja física</button>
+          <button class="filter-option" onclick="selectFilter('tipo','online','Loja online')">Loja online</button>
+          <button class="filter-option" onclick="selectFilter('tipo','autorizada','Revenda autorizada')">Revenda autorizada</button>
         </div>
       </div>
 
-      <!-- Estado -->
       <div class="filter-dropdown" id="dd-estado">
         <button class="filter-btn" onclick="toggleDropdown('dd-estado')" id="btn-estado">
           <span id="lbl-estado">Todos os estados</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,9 12,15 18,9"/></svg>
         </button>
         <div class="filter-menu" id="menu-estado">
           <!-- populated by JS -->
@@ -972,14 +706,14 @@
       </div>
 
       <button class="clear-btn" id="clear-btn" onclick="clearFilters()" style="display:none">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         Limpar filtros
       </button>
 
       <span class="results-count" id="results-count">22 resultados</span>
     </div>
 
-    <!-- Active filter tags -->
+    <!-- Tags ativas -->
     <div class="active-tags" id="active-tags" style="display:none"></div>
 
     <!-- Cards -->
@@ -987,136 +721,95 @@
   </div>
 </div>
 
-<!-- ═══════════ DIVIDER ═══════════ -->
+<!-- ═══════════ DIVISOR ═══════════ -->
 <div class="gdiv" aria-hidden="true">
-  <div class="gdiv__glow"></div>
   <div class="gdiv__line"></div>
 </div>
 
 <!-- ═══════════ CTA ═══════════ -->
 <div class="cta-wrap">
   <div class="cta-box">
-    <div class="cta-box__glow" aria-hidden="true"></div>
-    <div class="cta-box__top-line" aria-hidden="true"></div>
     <div class="cta-box__inner">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-      <h3>Quer ser um <em>revendedor PCYES</em>?</h3>
-      <p>Faça parte da rede de revendedores oficiais e ofereça os melhores produtos de tecnologia aos seus clientes.</p>
-      <a href="https://dev.pcyes.com.br/seja-um-revendedor" class="btn-cta">
-        <span>QUERO SER REVENDEDOR</span>
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg>
+      <h3>Quer vender <em>Tonante</em> na sua loja?</h3>
+      <p>Setenta anos de fábrica no Brasil, instrumento afinado de série e margem que respeita quem vende. Fale com a gente.</p>
+      <a href="/revendedor" class="btn-cta">
+        <span>Quero revender Tonante</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
       </a>
     </div>
   </div>
 </div>
 
-<!-- ═══════════ FOOTER ═══════════ -->
 </div>
 <!-- ═══════════ JAVASCRIPT ═══════════ -->
 <script>
-/* ═══ DATA ═══ */
-const RETAILERS = [
-  {id:1, name:"Terabyte Shop", type:"fisica", region:"sul", state:"PR", city:"Curitiba", cepRange:["80000000", "87999999"], address:"Av. João Gualberto, 1259 - Alto da Glória, Curitiba - PR", website:"https://www.terabyteshop.com.br/"},
-  {id:2, name:"TURUM COMERCIO ELETRONICO LTDA", type:"fisica", region:"sudeste", state:"SP", city:"São Paulo", cepRange:["01000000", "19999999"], address:"Rua Costa Barros, 435, Vila Alpina, São Paulo, São Paulo", phone:"(11) 94764-3700", website:"https://www.turum.com.br/"},
-  {id:3, name:"BRUNO PERON TEIXEIRA", type:"fisica", region:"sudeste", state:"SP", city:"São Caetano do Sul", cepRange:["01000000", "19999999"], address:"Rua dos Autonomistas, 63, Santa Paula, São Caetano do Sul, São Paulo", phone:"(11) 97581-0592", website:"https://www.abcsuportes.com.br/"},
-  {id:4, name:"ICC Shopping da Informática", type:"fisica", region:"sudeste", state:"MG", city:"Varginha", cepRange:["30000000", "39999999"], address:"Avenida Rui Barbosa, 76, Centro, Varginha, Minas Gerais", phone:"(35) 3221-7080"},
-  {id:5, name:"JF INFORMÁTICA CUIABÁ", type:"fisica", region:"centro-oeste", state:"MT", city:"Cuiabá", cepRange:["78000000", "78899999"], address:"Avenida Carmindo de Campos, Sn, Shopping Popular Box 413/465, Terceiro, Cuiabá, Mato Grosso", phone:"(65)3621-5326\u00a0/ (65)98443-4559", website:"http://Jfcuiaba.wixsite.com/website"},
-  {id:6, name:"Ibyte Teresina Shopping", type:"fisica", region:"nordeste", state:"PI", city:"Teresina -", cepRange:["64000000", "64999999"], address:"Av. Raul Lopes, 1000 - Noivos, Teresina - Piauí", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:7, name:"Ibyte Sobral Shopping", type:"fisica", region:"nordeste", state:"CE", city:"Sobral -", cepRange:["60000000", "63999999"], address:"Av. Monsenhor José Aloísio Pinto, 300 - Dom Expedito, Sobral - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:8, name:"Ibyte Shopping da Ilha", type:"fisica", region:"nordeste", state:"MA", city:"São Luís -", cepRange:["65000000", "65999999"], address:"Piso: L2, Av. Daniel de La Touche, 987 - Cohama, São Luís - Maranhão", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:9, name:"Ibyte Solares Shopping", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"Av. Waldir Diogo, 1138 - Novo Mondubim, Fortaleza - Ceará", phone:"(85) 3512-1999", website:"https://www.ibyte.com.br/"},
-  {id:10, name:"Ibyte Shopping RioMar", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"R. Des. Lauro Nogueira, 1500 - Papicu, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:11, name:"Ibyte Shopping Iguatemi", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"Avenida Washington Soares, Shopping Iguatemi, 85 - Edson Queiroz, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:12, name:"Ibyte Shopping Guararapes", type:"fisica", region:"nordeste", state:"PE", city:"Jaboatão dos Guararapes -", cepRange:["50000000", "56999999"], address:"Av. Barreto de Menezes, 800 - Lojas 222 / 223 - Piedade, Jaboatão dos Guararapes - Pernambuco", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:13, name:"Ibyte Shopping Eusébio", type:"fisica", region:"nordeste", state:"CE", city:"Eusébio -", cepRange:["60000000", "63999999"], address:"Av. Eusébio de Queiroz, 1890 Shopping - Tamatanduba, Eusébio - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:14, name:"Ibyte Shopping Benfica", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"2200 Lojas - R. Carapinima, 269-270 - Benfica, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:15, name:"Ibyte Simplício Mendes", type:"fisica", region:"nordeste", state:"PI", city:"Teresina -", cepRange:["64000000", "64999999"], address:"R. Simplício Mendes, 146 - Centro (Sul), Teresina - Piauí", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:16, name:"Ibyte Barão do Rio Branco", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"R. Barão do Rio Branco, 1054 - Centro, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:17, name:"Ibyte Pátio North Shopping", type:"fisica", region:"nordeste", state:"MA", city:"São José de Ribamar -", cepRange:["65000000", "65999999"], address:"Rua Saramanta, MA-201, 1000 5 - Saramanta, São José de Ribamar - Maranhão", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:18, name:"Ibyte Shopping Pátio Belém", type:"fisica", region:"norte", state:"PA", city:"Belém -", cepRange:["66000000", "68899999"], address:"Tv. Padre Eutíquio, 1078 - Loja 147 - Batista Campos, Belém - Pará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:19, name:"Ibyte North Shopping", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"Av. Bezerra de Menezes, 2450 - São Gerardo, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:20, name:"Ibyte Atacado Teresina", type:"fisica", region:"nordeste", state:"PI", city:"Teresina -", cepRange:["64000000", "64999999"], address:"Av. Miguel Rosa, N° 2156 - Centro (Norte), Teresina - Piauí", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:21, name:"Ibyte Maracanaú", type:"fisica", region:"nordeste", state:"CE", city:"Maracanaú -", cepRange:["60000000", "63999999"], address:"R. 47, 20 - Jereissati II, Maracanaú - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:22, name:"Ibyte Grand Shopping", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"Av. Frei Cirilo, 3840 - Messejana, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:23, name:"Ibyte Centro CE", type:"fisica", region:"nordeste", state:"CE", city:"Juazeiro do Norte -", cepRange:["60000000", "63999999"], address:"R. São Pedro, 1266 - Centro, Juazeiro do Norte - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:24, name:"Ibyte Centro PB", type:"fisica", region:"nordeste", state:"PB", city:"Campina Grande -", cepRange:["58000000", "58999999"], address:"R. Pres. João Pessoa, 34 - Centro, Campina Grande - Paraíba", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:25, name:"Ibyte Shopping Castanheira", type:"fisica", region:"norte", state:"PA", city:"Belém", cepRange:["66000000", "68899999"], address:"BR-316, Km 1 S/N - Castanheira, Belém - PA", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:26, name:"Ibyte Cariri Garden Shopping", type:"fisica", region:"nordeste", state:"CE", city:"Juazeiro do Norte -", cepRange:["60000000", "63999999"], address:"Av. Padre Cícero, 2555 - Santa Tereza, Juazeiro do Norte - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:27, name:"Ibyte Shopping Bosque Grão-Pará", type:"fisica", region:"norte", state:"PA", city:"Belém -", cepRange:["66000000", "68899999"], address:"Av. Centenário, 1052 - 0 LUC: 85/86 - Parque Verde, Belém - Pará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:28, name:"Ibyte Rui Barbosa", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"Av. Rui Barbosa, 2456 - Joaquim Távora, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:29, name:"Ibyte Dom Severino", type:"fisica", region:"nordeste", state:"PI", city:"Teresina -", cepRange:["64000000", "64999999"], address:"Av. Dom Severino, 1460 - Fátima, Teresina - Piauí", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:30, name:"Ibyte – Dom Luís", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza -", cepRange:["60000000", "63999999"], address:"Av. Dom Luís, 100 - Aldeota, Fortaleza - Ceará", phone:"(85) 4020-5000", website:"https://www.ibyte.com.br/"},
-  {id:31, name:"HardCore Tecnologia", type:"fisica", region:"sul", state:"RS", city:"Caçapava do Sul", cepRange:["90000000", "99999999"], address:"RUA Benjamin Constant, 1254 - Sala 02 Centro, Caçapava do Sul, Rio Grande do Sul", phone:"55 996011782", website:"http://www.hardcoretecnologia.com.br/"},
-  {id:32, name:"HardStore", type:"fisica", region:"sul", state:"RS", city:"Caxias do Sul", cepRange:["90000000", "99999999"], address:"R. Vinte de Setembro, 2223 - Lj A - São Pelegrino, Caxias do Sul - RS", phone:"(54) 3066-5080", website:"https://www.hardstore.com.br/"},
-  {id:33, name:"HardStore", type:"fisica", region:"sul", state:"RS", city:"Porto Alegre", cepRange:["90000000", "99999999"], address:"Av. Goethe, 38 - Lojas 7 e 8 - Rio Branco, Porto Alegre - RS", phone:"(51) 3019-2255", website:"https://www.hardstore.com.br/"},
-  {id:34, name:"Crystal Informática", type:"fisica", region:"sudeste", state:"SP", city:"Jundiaí", cepRange:["01000000", "19999999"], address:"R. Várzea Paulista, 1486, Vila M Genoveva, Jundiaí,  São Paulo", phone:"(11) 9 9427-2068", website:"https://www.crystalinformatica.com.br/"},
-  {id:35, name:"Highlander Informática", type:"fisica", region:"sudeste", state:"SP", city:"São Paulo", cepRange:["01000000", "19999999"], address:"Rua Santa Efigênia, nº 276 - Loja 4A,  Centro, São Paulo, São Paulo", phone:"(11) 94058-3088 / (11) 96726-3000", website:"https://www.hlander.com.br/"},
-  {id:36, name:"Pcnow", type:"fisica", region:"sudeste", state:"SP", city:"Santo André", cepRange:["01000000", "19999999"], address:"R. Gertrúdes de Lima, 79, Centro, Santo André, São Paulo", phone:"(11) 4436-0838 / (11) 4436-0838", website:"https://www.pcnow.com.br/"},
-  {id:37, name:"KLV Notebook", type:"fisica", region:"sudeste", state:"SP", city:"Centro Histórico de São Paulo", cepRange:["01000000", "19999999"], address:"Av. Rio Branco, 324, Centro Histórico de São Paulo, São Paulo", phone:"(11) 94351-1214", website:"https://www.klvnotebook.com.br/"},
-  {id:38, name:"BauruInfo", type:"fisica", region:"sudeste", state:"SP", city:"Bauru", cepRange:["01000000", "19999999"], address:"Rua Gérson França, 9-49, Centro, Bauru, São Paulo", phone:"(14) 3366-3500", website:"https://bauruinfo.com.br/"},
-  {id:39, name:"Info Master", type:"fisica", region:"nordeste", state:"SE", city:"Lagarto", cepRange:["49000000", "49999999"], address:"Av. Nossa Sra. da Piedade, 90 , Centro, Lagarto, Sergipe", phone:"(79) 9 9986-2064"},
-  {id:40, name:"BR Info", type:"fisica", region:"norte", state:"TO", city:"Tocantis", cepRange:["77000000", "77999999"], address:"Av. LO 01, 20, Conj 01, Lt 23 - Qd. 104s- Plano Diretor Sul, Palmas, Tocantis", phone:"(63) 3213-2212 / (63) 3213-2212", website:"https://www.lojabrinformatica.com.br/"},
-  {id:41, name:"HBS Informática", type:"fisica", region:"sul", state:"RS", city:"Rio Grabde do Sul", cepRange:["90000000", "99999999"], address:"Av. Pedro Adams Filho, 4210, Pátria Nova, Novo Hamburgo, Rio Grabde do Sul", phone:"(51) 3036-1319 / (51) 99933-3396", website:"https://hbsinformatica.com.br/"},
-  {id:42, name:"Microgem", type:"fisica", region:"sul", state:"PR", city:"Curitiba", cepRange:["80000000", "87999999"], address:"R. Conselheiro Laurindo, 2815, Rebouças, Curitiba, Paraná", phone:"(41) 99886-1511 / (41) 3027-3627", website:"https://www.microgem.com.br/"},
-  {id:43, name:"FGTech", type:"fisica", region:"sul", state:"RS", city:"Porto Alegre", cepRange:["90000000", "99999999"], address:"R. Onófre Píres, 111, Azenha, Porto Alegre, Rio Grande do Sul", phone:"(51) 3013-1377 / (51) 3013-1277", website:"https://www.fgtec.com.br/"},
-  {id:44, name:"Spyde Informática", type:"fisica", region:"sudeste", state:"RJ", city:"Nova Iguaçu", cepRange:["20000000", "28999999"], address:"Av. Dr. Mario Guimarães, 803, Centro, Nova Iguaçu, Rio de Janeiro", phone:"(21) 2882-4400", website:"https://www.spydeinformatica.com.br/"},
-  {id:45, name:"Croi Computadores", type:"fisica", region:"norte", state:"PA", city:"Belém", cepRange:["66000000", "68899999"], address:"R. Oliveira Belo, 73, Umarizal, Belém, Pará", phone:"(91) 3212-6045", website:"http://www.croicomputadores.com.br/"},
-  {id:46, name:"Syma Solutions", type:"fisica", region:"sul", state:"PR", city:"Maringá", cepRange:["80000000", "87999999"], address:"Av. João Paulino Vieira Filho, 625 store 21 - Zona 7, Maringá, Paraná", phone:"(44) 4009-9090 / (44) 3025-9090", website:"https://www.syma.com.br/"},
-  {id:47, name:"Alfa Compnentes", type:"fisica", region:"sul", state:"PR", city:"Maringá", cepRange:["80000000", "87999999"], address:"Av. Herval, 720, Zona 01, Maringá, Paraná", phone:"(44) 3031-5053", website:"https://www.alfastore.com.br/"},
-  {id:48, name:"Need’s informatica", type:"fisica", region:"nordeste", state:"BA", city:"Santo Antônio de Jesus", cepRange:["40000000", "48999999"], address:"R. Sete de Setembro, 172, Centro, Santo Antônio de Jesus, Bahia", phone:"(75) 3632-1295"},
-  {id:49, name:"K.L.Seletronicos", type:"fisica", region:"centro-oeste", state:"GO", city:"Brasil", cepRange:["72800000", "76799999"], address:"Av. Anhanguera, 7840 - loja 134 e 135, St. dos Funcionários, Goiânia, Goiás, Brasil", phone:"(62) 3233-8935", website:"https://www.kls.net.br/"},
-  {id:50, name:"Elite player", type:"fisica", region:"centro-oeste", state:"GO", city:"Goiânia -", cepRange:["72800000", "76799999"], address:"Av. 85, 2034 ,St. Marista, Goiânia - Goiás", phone:"(62) 3607-3629", website:"https://www.eliteplayer.com.br/"},
-  {id:51, name:"Micro Center", type:"fisica", region:"centro-oeste", state:"MT", city:"Rondonópolis", cepRange:["78000000", "78899999"], address:"R. Otávio Pitaluga, 1046, Centro, Rondonópolis, Mato Grosso", phone:"(66) 3423-1740", website:"https://www.instagram.com/microcenter.roo/"},
-  {id:52, name:"Precisa Shop", type:"fisica", region:"centro-oeste", state:"MT", city:"Lucas do Rio Verde", cepRange:["78000000", "78899999"], address:"Av. Mato Grosso, 522, Centro, Lucas do Rio Verde, Mato Grosso", phone:"(65) 3549-1968", website:"https://www.precisashop.com.br/"},
-  {id:53, name:"Zornimat", type:"fisica", region:"centro-oeste", state:"MS", city:"Campo Grande", cepRange:["79000000", "79999999"], address:"Rua 14 de Julho, 931, Centro, Campo Grande, Mato Grosso do Sul", phone:"(67) 3025-7272", website:"https://zornimat.com.br/nossas-lojas.html"},
-  {id:54, name:"Wordtech Informática", type:"fisica", region:"nordeste", state:"MA", city:"Imperatriz", cepRange:["65000000", "65999999"], address:"R. Ceará, 571, Centro, Imperatriz, Maranhão", phone:"(99) 9 9916-2121", website:"https://wordtech.com.br/"},
-  {id:55, name:"Bittek Informática", type:"fisica", region:"nordeste", state:"MA", city:"Buriticupu", cepRange:["65000000", "65999999"], address:"Av. Castelo Branco, 868, Centro, Buriticupu, Maranhão", phone:"(98) 9 8898-6533", website:"https://www.bittek.com.br/"},
-  {id:56, name:"Quarup Informática", type:"fisica", region:"nordeste", state:"MA", city:"São Luís", cepRange:["65000000", "65999999"], address:"Av. Cel. Colares Moreira, 400 - Bloco D4 Loja 3, Jardim Renascença, São Luís, Maranhão", phone:"(98) 8879-0020", website:"https://www.quarupinformatica.com.br/"},
-  {id:57, name:"Chipbyte Informática", type:"fisica", region:"sul", state:"RS", city:"Novo Hamburgo", cepRange:["90000000", "99999999"], address:"Av. Pedro Adams Filho, 4576, Industrial, Novo Hamburgo, Rio Grande do Sul", phone:"(51) 3524-4500 / (51) 99878-8694", website:"https://www.chipbyte.com.br/"},
-  {id:58, name:"Easy Tech Store", type:"fisica", region:"sul", state:"RS", city:"Farroupilha", cepRange:["90000000", "99999999"], address:"R. Júlio de Castilhos, 1019, Centro, Farroupilha, Rio Grande do Sul", phone:"(54) 3412-0242", website:"https://www.easytechstore.com.br/"},
-  {id:59, name:"DF Tecnologia", type:"fisica", region:"nordeste", state:"BA", city:"Salvador", cepRange:["40000000", "48999999"], address:"RUA SIMÃ•ES FILHOR. SimÃµes Filho, 50, Boca do Rio, Salvador, Bahia", phone:"(71) 3018-8034"},
-  {id:60, name:"DCM Info", type:"fisica", region:"sul", state:"RS", city:"Capão da Canoa", cepRange:["90000000", "99999999"], address:"Av. Paraguassu, 1776, Centro, Capão da Canoa, Rio Grande do Sul", phone:"(51) 3625-6942", website:"https://www.dcminfo.com.br/"},
-  {id:61, name:"Essencial Informática", type:"fisica", region:"norte", state:"PA", city:"Santarém", cepRange:["66000000", "68899999"], address:"Travessa Professor Antônio de Carvalho, n° 592 , Aldeia, Santarém, Pará", phone:"(93) 9 9185-7821", website:"https://www.instagram.com/essencialinformaticaepapelaria/"},
-  {id:62, name:"All Mix Informática", type:"fisica", region:"sudeste", state:"RJ", city:"Rio de Janeiro -", cepRange:["20000000", "28999999"], address:"Av. Dom Hélder Câmara, 10466, Cascadura, Rio de Janeiro - Rio de Janeiro", phone:"(21)2203-1240", website:"https://www.instagram.com/allmixinfo/"},
-  {id:63, name:"Reptec Store", type:"fisica", region:"sul", state:"PR", city:"Guarapuava", cepRange:["80000000", "87999999"], address:"Rua Saldanha Marinho, 1860, Centro, Guarapuava, Paraná", phone:"(42) 3623-9090", website:"https://loja.reptecstore.com.br/"},
-  {id:64, name:"Espaço Info", type:"fisica", region:"sul", state:"PR", city:"Curitiba", cepRange:["80000000", "87999999"], address:"Av. Sete de Setembro, 3429, Rebouças, Curitiba, Paraná", phone:"(41) 3029-3737", website:"https://lojaespacoinfo.com.br/"},
-  {id:65, name:"Inforutil", type:"fisica", region:"nordeste", state:"PE", city:"Recife", cepRange:["50000000", "56999999"], address:"Av. Dezessete de Agosto, 76, Parnamirim, Recife, Pernambuco", phone:"(81) 3035-0606", website:"https://www.inforutil.com.br/"},
-  {id:66, name:"Micro Office Informática", type:"fisica", region:"nordeste", state:"PE", city:"Recife", cepRange:["50000000", "56999999"], address:"R. Comendador Bento Águiar, 26, Madalena, Recife, Pernambuco", phone:"(81) 2129-7592", website:"https://www.microofficeinformatica.com.br/"},
-  {id:67, name:"Techno Space", type:"fisica", region:"nordeste", state:"PE", city:"Brasil", cepRange:["50000000", "56999999"], address:"R. Ernesto de Paula Santos, 1172 Lj02, Boa Viagem, Recife, Pernambuco, Brasil", phone:"(81) 3466-4206", website:"https://www.technospace.com.br/"},
-  {id:68, name:"Lognet", type:"fisica", region:"nordeste", state:"PE", city:"Recife", cepRange:["50000000", "56999999"], address:"Av. Visconde de Albuquerque, 241, Madalena, Recife, Pernambuco", phone:"(81) 3446-2148", website:"https://www.lognetinfo.com.br/"},
-  {id:69, name:"W2 Infogames", type:"fisica", region:"sudeste", state:"ES", city:"Espirito Santo", cepRange:["29000000", "29999999"], address:"R. José Alves da Costa, 56, Centro, Aracruz, Espirito Santo", phone:"(27) 99834-5645", website:"https://www.w2infogames.com.br/"},
-  {id:70, name:"Live informatica", type:"fisica", region:"sudeste", state:"ES", city:"Espirito Santo", cepRange:["29000000", "29999999"], address:"Rua Alexandre Calmon, 160, Centro, Colatina, Espirito Santo", phone:"(27) 3722-5730", website:"https://www.liveinformatica.net/live/"},
-  {id:71, name:"Netshop informatica", type:"fisica", region:"centro-oeste", state:"DF", city:"Brasília", cepRange:["70000000", "73699999"], address:"208 Norte, Bloco B, Loja 35, Asa Norte, Brasília, Distrito Federal", phone:"(61) 98634-1508", website:"https://netshopinformatica.com.br/"},
-  {id:72, name:"Truedata", type:"fisica", region:"norte", state:"AM", city:"Manaus", cepRange:["69000000", "69299999"], address:"Av. Constantino Nery, 3266, Chapada, Manaus, Amazonas", phone:"(92) 3643-8800", website:"https://www.truedata.com.br/"},
-  {id:73, name:"Shop Mídias", type:"fisica", region:"nordeste", state:"AL", city:"Arapiraca", cepRange:["57000000", "57999999"], address:"R. Est. José de Oliveira Leite, 366, Centro, Arapiraca, Alagoas", phone:"(82) 9 9965-0012", website:"https://shopmidias.com.br/"},
-  {id:74, name:"Importadora Manaus", type:"fisica", region:"norte", state:"RR", city:"Boa vista", cepRange:["69300000", "69399999"], address:"Rua presidente costa e silva, 941, Sao francisco, Boa vista, Roraima", phone:"(95) 9 9135-6642", website:"https://importadoramanausrr.com.br/"},
-  {id:75, name:"Wan Informática e Tecnologia", type:"fisica", region:"norte", state:"RR", city:"Boa Vista", cepRange:["69300000", "69399999"], address:"Av. Pres. Castelo Branco, 2817, São Vicente, Boa Vista, Roraima", phone:"(95) 3224-1075", website:"https://waninformatica.com.br/wan/"},
-  {id:76, name:"Easytech", type:"fisica", region:"sul", state:"SC", city:"Palhoça", cepRange:["88000000", "89999999"], address:"Av. Thiago Antunes Teixeira, 167, Bela Vista, Palhoça, Santa Catarina", phone:"(48) 99137-9138", website:"https://www.easytechshield.com.br/"},
-  {id:77, name:"LAF Computadores", type:"fisica", region:"centro-oeste", state:"MS", city:"Campo Grande", cepRange:["79000000", "79999999"], address:"R. Dom Aquino, 2283, Amambai, Campo Grande, Mato Grosso do Sul", phone:"(67) 99944-2461", website:"https://www.lafcomputadores.com.br/"},
-  {id:78, name:"On Line Shopping", type:"fisica", region:"sudeste", state:"MG", city:"Uberlândia", cepRange:["30000000", "39999999"], address:"Av. João Pinheiro, 796, Centro, Uberlândia, Minas Gerais", phone:"(34) 3228-0115", website:"https://www.onlineshopping.com.br/"},
-  {id:79, name:"Automatiza Brasil", type:"fisica", region:"sudeste", state:"MG", city:"Uberaba", cepRange:["30000000", "39999999"], address:"Av. Fernando Costa, 85, São Benedito, Uberaba, Minas Gerais", phone:"(34) 3313-8600"},
-  {id:80, name:"Arena Computadores", type:"fisica", region:"sudeste", state:"MG", city:"Belo Horizonte", cepRange:["30000000", "39999999"], address:"Av JosÃ© Cleto, 200 â€“ Loja 1, Palmares, Belo Horizonte, Minas Gerais", phone:"(31) 3657-7235 / (31) 98353-4703", website:"https://arenacomputadores.com/"},
-  {id:81, name:"Waz", type:"fisica", region:"sudeste", state:"MG", city:"Belo Horizonte", cepRange:["30000000", "39999999"], address:"Av. do Contorno, 2939 - Loja 1, Santa Efigênia, Belo Horizonte, Minas Gerais", phone:"(31) 2126-6666", website:"https://www.waz.com.br/"},
-  {id:82, name:"Oficina dos Bits", type:"fisica", region:"sudeste", state:"MG", city:"Belo Horizonte", cepRange:["30000000", "39999999"], address:"Av. Getúlio Vargas, 446, Funcionários, Belo Horizonte, Minas Gerais", phone:"(31) 3282-0082 / (31) 99556-1300", website:"https://www.oficinadosbits.com.br/"},
-  {id:83, name:"New Comp Informática", type:"fisica", region:"norte", state:"RO", city:"Rolim de Moura", cepRange:["76800000", "76999999"], address:"Avenida fortaleza, Centro, Rolim de Moura, Rondônia", phone:"(69) 3442-6022"},
-  {id:84, name:"Bluesky Informática", type:"fisica", region:"sudeste", state:"RJ", city:"Rio de Janeiro", cepRange:["20000000", "28999999"], address:"shopping days, Av. Min. Edgard Romero, 244 - loja 220 - Madureira, Rio de Janeiro, Rio de Janeiro", phone:"(21) 3301-9954 / (21) 98333-1492", website:"https://www.blueskyinfo.com.br/"},
-  {id:85, name:"Doctor Computer", type:"fisica", region:"sudeste", state:"RJ", city:"Rio de Janeiro", cepRange:["20000000", "28999999"], address:"Av. Meriti, 1411 - loja A, Vila da Penha, Rio de Janeiro, Rio de Janeiro", phone:"(21) 3391-2937 / (21) 3391-2937", website:"https://www.doctorcomputer.com.br/"},
-  {id:86, name:"Redseek", type:"fisica", region:"sul", state:"SC", city:"Tubarão", cepRange:["88000000", "89999999"], address:"Avenida Patrício Lima, 2043, Humaitá de Cima, Tubarão, Santa Catarina", phone:"(48) 3192-0098", website:"https://www.redseek.com.br/"},
-  {id:87, name:"Mix Informatica e Games", type:"fisica", region:"sul", state:"RS", city:"Tramandaí", cepRange:["90000000", "99999999"], address:"Av. Fernandes Bastos, 447, Tramandaí, Rio Grande do Sul", phone:"(51) 99222-0933", website:"https://www.mixinformatica.com.br/"},
-  {id:88, name:"Brassul Informática", type:"fisica", region:"sul", state:"RS", city:"Santa Maria", cepRange:["90000000", "99999999"], address:"Av. Pref. Evandro Behr, 4878, Bairro Camobi, Santa Maria, Rio Grande do Sul", phone:"(55) 3223-1189 / (55) 98100-0136", website:"https://brassulinformatica.com.br/"},
-  {id:89, name:"Mais Tecnologia", type:"fisica", region:"centro-oeste", state:"MT", city:"Lucas do Rio Verde", cepRange:["78000000", "78899999"], address:"Av. Paraná, 354s, Centro, Lucas do Rio Verde, Mato Grosso", phone:"(65) 3549-1493", website:"https://www.instagram.com/maistecnologialrv/"},
-  {id:90, name:"InPower", type:"fisica", region:"sudeste", state:"SP", city:"São Paulo", cepRange:["01000000", "19999999"], address:"R. Aurora, 153, Santa Ifigênia, São Paulo, São Paulo", phone:"(11) 3223-0050 / (11) 3223-0050", website:"https://www.inpower.com.br/"},
-  {id:91, name:"Dado digital", type:"fisica", region:"sudeste", state:"ES", city:"Espirito Santo", cepRange:["29000000", "29999999"], address:"Avenida Luciano das Neves, 209 Loja 09, Centro, Vila Velha, Espirito Santo", phone:"(27)3077-2727 | (27)99640-3077 | (27)98103-6612", website:"https://www.dadodigital.com.br/"},
-  {id:92, name:"Kadri informatica", type:"fisica", region:"centro-oeste", state:"MT", city:"Cuiabá", cepRange:["78000000", "78899999"], address:"Av. Historiador Rubens de Mendonça, 2350, Bosque da Saude, Cuiabá, Mato Grosso", phone:"(65) 3648-5500", website:"https://www.kadri.com.br/"},
-  {id:93, name:"Hightec informatica", type:"fisica", region:"centro-oeste", state:"GO", city:"Goiânia", cepRange:["72800000", "76799999"], address:"Av. T-9, N° 2005 - QD 552, LT 16, Jardim América, Goiânia, Goiás", phone:"(62) 3414-4800", website:"https://www.hightech.com.br/"},
-  {id:94, name:"Tecnosul", type:"fisica", region:"nordeste", state:"BA", city:"Luís Eduardo Magalhães", cepRange:["40000000", "48999999"], address:"Rua São Francisco, 3517, Luís Eduardo Magalhães, Bahia", phone:"(77) 3628-3119 / (77) 9 9941-8065", website:"https://www.tecnosul.agr.br/"},
-  {id:95, name:"Cacoal Informática", type:"fisica", region:"norte", state:"RR", city:"Cacoal -", cepRange:["69300000", "69399999"], address:"Av. Dois de Junho, 2649, Centro, Cacoal - Roraima", phone:"(69) 98429-2721 / (69) 3443-4862", website:"https://cacoalinformatica.com.br/"},
-  {id:96, name:"OGL Infor", type:"fisica", region:"norte", state:"AM", city:"Manaus", cepRange:["69000000", "69299999"], address:"Av. Japurá, 629, Praça 14 de Janeiro, Manaus, Amazonas", phone:"(92) 3633-4155", website:"https://oglinfor.com.br/"},
-  {id:97, name:"OPSOM", type:"fisica", region:"sudeste", state:"MG", city:"Três Pontas", cepRange:["30000000", "39999999"], address:"R. Domingos M de Resende, 84, Centro, Três Pontas, Minas Gerais", phone:"(35) 98721-8505", website:"https://opsom-loja-de-antenas.negocio.site/"},
-  {id:98, name:"Gamer star", type:"fisica", region:"centro-oeste", state:"DF", city:"Brasília", cepRange:["70000000", "73699999"], address:"Quadra Cln 406 Bloco e Loja, 38, Asa Norte, Brasília, Distrito Federal", phone:"(61) 3349-6288 / (61) 3322-4438"},
-  {id:99, name:"NET COMPUTADORES LTDA", type:"fisica", region:"sudeste", state:"SP", city:"São Pedro", cepRange:["01000000", "19999999"], address:"RUA CARLOS RACCIONI, 15 PORTAL DAS FLORES, SÃO PEDRO/SP 13521-036", website:"https://www.netcomputadores.com.br", hours:"Seg à Sex das 8 as 18h / Sab das 9 as 13h"}
-];
+/* Tudo dentro de uma função.
+   O SPA reinjeta este script a cada montagem da rota (e duas vezes seguidas
+   em dev, por causa do StrictMode). Com `const RETAILERS` no topo global, a
+   segunda injeção morria inteira em "Identifier already declared" — o HTML
+   recém-montado nunca era inicializado e a página abria sem mapa e sem cards,
+   só voltando à vida quando um onclick chamava as funções que sobraram da
+   primeira execução. Escopo próprio + export explícito no window resolve. */
+(function () {
+  "use strict";
 
-const TYPE_LABELS = { fisica:"Loja Física", online:"Loja Online", autorizada:"Autorizada" };
+/* Protótipo: rede de lojas ilustrativa. Nomes/endereços são placeholder
+   até a lista oficial de revendas Tonante entrar no lugar. */
+const RETAILERS = [
+  /* ── SUDESTE ── */
+  {id:1,  name:"Casa do Violão Paulista", type:"fisica", region:"sudeste", state:"SP", city:"São Paulo", cepRange:["01000000","19999999"], address:"Rua Teodoro Sampaio, 1140 - Pinheiros, São Paulo - SP", highlighted:true},
+  {id:2,  name:"Ateliê das Cordas", type:"autorizada", region:"sudeste", state:"SP", city:"São Paulo", cepRange:["01000000","19999999"], address:"Rua dos Timbiras, 320 - Vila Buarque, São Paulo - SP"},
+  {id:3,  name:"Tonante Store Oficial", type:"online", region:"sudeste", state:"SP", city:"São Paulo", cepRange:["01000000","19999999"], website:"/produtos"},
+  {id:4,  name:"Musical Campinas", type:"fisica", region:"sudeste", state:"SP", city:"Campinas", cepRange:["01000000","19999999"], address:"Av. Francisco Glicério, 1580 - Centro, Campinas - SP"},
+  {id:5,  name:"Som & Madeira Ribeirão", type:"fisica", region:"sudeste", state:"SP", city:"Ribeirão Preto", cepRange:["01000000","19999999"], address:"Rua Álvares Cabral, 640 - Centro, Ribeirão Preto - SP"},
+  {id:6,  name:"Instrumentos Santos", type:"fisica", region:"sudeste", state:"SP", city:"Santos", cepRange:["01000000","19999999"], address:"Av. Ana Costa, 275 - Gonzaga, Santos - SP"},
+  {id:7,  name:"Casa Oliveira da Lapa", type:"fisica", region:"sudeste", state:"RJ", city:"Rio de Janeiro", cepRange:["20000000","28999999"], address:"Rua da Carioca, 70 - Centro, Rio de Janeiro - RJ", highlighted:true},
+  {id:8,  name:"Cordas da Tijuca", type:"autorizada", region:"sudeste", state:"RJ", city:"Rio de Janeiro", cepRange:["20000000","28999999"], address:"Rua Conde de Bonfim, 415 - Tijuca, Rio de Janeiro - RJ"},
+  {id:9,  name:"Niterói Musical", type:"fisica", region:"sudeste", state:"RJ", city:"Niterói", cepRange:["20000000","28999999"], address:"Rua Visconde do Rio Branco, 520 - Centro, Niterói - RJ"},
+  {id:10, name:"Almeida Instrumentos", type:"fisica", region:"sudeste", state:"MG", city:"Belo Horizonte", cepRange:["30000000","39999999"], address:"Av. Augusto de Lima, 1240 - Centro, Belo Horizonte - MG"},
+  {id:11, name:"Luthieria Mineira", type:"autorizada", region:"sudeste", state:"MG", city:"Belo Horizonte", cepRange:["30000000","39999999"], address:"Rua Sapucaí, 310 - Floresta, Belo Horizonte - MG"},
+  {id:12, name:"Uberlândia Som", type:"fisica", region:"sudeste", state:"MG", city:"Uberlândia", cepRange:["30000000","39999999"], address:"Av. João Naves de Ávila, 2100 - Santa Mônica, Uberlândia - MG"},
+  {id:13, name:"Vitória Instrumentos", type:"fisica", region:"sudeste", state:"ES", city:"Vitória", cepRange:["29000000","29999999"], address:"Av. Jerônimo Monteiro, 890 - Centro, Vitória - ES"},
+
+  /* ── SUL ── */
+  {id:14, name:"Maringá Musical", type:"fisica", region:"sul", state:"PR", city:"Maringá", cepRange:["80000000","87999999"], address:"Av. Brasil, 3450 - Zona 01, Maringá - PR", highlighted:true},
+  {id:15, name:"Casa do Som Curitiba", type:"fisica", region:"sul", state:"PR", city:"Curitiba", cepRange:["80000000","87999999"], address:"Rua Marechal Deodoro, 720 - Centro, Curitiba - PR"},
+  {id:16, name:"Oficina de Cordas Londrina", type:"autorizada", region:"sul", state:"PR", city:"Londrina", cepRange:["80000000","87999999"], address:"Rua Sergipe, 1180 - Centro, Londrina - PR"},
+  {id:17, name:"Cascavel Instrumentos", type:"fisica", region:"sul", state:"PR", city:"Cascavel", cepRange:["80000000","87999999"], address:"Av. Brasil, 6120 - Centro, Cascavel - PR"},
+  {id:18, name:"Ilha Musical", type:"fisica", region:"sul", state:"SC", city:"Florianópolis", cepRange:["88000000","89999999"], address:"Rua Felipe Schmidt, 390 - Centro, Florianópolis - SC"},
+  {id:19, name:"Blumenau Cordas", type:"fisica", region:"sul", state:"SC", city:"Blumenau", cepRange:["88000000","89999999"], address:"Rua XV de Novembro, 1105 - Centro, Blumenau - SC"},
+  {id:20, name:"Casa das Cordas POA", type:"fisica", region:"sul", state:"RS", city:"Porto Alegre", cepRange:["90000000","99999999"], address:"Av. Independência, 640 - Independência, Porto Alegre - RS"},
+  {id:21, name:"Pampa Instrumentos", type:"autorizada", region:"sul", state:"RS", city:"Caxias do Sul", cepRange:["90000000","99999999"], address:"Rua Sinimbu, 2250 - Centro, Caxias do Sul - RS"},
+
+  /* ── NORDESTE ── */
+  {id:22, name:"Alô Música Salvador", type:"fisica", region:"nordeste", state:"BA", city:"Salvador", cepRange:["40000000","48999999"], address:"Av. Sete de Setembro, 480 - Centro, Salvador - BA"},
+  {id:23, name:"Recôncavo Cordas", type:"autorizada", region:"nordeste", state:"BA", city:"Feira de Santana", cepRange:["40000000","48999999"], address:"Av. Getúlio Vargas, 1520 - Centro, Feira de Santana - BA"},
+  {id:24, name:"Casa da Música Recife", type:"fisica", region:"nordeste", state:"PE", city:"Recife", cepRange:["50000000","56999999"], address:"Rua do Hospício, 245 - Boa Vista, Recife - PE"},
+  {id:25, name:"Frevo Instrumentos", type:"fisica", region:"nordeste", state:"PE", city:"Caruaru", cepRange:["50000000","56999999"], address:"Rua Vigário Freire, 310 - Centro, Caruaru - PE"},
+  {id:26, name:"Sonora Fortaleza", type:"fisica", region:"nordeste", state:"CE", city:"Fortaleza", cepRange:["60000000","63999999"], address:"Av. Dom Luís, 880 - Aldeota, Fortaleza - CE"},
+  {id:27, name:"Natal Musical", type:"fisica", region:"nordeste", state:"RN", city:"Natal", cepRange:["59000000","59999999"], address:"Av. Rio Branco, 520 - Cidade Alta, Natal - RN"},
+  {id:28, name:"João Pessoa Cordas", type:"fisica", region:"nordeste", state:"PB", city:"João Pessoa", cepRange:["58000000","58999999"], address:"Av. Epitácio Pessoa, 1440 - Estados, João Pessoa - PB"},
+  {id:29, name:"Maceió Instrumentos", type:"autorizada", region:"nordeste", state:"AL", city:"Maceió", cepRange:["57000000","57999999"], address:"Rua do Comércio, 190 - Centro, Maceió - AL"},
+  {id:30, name:"São Luís Musical", type:"fisica", region:"nordeste", state:"MA", city:"São Luís", cepRange:["65000000","65999999"], address:"Rua Grande, 405 - Centro, São Luís - MA"},
+  {id:31, name:"Teresina Som", type:"fisica", region:"nordeste", state:"PI", city:"Teresina", cepRange:["64000000","64999999"], address:"Rua Álvaro Mendes, 1220 - Centro, Teresina - PI"},
+  {id:32, name:"Aracaju Instrumentos", type:"fisica", region:"nordeste", state:"SE", city:"Aracaju", cepRange:["49000000","49999999"], address:"Rua João Pessoa, 260 - Centro, Aracaju - SE"},
+
+  /* ── CENTRO-OESTE ── */
+  {id:33, name:"Brasília Musical", type:"fisica", region:"centro-oeste", state:"DF", city:"Brasília", cepRange:["70000000","73699999"], address:"SCS Quadra 2, Bloco C - Asa Sul, Brasília - DF"},
+  {id:34, name:"Cerrado Cordas", type:"autorizada", region:"centro-oeste", state:"GO", city:"Goiânia", cepRange:["72800000","76799999"], address:"Av. Anhanguera, 4210 - Setor Central, Goiânia - GO"},
+  {id:35, name:"Cuiabá Instrumentos", type:"fisica", region:"centro-oeste", state:"MT", city:"Cuiabá", cepRange:["78000000","78899999"], address:"Av. Getúlio Vargas, 560 - Centro Norte, Cuiabá - MT"},
+  {id:36, name:"Campo Grande Musical", type:"fisica", region:"centro-oeste", state:"MS", city:"Campo Grande", cepRange:["79000000","79999999"], address:"Rua 14 de Julho, 1830 - Centro, Campo Grande - MS"},
+
+  /* ── NORTE ── */
+  {id:37, name:"Manaus Musical", type:"fisica", region:"norte", state:"AM", city:"Manaus", cepRange:["69000000","69299999"], address:"Av. Eduardo Ribeiro, 640 - Centro, Manaus - AM"},
+  {id:38, name:"Belém Instrumentos", type:"fisica", region:"norte", state:"PA", city:"Belém", cepRange:["66000000","68899999"], address:"Av. Presidente Vargas, 780 - Campina, Belém - PA"},
+  {id:39, name:"Santarém Cordas", type:"autorizada", region:"norte", state:"PA", city:"Santarém", cepRange:["66000000","68899999"], address:"Av. Tapajós, 1150 - Centro, Santarém - PA"},
+  {id:40, name:"Porto Velho Som", type:"fisica", region:"norte", state:"RO", city:"Porto Velho", cepRange:["76800000","76999999"], address:"Av. Sete de Setembro, 920 - Centro, Porto Velho - RO"},
+  {id:41, name:"Palmas Musical", type:"fisica", region:"norte", state:"TO", city:"Palmas", cepRange:["77000000","77999999"], address:"Quadra 104 Sul, Av. JK - Plano Diretor Sul, Palmas - TO"},
+  {id:42, name:"Rio Branco Instrumentos", type:"fisica", region:"norte", state:"AC", city:"Rio Branco", cepRange:["69900000","69999999"], address:"Rua Rui Barbosa, 210 - Centro, Rio Branco - AC"},
+];
+const TYPE_LABELS = { fisica:"Loja física", online:"Loja online", autorizada:"Revenda autorizada" };
 const REGION_LABELS = { norte:"Norte", nordeste:"Nordeste", "centro-oeste":"Centro-Oeste", sudeste:"Sudeste", sul:"Sul" };
 
 /* ═══ STATE ═══ */
@@ -1248,19 +941,19 @@ let activeState  = "";
 /* ═══ ICONS ═══ */
 const ICONS = {
   globe: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>`,
-  store: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>`,
-  monitor: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+  store: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg>`,
+  selo: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><polyline points="9.5,9 11.3,10.8 14.8,7.3"/><path d="M8.2 14.3L7 22l5-2.6L17 22l-1.2-7.7"/></svg>`,
   pin: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>`,
   phone: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.12 2.18 2 2 0 012.1 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`,
   nav: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3,11 22,2 13,21 11,13 3,11"/></svg>`,
   ext: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
   x: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
-  bag: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`,
+  bag: `<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="m11.9 12.1 4.514-4.514"/><path d="M20.1 2.3a1 1 0 0 0-1.4 0l-1.114 1.114A2 2 0 0 0 17 4.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 17.828 7h1.344a2 2 0 0 0 1.414-.586L21.7 5.3a1 1 0 0 0 0-1.4z"/><path d="m6 16 2 2"/><path d="M8.2 9.9C8.7 8.8 9.8 8 11 8c2.8 0 5 2.2 5 5 0 1.2-.8 2.3-1.9 2.8l-.9.4A2 2 0 0 0 12 18a4 4 0 0 1-4 4c-3.3 0-6-2.7-6-6a4 4 0 0 1 4-4 2 2 0 0 0 1.8-1.2z"/></svg>`,
 };
 
 function iconFor(type) {
   if (type === "online") return ICONS.globe;
-  if (type === "autorizada") return ICONS.monitor;
+  if (type === "autorizada") return ICONS.selo;
   return ICONS.store;
 }
 
@@ -1276,13 +969,13 @@ function renderCard(r) {
     : "";
 
   const hasRoute = !!r.address;
+  const routeBtn = hasRoute
+    ? `<a href="https://www.google.com/maps/search/${encodeURIComponent(r.address)}" target="_blank" rel="noopener noreferrer" class="btn-visit${r.website ? "" : " btn-visit--full"}">${ICONS.nav} Como chegar</a>`
+    : "";
   const visitBtn = r.website
-    ? `<a href="${r.website}" target="_blank" rel="noopener noreferrer" class="btn-visit${hasRoute ? "" : " btn-visit--full"}">Visitar Site ${ICONS.ext}</a>`
+    ? `<a href="${r.website}" target="_blank" rel="noopener noreferrer" class="${hasRoute ? "btn-route" : "btn-visit btn-visit--full"}">Ver loja ${ICONS.ext}</a>`
     : "";
-  const routeBtn = r.address
-    ? `<a href="https://www.google.com/maps/search/${encodeURIComponent(r.address)}" target="_blank" rel="noopener noreferrer" class="btn-route">${ICONS.nav} Rota</a>`
-    : "";
-  const foot = visitBtn || routeBtn ? visitBtn + routeBtn : "";
+  const foot = routeBtn + visitBtn;
 
   return `
   <div class="store-card${r.highlighted ? " highlighted" : ""}">
@@ -1338,8 +1031,8 @@ function applyFilters() {
     grid.innerHTML = `
     <div class="empty">
       ${ICONS.bag}
-      <p>Nenhum revendedor encontrado</p>
-      <small>Tente ajustar os filtros ou a busca</small>
+      <p>Nenhuma loja por aqui</p>
+      <small>Ajuste os filtros ou tente outra cidade</small>
       <button onclick="clearFilters()">Limpar filtros</button>
     </div>`;
   } else {
@@ -1402,12 +1095,16 @@ function toggleDropdown(id) {
   if (!isOpen) { menu.classList.add("open"); btn.classList.add("open"); }
 }
 
-document.addEventListener("click", e => {
-  if (!e.target.closest(".filter-dropdown")) {
-    document.querySelectorAll(".filter-menu").forEach(m => m.classList.remove("open"));
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("open"));
-  }
-});
+if (!window.__tonanteLocatorOutsideClick) {
+  window.__tonanteLocatorOutsideClick = true;
+  document.addEventListener("click", e => {
+    if (!e.target || !e.target.closest) return;
+    if (!e.target.closest(".filter-dropdown")) {
+      document.querySelectorAll(".filter-menu").forEach(m => m.classList.remove("open"));
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("open"));
+    }
+  });
+}
 
 function selectFilter(filter, value, label) {
   if (filter === "tipo") {
@@ -1471,15 +1168,38 @@ function toggleMobileFilters() {
   bar.classList.toggle("mobile-hidden");
 }
 
-/* ═══ INIT ═══ */
-buildBrazilMap();
-buildStateDropdown();
-applyFilters();
+/* ═══ EXPORTS — os onclick do HTML são inline, então precisam do window ═══ */
+  window.filterRegion       = filterRegion;
+  window.toggleDropdown     = toggleDropdown;
+  window.selectFilter       = selectFilter;
+  window.clearFilters       = clearFilters;
+  window.handleCep          = handleCep;
+  window.applyFilters       = applyFilters;
+  window.toggleMobileFilters = toggleMobileFilters;
 
-// Update stat counts dynamically
-document.getElementById("stat-total").textContent = RETAILERS.length;
-document.getElementById("stat-cidades").textContent = new Set(RETAILERS.map(r=>r.city).filter(Boolean)).size;
-document.getElementById("stat-estados").textContent = new Set(RETAILERS.map(r=>r.state)).size;
+/* ═══ INIT ═══ */
+  function init() {
+    if (!document.getElementById("cards-grid")) return false;
+    buildBrazilMap();
+    buildStateDropdown();
+    applyFilters();
+    document.getElementById("stat-total").textContent = RETAILERS.length;
+    document.getElementById("stat-cidades").textContent = new Set(RETAILERS.map(r=>r.city).filter(Boolean)).size;
+    document.getElementById("stat-estados").textContent = new Set(RETAILERS.map(r=>r.state)).size;
+    return true;
+  }
+
+  /* O script pode chegar antes do wrapper estar no documento; tenta de novo
+     no próximo quadro até o container existir. */
+  if (!init()) {
+    let tries = 0;
+    const retry = () => {
+      if (init() || ++tries > 60) return;
+      requestAnimationFrame(retry);
+    };
+    requestAnimationFrame(retry);
+  }
+})();
 </script>
 </body>
 </html>

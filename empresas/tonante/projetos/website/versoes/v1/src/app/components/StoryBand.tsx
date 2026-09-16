@@ -7,9 +7,9 @@ import { SeloTonante } from "./section";
 // Fatos do dossiê PLANO-V3 §2 — nada inventado.
 const TIMELINE = [
   { year: "1954", text: "Dois irmãos portugueses abrem a Ao Rei dos Violões na Lapa, São Paulo. Violões feitos à mão." },
-  { year: "Anos 60", text: "A Jovem Guarda explode — a Tonante é a guitarra que o Brasil consegue pagar. O rock entra nas garagens." },
+  { year: "Anos 60", text: "A Jovem Guarda explode e a Tonante é a guitarra que o Brasil consegue pagar. O rock entra nas garagens." },
   { year: "1974", text: "A fábrica cresce e muda para Itupeva. Cedro, ipê e o braço grosso que não empena." },
-  { year: "2007", text: "A fábrica para. A memória, não — fãs e colecionadores mantêm a marca viva." },
+  { year: "2007", text: "A fábrica para. A memória, não: fãs e colecionadores mantêm a marca viva." },
   { year: "2021", text: "A Tonante volta com o Grupo Oderço. Feita de Histórias, desde 1954." },
 ];
 
@@ -60,7 +60,7 @@ export function StoryBand() {
               </h2>
               <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "17px", lineHeight: 1.65, color: "#d6d6d6", margin: "20px 0 0", maxWidth: 520 }}>
                 Dois irmãos, uma oficina na Lapa e um plano: música para todos. Setenta anos
-                depois, a história continua — e ela passa pelas suas mãos.
+                depois, a história continua, e ela passa pelas suas mãos.
               </p>
             </div>
 

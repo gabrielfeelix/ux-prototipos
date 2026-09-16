@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Play, Square } from "lucide-react";
 import type { Product } from "./productsData";
 import { playStrum, stopStrum, strumDurationSec, presetForProduct } from "../lib/strum";
-import { sampleForProduct } from "../lib/timbre";
+import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
 
 /* TimbrePlayer — "Ouça este instrumento" (V3 §8.1).
    Fonte em 3 tempos, do mais honesto ao mais genérico:
@@ -12,8 +12,6 @@ import { sampleForProduct } from "../lib/timbre";
    Cada um tem seu rótulo: só o (1) pode dizer "gravado com este modelo".
    Regras: nunca autoplay; um som por vez (lib garante p/ synth; áudio real
    compartilha o mesmo singleton aqui). */
-
-let currentAudio: HTMLAudioElement | null = null;
 
 // waveform decorativa estática — barras determinísticas (sem Math.random em render)
 const BARS = Array.from({ length: 36 }, (_, i) => {
@@ -70,15 +68,11 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
   const play = () => {
     if (playing) { stop(); return; }
     // mata qualquer áudio real em curso (synth a lib já mata)
-    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    stopSample();
     stopStrum();
     setPlaying(true);
     if (hasSample) {
-      const audio = new Audio(src!);
-      currentAudio = audio;
-      audio.onended = () => { setPlaying(false); currentAudio = null; };
-      void audio.play();
-      cancelRef.current = () => { audio.pause(); if (currentAudio === audio) currentAudio = null; };
+      cancelRef.current = playSample(src!, () => setPlaying(false));
     } else if (preset) {
       cancelRef.current = playStrum(preset, () => setPlaying(false));
     }
@@ -127,8 +121,8 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
         <div className="mt-1.5"><Waveform active={playing} color="var(--amber)" /></div>
         <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 11, color: "var(--ink-meta)", margin: "5px 0 0" }}>
           {label}{dur}
-          {reference && " — não é este exemplar"}
-          {!hasSample && " — gravações reais em produção"}
+          {reference && " (não é este exemplar)"}
+          {!hasSample && " (gravações reais em produção)"}
         </p>
       </div>
     </div>

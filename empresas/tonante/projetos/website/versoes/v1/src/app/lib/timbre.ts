@@ -18,7 +18,10 @@ export type Family =
   | "ukulele"
   | "cavaco"
   | "guitarra"
-  | "baixo";
+  | "baixo"
+  | "bateria"
+  | "teclado"
+  | "flauta";
 
 /* Cavaquinho em domínio público não existe — o acervo do Commons para
    "cavaquinho" são gravações de choro de 1908-1913, conjunto inteiro em
@@ -32,6 +35,9 @@ const DIR: Record<Family, string> = {
   cavaco: "viola",
   guitarra: "guitarra",
   baixo: "baixo",
+  bateria: "bateria",
+  teclado: "teclado",
+  flauta: "flauta",
 };
 
 /** Quantos arquivos existem em public/audio/<pasta>/. */
@@ -43,6 +49,9 @@ const POOL: Record<Family, number> = {
   cavaco: 4,
   guitarra: 2,
   baixo: 2,
+  bateria: 4,
+  teclado: 4,
+  flauta: 3,
 };
 
 /** Família sonora do produto. null = não emite som (suporte, cabo, estante). */
@@ -55,11 +64,23 @@ export function familyForProduct(p: Pick<Product, "name" | "category">): Family 
   if (n.includes("ukulele")) return "ukulele";
   if (n.includes("cavac") || n.includes("cavaq")) return "cavaco";
 
+  /* Bateria, teclado e flauta não têm categoria própria no catálogo (a flauta e
+     os Casiotone moram em "Acessórios"), então a família vem do nome. O guarda
+     abaixo evita que acessório que só cita o instrumento — suporte de teclado,
+     banqueta de piano, kit de microfone para bateria — ganhe som. */
+  if (!/suporte|banqueta|pedestal|estante|microfone|capa\b|bag\b|cabo|apoio/.test(n)) {
+    if (n.includes("bateria")) return "bateria";
+    if (n.includes("teclado") || n.includes("piano")) return "teclado";
+    if (n.includes("flauta")) return "flauta";
+  }
+
   switch (p.category) {
     case "Violões":
       return n.includes("nylon") || n.includes("lorenzzo") || n.includes("clássic") || n.includes("classic")
         ? "violao-nylon"
         : "violao-aco";
+    case "Baterias":
+      return "bateria";
     case "Guitarras":
       return "guitarra";
     case "Contrabaixos":
@@ -95,4 +116,23 @@ export function sampleForProduct(p: Pick<Product, "id" | "name" | "category">): 
   if (!n) return null;
   const idx = (hash(`${p.id}-${p.name}`) % n) + 1;
   return `/audio/${DIR[fam]}/${String(idx).padStart(2, "0")}.mp3`;
+}
+
+/* Um áudio por página. O synth já tem o seu mata-mata em strum.ts; aqui vale
+   o mesmo contrato para as amostras, senão o play do card e o da PDP tocam
+   juntos e viram ruído. */
+let tocando: HTMLAudioElement | null = null;
+
+export function stopSample() {
+  if (tocando) { tocando.pause(); tocando = null; }
+}
+
+/** Toca a amostra e devolve o cancelador (mesma assinatura de playStrum). */
+export function playSample(src: string, onEnd: () => void): () => void {
+  stopSample();
+  const audio = new Audio(src);
+  tocando = audio;
+  audio.onended = () => { if (tocando === audio) tocando = null; onEnd(); };
+  void audio.play();
+  return () => { audio.pause(); if (tocando === audio) tocando = null; };
 }

@@ -41,19 +41,6 @@ export function LoadingScreen({
         minHeight: fullscreen ? undefined : "60vh",
       }}
     >
-      {/* halo âmbar difuso atrás da onda — profundidade sem peso */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute"
-        style={{
-          width: "min(520px, 76vw)",
-          height: "min(520px, 76vw)",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(224, 140, 18, 0.09) 0%, rgba(224, 140, 18, 0) 66%)",
-        }}
-      />
-
       <div
         className="relative flex flex-col items-center"
         style={{ animation: "tn-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both" }}

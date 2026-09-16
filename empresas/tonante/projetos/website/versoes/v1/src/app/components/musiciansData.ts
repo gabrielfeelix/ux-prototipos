@@ -39,7 +39,7 @@ export const MUSICIANS: Musician[] = [
     photo: u("photo-1510915361894-db8b60106cb1"),
     video: SAMPLE_VIDEO,
     quote:
-      "Meu primeiro violão foi um Tonante emprestado do meu tio. Vinte anos depois, subo no palco com um Coral — fechou um ciclo.",
+      "Meu primeiro violão foi um Tonante emprestado do meu tio. Vinte anos depois, subo no palco com um Coral. Fechou um ciclo.",
     instagram: "@rafamonteiro.violao",
     productId: 52,
     instrumentLabel: "Violão Coral",
@@ -68,7 +68,7 @@ export const MUSICIANS: Musician[] = [
     photo: "/musicos/andre-batista.jpg",
     video: "/musicos/andre-batista.mp4",
     quote:
-      "Viola é instrumento de quem tem paciência. Afina diferente, pensa diferente — e quando abre, abre bonito.",
+      "Viola é instrumento de quem tem paciência. Afina diferente, pensa diferente, e quando abre, abre bonito.",
     instagram: "@andrebatista.viola",
     productId: 221,
     instrumentLabel: "Viola Tonante Black",
@@ -87,7 +87,7 @@ export const MUSICIANS: Musician[] = [
     photo: "/musicos/thiago-nunes.jpg",
     video: "/musicos/thiago-nunes.mp4",
     quote:
-      "Comprei pelo som e fiquei pelo desenho da madeira. Não tem dois iguais — o meu tem um veio que corta o tampo inteiro.",
+      "Comprei pelo som e fiquei pelo desenho da madeira. Não tem dois iguais: o meu tem um veio que corta o tampo inteiro.",
     instagram: "@thiagonunes.violao",
     productId: 285,
     instrumentLabel: "Violão Safira Tampo Zebra",
@@ -105,7 +105,7 @@ export const MUSICIANS: Musician[] = [
     role: "Guitarrista",
     photo: "/musicos/alfredo.jpg",
     video: "/musicos/alfredo.mp4",
-    quote: "PLACEHOLDER — depoimento a colher com o músico.",
+    quote: "PLACEHOLDER: depoimento a colher com o músico.",
     productId: 277,
     instrumentLabel: "Guitarra 70 Anos Metallic Blue",
   },
@@ -123,7 +123,7 @@ export const MUSICIANS: Musician[] = [
     role: "Baixista",
     photo: "/musicos/paulo-andre.jpg",
     video: "/musicos/paulo-andre.mp4",
-    quote: "PLACEHOLDER — depoimento a colher com o músico.",
+    quote: "PLACEHOLDER: depoimento a colher com o músico.",
     productId: 19,
     instrumentLabel: "Contrabaixo Jazzmine",
   },
@@ -153,7 +153,7 @@ export const MUSICIANS: Musician[] = [
     photo: u("photo-1525201548942-d8732f6617a0"),
     video: SAMPLE_VIDEO,
     quote:
-      "Todo semestre vejo alunos começarem num Lorenzzo. O nylon macio segura o aluno nos três primeiros meses — o resto é história.",
+      "Todo semestre vejo alunos começarem num Lorenzzo. O nylon macio segura o aluno nos três primeiros meses. O resto é história.",
     instagram: "@camilarocha.aulas",
     productId: 25,
     instrumentLabel: "Violão Lorenzzo",
@@ -165,7 +165,7 @@ export const MUSICIANS: Musician[] = [
     role: "Guitarrista de estúdio",
     photo: u("photo-1471478331149-c72f17e33c73"),
     quote:
-      "A Star Light virou minha guitarra de sessão. Vintage no visual, estável na afinação — o engenheiro de som agradece.",
+      "A Star Light virou minha guitarra de sessão. Vintage no visual, estável na afinação. O engenheiro de som agradece.",
     instagram: "@diegosantana.studio",
     productId: 38,
     instrumentLabel: "Guitarra Star Light",
@@ -178,7 +178,7 @@ export const MUSICIANS: Musician[] = [
     photo: u("photo-1493225457124-a3eb161ffa5f"),
     video: SAMPLE_VIDEO_2,
     quote:
-      "Componho no Ônix. O som encorpado preenche a sala sozinho — voz e violão, mais nada. É disso que minha música precisa.",
+      "Componho no Ônix. O som encorpado preenche a sala sozinho: voz e violão, mais nada. É disso que minha música precisa.",
     instagram: "@marinalopes.mus",
     productId: 62,
     instrumentLabel: "Violão Ônix",

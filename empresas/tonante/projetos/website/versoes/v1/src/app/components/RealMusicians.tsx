@@ -46,7 +46,7 @@ export function RealMusicians() {
             Músicos de verdade, palcos de verdade
           </h2>
           <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", color: "var(--ink-soft)", margin: "14px 0 0" }}>
-            Apareça aqui — use{" "}
+            Apareça aqui, use{" "}
             <strong style={{ color: "var(--amber-deep)", fontWeight: 700 }}>#FeitaDeHistorias</strong>
           </p>
         </div>

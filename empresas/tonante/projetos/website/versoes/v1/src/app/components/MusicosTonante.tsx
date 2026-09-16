@@ -151,7 +151,7 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
         ) : (
           <ImageWithFallback
             src={m.photo}
-            alt={`${m.name} — ${m.role}`}
+            alt={`${m.name}, ${m.role}`}
             className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:scale-[1.03]"
           />
         )}

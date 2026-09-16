@@ -1080,7 +1080,7 @@ export function ProductsPage() {
         description={
           activeCategoryLabel
             ? `Veja todos os produtos da categoria ${activeCategoryLabel}${initialSubcategory ? ` / ${initialSubcategory}` : ""} na PCYES. Frete grátis acima de R$ 299, até 10x sem juros.`
-            : "Tudo que conecta gente à música, num só lugar — com garantia oficial e frete grátis acima de R$ 299."
+            : "Tudo que conecta gente à música, num só lugar, com garantia oficial e frete grátis acima de R$ 299."
         }
         canonicalPath={
           activeCategoryLabel
@@ -1162,7 +1162,7 @@ export function ProductsPage() {
             >
               {activeCategoryLabel
                 ? `Confira a linha completa de ${initialSubcategory ? `${initialSubcategory.toLowerCase()} ${activeCategoryLabel.toLowerCase()}` : activeCategoryLabel.toLowerCase()} Tonante. Garantia oficial, frete grátis acima de R$ 299, até 10x sem juros.`
-                : "Tudo que conecta gente à música, num só lugar — com garantia oficial e frete grátis acima de R$ 299."}
+                : "Tudo que conecta gente à música, num só lugar, com garantia oficial e frete grátis acima de R$ 299."}
             </p>
           </header>
 

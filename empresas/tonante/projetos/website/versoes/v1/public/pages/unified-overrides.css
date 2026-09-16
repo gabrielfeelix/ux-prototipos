@@ -17,7 +17,6 @@
 /* Unified colors matching V2 dark mode exactly */
 #pcyes-influencers,
 #pcyes-fale-conosco,
-#pcyes-reseller-locator,
 .landing-page,
 #pcyes-maringa-collab {
   --red: #ff2b2e;
@@ -43,8 +42,7 @@
 }
 
 /* Reduce noise to almost nothing — V2 has zero noise */
-#pcyes-influencers .noise-overlay,
-#pcyes-reseller-locator #noise {
+#pcyes-influencers .noise-overlay {
   opacity: 0.008 !important;
 }
 
@@ -54,7 +52,6 @@
 
 :root.light #pcyes-influencers,
 :root.light #pcyes-fale-conosco,
-:root.light #pcyes-reseller-locator,
 :root.light .landing-page,
 :root.light #pcyes-maringa-collab {
   /* Backgrounds — matching V2 light mode exactly */
@@ -438,274 +435,11 @@
 }
 
 /* ═══════════════════════════════════════════
-   LIGHT MODE — ONDE ENCONTRAR
+   ONDE ENCONTRAR — sem override aqui.
+   A página carrega a identidade Tonante no próprio <style>
+   (branco + tinta #111 + âmbar). O bloco PCYES vermelho que
+   morava aqui vencia por especificidade + !important.
    ═══════════════════════════════════════════ */
-
-:root.light #pcyes-reseller-locator {
-  background: #fafafa !important;
-}
-:root.light #pcyes-reseller-locator .hero__glow {
-  background: radial-gradient(ellipse at top center, rgba(220,20,20,0.04) 0%, transparent 70%) !important;
-}
-:root.light #pcyes-reseller-locator .hero__badge {
-  background: rgba(220,20,20,0.9) !important;
-  color: rgba(255,255,255,0.9) !important;
-}
-:root.light #pcyes-reseller-locator .hero__title {
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .hero__desc {
-  color: rgba(22,22,22,0.5) !important;
-}
-:root.light #pcyes-reseller-locator .hero__sep {
-  background: linear-gradient(90deg, #dc1414, #ff5558) !important;
-}
-
-:root.light #pcyes-reseller-locator .stats {
-  background: rgba(255,255,255,0.6) !important;
-  border-color: rgba(0,0,0,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .stat__num {
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .stat__label {
-  color: rgba(22,22,22,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .stat__icon {
-  color: rgba(220,20,20,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .stat-divider {
-  background: rgba(0,0,0,0.06) !important;
-}
-
-:root.light #pcyes-reseller-locator .gdiv__glow {
-  background: radial-gradient(ellipse at center, rgba(220,20,20,0.08) 0%, rgba(220,20,20,0.03) 40%, transparent 70%) !important;
-}
-:root.light #pcyes-reseller-locator .gdiv__line {
-  background: linear-gradient(90deg, transparent, rgba(220,20,20,0.15), transparent) !important;
-}
-
-:root.light #pcyes-reseller-locator .map-panel {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
-}
-:root.light #pcyes-reseller-locator .map-panel h3 {
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .map-panel p {
-  color: rgba(22,22,22,0.4) !important;
-}
-
-:root.light #pcyes-reseller-locator #brazil-map .region-path {
-  fill: #e8e8e8 !important;
-  stroke: rgba(0,0,0,0.1) !important;
-}
-:root.light #pcyes-reseller-locator #brazil-map .region-group.is-hovered .region-path {
-  fill: rgba(0,0,0,0.06) !important;
-  stroke: rgba(0,0,0,0.15) !important;
-}
-:root.light #pcyes-reseller-locator #brazil-map .region-group.is-selected .region-path {
-  fill: rgba(220,20,20,0.1) !important;
-  stroke: rgba(220,20,20,0.3) !important;
-}
-:root.light #pcyes-reseller-locator #brazil-map .region-label__name {
-  color: rgba(22,22,22,0.4) !important;
-}
-:root.light #pcyes-reseller-locator #brazil-map .region-group.is-hovered .region-label__name {
-  color: rgba(22,22,22,0.7) !important;
-}
-:root.light #pcyes-reseller-locator #brazil-map .region-group.is-selected .region-label__name {
-  color: #dc1414 !important;
-}
-:root.light #pcyes-reseller-locator .region-badge {
-  background: rgba(0,0,0,0.03) !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  color: rgba(22,22,22,0.3) !important;
-}
-:root.light #pcyes-reseller-locator #brazil-map .region-group.is-selected .region-badge {
-  color: #dc1414 !important;
-  background: rgba(220,20,20,0.08) !important;
-  border-color: rgba(220,20,20,0.2) !important;
-}
-
-:root.light #pcyes-reseller-locator .map-legend {
-  border-top-color: rgba(0,0,0,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .legend-item {
-  color: rgba(22,22,22,0.5) !important;
-}
-:root.light #pcyes-reseller-locator .legend-dot--default {
-  background: rgba(0,0,0,0.08) !important;
-}
-
-:root.light #pcyes-reseller-locator .map-btn {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .map-btn:hover {
-  border-color: rgba(0,0,0,0.12) !important;
-}
-:root.light #pcyes-reseller-locator .map-btn.active {
-  background: #dc1414 !important;
-  border-color: #dc1414 !important;
-  color: #ffffff !important;
-}
-
-:root.light #pcyes-reseller-locator .search-field__icon {
-  color: rgba(22,22,22,0.3) !important;
-}
-:root.light #pcyes-reseller-locator .search-field__icon--cep {
-  color: rgba(220,20,20,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .search-input {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .search-input::placeholder {
-  color: rgba(22,22,22,0.3) !important;
-}
-:root.light #pcyes-reseller-locator .search-input:focus {
-  border-color: rgba(220,20,20,0.3) !important;
-}
-:root.light #pcyes-reseller-locator .search-field--cep .search-input {
-  border-color: rgba(220,20,20,0.12) !important;
-}
-
-:root.light #pcyes-reseller-locator .filter-btn {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  color: rgba(22,22,22,0.5) !important;
-}
-:root.light #pcyes-reseller-locator .filter-btn.open {
-  border-color: rgba(220,20,20,0.3) !important;
-}
-:root.light #pcyes-reseller-locator .filter-btn svg {
-  opacity: 0.3 !important;
-}
-:root.light #pcyes-reseller-locator .filter-menu {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .filter-option {
-  color: rgba(22,22,22,0.6) !important;
-}
-:root.light #pcyes-reseller-locator .filter-option:hover {
-  background: rgba(0,0,0,0.02) !important;
-}
-:root.light #pcyes-reseller-locator .filter-option.active {
-  color: #dc1414 !important;
-  background: rgba(220,20,20,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .clear-btn {
-  color: #dc1414 !important;
-}
-
-:root.light #pcyes-reseller-locator .tag--region {
-  color: #dc1414 !important;
-  background: rgba(220,20,20,0.06) !important;
-  border-color: rgba(220,20,20,0.15) !important;
-}
-:root.light #pcyes-reseller-locator .tag--other {
-  color: rgba(22,22,22,0.6) !important;
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-}
-
-:root.light #pcyes-reseller-locator .store-card {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
-}
-:root.light #pcyes-reseller-locator .store-card:hover {
-  border-color: rgba(220,20,20,0.15) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .store-card.highlighted {
-  border-color: rgba(220,20,20,0.15) !important;
-}
-:root.light #pcyes-reseller-locator .store-card.highlighted::before {
-  background: linear-gradient(90deg, transparent, #dc1414, transparent) !important;
-}
-:root.light #pcyes-reseller-locator .card__name {
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .card__type--offline {
-  color: rgba(22,22,22,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .card__icon--offline {
-  background: rgba(0,0,0,0.04) !important;
-}
-:root.light #pcyes-reseller-locator .card__icon--offline svg {
-  color: rgba(22,22,22,0.3) !important;
-}
-:root.light #pcyes-reseller-locator .card__state {
-  color: rgba(22,22,22,0.4) !important;
-  background: rgba(0,0,0,0.03) !important;
-  border-color: rgba(0,0,0,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .card__row span {
-  color: rgba(22,22,22,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .card__row svg {
-  color: rgba(22,22,22,0.25) !important;
-}
-:root.light #pcyes-reseller-locator .btn-route {
-  background: rgba(0,0,0,0.03) !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  color: rgba(22,22,22,0.5) !important;
-}
-:root.light #pcyes-reseller-locator .btn-route:hover {
-  border-color: rgba(0,0,0,0.12) !important;
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .empty {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-}
-:root.light #pcyes-reseller-locator .empty p {
-  color: rgba(22,22,22,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .empty small {
-  color: rgba(22,22,22,0.25) !important;
-}
-
-:root.light #pcyes-reseller-locator .cta-box {
-  background: #ffffff !important;
-  border-color: rgba(0,0,0,0.06) !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
-}
-:root.light #pcyes-reseller-locator .cta-box__glow {
-  background: radial-gradient(ellipse at top center, rgba(220,20,20,0.04) 0%, transparent 70%) !important;
-}
-:root.light #pcyes-reseller-locator .cta-box__top-line {
-  background: linear-gradient(90deg, transparent, rgba(220,20,20,0.2), transparent) !important;
-}
-:root.light #pcyes-reseller-locator .cta-box h3 {
-  color: #161616 !important;
-}
-:root.light #pcyes-reseller-locator .cta-box p {
-  color: rgba(22,22,22,0.4) !important;
-}
-:root.light #pcyes-reseller-locator .cta-box svg {
-  color: #dc1414 !important;
-}
-:root.light #pcyes-reseller-locator .btn-cta {
-  background: #dc1414 !important;
-  box-shadow: 0 0 0 1px rgba(220,20,20,0.15), 0 1px 3px rgba(220,20,20,0.15) !important;
-}
-:root.light #pcyes-reseller-locator .btn-cta::before {
-  border-color: rgba(255,255,255,0.1) !important;
-}
-:root.light #pcyes-reseller-locator .btn-cta::after {
-  opacity: 0 !important;
-}
-:root.light #pcyes-reseller-locator .btn-cta:hover {
-  background: #c41212 !important;
-}
 
 /* ═══════════════════════════════════════════
    LIGHT MODE — FALE CONOSCO

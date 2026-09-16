@@ -39,7 +39,7 @@ export function BrandStatement() {
                 fontWeight: "var(--font-weight-medium)",
               }}
             >
-              PCYES — DESDE 1999
+              PCYES · DESDE 1999
             </motion.p>
 
             <div className="overflow-hidden">

@@ -45,8 +45,18 @@ const REGRAS: { tipo: TipoDeProduto; re: RegExp }[] = [
   { tipo: "acessorio", re: /\b(afinador|capotraste|palheta|correia|talabarte|damper|metronomo|pedal|abafador)s?\b/ },
 ];
 
+/* Nome que ABRE com o instrumento é o instrumento, e nenhuma palavra depois
+   muda isso. Sem esta linha, "Contrabaixo Elétrico - Theodor - Nude Wood - 5
+   Cordas" batia na regra de `cordas` e saía da vitrine sem enquadramento — o
+   único instrumento pequeno no meio de violões e guitarras do mesmo tamanho.
+   O acessório sempre nomeia a si mesmo primeiro ("Encordoamento ... P/ Violão",
+   "Suporte De Parede P/ Violao"), então a ordem dá conta dos dois casos. */
+const INSTRUMENTO_NO_INICIO =
+  /^(violao|violoes|guitarra|guitarras|contrabaixo|contrabaixos|baixo|cavaco|cavaquinho|viola|ukulele|banjo|bandolim|flauta|teclado|bateria)\b/;
+
 export function tipoDoProduto(p: Product): TipoDeProduto {
   const nome = semAcento(p.name);
+  if (INSTRUMENTO_NO_INICIO.test(nome)) return "instrumento";
   for (const { tipo, re } of REGRAS) if (re.test(nome)) return tipo;
   if (CATEGORIAS_INSTRUMENTO.includes(p.category)) return "instrumento";
   if (/\b(violao|guitarra|contrabaixo|baixo|cavaco|cavaquinho|viola|ukulele|banjo|bandolim|flauta|teclado|bateria)\b/.test(nome))
@@ -124,6 +134,8 @@ function chaveDeFamilia(p: Product) {
 
 export const catalogo = getVisibleCatalogProducts(allProducts);
 
+const porId = new Map(allProducts.map((p) => [p.id, p]));
+
 interface SelecaoOpts {
   /** de onde tirar (default: catálogo visível inteiro) */
   pool?: Product[];
@@ -161,8 +173,18 @@ export function selecionar({
   const usadosItem: Record<string, number> = {};
   /* uma peça por família de cor: a palheta azul e a preta são o mesmo produto,
      e o card já traz as cores em swatch. Dois cards iguais lado a lado leem
-     como catálogo mal montado. */
+     como catálogo mal montado.
+
+     `exceto` bloqueia a família junto com o id, e não só o id: a home mostrava
+     a Strato Snow White em "Chegou agora" e a Strato Deep Dark em "Mais
+     vendidos", duas dobras coladas com a mesma guitarra — e o mesmo com a
+     bateria Sonora, Wine Sparkle em cima e Blue Sparkle embaixo. Entre dobras
+     a repetição salta mais, porque o olho compara foto com foto. */
   const familias = new Set<string>();
+  for (const id of exceto) {
+    const anterior = porId.get(id);
+    if (anterior) familias.add(chaveDeFamilia(anterior));
+  }
   const out: Product[] = [];
 
   const fila = pool
@@ -239,24 +261,54 @@ export function maiorDesconto(lista: Product[]) {
   return Math.round(Math.max(0, ...lista.map(descontoPct)) * 100);
 }
 
-/** Mais vendidos — prova social pesada, mas vitrine de instrumento. */
+/** Mais vendidos — prova social pesada, mas vitrine de instrumento.
+ *  A dobra numera os cards (#1, #2, #3), e número dá manchete: com o piso em
+ *  `cordas` o pódio saía "#3 Encordoamento de Nylon", um saquinho preto no
+ *  lugar mais visível da home. Corda tem a própria dobra logo abaixo, então
+ *  aqui entra só o que sustenta pódio — instrumento e microfone. */
 export function maisVendidos(n = 12, exceto: number[] = []) {
   return selecionar({
     pool: catalogo,
     n,
-    minApelo: APELO.cordas,
-    maxPorTipo: { cordas: 2, cabo: 1, acessorio: 3 },
+    minApelo: APELO.microfone,
+    /* um microfone só: `intercalar` reveza CATEGORIA, e microfone e viola
+       moram os dois em "Acessórios" — dois microfones caíam em #2 e #4 sem o
+       revezamento perceber. */
+    maxPorTipo: { microfone: 1 },
     maxPorCategoria: 5,
     intercalar: true,
     exceto,
   });
 }
 
-/** Chegou agora — badge Novidade quando houver, senão instrumento de peso. */
-export function lancamentos(n = 8, exceto: number[] = []) {
+/** Chegou agora — badge Novidade quando houver, senão instrumento de peso.
+ *  A dobra virou banner + trilho (ver v2/NovidadesV2), e banner cobra vitrine:
+ *  ao lado de uma arte de página inteira, microfone e afinador leem como
+ *  sobra de estoque. Só instrumento entra, revezando categoria pra fileira
+ *  não abrir com três violões iguais. */
+/** Abaixo disso a dobra não se sustenta sozinha e o catálogo completa. */
+const MIN_LANCAMENTOS = 5;
+
+export function lancamentos(n = 9, exceto: number[] = []) {
+  /* Teto por categoria mais alto que nas outras dobras: o que está marcado
+     como novidade é um recorte pequeno, e a promoção do dia — que escolhe
+     antes — leva famílias inteiras junto. Com teto 4 sobrava menos de uma
+     fileira de marcados e a dobra completava com catálogo, sem a pill. */
+  const opcoes = { minApelo: APELO.instrumento, maxPorCategoria: 6, intercalar: true } as const;
   const novos = catalogo.filter((p) => p.badge === "Novidade");
-  const pool = novos.length >= n ? novos : catalogo;
-  return selecionar({ pool, n, minApelo: APELO.microfone, maxPorTipo: { microfone: 2 }, maxPorCategoria: 4, intercalar: true, exceto });
+  const marcados = selecionar({ pool: novos, n, ...opcoes, exceto });
+  /* Fileira mais curta é melhor que fileira mentirosa: a dobra promete "chegou
+     agora" e o card estampa a pill NOVIDADE, então quem entra aqui tem que
+     estar marcado como novidade no catálogo. Antes ela completava com o
+     catálogo geral pra fechar nove cards e metade vinha sem pill.
+     O trilho mostra três por vez — sete cards rolam igual. */
+  if (marcados.length >= MIN_LANCAMENTOS) return marcados;
+  /* Só quando quase não há novidade marcada (loja recém-montada) é que o
+     catálogo entra, pra dobra não sumir da home. */
+  return [
+    ...marcados,
+    ...selecionar({ pool: catalogo, n: n - marcados.length, ...opcoes, exceto: [...exceto, ...idsDe(marcados)] }),
+  ];
 }
 
 /** Instrumentos por categoria (violão, guitarra, contrabaixo). */
@@ -299,6 +351,29 @@ export function acessoriosDeTocar(n = 10, exceto: number[] = []) {
     intercalar: true,
     exceto,
   });
+}
+
+/* Grade de acessórios da home — seleção fixa, não sorteada.
+
+   `acessoriosDeTocar` sorteia dentro das regras e servia enquanto a dobra era
+   um trilho pequeno. Com a grade grande ao lado da arte, cada foto passou a
+   pesar: cartela de blister, ferragem preta e embalagem poluída derrubavam a
+   dobra inteira. Estes oito têm foto limpa e cor, um por família: microfone,
+   correia, encordoamento, afinador, capotraste, manutenção, cabo e palheta.
+   Correia é o que o catálogo tem de mais bonito, e por isso puxava a grade
+   inteira pra ela — fica uma só, pra a dobra parecer a categoria e não uma
+   vitrine de correias. */
+const ACESSORIOS_BONITOS = [129, 208, 139, 260, 275, 266, 96, 88];
+
+export function acessoriosBonitos() {
+  const achados = ACESSORIOS_BONITOS.map((id) => catalogo.find((p) => p.id === id)).filter(
+    Boolean,
+  ) as Product[];
+  // se algum sair do catálogo, a grade completa com o sorteio de sempre
+  const faltam = ACESSORIOS_BONITOS.length - achados.length;
+  return faltam === 0
+    ? achados
+    : [...achados, ...acessoriosDeTocar(faltam, achados.map((p) => p.id))];
 }
 
 /* ---------- título que descreve a seleção ------------------------------- */

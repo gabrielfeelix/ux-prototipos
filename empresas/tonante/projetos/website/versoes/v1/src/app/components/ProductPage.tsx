@@ -1380,7 +1380,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
       user: "Ricardo M.",
       rating: 5,
       date: "24 Mar 2026",
-      comment: "Acabamento impecável e o som é quente, encorpado. Regulagem veio boa de fábrica — afinei e já saí tocando. Recomendo demais.",
+      comment: "Acabamento impecável e o som é quente, encorpado. Regulagem veio boa de fábrica, afinei e já saí tocando. Recomendo demais.",
       verified: true,
       images: [
         "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=900&auto=format&fit=crop",
@@ -1405,7 +1405,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
       user: "Fabio L.",
       rating: 4,
       date: "02 Mar 2026",
-      comment: "Ótimo custo-benefício pra quem está começando. Só troquei as cordas por um encordoamento mais leve e ficou perfeito pros meus alunos.",
+      comment: "Ótimo custo-benefício para quem está começando. Só troquei as cordas por um encordoamento mais leve e ficou perfeito para os meus alunos.",
       verified: true,
       images: [
         "https://images.unsplash.com/photo-1471478331149-c72f17e33c73?q=80&w=900&auto=format&fit=crop",
@@ -1430,7 +1430,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
       user: "Pedro C.",
       rating: 5,
       date: "08 Fev 2026",
-      comment: "Meu primeiro instrumento foi um Tonante nos anos 90. Comprei esse pro meu filho começar — a história continua na família.",
+      comment: "Meu primeiro instrumento foi um Tonante nos anos 90. Comprei esse para o meu filho começar, e a história continua na família.",
       verified: true,
       likes: 7
     },
@@ -2005,8 +2005,8 @@ function ProductStandardDescription({ product, images }: { product: any; images:
   };
 
   const FALLBACK = [
-    { titulo: "Acabamento Tonante de fábrica", texto: "Materiais selecionados e conferência peça a peça antes do envio — o padrão da casa desde 1954." },
-    { titulo: "Do ensaio ao palco", texto: "Pensado pro dia a dia de quem toca: resistente na estrada, bonito de perto e fácil de manter." },
+    { titulo: "Acabamento Tonante de fábrica", texto: "Materiais selecionados e conferência peça a peça antes do envio: o padrão da casa desde 1954." },
+    { titulo: "Do ensaio ao palco", texto: "Pensado para o dia a dia de quem toca: resistente na estrada, bonito de perto e fácil de manter." },
     { titulo: "Garantia e suporte de verdade", texto: "2 anos de garantia, atendimento brasileiro e a tradição de quem é o primeiro instrumento de gerações." },
   ];
   const bloco = (i: number) => {
@@ -2074,7 +2074,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               <article className="flex flex-col overflow-hidden" style={{ borderRadius: "var(--radius-card-xl)", border: "1px solid var(--border)", background: "var(--surface-1)" }}>
                 <div className="relative min-h-[300px] flex-1" style={{ background: "var(--well)" }}>
-                  <QuadroFoto src={blocoA.foto} alt={`${product.name} — ${blocoA.titulo}`} padding="p-8" />
+                  <QuadroFoto src={blocoA.foto} alt={`${product.name}: ${blocoA.titulo}`} padding="p-8" />
                 </div>
                 <div className="p-7">
                   <h3 className="text-ink-strong" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(22px, 2.6vw, 28px)", lineHeight: 1.1, fontWeight: 700 }}>
@@ -2097,7 +2097,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                     </p>
                   </div>
                   <div className="absolute inset-y-3 right-3 hidden w-[42%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                    <QuadroFoto src={blocoB.foto} alt={`${product.name} — ${blocoB.titulo}`} padding="p-4" />
+                    <QuadroFoto src={blocoB.foto} alt={`${product.name}: ${blocoB.titulo}`} padding="p-4" />
                   </div>
                 </article>
 
@@ -2111,7 +2111,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
                     </p>
                   </div>
                   <div className="absolute inset-y-3 right-3 hidden w-[42%] md:block" style={{ background: "var(--well)", borderRadius: "var(--radius-card-md)" }}>
-                    <QuadroFoto src={blocoC.foto} alt={`${product.name} — ${blocoC.titulo}`} padding="p-4" />
+                    <QuadroFoto src={blocoC.foto} alt={`${product.name}: ${blocoC.titulo}`} padding="p-4" />
                   </div>
                 </article>
               </div>

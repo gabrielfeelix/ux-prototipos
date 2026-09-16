@@ -127,7 +127,7 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
               {initial ? "Editar cartão" : "Adicionar cartão"}
             </DialogTitle>
             <DialogDescription style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: isDark ? "rgba(var(--foreground-rgb), 0.55)" : "rgba(0,0,0,0.55)" }}>
-              Os dados ficam salvos pra agilizar o checkout.
+              Os dados ficam salvos para agilizar o checkout.
             </DialogDescription>
           </div>
         </div>
@@ -171,7 +171,7 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
                     fontWeight: 700,
                     color: "rgba(var(--foreground-rgb), 0.6)",
                     letterSpacing: "0.1em",
-                  }}>—</span>
+                  }}>-</span>
                 )}
               </div>
               <div

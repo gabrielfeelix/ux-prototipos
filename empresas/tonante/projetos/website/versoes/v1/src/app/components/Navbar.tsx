@@ -43,8 +43,8 @@ const megaMenus: Record<string, MegaMenu> = {
         right: {
           type: "layouts", title: "Violões de nylon",
           layouts: [
-            { label: "Para iniciantes", desc: "Braço macio e timbre redondo pra começar", href: getCatalogHref({ category: "Violões", subcategory: "Nylon" }) },
-            { label: "Erudito / concerto", desc: "Projeção e dedilhado pro repertório clássico", href: getCatalogHref({ category: "Violões", subcategory: "Nylon" }) },
+            { label: "Para iniciantes", desc: "Braço macio e timbre redondo para começar", href: getCatalogHref({ category: "Violões", subcategory: "Nylon" }) },
+            { label: "Erudito / concerto", desc: "Projeção e dedilhado para o repertório clássico", href: getCatalogHref({ category: "Violões", subcategory: "Nylon" }) },
             { label: "Natural", desc: "Leve, claro e fácil de tocar", href: getCatalogHref({ category: "Violões", subcategory: "Nylon" }) },
           ],
         },
@@ -56,7 +56,7 @@ const megaMenus: Record<string, MegaMenu> = {
           type: "layouts", title: "Violões de aço",
           layouts: [
             { label: "Tampo maciço", desc: "Som encorpado que envelhece bonito", href: getCatalogHref({ category: "Violões", subcategory: "Aço" }) },
-            { label: "Eletroacústico", desc: "Captação ativa pra sair do quarto pro palco", href: getCatalogHref({ category: "Violões", subcategory: "Eletroacústico" }) },
+            { label: "Eletroacústico", desc: "Captação ativa para sair do quarto para o palco", href: getCatalogHref({ category: "Violões", subcategory: "Eletroacústico" }) },
             { label: "Black / acetinado", desc: "Elegância escura no visual e no som", href: getCatalogHref({ category: "Violões", subcategory: "Aço" }) },
           ],
         },
@@ -97,7 +97,7 @@ const megaMenus: Record<string, MegaMenu> = {
         right: {
           type: "layouts", title: "Captação",
           layouts: [
-            { label: "Humbucker", desc: "Presença e calor pra ganho alto", href: getCatalogHref({ category: "Guitarras" }) },
+            { label: "Humbucker", desc: "Presença e calor para ganho alto", href: getCatalogHref({ category: "Guitarras" }) },
             { label: "Single-coil", desc: "Brilho e definição clássicos", href: getCatalogHref({ category: "Guitarras" }) },
             { label: "HSS", desc: "O melhor dos dois mundos", href: getCatalogHref({ category: "Guitarras" }) },
           ],
@@ -114,8 +114,8 @@ const megaMenus: Record<string, MegaMenu> = {
         right: {
           type: "layouts", title: "Linha JazzMine",
           layouts: [
-            { label: "4 cordas", desc: "O groove clássico, versátil pra tudo", href: getCatalogHref({ category: "Contrabaixos" }) },
-            { label: "5 cordas", desc: "Grave estendido pra estúdio e palco", href: getCatalogHref({ category: "Contrabaixos" }) },
+            { label: "4 cordas", desc: "O groove clássico, versátil para tudo", href: getCatalogHref({ category: "Contrabaixos" }) },
+            { label: "5 cordas", desc: "Grave estendido para estúdio e palco", href: getCatalogHref({ category: "Contrabaixos" }) },
           ],
         },
       },
@@ -126,7 +126,7 @@ const megaMenus: Record<string, MegaMenu> = {
           type: "layouts", title: "Linha Theodor",
           layouts: [
             { label: "4 cordas", desc: "Corpo encorpado, presença no mix", href: getCatalogHref({ category: "Contrabaixos" }) },
-            { label: "5 cordas", desc: "Peso e definição pro peso do groove", href: getCatalogHref({ category: "Contrabaixos" }) },
+            { label: "5 cordas", desc: "Peso e definição para o peso do groove", href: getCatalogHref({ category: "Contrabaixos" }) },
           ],
         },
       },
@@ -141,7 +141,7 @@ const megaMenus: Record<string, MegaMenu> = {
         right: {
           type: "layouts", title: "Cordas de violão",
           layouts: [
-            { label: "Aço", desc: "Brilho e projeção pro folk", href: getCatalogHref({ category: "Cordas & Encordoamentos" }) },
+            { label: "Aço", desc: "Brilho e projeção para o folk", href: getCatalogHref({ category: "Cordas & Encordoamentos" }) },
             { label: "Nylon", desc: "Timbre redondo e macio", href: getCatalogHref({ category: "Cordas & Encordoamentos" }) },
           ],
         },
@@ -1326,10 +1326,10 @@ export function Navbar() {
                             setSearchCategory(cat);
                             setSearchCategoryOpen(false);
                           }}
-                          className={`flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors ${
+                          className={`flex w-full cursor-pointer items-center justify-between px-4 py-2.5 text-left transition-colors ${
                             searchCategory === cat
                               ? "bg-foreground/[0.08] text-ink-strong"
-                              : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
+                              : "text-ink hover:bg-[var(--surface-2)] hover:text-ink-strong"
                           }`}
                           style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 500 }}
                         >

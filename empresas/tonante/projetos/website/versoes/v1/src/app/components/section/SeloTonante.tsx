@@ -48,7 +48,7 @@ export function SeloTonante({
       className={className}
       style={{ display: "inline-block", width: size, height: size, lineHeight: 0, ...style }}
       role="img"
-      aria-label={RING[variant].replace(/ · $/, "").replace(/·/g, "—")}
+      aria-label={RING[variant].replace(/ · $/, "").replace(/·/g, ",")}
     >
       <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
         <defs>

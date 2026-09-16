@@ -5,7 +5,7 @@ const sections = [
     id: "coleta",
     heading: "Dados que coletamos",
     body: [
-      "Coletamos os dados que você nos fornece diretamente ao criar uma conta, finalizar uma compra ou entrar em contato com a gente — como nome, CPF, e-mail e endereço de entrega. Essas informações são essenciais para identificar você e concluir os serviços solicitados.",
+      "Coletamos os dados que você nos fornece diretamente ao criar uma conta, finalizar uma compra ou entrar em contato com a gente, como nome, CPF, e-mail e endereço de entrega. Essas informações são essenciais para identificar você e concluir os serviços solicitados.",
       "Também coletamos dados de navegação de forma automática enquanto você usa o site, como endereço IP, tipo de dispositivo, navegador utilizado e as páginas visitadas. Esses dados nos ajudam a entender como a loja é usada e a manter tudo funcionando com segurança.",
     ],
   },

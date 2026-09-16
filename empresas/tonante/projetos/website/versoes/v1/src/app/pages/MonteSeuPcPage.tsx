@@ -511,7 +511,7 @@ const categories: Category[] = [
     options: gpuProducts.map((product, index) =>
       toOptionFromProduct("gpu", product, index, {
         standard: index === 0,
-        summary: "Produto real do catálogo para a gente validar densidade visual, foto e nome ao mesmo tempo.",
+        summary: "Produto real do catálogo para gente validar densidade visual, foto e nome ao mesmo tempo.",
       }),
     ),
   },
@@ -952,9 +952,9 @@ type UseTypeCardData = {
 const useTypeCards: UseTypeCardData[] = [
   {
     id: "gaming",
-    title: "Pra jogar",
+    title: "Para jogar",
     subtitle: "Gaming",
-    desc: "Esports, AAA ou casual — vamos ver quais jogos você curte e te entregar FPS de verdade.",
+    desc: "Esports, AAA ou casual: vamos ver quais jogos você curte e te entregar FPS de verdade.",
     image: "/home/category-pc-gamer.png",
     icon: <Gamepad2 className="h-5 w-5" />,
     accent: "#c87800",
@@ -962,9 +962,9 @@ const useTypeCards: UseTypeCardData[] = [
   },
   {
     id: "creating",
-    title: "Pra criar",
+    title: "Para criar",
     subtitle: "Edição & Design",
-    desc: "Foto, vídeo, motion, 3D ou UI — sugerimos a build alinhada com seus programas favoritos.",
+    desc: "Foto, vídeo, motion, 3D ou UI: sugerimos a build alinhada com seus programas favoritos.",
     image: "/home/category-computers.png",
     icon: <Palette className="h-5 w-5" />,
     accent: "#a78bfa",
@@ -972,9 +972,9 @@ const useTypeCards: UseTypeCardData[] = [
   },
   {
     id: "general",
-    title: "Pra dia-a-dia",
+    title: "Para dia-a-dia",
     subtitle: "Uso geral",
-    desc: "Estudo, home office, navegação, streaming. Do básico ao desempenho — você escolhe.",
+    desc: "Estudo, home office, navegação, streaming. Do básico ao desempenho, você escolhe.",
     image: "/home/category-chair.png",
     icon: <Briefcase className="h-5 w-5" />,
     accent: "#22d3ee",
@@ -1013,7 +1013,7 @@ const presets: Preset[] = [
     persona: "gamer",
     name: "PCYES Pulse",
     tagline: "Gamer · 1080p · esports",
-    description: "Primeiro setup pra entrar no competitivo. 144Hz tranquilo em CS2, Valorant, Fortnite. eSports sem desculpa.",
+    description: "Primeiro setup para entrar no competitivo. 144Hz tranquilo em CS2, Valorant, Fortnite. eSports sem desculpa.",
     price: 3499,
     oldPrice: 3899,
     pixDiscount: 10,
@@ -1088,7 +1088,7 @@ const presets: Preset[] = [
     persona: "gamer",
     name: "PCYES Apex",
     tagline: "Gamer · 4K alto FPS",
-    description: "Topo absoluto pra gaming. 4K com Path Tracing, dual-PC stream, sem comprometer nada.",
+    description: "Topo absoluto para gaming. 4K com Path Tracing, dual-PC stream, sem comprometer nada.",
     price: 14999,
     oldPrice: 16499,
     pixDiscount: 15,
@@ -1162,7 +1162,7 @@ const presets: Preset[] = [
     persona: "creator",
     name: "PCYES Render",
     tagline: "Creator · Vídeo 4K + Motion",
-    description: "Cavalo de batalha pra editor. Premiere/DaVinci 4K real-time, After Effects sem dor, Blender médio.",
+    description: "Cavalo de batalha para editor. Premiere/DaVinci 4K real-time, After Effects sem dor, Blender médio.",
     price: 8999,
     oldPrice: 9999,
     pixDiscount: 12,
@@ -1237,7 +1237,7 @@ const presets: Preset[] = [
     persona: "daily",
     name: "PCYES Base",
     tagline: "Dia-a-dia · Office + streaming",
-    description: "PC honesto pra estudo, trabalho remoto e streaming. Custo-benefício de verdade.",
+    description: "PC honesto para estudo, trabalho remoto e streaming. Custo-benefício de verdade.",
     price: 2299,
     oldPrice: 2599,
     pixDiscount: 10,
@@ -1274,7 +1274,7 @@ const presets: Preset[] = [
     persona: "daily",
     name: "PCYES Hub",
     tagline: "Dia-a-dia · Multitarefa séria",
-    description: "Pra quem usa pesado sem ser gamer/editor pro. 30+ abas, planilhas grandes, dual-monitor 4K.",
+    description: "Para quem usa pesado sem ser gamer nem editor profissional. 30+ abas, planilhas grandes, dual-monitor 4K.",
     price: 4499,
     oldPrice: 4999,
     pixDiscount: 10,
@@ -1311,7 +1311,7 @@ const presets: Preset[] = [
     persona: "daily",
     name: "PCYES Cockpit",
     tagline: "Dia-a-dia · Pesado sem freio",
-    description: "Pra quem nunca fecha aba. Triple monitor, dev pesado, edição casual, tudo simultâneo.",
+    description: "Para quem nunca fecha aba. Triple monitor, dev pesado, edição casual, tudo simultâneo.",
     price: 9999,
     oldPrice: 10999,
     pixDiscount: 12,
@@ -1393,7 +1393,7 @@ const gamingLevelCards: GamingLevelCard[] = [
   {
     id: "pro",
     title: "Pro / Streamer",
-    desc: "Esports, live, dual-PC. Sem espaço pra travada.",
+    desc: "Esports, live, dual-PC. Sem espaço para travada.",
     icon: <Trophy className="h-4 w-4" />,
     accent: "#a78bfa",
   },
@@ -2060,9 +2060,9 @@ function QuizFlow({
               current={currentStepNumber}
               total={totalSteps}
               onBack={goBack}
-              eyebrow="// Pra que você quer um PC"
+              eyebrow="// Para que você quer um PC"
               title="O que vai fazer com seu setup?"
-              subtitle="Vamos partir do uso real — não do orçamento. Cada caminho leva a uma sugestão diferente."
+              subtitle="Vamos partir do uso real, não do orçamento. Cada caminho leva a uma sugestão diferente."
             />
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {useTypeCards.map((c) => (
@@ -2086,7 +2086,7 @@ function QuizFlow({
               onBack={goBack}
               eyebrow="// Gaming"
               title="Quais jogos você joga?"
-              subtitle="Selecione um ou mais. A gente usa isso pra calibrar GPU e CPU — esports é diferente de AAA pesado."
+              subtitle="Selecione um ou mais. A gente usa isso para calibrar GPU e CPU, porque esports é diferente de AAA pesado."
             />
 
             <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -2166,7 +2166,7 @@ function QuizFlow({
                   className="text-zinc-400"
                   style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
                 >
-                  Sem stress — pode pular essa etapa, a gente sugere por gênero.
+                  Sem stress, pode pular essa etapa, a gente sugere por gênero.
                 </p>
               </div>
             ) : (
@@ -2193,7 +2193,7 @@ function QuizFlow({
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}
               >
                 {selectedGameCount === 0
-                  ? "Nenhum jogo selecionado — pode pular se preferir"
+                  ? "Nenhum jogo selecionado, pode pular se preferir"
                   : "Pode continuar quando quiser"}
               </p>
               <button
@@ -2303,7 +2303,7 @@ function QuizFlow({
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}
               >
                 {selectedProgramCount === 0
-                  ? "Nenhum programa selecionado — pode pular se preferir"
+                  ? "Nenhum programa selecionado, pode pular se preferir"
                   : "Pode continuar quando quiser"}
               </p>
               <button
@@ -2369,7 +2369,7 @@ function QuizFlow({
               onBack={goBack}
               eyebrow="// Uso geral"
               title="Quanto desempenho você quer?"
-              subtitle="Pra rodar planilha, navegador e vídeo o básico já entrega. Multitarefa pesada pede outro patamar."
+              subtitle="Para rodar planilha, navegador e vídeo o básico já entrega. Multitarefa pesada pede outro patamar."
             />
             <div className="mx-auto max-w-[640px] space-y-2.5">
               {generalLevelCards.map((c) => (
@@ -3406,7 +3406,7 @@ function PresetGallery({
               fontWeight: 700,
             }}
           >
-            // O setup escolhido pra você é
+            // O setup escolhido para você é
           </p>
           <h2
             className="mb-3 text-ink-strong"
@@ -3461,7 +3461,7 @@ function PresetGallery({
                   letterSpacing: "-0.02em",
                 }}
               >
-                Outras opções pro seu uso
+                Outras opções para o seu uso
               </h3>
             </div>
 
@@ -3558,7 +3558,7 @@ function PresetGallery({
           className="mx-auto max-w-[520px] text-zinc-400"
           style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}
         >
-          Builds montadas e testadas. Clique pra ver todas as peças e comprar com 1 clique.
+          Builds montadas e testadas. Clique para ver todas as peças e comprar com 1 clique.
         </p>
       </div>
 
@@ -3874,14 +3874,14 @@ function WelcomeScreen({ onPath }: { onPath: (p: "builder" | "quiz" | "presets")
           <PathCard
             icon={<Cpu className="h-5 w-5" />}
             label="Eu já sei o que quero"
-            desc="Vai direto pro builder. Escolhe cada peça do zero, com filtros, busca e compatibilidade automática."
+            desc="Vai direto para o builder. Escolhe cada peça do zero, com filtros, busca e compatibilidade automática."
             cta="Montar do zero"
             onClick={() => onPath("builder")}
           />
           <PathCard
             icon={<Wand2 className="h-5 w-5" />}
             label="Me ajuda a escolher"
-            desc="Diz pra gente o que você joga, edita ou faz no dia-a-dia. A gente devolve a build certa pro seu uso."
+            desc="Diz para gente o que você joga, edita ou faz no dia-a-dia. A gente devolve a build certa para o seu uso."
             cta="Começar"
             badge="POPULAR"
             onClick={() => onPath("quiz")}
@@ -3889,7 +3889,7 @@ function WelcomeScreen({ onPath }: { onPath: (p: "builder" | "quiz" | "presets")
           <PathCard
             icon={<Sparkles className="h-5 w-5" />}
             label="Quero builds prontas"
-            desc="Setups Start, Pro e Ultra já montados e testados. Aplica e customiza qualquer peça antes de comprar."
+            desc="Setups Start, Para o e Ultra já montados e testados. Aplica e customiza qualquer peça antes de comprar."
             cta="Ver setups"
             onClick={() => onPath("presets")}
           />
@@ -4006,7 +4006,7 @@ function computeCompat(
       id: "power",
       severity: "warn",
       label: "Fonte no limite",
-      detail: `Fonte ${psuWatt}W cobre ${estimatedWatt}W estimados mas sem folga pra picos. Recomendado ${Math.round(estimatedWatt * 1.3)}W+.`,
+      detail: `Fonte ${psuWatt}W cobre ${estimatedWatt}W estimados mas sem folga para picos. Recomendado ${Math.round(estimatedWatt * 1.3)}W+.`,
       fix: { label: "Upgrade fonte", stepId: "psu" },
     });
   } else {
@@ -4202,7 +4202,7 @@ function ReviewScreen({
                         lineHeight: 1.25,
                       }}
                     >
-                      {c.selectedOption?.name ?? "—"}
+                      {c.selectedOption?.name ?? "-"}
                     </p>
                     <p
                       className="mt-0.5 text-primary tabular-nums"
@@ -4212,7 +4212,7 @@ function ReviewScreen({
                         fontWeight: 700,
                       }}
                     >
-                      {c.selectedOption ? formatBRL(c.selectedOption.price) : "—"}
+                      {c.selectedOption ? formatBRL(c.selectedOption.price) : "-"}
                     </p>
                   </div>
                 </div>
@@ -5169,7 +5169,7 @@ function computeStepMessages(
   }
 
   if (min === 0 && opts.length === 0) {
-    msgs.push({ tone: "info", text: "Etapa opcional — você pode pular esta etapa." });
+    msgs.push({ tone: "info", text: "Etapa opcional: você pode pular esta etapa." });
   }
 
   if (min > 0 && opts.length < min) {
@@ -6404,7 +6404,7 @@ export function MonteSeuPcPage() {
                                   fontWeight: 600,
                                 }}
                               >
-                                Nada encontrado pra "{stepSearch}"
+                                Nada encontrado para "{stepSearch}"
                               </p>
                               <p
                                 className="mt-1 text-zinc-500"

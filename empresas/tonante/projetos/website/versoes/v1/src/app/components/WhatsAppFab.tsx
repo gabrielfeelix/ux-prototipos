@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useCart } from "./CartContext";
 
 /* Botão flutuante de WhatsApp — atendimento humano no canto inferior direito.
    O número ainda não existe: NUMERO é placeholder e precisa ser trocado pelo
@@ -12,6 +13,10 @@ const MENSAGEM = "Olá! Vim pelo site da Tonante e preciso de ajuda para escolhe
 
 export function WhatsAppFab() {
   const [visivel, setVisivel] = useState(false);
+  /* Com o carrinho aberto o botão desce pra baixo do overlay: ele é o único
+     elemento fixo acima do drawer e do modal de brinde, e ficava boiando por
+     cima de quem estava fechando a compra. */
+  const { isOpen: carrinhoAberto } = useCart();
 
   useEffect(() => {
     const t = setTimeout(() => setVisivel(true), 1200);
@@ -24,7 +29,7 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com o atendimento no WhatsApp"
-      className="group/wa fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full transition-[transform,box-shadow,opacity] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 md:bottom-7 md:right-7"
+      className={`group/wa fixed bottom-5 right-5 ${carrinhoAberto ? "z-[40]" : "z-[90]"} flex h-14 w-14 items-center justify-center rounded-full transition-[transform,box-shadow,opacity] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 md:bottom-7 md:right-7`}
       style={{
         background: "#25D366",
         boxShadow: "0 10px 30px -10px rgba(37,211,102,0.65), 0 2px 8px rgba(17,17,17,0.18)",

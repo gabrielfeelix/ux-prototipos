@@ -134,7 +134,7 @@ export function Video70Anos() {
               }}
             >
               Setenta anos fazendo instrumento
-              <br className="hidden sm:block" /> pra quem faz música.
+              <br className="hidden sm:block" /> para quem faz música.
             </h2>
             <p
               style={{
@@ -147,7 +147,7 @@ export function Video70Anos() {
                 textShadow: "0 1px 12px rgba(0,0,0,0.5)",
               }}
             >
-              Três guitarras comemorativas, feitas pra marcar os 70 anos de uma
+              Três guitarras comemorativas, feitas para marcar os 70 anos de uma
               fábrica que começou em 1954 e nunca parou.
             </p>
           </div>

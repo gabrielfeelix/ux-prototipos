@@ -72,7 +72,7 @@ export function CartPage() {
       .slice(0, 3);
   }, []);
 
-  // PCYES Points (state vem do context)
+  // Tonante Points (state vem do context)
   const userPoints = 480;
 
   const subtotal = useMemo(
@@ -387,7 +387,7 @@ export function CartPage() {
                     <Gift size={15} strokeWidth={2.2} />
                   </div>
                   <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "rgba(var(--foreground-rgb), 0.78)" }}>
-                    Falta <span className="text-ink-strong font-bold">{formatBRL(GIFT_THRESHOLD - subtotal)}</span> pra desbloquear um brinde
+                    Falta <span className="text-ink-strong font-bold">{formatBRL(GIFT_THRESHOLD - subtotal)}</span> para desbloquear um brinde
                   </p>
                 </div>
               </div>
@@ -801,7 +801,7 @@ export function CartPage() {
                   )}
                 </AnimatePresence>
 
-                {/* PCYES Points */}
+                {/* Tonante Points */}
                 <div
                   className={`mb-5 overflow-hidden rounded-card-sm transition-colors ${
                     pointsApplied
@@ -817,7 +817,7 @@ export function CartPage() {
                     <span className="flex items-center gap-2">
                       <PcyesCoin size={20} />
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "#facc15" : "rgba(var(--foreground-rgb), 0.78)" }}>
-                        PCYES Points
+                        Tonante Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.4)" }}>
                         {userPoints} pts
@@ -916,13 +916,13 @@ export function CartPage() {
                         color: freeShipping || (selectedShipping && shippingPrice === 0) ? "#22c55e" : "rgba(var(--foreground-rgb), 0.85)",
                       }}
                     >
-                      {freeShipping ? "GRÁTIS" : selectedShipping ? formatBRL(shippingPrice) : "—"}
+                      {freeShipping ? "GRÁTIS" : selectedShipping ? formatBRL(shippingPrice) : "-"}
                     </span>
                   </div>
                   {pointsValue > 0 && (
                     <div className="flex items-center justify-between">
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 600 }}>
-                        PCYES Points
+                        Tonante Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 700 }}>
                         −{formatBRL(pointsValue)}
@@ -1016,7 +1016,7 @@ export function CartPage() {
                       Escolha seu presente
                     </h3>
                     <p className="mt-3 max-w-[560px] text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "clamp(12px, 3.4vw, 14px)", lineHeight: 1.6 }}>
-                      Você atingiu {formatBRL(GIFT_THRESHOLD)}. Selecione um produto pra entrar no carrinho com selo de presente e valor zerado.
+                      Você atingiu {formatBRL(GIFT_THRESHOLD)}. Selecione um produto para entrar no carrinho com selo de presente e valor zerado.
                     </p>
                   </div>
                   <button

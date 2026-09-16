@@ -11,6 +11,11 @@
  *
  * 561 de 1567 fotos são ambientadas — por isso a lista guarda a minoria.
  *
+ * EXCEÇÃO À MÃO: as fotos de encordoamento Tonante são packshot de embalagem
+ * — cartela escura sobre madeira — e o script as lia como ambientadas. Elas
+ * saíram desta lista para voltarem a aparecer inteiras dentro do fundo do card.
+ * Ao regerar, tirá-las de novo.
+ *
  * PNG recortado (fundo transparente) é foto de estúdio: o script compõe o alfa
  * sobre BRANCO antes de medir. Sem isso o transparente virava preto e 37 fotos
  * entravam aqui como ambientadas — era o que cortava a guitarra no card.
@@ -496,13 +501,9 @@ const AMBIENTADAS = new Set<string>([
   "/produtos/oficial/36761/36761_15.webp",
   "/produtos/oficial/36761/36761_7.webp",
   "/produtos/oficial/36761/36761_8.webp",
-  "/produtos/oficial/36764/36764.webp",
   "/produtos/oficial/36764/36764_4.webp",
-  "/produtos/oficial/36766/36766.webp",
   "/produtos/oficial/36766/36766_4.webp",
-  "/produtos/oficial/36767/36767.webp",
   "/produtos/oficial/36767/36767_4.webp",
-  "/produtos/oficial/36768/36768.webp",
   "/produtos/oficial/36768/36768_4.webp",
   "https://cdn.oderco.com.br/produtos/108160/108160-A1.jpg",
   "https://cdn.oderco.com.br/produtos/108167/108167-A1.jpg",
@@ -531,12 +532,6 @@ const AMBIENTADAS = new Set<string>([
   "https://cdn.oderco.com.br/produtos/330674/330674-A1.jpg",
   "https://cdn.oderco.com.br/produtos/338666/338666-A1.jpg",
   "https://cdn.oderco.com.br/produtos/338667/338667-A1.jpg",
-  "https://cdn.oderco.com.br/produtos/342288/342288-A1.jpg",
-  "https://cdn.oderco.com.br/produtos/342290/342290-A1.jpg",
-  "https://cdn.oderco.com.br/produtos/342291/342291-A1.jpg",
-  "https://cdn.oderco.com.br/produtos/342292/342292-A1.jpg",
-  "https://cdn.oderco.com.br/produtos/342294/342294-A1.jpg",
-  "https://cdn.oderco.com.br/produtos/342295/342295-A1.jpg",
   "https://cdn.oderco.com.br/produtos/360326/360326-A1.jpg",
   "https://cdn.oderco.com.br/produtos/360326/360326-A5.png",
   "https://cdn.oderco.com.br/produtos/360326/360326-A6.png",
@@ -575,8 +570,6 @@ const AMBIENTADAS = new Set<string>([
   "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18572.jpg-17460175364713837.jpeg",
   "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18574_1.jpg-17458989310906177.jpeg",
   "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/3/23175.jpg-17459113365166824.jpeg",
-  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25418.jpg-17460173930315426.jpeg",
-  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/2/5/25425.jpg-17459152659418611.jpeg",
 ]);
 
 /* Ambientadas que também são muito estreitas ou muito deitadas: num

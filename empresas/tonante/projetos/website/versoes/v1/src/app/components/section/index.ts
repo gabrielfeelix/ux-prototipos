@@ -2,6 +2,7 @@ export { Eyebrow } from "./Eyebrow";
 export { SectionHeader } from "./SectionHeader";
 export { SectionContainer } from "./SectionContainer";
 export { CTAButton, ctaVariants } from "./CTAButton";
+export { GhostButton, ghostVariants } from "./GhostButton";
 export { DiscountBadge } from "./DiscountBadge";
 export { BrindePill } from "./BrindePill";
 export { PreOrderPill } from "./PreOrderPill";
