@@ -136,7 +136,7 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
               key={`vthumb-${i}`}
               onClick={() => setActive(i)}
               className={`relative flex-shrink-0 w-[68px] h-[68px] xl:w-[78px] xl:h-[78px] overflow-hidden border transition-all cursor-pointer ${i === active ? "border-primary ring-1 ring-primary/35" : "border-foreground/10 hover:border-foreground/30"}`}
-              style={{ borderRadius: "var(--radius-card)", background: "var(--surface-3)" }}
+              style={{ borderRadius: "var(--radius-card)", background: isDark ? "var(--surface-3)" : "var(--gradient-photo)" }}
               aria-label={`Ver imagem ${i + 1}`}
             >
               {/* Regra do quadro (vale aqui e na foto grande): recorte de
@@ -163,7 +163,7 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
           borderRadius: "var(--radius-card-lg)",
           background: isDark
             ? "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.10) 0%, rgba(var(--foreground-rgb), 0.03) 100%)"
-            : "linear-gradient(135deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 100%)",
+            : "var(--gradient-photo)",
           border: isDark ? "1px solid rgba(var(--foreground-rgb), 0.08)" : "1px solid rgba(0,0,0,0.06)",
           boxShadow: isDark
             ? "inset 0 1px 0 rgba(var(--foreground-rgb), 0.05), 0 24px 60px -20px rgba(0,0,0,0.4)"
@@ -173,13 +173,18 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: "radial-gradient(circle at 30% 25%, rgba(var(--foreground-rgb), 0.06) 0%, transparent 55%)",
-            borderRadius: "var(--radius-card-lg)",
-          }}
-        />
+        {/* No dark o radial dá o ponto de luz do quadro. No light ele brigava
+            com a queda do --gradient-photo (clareia justamente onde o gradiente
+            começa claro), achatando o fundo — por isso só no dark. */}
+        {isDark && (
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: "radial-gradient(circle at 30% 25%, rgba(var(--foreground-rgb), 0.06) 0%, transparent 55%)",
+              borderRadius: "var(--radius-card-lg)",
+            }}
+          />
+        )}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
@@ -198,7 +203,7 @@ function ProductGallery({ images, name, isDark }: { images: string[]; name: stri
             style={
               isDark || ambientadaAtiva
                 ? undefined
-                : { isolation: "isolate", background: "linear-gradient(135deg, #f5f5f5 0%, #fcfcfc 100%)" }
+                : { isolation: "isolate", background: "var(--gradient-photo)" }
             }
           >
             <QuadroFoto
@@ -2029,7 +2034,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
   const lead = historia.abertura;
 
   const productImageBg = {
-    background: "linear-gradient(160deg, #f7f7f7, #ececec)",
+    background: "var(--gradient-photo)",
     border: "1px solid var(--border)",
     boxShadow: "var(--shadow-card-hairline)",
   } as const;

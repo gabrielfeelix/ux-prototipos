@@ -173,8 +173,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
       <div
         className="relative overflow-hidden"
         style={{
-          // cinza neutro (sem amarelo): o bege anterior encardia contra o branco da página
-          background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)",
+          background: "var(--gradient-photo)",
           borderRadius: "8px",
         }}
       >
@@ -312,7 +311,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
               title={v.label}
               className={`relative h-10 w-10 overflow-hidden transition-[outline-color,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${unico ? "cursor-default" : "cursor-pointer hover:scale-[1.06]"}`}
               style={{
-                background: "linear-gradient(158deg, #fbfbfc, #eaecee)",
+                background: "var(--gradient-photo)",
                 borderRadius: "8px",
                 /* selecionada: a mesma tinta quente do --ink-soft, só que
                    fraca. Contorno cheio brigava com a foto do instrumento

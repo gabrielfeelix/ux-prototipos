@@ -155,6 +155,12 @@
   --gradient-hero-stroke:     linear-gradient(135deg, rgba(17,17,17,0.14) 0%, rgba(17,17,17,0.05) 100%);
   --gradient-hero-stroke-hover: linear-gradient(135deg, var(--primary) 0%, #e08c12 35%, rgba(200,120,0,0.45) 65%, rgba(17, 17, 17, 0.08) 100%);
   --gradient-category-grid:   linear-gradient(72.85deg, #121213 44.62%, #1d1d1f 100.35%);  /* dark stage neutro (rock, não marrom) */
+  /* Fundo de foto de produto (light): cinza neutro caindo pro canto inferior
+     direito, o mesmo da vitrine da home. Vale no card, na galeria da PDP e nas
+     miniaturas — se a foto grande e a miniatura não dividirem este fundo, a
+     miniatura parece de outra loja. Sem amarelo: o bege encardia contra o
+     branco da página. No dark o componente ramifica com `isDark`. */
+  --gradient-photo:           linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%);
 
   /* ===================================================================
      SOMBRAS — neutras, sutis, profissionais (V3). Sem glow colorido nem
