@@ -7,7 +7,7 @@ import { cn } from "../ui/utils";
  * CTAButton — botao de acao principal do DS.
  *
  * Taxonomia (Figma 1:1):
- *   variant = cor/intencao:  buy (verde) · preorder (laranja) · brand (vermelho)
+ *   variant = cor/intencao:  ink (preto) · buy (verde) · preorder (laranja) · brand (âmbar)
  *   size    = dimensao:      sm (cards pequenos) · md (cards normais) · lg (blocos de compra)
  *   block   = largura total
  *   as      = "button" (default) | "link" (navega via react-router, visual identico)
@@ -30,6 +30,11 @@ const ctaVariants = cva(
            sem transição o hover trocava de cor num corte seco. Cor sólida
            anima, e o botão ganha os três estados que o clique pede —
            repouso, hover e pressed. */
+        /* ink — ação neutra. Na home v2 o preto é a cor de ação (botão de
+           carrinho e de busca do header, medalhão de ranking do card); o âmbar
+           é acento. Um CTA âmbar chapado com texto escuro lia como marrom e
+           disputava com a própria borda âmbar de seleção. */
+        ink: "[background-color:var(--ink-strong)] hover:[background-color:#2b2b2b] active:[background-color:#000] tracking-[0.04em]",
         buy: "[background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] tracking-[0.04em]",
         preorder: "[background-image:var(--gradient-preorder-orange)] tracking-[0.04em]",
         brand: "[background-image:var(--gradient-brand)] tracking-[0.05em] uppercase",
@@ -45,6 +50,9 @@ const ctaVariants = cva(
       },
     },
     compoundVariants: [
+      // ink (preto)
+      { variant: "ink", size: ["sm", "md"], class: "shadow-[var(--shadow-brand-pill)]" },
+      { variant: "ink", size: "lg", class: "shadow-[var(--shadow-brand-cta)]" },
       // buy (verde)
       { variant: "buy", size: ["sm", "md"], class: "shadow-[var(--shadow-buy-cta-sm)]" },
       { variant: "buy", size: "lg", class: "shadow-[var(--shadow-buy-cta)]" },

@@ -169,11 +169,12 @@ function PaymentOption({
         <span className="flex-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--ink-strong)" }}>{label}</span>
         {badge && (
           <span
-            className="inline-flex items-center text-white"
+            className="inline-flex items-center"
             style={{
               padding: "3px 8px",
               borderRadius: "var(--radius-pill)",
               background: "#b3361f",
+              color: "#fff",
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-caption)",
               fontWeight: 700,
@@ -384,14 +385,12 @@ export function CheckoutPage() {
         label: "Sedex Expresso",
         eta: "2 dias úteis",
         price: free ? 0 : 35.9,
-        badge: free ? "GRÁTIS" : undefined,
       },
       {
         id: "pac",
         label: "PAC Econômico",
         eta: "7 dias úteis",
         price: free ? 0 : 14.9,
-        badge: free ? "GRÁTIS" : undefined,
       },
       {
         id: "today",
@@ -595,7 +594,7 @@ export function CheckoutPage() {
             >
               Seu carrinho ainda está vazio
             </h1>
-            <CTAButton as="link" to="/produtos" variant="brand" size="lg">
+            <CTAButton as="link" to="/produtos" variant="ink" size="lg">
               Explorar produtos
               <ArrowRight size={14} strokeWidth={2.4} />
             </CTAButton>
@@ -718,7 +717,7 @@ export function CheckoutPage() {
                   <CTAButton
                     onClick={copyPix}
                     aria-label="Copiar código PIX"
-                    variant={pixCopied ? "buy" : "brand"}
+                    variant={pixCopied ? "buy" : "ink"}
                     size="lg"
                     block
                   >
@@ -756,7 +755,7 @@ export function CheckoutPage() {
                 initial={{ scale: 0.4, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="mb-7 flex h-24 w-24 items-center justify-center rounded-full text-white"
+                className="mb-7 flex h-24 w-24 items-center justify-center rounded-full [color:#fff]"
                 style={{
                   background: "var(--buy-green)",
                   boxShadow: "0 24px 60px -28px rgba(17,17,17,0.35), 0 0 0 6px rgba(18,146,76,0.10)",
@@ -840,7 +839,7 @@ export function CheckoutPage() {
                         </div>
                         {item.quantity > 1 && (
                           <span
-                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-white"
+                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 [color:#fff]"
                             style={{
                               background: "var(--primary)",
                               fontFamily: "var(--font-family-inter)",
@@ -884,7 +883,7 @@ export function CheckoutPage() {
                       {formatBRL(snap.total)}
                     </p>
                   </div>
-                  <CTAButton as="link" to="/" variant="brand" size="md">
+                  <CTAButton as="link" to="/" variant="ink" size="md">
                     Voltar para a home
                     <ArrowRight size={13} strokeWidth={2.4} />
                   </CTAButton>
@@ -1201,7 +1200,7 @@ export function CheckoutPage() {
                                   border: active ? "none" : "1.5px solid var(--edge-strong)",
                                 }}
                               >
-                                {active && <Check size={11} strokeWidth={3} className="text-white" />}
+                                {active && <Check size={11} strokeWidth={3} className="[color:#fff]" />}
                               </div>
                               <Truck size={18} strokeWidth={1.8} className={active ? "text-[var(--amber-text)]" : "text-ink-muted"} />
                               <div className="min-w-0 flex-1">
@@ -1211,15 +1210,21 @@ export function CheckoutPage() {
                                   </p>
                                   {opt.badge && (
                                     <span
-                                      className="inline-flex items-center text-white"
+                                      /* contorno, não preenchimento: o nível de
+                                         entrega é atributo, e um segundo pill
+                                         chapado brigava com a borda âmbar que
+                                         marca a linha escolhida. */
+                                      className="inline-flex items-center"
                                       style={{
-                                        padding: "3px 9px",
+                                        padding: "2px 9px",
                                         borderRadius: "var(--radius-pill)",
-                                        background: opt.badge === "GRÁTIS" ? "var(--buy-green)" : "var(--primary)",
+                                        background: "rgba(200, 120, 0, 0.10)",
+                                        border: "1px solid rgba(200, 120, 0, 0.40)",
+                                        color: "var(--amber-text)",
                                         fontFamily: "var(--font-family-inter)",
                                         fontSize: "var(--text-caption)",
                                         fontWeight: 700,
-                                        lineHeight: 1,
+                                        lineHeight: 1.5,
                                         letterSpacing: "0.06em",
                                       }}
                                     >
@@ -1627,7 +1632,7 @@ export function CheckoutPage() {
                   <CTAButton
                     onClick={() => setStep((s) => (s + 1) as Step)}
                     disabled={!canAdvance}
-                    variant="brand"
+                    variant="ink"
                     size="lg"
                     className="hidden lg:inline-flex"
                   >
@@ -1668,7 +1673,7 @@ export function CheckoutPage() {
                         {item.quantity > 1 && (
                           <span
                             aria-label={`Quantidade ${item.quantity}`}
-                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-white"
+                            className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 [color:#fff]"
                             style={{
                               background: "var(--primary)",
                               fontFamily: "var(--font-family-inter)",
@@ -1756,7 +1761,7 @@ export function CheckoutPage() {
                               fontWeight: 600,
                             }}
                           />
-                          <CTAButton onClick={handleApplyCoupon} disabled={!coupon.trim()} variant="brand" size="sm" className="shrink-0">
+                          <CTAButton onClick={handleApplyCoupon} disabled={!coupon.trim()} variant="ink" size="sm" className="shrink-0">
                             Aplicar
                           </CTAButton>
                         </div>
@@ -1923,7 +1928,7 @@ export function CheckoutPage() {
             <CTAButton
               onClick={() => setStep((s) => (s + 1) as Step)}
               disabled={!canAdvance}
-              variant="brand"
+              variant="ink"
               size="md"
               className="shrink-0"
             >
