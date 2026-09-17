@@ -627,7 +627,7 @@ function PecaTile({
         {produto.name}
       </p>
       {/* Preço igual ao do card de produto (v2/ProductCardV2): valor em tinta
-          normal, "à vista no PIX" em verde. O verde é do PIX e só dele. */}
+          normal, "no PIX" em verde. O verde é do PIX e só dele. */}
       <div className="mt-2 flex flex-wrap items-baseline gap-x-1.5">
         <span
           className="num"
@@ -638,7 +638,7 @@ function PecaTile({
         <span
           style={{ ...CORPO, fontSize: "11.5px", fontWeight: 600, color: "var(--buy-green)", whiteSpace: "nowrap" }}
         >
-          à vista no PIX
+          no PIX
         </span>
       </div>
     </button>

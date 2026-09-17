@@ -1103,7 +1103,7 @@ function MobilePurchaseFlow({
                 className="text-foreground/60"
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: "1.55" }}
               >
-                à vista no <span className="text-[#4CAF50] font-bold">PIX</span> com{" "}
+                no <span className="text-[#4CAF50] font-bold">PIX</span> com{" "}
                 <span className="text-[#4CAF50] font-bold">10% de desconto</span>
               </p>
             </>

@@ -23,8 +23,8 @@ import { ComparePill, type CompareCardState } from "../components/CompareBar";
    Foto numa caixa cinza-clara sem borda, badges no topo, ações que só
    aparecem no hover, e fora da caixa: miniaturas, nome e preço. */
 
-/* um verde só na página, vindo do token de compra: selo de desconto, "à vista
-   no PIX" e botão Comprar agora. Ver --buy-green em styles/theme.css. */
+/* um verde só na página, vindo do token de compra: selo de desconto, "no PIX"
+   e botão Comprar agora. Ver --buy-green em styles/theme.css. */
 const GREEN = "var(--buy-green)";
 
 function Stars({ rating, reviews }: { rating: number; reviews: number }) {
@@ -390,7 +390,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
             {formatBRL(getPixPrice(p))}
           </span>
           <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", fontWeight: 600, color: GREEN, whiteSpace: "nowrap" }}>
-            à vista no PIX
+            no PIX
           </span>
         </div>
         {/* a linha sai em TODO card, inclusive quando o plano dá 1x (parcela

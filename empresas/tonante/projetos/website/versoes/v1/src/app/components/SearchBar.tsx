@@ -23,7 +23,7 @@ const visibleCatalogProducts = getVisibleCatalogProducts();
 /* CardBusca — card do painel de busca. Repete a anatomia da vitrine da home
    (ProductCardV2): selo de desconto no verde de compra, estrelas com a
    contagem de avaliações e o preço em três andares — de quanto era, quanto é
-   à vista no PIX, em quantas vezes no cartão. Sem as bolinhas de cor: no
+   no PIX, em quantas vezes no cartão. Sem as bolinhas de cor: no
    painel não há espaço pra escolher acabamento, e o clique já leva pra PDP. */
 function CardBusca({ p, fundo, onNavigate }: { p: Product; fundo: string; onNavigate: () => void }) {
   const img = getPrimaryProductImage(p);
@@ -108,7 +108,7 @@ function CardBusca({ p, fundo, onNavigate }: { p: Product; fundo: string; onNavi
           {formatBRL(getPixPrice(p))}
         </span>
         <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "11.5px", fontWeight: 600, color: "var(--buy-green)", whiteSpace: "nowrap" }}>
-          à vista no PIX
+          no PIX
         </span>
       </div>
       {/* coluna do painel é mais estreita que a da vitrine (5 cards em

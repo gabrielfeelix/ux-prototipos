@@ -148,7 +148,7 @@ function ListStars({ rating, reviews }: { rating: number; reviews: number }) {
 }
 
 /* Preço em três andares, na mesma ordem em que a decisão acontece e com os
-   mesmos tamanhos do card de grade: de quanto era → quanto é à vista no PIX
+   mesmos tamanhos do card de grade: de quanto era → quanto é no PIX
    → como parcela. A lista mostrava só o preço de tabela e escondia o PIX
    dentro de "No PIX ou 2x de…", que dizia as duas coisas e nenhuma direito:
    o valor grande era o cheio e o do PIX não aparecia em lugar nenhum. */
@@ -182,7 +182,7 @@ function ListPrice({ product, align = "left" }: { product: Product; align?: "lef
           {formatBRL(getPixPrice(product))}
         </span>
         <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", fontWeight: 600, color: BUY_GREEN, whiteSpace: "nowrap" }}>
-          à vista no PIX
+          no PIX
         </span>
       </div>
       {/* sai em todo produto, inclusive quando o plano dá 1x (parcela mínima
