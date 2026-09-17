@@ -154,6 +154,10 @@ export function HeaderV2() {
   // (era isso que fazia o scroll "pular" ao voltar pro topo)
   const [fullH, setFullH] = useState(194);
   const headerRef = useRef<HTMLElement>(null);
+  /* As duas faixas que colapsam por `max-height`. O spacer precisa saber a
+     altura que elas têm ABERTAS, não a que têm no meio da transição. */
+  const avisoRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   const AvisoIcon = AVISOS[aviso].icon;
   const mega = MEGA.find((m) => m.label === catAtiva) ?? MEGA[0];
@@ -165,16 +169,32 @@ export function HeaderV2() {
   }, []);
 
   useEffect(() => {
-    /* A guarda é o estado do header, não a rolagem. Era `window.scrollY > 0`,
-       e isso furava na troca de rota: quem saía do carrinho já rolado chegava
-       no checkout com o spacer preso na altura da rota anterior, abrindo um vão
-       de ~56px abaixo do header. O efeito do filho roda antes do
-       `scrollTo(0, 0)` do RootLayout, então nessa hora a rolagem ainda é a
-       antiga. O que não pode ser medido é o header colapsado. */
+    /* O spacer reserva a altura do header ABERTO, e essa altura não pode sair
+       de uma medição direta do header: as faixas de aviso e de navegação
+       colapsam animando `max-height`, o ResizeObserver dispara a cada quadro
+       da transição e o spacer ia atrás — ao voltar pro topo a página subia 63px
+       de uma vez (spacer medido no header colapsado) e descia de volta ao longo
+       da animação. Era o "samba" na troca de etapa do Monte seu kit.
+
+       Então em vez de medir o header, medimos as faixas por dentro: o conteúdo
+       dentro delas não anima, logo ele já dá a altura aberta, em qualquer
+       estado do header. `offsetHeight - clientHeight` recupera as bordas, que
+       ficam de fora do `max-height`. Faixa com `display:none` (a navegação no
+       celular) mede zero nos dois lados e não entra na conta.
+
+       Sem a guarda de `colapsado`: agora medir com o header encolhido dá o
+       mesmo número, então a troca de rota corrige o spacer na hora, sem o vão
+       de ~56px que aparecia ao sair do carrinho já rolado. */
+    const alturaAberta = (row: HTMLDivElement | null) => {
+      const inner = row?.firstElementChild as HTMLElement | null;
+      if (!row || !inner) return 0;
+      const bordas = row.offsetHeight - row.clientHeight;
+      return inner.getBoundingClientRect().height + bordas - row.getBoundingClientRect().height;
+    };
     const measure = () => {
-      if (colapsado.current) return;
       const h = headerRef.current?.getBoundingClientRect().height;
-      if (h) setFullH(Math.round(h));
+      if (!h) return;
+      setFullH(Math.round(h + alturaAberta(avisoRef.current) + alturaAberta(navRef.current)));
     };
     measure();
     const el = headerRef.current;
@@ -261,6 +281,7 @@ export function HeaderV2() {
     >
       {/* faixa utilitária — preta; o aviso é o herói */}
       <div
+        ref={avisoRef}
         data-keep-dark
         style={{
           background: "var(--ink-strong)",
@@ -484,6 +505,7 @@ export function HeaderV2() {
 
       {/* faixa de navegação — some ao rolar; no celular vive na gaveta */}
       <div
+        ref={navRef}
         className="hidden md:block"
         style={{
           borderTop: "1px solid var(--border)",
