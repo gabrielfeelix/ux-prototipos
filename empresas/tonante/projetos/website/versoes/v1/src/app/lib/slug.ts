@@ -28,6 +28,7 @@ export const CATEGORY_TO_SLUG: Record<string, string> = {
   "Acessórios":               "acessorios",
   "Cordas & Encordoamentos":  "cordas-encordoamentos",
   "Suportes":                 "suportes",
+  "Pronto pra Tocar":         "pronto-pra-tocar",
 };
 
 /** Reverse map: slug -> original category label (for routing). */

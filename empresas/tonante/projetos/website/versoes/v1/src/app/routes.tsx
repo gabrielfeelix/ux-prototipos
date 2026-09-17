@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import { RootLayout } from "./components/RootLayout";
 import { HomePage } from "./components/HomePage";
 import { ProductsPage } from "./components/ProductsPage";
@@ -12,12 +12,13 @@ import { ResellerPage } from "./components/pages/ResellerPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { StoreLocatorPage } from "./components/pages/StoreLocatorPage";
 import { MaringaFCCollabPage } from "./components/pages/MaringaFCCollabPage";
-import { MonteSeuPcPage } from "./pages/MonteSeuPcPage";
+import { MonteSeuKitPage } from "./pages/monte-seu-kit/MonteSeuKitPage";
+import { AjudaPage } from "./pages/monte-seu-kit/AjudaPage";
+import { MontarPage } from "./pages/monte-seu-kit/MontarPage";
 import { DriversManuaisPage } from "./pages/DriversManuaisPage";
 import { DriverDetailPage } from "./pages/DriverDetailPage";
 import { FaqPage } from "./pages/FaqPage";
 import { ComparePage } from "./pages/ComparePage";
-import { GuiaPage } from "./pages/GuiaPage";
 import { QuemSomosPage } from "./pages/QuemSomosPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
 import { WarrantyPage } from "./pages/WarrantyPage";
@@ -51,12 +52,16 @@ export const router = createBrowserRouter([
       { path: "fale-conosco", Component: ContactPage },
       { path: "onde-encontrar", Component: StoreLocatorPage },
       { path: "maringa-fc", Component: MaringaFCCollabPage },
-      { path: "monte-seu-pc", Component: MonteSeuPcPage },
+      { path: "monte-seu-kit", Component: MonteSeuKitPage },
+      { path: "monte-seu-kit/ajuda", Component: AjudaPage },
+      { path: "monte-seu-kit/montar", Component: MontarPage },
       { path: "drivers-e-manuais", Component: DriversManuaisPage },
       { path: "drivers-e-manuais/:slug", Component: DriverDetailPage },
       { path: "comparar", Component: ComparePage },
       { path: "faq", Component: FaqPage },
-      { path: "guia", Component: GuiaPage },
+      /* O guia antigo virou o passo do quiz novo. A rota fica de pé porque
+         ela foi divulgada e existe link pra ela na home. */
+      { path: "guia", loader: () => redirect("/monte-seu-kit/ajuda") },
       { path: "quem-somos", Component: QuemSomosPage },
       { path: "politica-de-privacidade", Component: PrivacyPage },
       { path: "politica-de-garantia", Component: WarrantyPage },

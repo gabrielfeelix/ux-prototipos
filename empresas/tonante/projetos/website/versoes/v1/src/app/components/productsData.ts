@@ -1,3 +1,4 @@
+import { kitProducts } from "../lib/kits";
 import { extraProducts } from "./productsExtra";
 import { siteOficialProducts } from "./productsSiteOficial";
 
@@ -15819,10 +15820,18 @@ const rawProducts: Product[] = [
 const TAG_VIOLA = "Viola Caipira";
 const isViolaCaipira = (p: Product) => p.category === "Violões" && /^viola\b/i.test(p.name);
 
-export const allProducts: Product[] = [...rawProducts, ...extraProducts, ...siteOficialProducts].map((p) =>
+export const allProducts: Product[] = [
+  ...rawProducts,
+  ...extraProducts,
+  ...siteOficialProducts,
+  /* Kits "Pronto pra Tocar" entram como produto de catálogo, não como combo
+     montado no carrinho — mesma decisão que o PCYES v3 tomou com os setups.
+     Assim eles herdam busca, filtro, comparador e PDP sem código novo. */
+  ...kitProducts,
+].map((p) =>
   isViolaCaipira(p) && !p.tags.includes(TAG_VIOLA) ? { ...p, tags: [...p.tags, TAG_VIOLA] } : p,
 );
 
-export const categories = ["Violões","Guitarras","Contrabaixos","Baterias","Acessórios","Cordas & Encordoamentos","Suportes"];
+export const categories = ["Pronto pra Tocar","Violões","Guitarras","Contrabaixos","Baterias","Acessórios","Cordas & Encordoamentos","Suportes"];
 export const allTags = ["Acessórios","Palheta","Suportes","Microfone","Cabo","Dobrável","Capa","Guitarras","Single-coil","6 cordas","Contrabaixos","4 cordas","Violões","Nylon","Acústico","Clássico","Níquel","5 cordas","Cordas & Encordoamentos","Aço","Eletroacústico","Viola","Bronze","Ukulele","Capotraste","Afinador","Baterias","Pro Series","Legacy","Volcano","Abalone","Safira","Coral","Baby","Muriel's","Star Light","Cecille","Sonora","Viola Caipira"];
 export const brands = ["Tonante"];
