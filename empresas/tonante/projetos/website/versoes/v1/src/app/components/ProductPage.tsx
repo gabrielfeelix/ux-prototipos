@@ -866,8 +866,8 @@ function StickyPriceCard({
             className="text-foreground/55 mb-2.5"
             style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}
           >
-            no <span className="font-semibold" style={{ color: "var(--amber-deep)" }}>PIX</span> com{" "}
-            <span className="font-semibold" style={{ color: "var(--amber-deep)" }}>10% de desconto</span>
+            no <span className="font-semibold" style={{ color: "var(--buy-green)" }}>PIX</span> com{" "}
+            <span className="font-semibold" style={{ color: "var(--buy-green)" }}>10% de desconto</span>
           </p>
 
           <div className="h-px bg-foreground/6 my-3" />
@@ -901,7 +901,7 @@ function StickyPriceCard({
           <span
             style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: inStock ? "var(--ink-meta)" : "var(--ink-subtle)" }}
           >
-            {inStock ? `${stockLabel} · envio em 24h` : "Sem estoque"}
+            {inStock ? `${stockLabel} · envio em 24h úteis` : "Sem estoque"}
           </span>
         </div>
 
@@ -1103,8 +1103,8 @@ function MobilePurchaseFlow({
                 className="text-foreground/60"
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: "1.55" }}
               >
-                no <span className="text-[#4CAF50] font-bold">PIX</span> com{" "}
-                <span className="text-[#4CAF50] font-bold">10% de desconto</span>
+                no <span className="font-bold [color:var(--buy-green)]">PIX</span> com{" "}
+                <span className="font-bold [color:var(--buy-green)]">10% de desconto</span>
               </p>
             </>
           )}
@@ -2833,7 +2833,7 @@ export function ProductPage() {
               {preOrderInfo ? (
                 <span className="text-[#f97316] text-xs font-normal">pré-venda</span>
               ) : (
-                <span className="text-[#4CAF50] text-xs font-normal">no PIX</span>
+                <span className="text-xs font-normal [color:var(--buy-green)]">no PIX</span>
               )}
             </p>
           </div>

@@ -960,8 +960,8 @@ function Revisao({
             {formatBRL(pixDoKit)}
           </p>
           <p className="mt-1.5 text-[0.8125rem] text-foreground/60" style={CORPO}>
-            no <span className="font-semibold" style={{ color: "var(--amber-deep)" }}>PIX</span> com{" "}
-            <span className="font-semibold" style={{ color: "var(--amber-deep)" }}>10% de desconto</span>
+            no <span className="font-semibold" style={{ color: "var(--buy-green)" }}>PIX</span> com{" "}
+            <span className="font-semibold" style={{ color: "var(--buy-green)" }}>10% de desconto</span>
           </p>
 
           <div className="my-3 h-px bg-foreground/[0.08]" />
@@ -1027,7 +1027,7 @@ function Revisao({
           ) : (
             <p className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-foreground/55" style={CORPO}>
               <Check className="h-3.5 w-3.5 text-[var(--buy-green)]" strokeWidth={3} />
-              Peças em estoque, envio em 24h
+              Peças em estoque, envio em 24h úteis
             </p>
           )}
         </div>
