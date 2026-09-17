@@ -59,6 +59,9 @@ export interface KitSeed {
   /** Cenas de uso, na ordem em que aparecem. */
   cenas: ("quarto" | "igreja" | "palco")[];
   faq: { p: string; r: string }[];
+  /** Fora da vitrine enquanto falta arte. O kit continua existindo (o id é
+      posicional e não pode andar), só não aparece no catálogo. */
+  oculto?: boolean;
 }
 
 export const KIT_SEED: KitSeed[] = [
@@ -214,6 +217,7 @@ export const KIT_SEED: KitSeed[] = [
     key: "culto-cheio",
     perfil: "igreja",
     faixa: "Avançado",
+    oculto: true,
     name: "Culto Cheio",
     tagline: "Violão, microfone e amplificador · você canta e toca sozinho",
     description:
@@ -379,6 +383,9 @@ const LABEL_INSTRUMENTO: Record<Instrumento, string> = {
   sopro: "Sopro",
 };
 
+/* O id é posicional (base + índice), então o oculto precisa continuar no
+   KIT_SEED e sair só depois do map — filtrar antes andaria com o id de todos
+   os kits seguintes e quebraria link já compartilhado. */
 export const kitProducts: Product[] = KIT_SEED.map((seed, i) => ({
   id: KIT_ID_BASE + i + 1,
   sku: `KIT-${seed.key.toUpperCase()}`,
@@ -401,7 +408,7 @@ export const kitProducts: Product[] = KIT_SEED.map((seed, i) => ({
   seoSlug: `kit-${seed.key}`,
   specs: seed.pecas.map((p) => ({ label: p.slot, value: p.modelo })),
   features: seed.porque.map((p) => p.titulo),
-}));
+})).filter((_, i) => !KIT_SEED[i].oculto);
 
 const kitIds = new Set(kitProducts.map((p) => p.id));
 

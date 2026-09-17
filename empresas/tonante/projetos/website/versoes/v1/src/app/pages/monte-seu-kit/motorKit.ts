@@ -261,7 +261,7 @@ export function kitSugerido(perfil: PerfilKit, r: RespostasKit): { seed: KitSeed
     r.onde === "igreja" ? "igreja" : r.nivel === "primeiro" ? "comecando" : "fora-de-casa";
 
   const candidatos = KIT_SEED.filter(
-    (k) => k.perfil === perfilAlvo && k.instrumento === perfil.instrumento,
+    (k) => !k.oculto && k.perfil === perfilAlvo && k.instrumento === perfil.instrumento,
   );
   if (!candidatos.length) return null;
 

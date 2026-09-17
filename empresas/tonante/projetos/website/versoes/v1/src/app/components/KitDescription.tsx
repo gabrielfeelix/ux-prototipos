@@ -300,7 +300,7 @@ function BandaCard({ item }: { item: BandaNoKit }) {
    (SetupStorySections.tsx:7-17). Aqui ela volta porque o Tonante já tem
    /comparar funcionando — é um link, não uma feature nova. */
 function EssaOuAVizinha({ seed, product }: { seed: KitSeed; product: Product }) {
-  const vizinhas = KIT_SEED.filter((k) => k.perfil === seed.perfil && k.key !== seed.key);
+  const vizinhas = KIT_SEED.filter((k) => !k.oculto && k.perfil === seed.perfil && k.key !== seed.key);
   if (!vizinhas.length) return null;
 
   const ids = [product.id, ...vizinhas.map((v) => 90000 + KIT_SEED.findIndex((k) => k.key === v.key) + 1)];

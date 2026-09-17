@@ -10,6 +10,7 @@
 
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { EqualizerWave } from "../../components/section/EqualizerWave";
 
 interface Caminho {
   id: string;
@@ -52,17 +53,19 @@ export function MonteSeuKitPage() {
   return (
     <main className="bg-white">
       <div className="mx-auto max-w-[1280px] px-4 pb-24 pt-16 sm:px-6 lg:px-8 lg:pt-24">
-        <header className="mx-auto max-w-[46ch] text-center">
+        {/* A medida vai em px, não em ch: `ch` no <header> usa a fonte do CORPO,
+            não a do display, e 46ch dava uns 370px — o título quebrava em duas
+            palavras por linha e virava poema. */}
+        <header className="mx-auto max-w-[920px] text-center">
           <h1
-            className="text-[clamp(2.25rem,6vw,4rem)] leading-[1.02] tracking-[-0.02em] text-foreground"
+            className="text-[clamp(2.5rem,6.5vw,4.5rem)] leading-[1.04] tracking-[-0.022em] text-foreground"
             style={{ fontFamily: "var(--font-family-figtree)" }}
           >
-            Instrumento não se escolhe por ficha técnica.
+            Escolha o instrumento certo pra você
           </h1>
-          <p className="mx-auto mt-6 max-w-[54ch] text-[1.0625rem] leading-relaxed text-foreground/70">
-            Se escolhe pelo som que você quer fazer. Diga por onde prefere
-            começar e a gente chega lá junto.
-          </p>
+          {/* A onda entra no lugar da linha de apoio: ela já diz "som" sem
+              precisar escrever, e escolher pelo som é o assunto da página. */}
+          <EqualizerWave bars={56} height={26} className="mt-8" />
         </header>
 
         <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
