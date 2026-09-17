@@ -216,9 +216,13 @@ export function MontarPage() {
               <ArrowLeft className="h-4 w-4" />
               Voltar
             </button>
-            <span className="text-[0.8125rem] text-foreground/50">
-              {revisando ? "Revisão" : `${indice + 1} de ${passos.length}`}
-            </span>
+            {/* Antes da família não há trilho, e o contador ficava anunciando
+                "1 de 5" ao lado de uma tela que não é etapa de coisa nenhuma. */}
+            {(familia || revisando) && (
+              <span className="text-[0.8125rem] text-foreground/50">
+                {revisando ? "Revisão" : `${indice + 1} de ${passos.length}`}
+              </span>
+            )}
           </div>
 
           {/* A trilha só faz sentido depois da família: antes disso ela mostraria
@@ -312,7 +316,7 @@ export function MontarPage() {
                 {/* Rolar pra cima revela de novo a barra de avisos + header +
                     menu de categorias; com offset menor essa pilha comia o
                     topo do painel. Este valor é a pilha inteira, com folga. */}
-                <div className="lg:sticky lg:top-[228px] lg:max-h-[calc(100vh-252px)] lg:self-start">
+                <div className="lg:sticky lg:top-[228px] lg:self-start">
                   <Resumo
                     passos={passos}
                     sel={sel}
@@ -475,7 +479,7 @@ function EscolhaDeFamilia({
   onEscolher: (f: Familia) => void;
 }) {
   return (
-    <div className="mt-10 max-w-[900px]">
+    <div className="mt-10">
       <h1
         className="text-[clamp(1.875rem,4vw,2.75rem)] leading-[1.06] tracking-[-0.02em] text-foreground"
         style={DISPLAY}
@@ -487,7 +491,9 @@ function EscolhaDeFamilia({
         diferentes, então as etapas mudam conforme o que você tocar.
       </p>
 
-      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      {/* As 10 famílias cabem em duas fileiras de cinco na largura cheia da
+          página; presas em 900px sobrava um vazio à direita da tela. */}
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {familias.map((f) => {
           const foto = f.arte ?? (f.exemplo ? fotoLimpaDoProduto(f.exemplo) : null);
           return (
@@ -671,7 +677,7 @@ function Resumo({
      e só a lista encolhe. Cabeçalho, total, recados e os dois botões ficam
      sempre visíveis, mesmo em tela de 800px de altura. */
   return (
-    <div className="flex max-h-full flex-col overflow-hidden" style={CARTAO}>
+    <div className="flex flex-col overflow-hidden lg:max-h-[calc(100vh-252px)]" style={CARTAO}>
       <div className="flex shrink-0 items-baseline justify-between gap-3 px-5 pt-5">
         <h2 className="text-foreground" style={{ ...DISPLAY, fontSize: "17px", fontWeight: 600, letterSpacing: "-0.01em" }}>
           Seu kit
