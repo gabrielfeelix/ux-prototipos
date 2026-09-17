@@ -45,8 +45,8 @@ export interface Familia {
   /** Uma linha sobre o que esse instrumento é, para quem não sabe. */
   hint: string;
   foto: string;
-  /** Pasta em public/audio — o hover toca isso. */
-  audio: string;
+  /** Pasta em public/audio — o hover toca isso. Voz não tem amostra. */
+  audio?: string;
 }
 
 export const FAMILIAS: Familia[] = [
@@ -57,6 +57,12 @@ export const FAMILIAS: Familia[] = [
   { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", foto: "/categorias/ukulele.png", audio: "ukulele" },
   { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", foto: "/categorias/bateria.png", audio: "bateria" },
   { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", foto: "/categorias/teclado.png", audio: "teclado" },
+  /* Quem canta é o caso que faltava: o quiz perguntava "que instrumento você
+     quer tocar?" e não tinha resposta pra quem já toca com a voz. O montador
+     já resolveu isso (família "voz", trilho Microfone › Cabo XLR › Pedestal),
+     e aqui a escolha vira microfone em vez de instrumento. Sem amostra de
+     áudio: timbre de voz é a do cliente, não a de um arquivo nosso. */
+  { id: "voz", label: "Voz", hint: "Canta, com ou sem instrumento na mão", foto: "/categorias/microfone.png" },
   /* Sopro saiu do quiz: um produto só (a flauta) não sustenta uma família
      inteira de pergunta. Continua existindo como instrumento e em
      bandLibrary, só não abre mais caminho aqui. */
@@ -114,6 +120,10 @@ export function produtosDaFamilia(f: Instrumento): Product[] {
         return tipoDoProduto(p) === "instrumento" && (nome.startsWith("teclado") || nome.startsWith("piano"));
       });
     }
+    case "voz":
+      /* Pra quem canta, o "instrumento" é o microfone. Plug e adaptador não
+         entram: são peça de bancada, não o que se leva pro palco. */
+      return visiveis.filter((p) => tipoDoProduto(p) === "microfone");
     default:
       return [];
   }
@@ -141,6 +151,10 @@ function somPadrao(instrumento: Instrumento, nivel: Nivel, onde: Onde): Som {
   const captacao: Captacao = onde === "casa" ? "nenhuma" : "passiva";
   if (instrumento === "guitarra") return { corda: "aco", captacao: "single", nivel: "medio", ataque: "brilhante" };
   if (instrumento === "baixo") return { corda: "aco", captacao: "passiva", nivel: "medio", ataque: "suave" };
+  /* Microfone não tem corda nem captação: o eixo que sobra é o ataque, e ele
+     sai do lugar onde a pessoa canta. */
+  if (instrumento === "voz")
+    return { corda: "aco", captacao: "nenhuma", nivel: "medio", ataque: onde === "casa" ? "suave" : "brilhante" };
   return {
     corda: nivel === "primeiro" ? "nylon" : "aco",
     captacao,
@@ -158,11 +172,15 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
 
   const som = somMedio(bandsSelecionadas) ?? somPadrao(instrumento, nivel, onde);
 
+  const canta = instrumento === "voz";
+
   if (bandsSelecionadas.length) {
     const nomes = bandsSelecionadas.slice(0, 3).map((b) => b.name);
     const lista = nomes.length > 1 ? `${nomes.slice(0, -1).join(", ")} e ${nomes.at(-1)}` : nomes[0];
     porques.push(
-      som.corda === "nylon"
+      canta
+        ? `Você marcou ${lista}. O microfone abaixo aguenta esse repertório sem devolver sopro nem chiado.`
+        : som.corda === "nylon"
         ? `Você marcou ${lista}. É repertório de dedilhado, onde o nylon dá o corpo quente e a mão não sofre.`
         : som.corda === "aco"
           ? `Você marcou ${lista}. É repertório de palhetada, que pede o brilho e a projeção da corda de aço.`
@@ -177,7 +195,11 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
 
   const precisaCaptacao = onde !== "casa";
   porques.push(
-    onde === "igreja"
+    canta
+      ? onde === "casa"
+        ? "Cantando em casa, o microfone é pra ensaiar e gravar. Um modelo de mão já resolve, e o cabo entra no kit."
+        : "Cantando fora de casa, o microfone é o seu instrumento: ele precisa chegar na mesa de som, por cabo XLR ou por receptor."
+      : onde === "igreja"
       ? "Tocar na igreja é tocar ligado na mesa: sem captação, sobra microfone na frente e sobra microfonia."
       : onde === "palco"
         ? "No palco o instrumento precisa sair na caixa de som. Captação resolve com um cabo."
@@ -191,7 +213,9 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
   }
 
   const titulo =
-    instrumento === "violao"
+    canta
+      ? "Microfone pra cantar"
+      : instrumento === "violao"
       ? `Violão de ${som.corda === "nylon" ? "nylon" : "aço"}${precisaCaptacao ? " com captação" : ""}`
       : LABEL[instrumento];
 
@@ -234,7 +258,9 @@ export function recomendarKit(perfil: PerfilKit, limite = 6): Product[] {
     if (cordaAlvo && (perfil.instrumento === "violao" || perfil.instrumento === "viola")) {
       if (cordaDoProduto(p) === cordaAlvo) pontos += 4;
     }
-    if (temCaptacao(p) === perfil.precisaCaptacao) pontos += 3;
+    /* Captação é eixo de instrumento. Microfone não tem, e pontuar por isso
+       premiava o que tivesse "eletro" no nome, que ali não quer dizer nada. */
+    if (perfil.instrumento !== "voz" && temCaptacao(p) === perfil.precisaCaptacao) pontos += 3;
 
     const preco = p.priceNum ?? 0;
     if (preco >= perfil.faixa.min && preco <= perfil.faixa.max) pontos += 3;

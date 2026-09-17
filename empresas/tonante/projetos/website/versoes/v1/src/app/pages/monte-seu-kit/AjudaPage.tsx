@@ -184,16 +184,18 @@ function PassoInstrumento({ onPick }: { onPick: (id: (typeof FAMILIAS)[number]["
 
   return (
     <>
-      <Titulo sub="Passe o mouse pra ouvir como cada um soa.">Que instrumento você quer tocar?</Titulo>
+      {/* "Que instrumento" deixou de servir quando voz entrou na grade: quem
+          canta não toca instrumento nenhum. Mesma pergunta do montador. */}
+      <Titulo sub="Passe o mouse pra ouvir como cada um soa.">O que você toca?</Titulo>
       <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3 lg:grid-cols-4">
         {FAMILIAS.map((f) => (
           <button
             key={f.id}
             type="button"
             onClick={() => { parar(); onPick(f.id); }}
-            onMouseEnter={() => tocar(f.id, f.audio)}
+            onMouseEnter={() => f.audio && tocar(f.id, f.audio)}
             onMouseLeave={parar}
-            onFocus={() => tocar(f.id, f.audio)}
+            onFocus={() => f.audio && tocar(f.id, f.audio)}
             onBlur={parar}
             className="group text-left focus:outline-none"
           >
@@ -239,8 +241,11 @@ function PassoGosto({
   const [genero, setGenero] = useState<Genero | null>(null);
   const [termo, setTermo] = useState("");
 
+  /* Nenhuma banda declara "voz" em `instrumentos`, e nem deveria: quase todas
+     têm alguém cantando. Filtrar por isso devolveria lista vazia, que é a pior
+     tela do quiz. Pra quem canta, o acervo inteiro é o universo. */
   const universo = useMemo(
-    () => BANDS.filter((b) => b.instrumentos.includes(instrumento)),
+    () => (instrumento === "voz" ? BANDS : BANDS.filter((b) => b.instrumentos.includes(instrumento))),
     [instrumento],
   );
   const generosComBanda = useMemo(

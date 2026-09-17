@@ -381,6 +381,7 @@ const LABEL_INSTRUMENTO: Record<Instrumento, string> = {
   bateria: "Bateria",
   teclado: "Teclado",
   sopro: "Sopro",
+  voz: "Voz",
 };
 
 /* O id é posicional (base + índice), então o oculto precisa continuar no

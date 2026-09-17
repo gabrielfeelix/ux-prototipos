@@ -76,7 +76,13 @@ export type Instrumento =
   | "ukulele"
   | "bateria"
   | "teclado"
-  | "sopro";
+  | "sopro"
+  /* Voz não é linha de banda como as outras: quase toda banda daqui tem
+     alguém cantando, então nenhuma `Band` declara "voz" em `instrumentos`.
+     O tipo existe porque quem canta escolhe kit como todo mundo (o
+     montador já trata voz como família); quem pergunta por banda de voz
+     usa o acervo inteiro, não este filtro. */
+  | "voz";
 
 export const GENEROS: { id: Genero; label: string }[] = [
   { id: "rock", label: "Rock" },
