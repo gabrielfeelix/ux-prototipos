@@ -52,14 +52,14 @@ export function MonteSeuKitPage() {
   return (
     <main className="bg-white">
       <div className="mx-auto max-w-[1280px] px-4 pb-24 pt-16 sm:px-6 lg:px-8 lg:pt-24">
-        <header className="max-w-[46ch]">
+        <header className="mx-auto max-w-[46ch] text-center">
           <h1
             className="text-[clamp(2.25rem,6vw,4rem)] leading-[1.02] tracking-[-0.02em] text-foreground"
             style={{ fontFamily: "var(--font-family-figtree)" }}
           >
             Instrumento não se escolhe por ficha técnica.
           </h1>
-          <p className="mt-6 max-w-[54ch] text-[1.0625rem] leading-relaxed text-foreground/70">
+          <p className="mx-auto mt-6 max-w-[54ch] text-[1.0625rem] leading-relaxed text-foreground/70">
             Se escolhe pelo som que você quer fazer. Diga por onde prefere
             começar e a gente chega lá junto.
           </p>

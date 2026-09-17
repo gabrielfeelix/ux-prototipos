@@ -59,17 +59,17 @@ export const FAMILIAS: Familia[] = [
   { id: "sopro", label: "Sopro", hint: "Sax e flauta: melodia com o fôlego", foto: "/categorias/sopro.png", audio: "flauta" },
 ];
 
-export const NIVEIS: { id: Nivel; label: string; sub: string }[] = [
-  { id: "primeiro", label: "É o meu primeiro", sub: "Nunca toquei, ou toquei muito pouco" },
-  { id: "retomando", label: "Tô voltando", sub: "Já toquei e parei; a mão lembra" },
-  { id: "toco", label: "Toco faz tempo", sub: "Sei o que quero, quero o instrumento certo" },
+export const NIVEIS: { id: Nivel; label: string; sub: string; icone: string }[] = [
+  { id: "primeiro", label: "É o meu primeiro", sub: "Nunca toquei, ou toquei muito pouco", icone: "sprout" },
+  { id: "retomando", label: "Tô voltando", sub: "Já toquei e parei; a mão lembra", icone: "rotate" },
+  { id: "toco", label: "Toco faz tempo", sub: "Sei o que quero, quero o instrumento certo", icone: "flame" },
 ];
 
-export const ONDES: { id: Onde; label: string; sub: string }[] = [
-  { id: "casa", label: "Em casa", sub: "Sozinho, ou pra quem mora comigo" },
-  { id: "igreja", label: "Na igreja", sub: "Ligado na mesa, toda semana" },
-  { id: "palco", label: "No palco", sub: "Bar, festa, show" },
-  { id: "estudio", label: "Gravando", sub: "Quarto, estúdio, internet" },
+export const ONDES: { id: Onde; label: string; sub: string; icone: string }[] = [
+  { id: "casa", label: "Em casa", sub: "Sozinho, ou pra quem mora comigo", icone: "casa" },
+  { id: "igreja", label: "Na igreja", sub: "Ligado na mesa, toda semana", icone: "igreja" },
+  { id: "palco", label: "No palco", sub: "Bar, festa, show", icone: "palco" },
+  { id: "estudio", label: "Gravando", sub: "Quarto, estúdio, internet", icone: "microfone" },
 ];
 
 export const FAIXAS_LABEL: { id: Faixa; label: string }[] = [

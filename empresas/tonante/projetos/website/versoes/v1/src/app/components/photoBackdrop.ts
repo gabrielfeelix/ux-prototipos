@@ -756,6 +756,11 @@ const DESPROPORCIONAIS = new Set<string>([
 /** true quando a foto tem cenário e o quadro deve ser preenchido. */
 export function isFotoAmbientada(src?: string): boolean {
   if (!src) return false;
+  /* Arte de kit é composição inteira, não recorte de um objeto: o grupo já foi
+     enquadrado no estúdio com a margem certa. Exibir por dentro (contain)
+     desenha um selo pequeno no meio do card e joga fora o enquadramento. A
+     regra é por prefixo porque a arte é gerada e a lista mudaria toda semana. */
+  if (src.startsWith("/kits/")) return true;
   return AMBIENTADAS.has(src);
 }
 

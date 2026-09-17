@@ -14,7 +14,19 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { ArrowLeft, Check, Volume2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  Church,
+  Flame,
+  Headphones,
+  House,
+  Mic,
+  RotateCcw,
+  Speaker,
+  Sprout,
+  Volume2,
+} from "lucide-react";
 import { ProductCardV2 } from "../../v2/ProductCardV2";
 import { playSample, stopSample } from "../../lib/timbre";
 import {
@@ -133,14 +145,14 @@ function Progresso({ indice }: { indice: number }) {
 
 function Titulo({ children, sub }: { children: React.ReactNode; sub?: string }) {
   return (
-    <header className="max-w-[46ch]">
+    <header className="mx-auto max-w-[52ch] text-center">
       <h1
         className="text-[clamp(1.75rem,4.2vw,2.75rem)] leading-[1.08] tracking-[-0.015em] text-foreground"
         style={{ fontFamily: "var(--font-family-figtree)" }}
       >
         {children}
       </h1>
-      {sub && <p className="mt-3 text-[1rem] leading-relaxed text-foreground/65">{sub}</p>}
+      {sub && <p className="mx-auto mt-3 max-w-[46ch] text-[1rem] leading-relaxed text-foreground/65">{sub}</p>}
     </header>
   );
 }
@@ -387,39 +399,69 @@ function PassoNivel({ onPick }: { onPick: (id: Nivel) => void }) {
       <Titulo>Há quanto tempo você toca?</Titulo>
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         {NIVEIS.map((n) => (
-          <Cartao key={n.id} titulo={n.label} sub={n.sub} onClick={() => onPick(n.id)} />
+          <Cartao key={n.id} titulo={n.label} sub={n.sub} icone={n.icone} onClick={() => onPick(n.id)} />
         ))}
       </div>
     </>
   );
 }
 
+
+/* Ícone por opção. Estes cards não têm foto — nem faria sentido fotografar
+   "tô voltando" — então o ícone é o que dá peso visual e diferencia um card do
+   outro num grid de quatro retângulos iguais. */
+const ICONES: Record<string, React.ReactNode> = {
+  sprout: <Sprout className="h-5 w-5" />,
+  rotate: <RotateCcw className="h-5 w-5" />,
+  flame: <Flame className="h-5 w-5" />,
+  casa: <House className="h-5 w-5" />,
+  igreja: <Church className="h-5 w-5" />,
+  palco: <Speaker className="h-5 w-5" />,
+  microfone: <Mic className="h-5 w-5" />,
+  fone: <Headphones className="h-5 w-5" />,
+};
+
 function Cartao({
   titulo,
   sub,
   onClick,
   ativo,
+  icone,
 }: {
   titulo: string;
   sub: string;
   onClick: () => void;
   ativo?: boolean;
+  icone?: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={ativo}
-      className={`rounded-[var(--radius-card-lg)] border p-6 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--amber)] focus-visible:ring-offset-2 ${
+      className={`flex items-start gap-4 rounded-[var(--radius-card-lg)] border p-6 text-left transition-[border-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-tile-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--amber)] focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
         ativo
           ? "border-[var(--amber)] bg-[var(--amber)]/[0.04]"
           : "border-foreground/12 hover:border-foreground/35"
       }`}
     >
-      <h2 className="text-[1.25rem] leading-tight text-foreground" style={{ fontFamily: "var(--font-family-figtree)" }}>
-        {titulo}
-      </h2>
-      <p className="mt-2 text-[0.875rem] leading-relaxed text-foreground/60">{sub}</p>
+      {icone && ICONES[icone] && (
+        <span
+          aria-hidden
+          className={`mt-0.5 shrink-0 transition-colors ${ativo ? "text-amber-text" : "text-foreground/45"}`}
+        >
+          {ICONES[icone]}
+        </span>
+      )}
+      <span className="min-w-0">
+        <span
+          className="block text-[1.25rem] leading-tight text-foreground"
+          style={{ fontFamily: "var(--font-family-figtree)" }}
+        >
+          {titulo}
+        </span>
+        <span className="mt-2 block text-[0.875rem] leading-relaxed text-foreground/60">{sub}</span>
+      </span>
     </button>
   );
 }
@@ -438,7 +480,7 @@ function PassoContexto({ onDone }: { onDone: (onde: Onde, faixa: Faixa) => void 
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {ONDES.map((o) => (
-          <Cartao key={o.id} titulo={o.label} sub={o.sub} ativo={onde === o.id} onClick={() => setOnde(o.id)} />
+          <Cartao key={o.id} titulo={o.label} sub={o.sub} icone={o.icone} ativo={onde === o.id} onClick={() => setOnde(o.id)} />
         ))}
       </div>
 
