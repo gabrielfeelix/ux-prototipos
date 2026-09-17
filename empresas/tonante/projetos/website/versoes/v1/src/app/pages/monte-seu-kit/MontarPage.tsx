@@ -22,10 +22,12 @@ import { useNavigate } from "react-router";
 import {
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   Check,
   Plus,
   Search,
   ShoppingBag,
+  Trash2,
   TriangleAlert,
   X,
 } from "lucide-react";
@@ -34,7 +36,13 @@ import { useCart } from "../../components/CartContext";
 import { Footer } from "../../components/Footer";
 import { type Product } from "../../components/productsData";
 import { getPrimaryProductImage } from "../../components/productPresentation";
-import { formatBRL, getPixPrice } from "../../components/productEnhancements";
+import {
+  formatBRL,
+  getInstallmentCount,
+  getInstallmentValue,
+  getPixPrice,
+} from "../../components/productEnhancements";
+import { PaymentModal } from "../../components/ProductPage";
 import {
   DESCONTO_KIT,
   FAMILIAS_OFERECIDAS,
@@ -304,7 +312,7 @@ export function MontarPage() {
                 {/* Rolar pra cima revela de novo a barra de avisos + header +
                     menu de categorias; com offset menor essa pilha comia o
                     topo do painel. Este valor é a pilha inteira, com folga. */}
-                <div className="lg:sticky lg:top-[228px] lg:self-start">
+                <div className="lg:sticky lg:top-[228px] lg:max-h-[calc(100vh-252px)] lg:self-start">
                   <Resumo
                     passos={passos}
                     sel={sel}
@@ -659,9 +667,12 @@ function Resumo({
   };
 }) {
   const etapasFeitas = passos.filter((s) => sel[s.id].length > 0).length;
+  /* O cartão nunca passa da janela: a moldura recebe a altura do wrapper sticky
+     e só a lista encolhe. Cabeçalho, total, recados e os dois botões ficam
+     sempre visíveis, mesmo em tela de 800px de altura. */
   return (
-    <div className="overflow-hidden" style={CARTAO}>
-      <div className="flex items-baseline justify-between gap-3 px-5 pt-5">
+    <div className="flex max-h-full flex-col overflow-hidden" style={CARTAO}>
+      <div className="flex shrink-0 items-baseline justify-between gap-3 px-5 pt-5">
         <h2 className="text-foreground" style={{ ...DISPLAY, fontSize: "17px", fontWeight: 600, letterSpacing: "-0.01em" }}>
           Seu kit
         </h2>
@@ -672,7 +683,7 @@ function Resumo({
 
       {/* Com kit cheio + recados o painel passava da viewport e o botão saía
           da tela; a lista rola dentro do cartão e as ações ficam sempre à mão. */}
-      <ul className="mt-4 lg:max-h-[40vh] lg:overflow-y-auto lg:overscroll-contain">
+      <ul className="mt-4 min-h-0 flex-1 lg:overflow-y-auto lg:overscroll-contain">
         {passos.map((s) => {
           const itens = sel[s.id];
           if (itens.length === 0)
@@ -732,7 +743,7 @@ function Resumo({
                 aria-label={`Tirar ${p.name} do kit`}
                 className="-mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-foreground/35 transition-colors hover:bg-foreground/5 hover:text-foreground"
               >
-                <X className="h-4 w-4" />
+                <Trash2 className="h-4 w-4" />
               </button>
             </li>
             );
@@ -741,14 +752,14 @@ function Resumo({
       </ul>
 
       {recados.length > 0 && (
-        <div className="space-y-2 px-5 py-4" style={{ borderTop: "1px solid var(--edge-subtle)" }}>
+        <div className="shrink-0 space-y-2 px-5 py-4" style={{ borderTop: "1px solid var(--edge-subtle)" }}>
           {recados.map((r, i) => (
             <Recadinho key={i} recado={r} onIr={onIr} />
           ))}
         </div>
       )}
 
-      <div className="px-5 py-4" style={{ borderTop: "1px solid var(--edge-subtle)" }}>
+      <div className="shrink-0 px-5 py-4" style={{ borderTop: "1px solid var(--edge-subtle)" }}>
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-[0.8125rem] text-foreground/60" style={CORPO}>Kit fechado</span>
           <span
@@ -766,7 +777,7 @@ function Resumo({
       </div>
 
       {acao && (
-        <div className="px-5 pb-5">
+        <div className="shrink-0 px-5 pb-5">
           <button
             type="button"
             disabled={acao.bloqueado}
@@ -844,6 +855,12 @@ function Revisao({
   onFechar: () => void;
 }) {
   const instrumento = sel.instrumento[0] ?? null;
+  const [pagamentoAberto, setPagamentoAberto] = useState(false);
+  /* O PIX incide sobre o preço já com o desconto de kit: é isso que ele paga,
+     e é o número que a manchete do card mostra. */
+  const pixDoKit = Math.round(totais.comDesconto * 0.9 * 100) / 100;
+  const parcelas = getInstallmentCount(totais.comDesconto);
+  const valorDaParcela = getInstallmentValue(totais.comDesconto);
   return (
     <div className="mt-10 gap-10 lg:grid lg:grid-cols-[1fr_320px]">
       <div>
@@ -879,21 +896,22 @@ function Revisao({
                     {p.name}
                   </span>
                 </span>
-                <span className="shrink-0 text-right">
-                  <span
-                    className="num block"
-                    style={{ ...CORPO, fontSize: "15px", fontWeight: 700, color: "#333333" }}
-                  >
-                    {formatBRL(getPixPrice(p))}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => onRemover(s.id, p.id)}
-                    className="mt-1 text-[0.75rem] text-foreground/45 underline-offset-2 hover:text-foreground hover:underline"
-                  >
-                    tirar
-                  </button>
+                <span
+                  className="num shrink-0 text-right"
+                  style={{ ...CORPO, fontSize: "15px", fontWeight: 700, color: "#333333" }}
+                >
+                  {formatBRL(p.priceNum)}
                 </span>
+                {/* Mesma lixeira do carrinho e do painel lateral: tirar peça é
+                    sempre o mesmo gesto, em qualquer uma das três telas. */}
+                <button
+                  type="button"
+                  onClick={() => onRemover(s.id, p.id)}
+                  aria-label={`Tirar ${p.name} do kit`}
+                  className="-mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-foreground/35 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
               </li>
             )),
           )}
@@ -920,42 +938,100 @@ function Revisao({
 
       <aside className="mt-12 lg:mt-0">
         <div className="relative overflow-hidden p-5 lg:sticky lg:top-[228px] lg:self-start" style={CARTAO}>
-          <div className="flex items-baseline justify-between">
-            <span className="text-[0.8125rem] text-foreground/60">Soma das peças</span>
-            <span className="num text-foreground/55 line-through" style={{ ...CORPO, fontSize: "13px" }}>
-              {formatBRL(totais.cheio)}
-            </span>
-          </div>
-          <div className="mt-2 flex items-baseline justify-between">
+          <div className="flex items-baseline justify-between gap-3">
             <span className="text-[0.875rem] text-foreground">Kit fechado</span>
-            <span
-              className="num text-foreground"
-              style={{ ...DISPLAY, fontSize: "24px", fontWeight: 700, letterSpacing: "-0.02em" }}
-            >
-              {formatBRL(totais.comDesconto)}
+            <span className="text-[0.75rem] text-foreground/50" style={CORPO}>
+              {totais.itens.length} {totais.itens.length === 1 ? "peça" : "peças"}
             </span>
           </div>
-          <p className="mt-1 text-right text-[0.75rem] text-[var(--buy-green)]">
-            {Math.round(DESCONTO_KIT * 100)}% off montando junto
+
+          {/* Mesma hierarquia do card de compra da PDP: o preço que ele
+              realmente paga no PIX é a manchete, e o resto explica. */}
+          <p
+            className="num mt-2 leading-none text-foreground"
+            style={{ ...CORPO, fontSize: "32px", fontWeight: 700, letterSpacing: "-0.01em" }}
+          >
+            {formatBRL(pixDoKit)}
           </p>
+          <p className="mt-1.5 text-[0.8125rem] text-foreground/60" style={CORPO}>
+            no <span className="font-semibold" style={{ color: "var(--amber-deep)" }}>PIX</span> com{" "}
+            <span className="font-semibold" style={{ color: "var(--amber-deep)" }}>10% de desconto</span>
+          </p>
+
+          <div className="my-3 h-px bg-foreground/[0.08]" />
+
+          <p className="text-[0.8125rem] leading-relaxed text-foreground/65" style={CORPO}>
+            ou <span className="font-semibold text-foreground">{formatBRL(totais.comDesconto)}</span> em até{" "}
+            <span className="num font-semibold text-foreground">
+              {parcelas}× {formatBRL(valorDaParcela)}
+            </span>{" "}
+            sem juros
+          </p>
+          <button
+            type="button"
+            onClick={() => setPagamentoAberto(true)}
+            className="mt-2 inline-flex items-center gap-1 text-[0.8125rem] font-semibold text-primary transition-colors hover:text-primary/80"
+          >
+            Ver opções de pagamento
+            <ArrowUpRight className="h-3 w-3" />
+          </button>
+
+          <div className="my-3 h-px bg-foreground/[0.08]" />
+
+          <dl className="space-y-1.5 text-[0.8125rem]" style={CORPO}>
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-foreground/55">Soma das peças</dt>
+              <dd className="num text-foreground/55 line-through">{formatBRL(totais.cheio)}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-foreground/70">
+                Desconto de kit ({Math.round(DESCONTO_KIT * 100)}%)
+              </dt>
+              <dd className="num text-foreground/70">-{formatBRL(totais.economia)}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-foreground/70">Desconto do PIX (10%)</dt>
+              <dd className="num text-foreground/70">-{formatBRL(totais.comDesconto - pixDoKit)}</dd>
+            </div>
+            <div
+              className="flex items-baseline justify-between gap-3 pt-1.5"
+              style={{ borderTop: "1px solid var(--edge-subtle)" }}
+            >
+              <dt className="font-semibold text-[var(--buy-green)]">Você economiza</dt>
+              <dd className="num font-semibold text-[var(--buy-green)]">
+                {formatBRL(totais.cheio - pixDoKit)}
+              </dd>
+            </div>
+          </dl>
 
           <button
             type="button"
             disabled={temErro || totais.itens.length === 0}
             onClick={onFechar}
-            className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             style={{ background: "var(--buy-green)", boxShadow: "var(--shadow-buy-cta-sm)" }}
           >
             <ShoppingBag className="h-4 w-4" />
             Levar o kit
           </button>
-          {temErro && (
+          {temErro ? (
             <p className="mt-3 text-center text-[0.75rem] leading-relaxed" style={{ color: "#b3261e" }}>
               Tem peça que não serve no seu instrumento. Troque antes de fechar.
+            </p>
+          ) : (
+            <p className="mt-3 flex items-center justify-center gap-1.5 text-[0.75rem] text-foreground/55" style={CORPO}>
+              <Check className="h-3.5 w-3.5 text-[var(--buy-green)]" strokeWidth={3} />
+              Peças em estoque, envio em 24h
             </p>
           )}
         </div>
       </aside>
+
+      <PaymentModal
+        open={pagamentoAberto}
+        onClose={() => setPagamentoAberto(false)}
+        priceNum={totais.comDesconto}
+      />
     </div>
   );
 }

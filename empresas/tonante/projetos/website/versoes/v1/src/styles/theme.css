@@ -967,6 +967,12 @@ button[aria-disabled="true"] { cursor: not-allowed; }
     opacity: 1 !important;
     transform: none !important;
   }
+  /* A faixa da miniatura sobe no hover pra abrir espaço pro botão de compra.
+     Sem hover, ela ficava parada e o botão caía por cima do nome e do preço:
+     quem mostra os dois tem que abrir o espaço deles também. */
+  .touch-sobe {
+    transform: translateY(-64px) !important;
+  }
 }
 
 /* Rodapé: as quatro colunas de links viram sanfona no celular. Abertas, elas

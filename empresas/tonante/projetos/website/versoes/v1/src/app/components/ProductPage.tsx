@@ -548,7 +548,9 @@ function AutoShippingCalculator({ productPrice }: { productPrice: number }) {
    PAYMENT MODAL
    ═══════════════════════════════════════════════════════ */
 
-function PaymentModal({ open, onClose, priceNum }: { open: boolean; onClose: () => void; priceNum: number }) {
+/* Exportado: o card de fechamento do "monte seu kit" mostra as mesmas
+   condições de pagamento e não deve ter uma segunda tabela de parcelas. */
+export function PaymentModal({ open, onClose, priceNum }: { open: boolean; onClose: () => void; priceNum: number }) {
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -1523,9 +1525,15 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
   return (
     <section ref={sectionRef} className="py-16 md:py-20 border-t border-foreground/5 bg-foreground/[0.01] scroll-mt-[96px]">
       <div className="max-w-[1760px] mx-auto">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+        {/* Duas colunas só a partir de xl. Esta seção mora na coluna esquerda
+            do grid da PDP (784px em 1280x800), e lá dentro 320 + gap-20 + a
+            largura mínima da lista dava 1008px: o excesso vazava para a direita
+            e passava por baixo do card de compra sticky. O min-w-0 é o que
+            permite a lista encolher; sem ele flex-1 nunca fica menor que o
+            próprio conteúdo. */}
+        <div className="flex flex-col xl:flex-row gap-10 xl:gap-12">
           {/* Summary */}
-          <div className="w-full lg:w-[320px] flex-shrink-0">
+          <div className="w-full xl:w-[300px] flex-shrink-0">
             <h2 className="text-foreground mb-6" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-2xl)", fontWeight: 600 }}>
               Avaliações de Clientes
             </h2>
@@ -1572,7 +1580,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
           </div>
 
           {/* List */}
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <div className="mb-8 pb-5 border-b border-foreground/5">
               <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-4 overflow-x-auto scrollbar-none">
@@ -2218,7 +2226,7 @@ export function ProductPage() {
     : params.slug
       ? allProducts.find((p) => getProductSlug(p) === params.slug)
       : undefined;
-  const { addItem } = useCart();
+  const { addItem, isOpen: carrinhoAberto } = useCart();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark" || resolvedTheme === undefined;
@@ -2795,7 +2803,7 @@ export function ProductPage() {
       {/* z-75: acima do banner de cookies (80) não dá — ele também mora no pé
           da tela —, mas acima do resto da página sim. */}
       <div className={`fixed bottom-0 left-0 right-0 z-[75] lg:hidden transition-all duration-300 ${
-        showMobileStickyCta ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
+        showMobileStickyCta && !carrinhoAberto ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
       }`}>
         <div
           className="flex items-center gap-3 border-t border-foreground/10 px-4 py-3"
@@ -2824,30 +2832,26 @@ export function ProductPage() {
               )}
             </p>
           </div>
-          <button
+          {/* mesmo componente do botão grande da página: verde chapado
+              --buy-green e texto branco. Antes era um <button> à parte com
+              var(--gradient-buy), que é outro verde. */}
+          <CTAButton
+            variant={preOrderInfo ? "preorder" : "buy"}
+            size="md"
             onClick={handleBuyNow}
             disabled={preOrderInfo ? (preOrderInfo.reservedUnits >= preOrderInfo.totalUnits) : (product.inStock === false)}
-            className="flex h-12 cursor-pointer items-center gap-2 px-5 font-semibold text-white transition-all disabled:opacity-40"
-            style={{
-              borderRadius: "var(--radius-button)",
-              fontFamily: "var(--font-family-inter)",
-              fontSize: "var(--text-sm)",
-              whiteSpace: "nowrap",
-              background: preOrderInfo
-                ? "var(--gradient-preorder-orange)"
-                : "var(--gradient-buy)",
-            }}
+            className="h-12 flex-shrink-0 cursor-pointer px-5 disabled:cursor-not-allowed"
           >
             {preOrderInfo ? (
               preOrderInfo.reservedUnits >= preOrderInfo.totalUnits ? (
                 <>Esgotado</>
               ) : (
-                <><Rocket size={14} strokeWidth={2.4} /> Comprar agora</>
+                <><Rocket size={15} strokeWidth={2.4} /> Comprar agora</>
               )
             ) : (
-              <><Zap size={14} fill="currentColor" /> Comprar agora</>
+              <><Zap size={15} strokeWidth={2.4} fill="currentColor" /> Comprar agora</>
             )}
-          </button>
+          </CTAButton>
         </div>
       </div>
 

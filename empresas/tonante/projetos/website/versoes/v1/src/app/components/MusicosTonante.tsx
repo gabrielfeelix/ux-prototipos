@@ -208,7 +208,7 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
             junto com o botão de compra, no hover do card, porque é o momento em
             que o visitante decide — e sozinhos cobririam o vídeo. */}
         {produto && (
-          <div className="absolute inset-x-4 bottom-4 z-[6] flex items-center gap-3 transition-[translate] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:-translate-y-[64px]">
+          <div className="touch-sobe absolute inset-x-4 bottom-4 z-[6] flex items-center gap-3 transition-[translate] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:-translate-y-[64px]">
             <Link
               to={getProductUrl(produto)}
               aria-label={`Ver ${produto.name}`}
