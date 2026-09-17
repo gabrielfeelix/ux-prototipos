@@ -187,7 +187,7 @@ export function CartPage() {
   if (items.length === 0) {
     return (
       <>
-        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
+        <div className="pt-6 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
           <div className="mx-auto flex max-w-[640px] flex-col items-center px-5 py-24 text-center">
             <div
               className="mb-8 flex h-24 w-24 items-center justify-center rounded-full"
@@ -248,7 +248,7 @@ export function CartPage() {
 
   return (
     <>
-      <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
+      <div className="pt-6 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
         <div className="mx-auto max-w-[1320px] px-5 py-8 pb-24 md:px-8 md:py-10 lg:pb-10">
           {/* Breadcrumb */}
           <Link

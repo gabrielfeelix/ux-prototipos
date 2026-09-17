@@ -594,7 +594,7 @@ export function CheckoutPage() {
   if (items.length === 0 && !orderConfirmed) {
     return (
       <>
-        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
+        <div className="pt-6 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
           <div className="mx-auto flex max-w-[640px] flex-col items-center px-5 py-24 text-center">
             <Eyebrow className="mb-3">Carrinho vazio</Eyebrow>
             <h1
@@ -625,7 +625,7 @@ export function CheckoutPage() {
     const s = (pixTimer % 60).toString().padStart(2, "0");
     return (
       <>
-        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 120px)" }}>
+        <div className="pt-6 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 120px)" }}>
           <div className="mx-auto max-w-[720px] px-5 py-10 md:px-8">
             <Eyebrow className="mb-3">Pedido #{Math.floor(Math.random() * 90000 + 10000)}</Eyebrow>
             <h1
@@ -762,7 +762,7 @@ export function CheckoutPage() {
     const snap = confirmedSnapshot;
     return (
       <>
-        <div className="pt-[80px] md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
+        <div className="pt-6 md:pt-[88px]" style={{ background: "var(--surface-0)", minHeight: "calc(100vh - 200px)" }}>
           <div className="mx-auto max-w-[720px] px-5 py-12 md:px-8">
             <div className="mb-10 flex flex-col items-center text-center">
               <motion.div
@@ -913,7 +913,7 @@ export function CheckoutPage() {
 
   return (
     <>
-      <div className="pt-[80px] md:pt-[88px] pb-24 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
+      <div className="pt-6 md:pt-[88px] pb-24 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
         <div className="mx-auto max-w-[1320px] px-5 py-4 md:px-8 md:py-6">
           <Link
             to="/carrinho"
