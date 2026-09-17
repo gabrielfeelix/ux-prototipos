@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Square } from "lucide-react";
 import type { Product } from "./productsData";
-import { playStrum, stopStrum, strumDurationSec, presetForProduct } from "../lib/strum";
+import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
 import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
 
 /* TimbrePlayer — "Ouça este instrumento" (V3 §8.1).
@@ -9,7 +9,6 @@ import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
    1. product.audioSample — gravação do próprio modelo Tonante;
    2. amostra de referência CC0 por família (lib/timbre), sorteio estável;
    3. timbre SIMULADO (Karplus-Strong).
-   Cada um tem seu rótulo: só o (1) pode dizer "gravado com este modelo".
    Regras: nunca autoplay; um som por vez (lib garante p/ synth; áudio real
    compartilha o mesmo singleton aqui). */
 
@@ -78,13 +77,6 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
     }
   };
 
-  const label = ownRecording
-    ? "Gravado com este modelo"
-    : reference
-      ? "Amostra de referência"
-      : "Timbre simulado";
-  const dur = hasSample ? "" : ` · 0:0${Math.round(strumDurationSec(preset ?? "Coral"))}`;
-
   if (variant === "compact") {
     return (
       <button
@@ -118,12 +110,11 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
         <p style={{ fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: 14.5, color: "var(--ink-strong)", margin: 0 }}>
           Ouça este instrumento
         </p>
+        {/* Sem legenda embaixo da onda: "amostra de referência (não é este
+            exemplar)" avisava, na hora de ouvir, que o que se ouve não é o
+            produto — plantava dúvida no lugar de vender o timbre. A ressalva,
+            quando precisar, é assunto da descrição, não do player. */}
         <div className="mt-1.5"><Waveform active={playing} color="var(--amber)" /></div>
-        <p style={{ fontFamily: "var(--font-family-inter)", fontSize: 11, color: "var(--ink-meta)", margin: "5px 0 0" }}>
-          {label}{dur}
-          {reference && " (não é este exemplar)"}
-          {!hasSample && " (gravações reais em produção)"}
-        </p>
       </div>
     </div>
   );

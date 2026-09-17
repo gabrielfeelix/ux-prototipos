@@ -147,13 +147,13 @@ function PaymentOption({
   color?: string;
   accentBg?: string;
 }) {
-  /* Sobre papel branco a seleção não pode ser "fundo escuro + texto branco"
-     (herança do tema antigo, que sumia): é borda âmbar de 1.5px, um véu de
-     âmbar bem baixo e a mesma sombra curta dos cards da home. O texto fica
-     ink nos dois estados — só o peso do contorno muda. */
+  /* Seleção com o mesmo vocabulário do Monte seu kit e do Perfil: papel
+     branco sempre, contorno âmbar com anel interno, e a sombra curta dos
+     cards da home. O véu amarelo que existia aqui sujava o branco da loja e
+     não aparece em nenhum outro fluxo. O texto fica ink nos dois estados. */
   const [hover, setHover] = useState(false);
   const accent = color ?? "var(--primary)";
-  const activeBadgeBg = accentBg ?? "rgba(200, 120, 0, 0.12)";
+  const activeBadgeBg = accentBg ?? "var(--surface-2)";
   return (
     <button
       onClick={onClick}
@@ -162,13 +162,13 @@ function PaymentOption({
       className="relative flex flex-col items-start gap-2 px-4 py-4 text-left transition-[border-color,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer"
       style={{
         borderRadius: "var(--radius-card-sm)",
-        background: active ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
+        background: "var(--surface-0)",
         border: active
-          ? `1.5px solid ${accent}`
+          ? `1px solid ${accent}`
           : hover
-          ? "1px solid rgba(200, 120, 0, 0.45)"
+          ? "1px solid var(--edge)"
           : "1px solid var(--border)",
-        boxShadow: active ? "var(--shadow-card)" : "none",
+        boxShadow: active ? `inset 0 0 0 1px ${accent}, var(--shadow-card)` : "none",
         minHeight: 84,
       }}
     >
@@ -1094,8 +1094,9 @@ export function CheckoutPage() {
                                   onClick={() => setSelectedAddressId(a.id)}
                                   style={{
                                     borderRadius: "var(--radius-card-sm)",
-                                    background: sel ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
-                                    border: sel ? "1.5px solid var(--primary)" : "1px solid var(--border)",
+                                    background: "var(--surface-0)",
+                                    border: sel ? "1px solid var(--amber)" : "1px solid var(--border)",
+                                    boxShadow: sel ? "inset 0 0 0 1px var(--amber)" : "none",
                                   }}
                                 >
                                   <div className="flex items-start gap-2.5">
@@ -1103,7 +1104,7 @@ export function CheckoutPage() {
                                     <div className="min-w-0 flex-1">
                                       <div className="flex items-center gap-2">
                                         <span className="text-ink-strong truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>{a.label}</span>
-                                        {a.isDefault && <span className="px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(200, 120, 0, 0.12)", color: "var(--amber-text)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
+                                        {a.isDefault && <span className="px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "var(--ink-strong)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
                                       </div>
                                       <p className="text-ink-muted truncate mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                                         {a.street}, {a.number} · {a.city}/{a.state}
@@ -1131,12 +1132,12 @@ export function CheckoutPage() {
                               style={{
                                 borderRadius: "var(--radius-card-sm)",
                                 background: "var(--surface-2)",
-                                border: "1.5px dashed rgba(200, 120, 0, 0.45)",
+                                border: "1.5px dashed var(--edge)",
                                 minHeight: 60,
                               }}
                             >
-                              <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(200, 120, 0, 0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
-                              <span className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo endereço</span>
+                              <span style={{ width: 24, height: 24, borderRadius: 9999, background: "var(--surface-0)", border: "1px solid var(--edge)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
+                              <span className="text-ink" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo endereço</span>
                             </button>
                           </div>
                         </div>
@@ -1260,9 +1261,9 @@ export function CheckoutPage() {
                               className="flex items-center gap-2.5 md:gap-4 p-4 text-left transition-all"
                               style={{
                                 borderRadius: "var(--radius-card-sm)",
-                                background: active ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
-                                border: active ? "1.5px solid var(--primary)" : "1px solid var(--border)",
-                                boxShadow: active ? "var(--shadow-card)" : "none",
+                                background: "var(--surface-0)",
+                                border: active ? "1px solid var(--amber)" : "1px solid var(--border)",
+                                boxShadow: active ? "inset 0 0 0 1px var(--amber), var(--shadow-card)" : "none",
                               }}
                             >
                               <div
@@ -1290,8 +1291,8 @@ export function CheckoutPage() {
                                       style={{
                                         padding: "2px 9px",
                                         borderRadius: "var(--radius-pill)",
-                                        background: "rgba(200, 120, 0, 0.10)",
-                                        border: "1px solid rgba(200, 120, 0, 0.40)",
+                                        background: "transparent",
+                                        border: "1px solid var(--edge)",
                                         color: "var(--amber-text)",
                                         fontFamily: "var(--font-family-inter)",
                                         fontSize: "var(--text-caption)",
@@ -1445,15 +1446,16 @@ export function CheckoutPage() {
                                         className="text-left p-3 transition-all cursor-pointer flex items-center gap-2.5 relative"
                                         style={{
                                           borderRadius: "var(--radius-card-sm)",
-                                          background: sel ? "rgba(200, 120, 0, 0.05)" : "var(--surface-0)",
-                                          border: sel ? "1.5px solid var(--primary)" : "1px solid var(--border)",
+                                          background: "var(--surface-0)",
+                                          border: sel ? "1px solid var(--amber)" : "1px solid var(--border)",
+                                          boxShadow: sel ? "inset 0 0 0 1px var(--amber)" : "none",
                                         }}
                                       >
                                         <span className="flex items-center justify-center shrink-0" style={{ width: 16, height: 16, borderRadius: 9999, border: sel ? "5px solid var(--primary)" : "1.5px solid var(--edge-strong)", background: sel ? "var(--primary)" : "transparent", boxShadow: sel ? "inset 0 0 0 2px var(--surface-0)" : "none" }} />
                                         <div className="min-w-0 flex-1">
                                           <div className="flex items-center gap-2">
                                             <span className="text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}>{c.brand}</span>
-                                            {c.isDefault && <span className="px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "rgba(200, 120, 0, 0.12)", color: "var(--amber-text)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
+                                            {c.isDefault && <span className="px-2 py-0.5" style={{ borderRadius: "var(--radius-pill)", background: "var(--ink-strong)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em" }}>PADRÃO</span>}
                                           </div>
                                           <p className="text-ink font-mono mt-0.5" style={{ fontSize: "var(--text-caption)", fontWeight: 600, letterSpacing: "0.05em" }}>•••• {c.last4}</p>
                                           <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Validade {c.expiry}</p>
@@ -1479,11 +1481,11 @@ export function CheckoutPage() {
                                     style={{
                                       borderRadius: "var(--radius-card-sm)",
                                       background: "var(--surface-2)",
-                                      border: "1.5px dashed rgba(200, 120, 0, 0.45)",
+                                      border: "1.5px dashed var(--edge)",
                                       minHeight: 60,
                                     }}
                                   >
-                                    <span style={{ width: 24, height: 24, borderRadius: 9999, background: "rgba(200, 120, 0, 0.12)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
+                                    <span style={{ width: 24, height: 24, borderRadius: 9999, background: "var(--surface-0)", border: "1px solid var(--edge)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ink)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, lineHeight: 1 }}>+</span>
                                     <span className="text-primary" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>Adicionar novo cartão</span>
                                   </button>
                                 </div>
