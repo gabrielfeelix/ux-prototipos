@@ -2682,7 +2682,12 @@ export function ProductPage() {
                 No celular ele sai daqui: entre o título e o preço, empurrava a
                 compra pra fora da tela. Lá embaixo há uma cópia, depois do
                 bloco de compra. */}
-            <TimbrePlayer product={product} className="mb-6 hidden lg:block" />
+            {/* O `hidden lg:block` vai no invólucro, não no player: aplicado
+                nele, o `block` vencia o `flex` do próprio componente e o botão
+                de tocar subia pra cima do título em vez de ficar ao lado. */}
+            <div className="mb-6 hidden lg:block">
+              <TimbrePlayer product={product} />
+            </div>
 
             <div className="h-px bg-foreground/6 mb-6" />
 
