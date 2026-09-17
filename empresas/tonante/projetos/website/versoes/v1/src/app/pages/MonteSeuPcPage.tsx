@@ -5539,12 +5539,10 @@ function SelectedItemCard({
 
 function ConfiguracaoSelecionadaCard({
   categories,
-  selections,
   total,
   onEdit,
 }: {
   categories: Array<Category & { selectedOption?: Option }>;
-  selections: Record<string, string>;
   total: number;
   onEdit: (id: string) => void;
 }) {
@@ -6500,7 +6498,6 @@ export function MonteSeuPcPage() {
                       <StepMessages messages={computeStepMessages(currentCategory, selections)} />
                       <ConfiguracaoSelecionadaCard
                         categories={categoriesWithSelected}
-                        selections={selections}
                         total={priceBreakdown.total}
                         onEdit={(id) => {
                           setActiveCategory(id);
@@ -6623,7 +6620,6 @@ export function MonteSeuPcPage() {
                         <StepMessages messages={computeStepMessages(currentCategory, selections)} />
                         <ConfiguracaoSelecionadaCard
                           categories={categoriesWithSelected}
-                          selections={selections}
                           total={priceBreakdown.total}
                           onEdit={(id) => {
                             setActiveCategory(id);

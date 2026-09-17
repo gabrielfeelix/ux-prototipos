@@ -594,8 +594,10 @@ function Resultado({ r }: { r: RespostasKit }) {
           </div>
         </section>
       ) : (
-        /* Teclado e sopro ainda não têm catálogo. Dizer isso é melhor que
-           devolver um grid vazio e deixar o cliente achar que quebrou. */
+        /* Fallback defensivo: hoje toda família oferecida no quiz tem
+           catálogo, mas se algum filtro devolver lista vazia (categoria sem
+           estoque, por exemplo), dizer isso é melhor que um grid vazio
+           deixando o cliente achar que a tela quebrou. */
         <section className="mt-16 max-w-[52ch]">
           <h2 className="text-[1.25rem] text-foreground" style={{ fontFamily: "var(--font-family-figtree)" }}>
             Ainda não vendemos esse instrumento

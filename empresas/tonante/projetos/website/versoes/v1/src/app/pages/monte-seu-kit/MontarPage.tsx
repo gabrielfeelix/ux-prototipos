@@ -47,6 +47,8 @@ import {
   checarKit,
   familiaDoInstrumento,
   instrumentosDisponiveis,
+  dependenciasDoMicrofone,
+  fotoLimpaDoProduto,
   pecasDoSlot,
   selecaoVazia,
   slotsVisiveis,
@@ -60,10 +62,9 @@ const CORPO = { fontFamily: "var(--font-family-inter)" } as const;
    (CartPage:184). Cartão aqui é definido por borda e sombra, não por cor de
    fundo — a loja não tem superfície bege. */
 const CARTAO = {
-  borderRadius: "var(--radius-card-lg)",
-  background:
-    "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-  border: "1px solid rgba(var(--foreground-rgb), 0.08)",
+  borderRadius: "var(--radius-card-xl)",
+  background: "var(--surface-1)",
+  border: "1px solid var(--edge-subtle)",
   boxShadow: "var(--shadow-card)",
 } as const;
 
@@ -86,11 +87,35 @@ export function MontarPage() {
   const [revisando, setRevisando] = useState(false);
 
   const instrumento = sel.instrumento[0] ?? null;
-  const passos = useMemo(() => slotsVisiveis(instrumento), [instrumento]);
+  const passos = useMemo(() => slotsVisiveis(instrumento, familia), [instrumento, familia]);
   const passo = passos[Math.min(indice, passos.length - 1)];
   const recados = useMemo(() => checarKit(sel, revisando), [sel, revisando]);
   const totais = useMemo(() => totaisDoKit(sel), [sel]);
   const temErro = recados.some((r) => r.gravidade === "erro");
+
+  /* A tela de entrada é montada do catálogo, não de lista escrita à mão: a
+     família só aparece se existir instrumento dela em estoque, e o número de
+     etapas vem do trilho medido no instrumento mais representativo. Assim
+     ninguém clica em "Sopro" e cai num passo com uma flauta. */
+  const familias = useMemo(
+    () =>
+      FAMILIAS_OFERECIDAS.map((f) => {
+        const exemplos = instrumentosDisponiveis(f.id);
+        return {
+          ...f,
+          exemplo: exemplos[0] ?? null,
+          modelos: exemplos.length,
+          etapas: exemplos[0] ? slotsVisiveis(exemplos[0]).length : 0,
+        };
+      }).filter((f) => f.exemplo !== null),
+    [],
+  );
+
+  const escolherFamilia = (f: Familia) => {
+    setFamilia(f);
+    setBusca("");
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  };
 
   const opcoes = useMemo(() => {
     const base =
@@ -132,6 +157,16 @@ export function MontarPage() {
       return { ...atual, [passo.id]: lista.slice(-passo.max) };
     });
   };
+
+  /* A dependência do microfone entra em slot que não é o passo atual (o cabo
+     vai pro "ligar", o pedestal pro "segurar"), então ela não passa por
+     `escolher`, que é sempre do passo aberto. */
+  const adicionarEm = (slot: SlotId, p: Product) =>
+    setSel((atual) =>
+      atual[slot].some((x) => x.id === p.id)
+        ? atual
+        : { ...atual, [slot]: [...atual[slot], p] },
+    );
 
   const remover = (slot: SlotId, id: number) =>
     setSel((atual) => ({ ...atual, [slot]: atual[slot].filter((p) => p.id !== id) }));
@@ -178,34 +213,15 @@ export function MontarPage() {
             </span>
           </div>
 
-          <Trilha passos={passos} indice={revisando ? passos.length : indice} sel={sel} onIr={irPara} />
-
-          {/* Avançar mora aqui em cima, ao lado da trilha. Só no rodapé da
-              grade obrigava a rolar por 22 violões pra trocar de etapa. */}
-          {!revisando && (
-            <div className="mt-5 hidden items-center justify-end gap-4 lg:flex">
-              {!passo.obrigatorio && (
-                <button
-                  type="button"
-                  onClick={avancar}
-                  className="text-[0.875rem] text-foreground/55 underline-offset-4 transition-colors hover:text-foreground hover:underline"
-                >
-                  Pular esta etapa
-                </button>
-              )}
-              <button
-                type="button"
-                disabled={passo.obrigatorio && sel[passo.id].length === 0}
-                onClick={avancar}
-                className="inline-flex h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-foreground px-7 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
-              >
-                {indice >= passos.length - 1 ? "Revisar o kit" : "Continuar"}
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
+          {/* A trilha só faz sentido depois da família: antes disso ela mostraria
+              etapas que talvez nem existam no trilho do instrumento escolhido. */}
+          {familia && (
+            <Trilha passos={passos} indice={revisando ? passos.length : indice} sel={sel} onIr={irPara} />
           )}
 
-          {revisando ? (
+          {!familia && !revisando ? (
+            <EscolhaDeFamilia familias={familias} onEscolher={escolherFamilia} />
+          ) : revisando ? (
             <Revisao
               sel={sel}
               passos={passos}
@@ -231,17 +247,15 @@ export function MontarPage() {
                     : passo.sub}
                 </p>
 
-                {passo.id === "instrumento" && (
-                  <div className="mt-7 flex flex-wrap gap-2">
-                    <Pilula ativo={familia === null} onClick={() => setFamilia(null)}>
-                      Tudo
-                    </Pilula>
-                    {FAMILIAS_OFERECIDAS.map((f) => (
-                      <Pilula key={f.id} ativo={familia === f.id} onClick={() => setFamilia(f.id)}>
-                        {f.label}
-                      </Pilula>
-                    ))}
-                  </div>
+                {passo.id === "instrumento" && familia && (
+                  <button
+                    type="button"
+                    onClick={() => { setFamilia(null); setSel(selecaoVazia()); setIndice(0); }}
+                    className="mt-6 inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-foreground/[0.12] px-4 py-2 text-[0.875rem] text-foreground/70 transition-colors hover:border-foreground/30 hover:text-foreground"
+                  >
+                    {FAMILIAS_OFERECIDAS.find((f) => f.id === familia)?.label ?? LABEL_FAMILIA[familia]}
+                    <span className="text-foreground/40">trocar</span>
+                  </button>
                 )}
 
                 <div className="mt-7 flex items-center gap-3">
@@ -277,32 +291,20 @@ export function MontarPage() {
                   </div>
                 )}
 
-                <div className="mt-10 hidden items-center gap-4 lg:flex">
-                  <button
-                    type="button"
-                    disabled={passo.obrigatorio && sel[passo.id].length === 0}
-                    onClick={avancar}
-                    className="inline-flex h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
-                  >
-                    {indice >= passos.length - 1 ? "Revisar o kit" : "Continuar"}
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
-                  {!passo.obrigatorio && (
-                    <button
-                      type="button"
-                      onClick={avancar}
-                      className="text-[0.9375rem] text-foreground/55 underline-offset-4 transition-colors hover:text-foreground hover:underline"
-                    >
-                      Pular esta etapa
-                    </button>
-                  )}
-                </div>
+                {passo.id === "cantar" && sel.cantar.length > 0 && (
+                  <DependenciasDoMic
+                    mic={sel.cantar[0]}
+                    sel={sel}
+                    onAdicionar={adicionarEm}
+                  />
+                )}
               </div>
 
               <aside className="mt-12 lg:mt-0">
-                {/* 180px = barra de avisos + header + menu de categorias. Com
-                    top-24 o resumo sumia atrás do header ao rolar. */}
-                <div className="lg:sticky lg:top-[180px] lg:self-start">
+                {/* Rolar pra cima revela de novo a barra de avisos + header +
+                    menu de categorias; com offset menor essa pilha comia o
+                    topo do painel. Este valor é a pilha inteira, com folga. */}
+                <div className="lg:sticky lg:top-[228px] lg:self-start">
                   <Resumo
                     passos={passos}
                     sel={sel}
@@ -310,6 +312,12 @@ export function MontarPage() {
                     recados={recados}
                     onIr={corrigir}
                     onRemover={remover}
+                    acao={{
+                      rotulo: indice >= passos.length - 1 ? "Revisar o kit" : "Continuar",
+                      bloqueado: passo.obrigatorio && sel[passo.id].length === 0,
+                      onAvancar: avancar,
+                      onPular: passo.obrigatorio ? undefined : avancar,
+                    }}
                   />
                 </div>
               </aside>
@@ -348,6 +356,166 @@ export function MontarPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+/* ——— o que o microfone arrasta atrás ————————————————————————————————————— */
+
+/* Dependência mostrada no lugar onde ela nasce.
+ *
+ * Microfone com fio sem cabo XLR não liga em nada, e sem pedestal ocupa a mão
+ * que ia tocar. Empurrar isso pra dois passos adiante é como vender impressora
+ * e só falar do cabo na entrega: aqui as duas peças aparecem no instante em que
+ * o microfone é escolhido, com o preço na frente e uma ação só pra aceitar as
+ * duas. Quem não quer, ignora e segue. */
+function DependenciasDoMic({
+  mic,
+  sel,
+  onAdicionar,
+}: {
+  mic: Product;
+  sel: Selecao;
+  onAdicionar: (slot: SlotId, p: Product) => void;
+}) {
+  const { cabo, pedestal } = useMemo(() => dependenciasDoMicrofone(mic), [mic]);
+  const faltando = [
+    cabo && !sel.ligar.some((p) => p.id === cabo.id)
+      ? { slot: "ligar" as SlotId, produto: cabo, papel: "Cabo XLR pra ligar na mesa" }
+      : null,
+    pedestal && !sel.segurar.some((p) => p.id === pedestal.id)
+      ? { slot: "segurar" as SlotId, produto: pedestal, papel: "Pedestal pra deixar as mãos livres" }
+      : null,
+  ].filter((x): x is { slot: SlotId; produto: Product; papel: string } => x !== null);
+
+  if (faltando.length === 0) return null;
+
+  return (
+    <div className="mt-8 p-5" style={CARTAO}>
+      <p className="text-[0.9375rem] font-semibold text-foreground" style={DISPLAY}>
+        {mic.name.split(" - ")[0]} precisa de mais isto
+      </p>
+      <p className="mt-1 text-[0.8125rem] leading-relaxed text-foreground/60">
+        Sem essas peças o microfone chega e não funciona. Dá pra escolher outro modelo
+        nas etapas seguintes.
+      </p>
+
+      <ul className="mt-4 space-y-2">
+        {faltando.map(({ slot, produto, papel }) => (
+          <li key={produto.id} className="flex items-center gap-3">
+            <span
+              className="h-10 w-10 shrink-0 overflow-hidden rounded-[8px]"
+              style={{ background: "var(--well)" }}
+            >
+              <ImageWithFallback
+                src={fotoLimpaDoProduto(produto) ?? getPrimaryProductImage(produto)}
+                alt=""
+                className="h-full w-full object-contain p-1 mix-blend-multiply"
+              />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-[0.8125rem] text-foreground/85">{papel}</span>
+              <span className="num block text-[0.75rem] text-foreground/55">
+                {produto.name.split(" - ")[0]} · {formatBRL(getPixPrice(produto))}
+              </span>
+            </span>
+            <button
+              type="button"
+              onClick={() => onAdicionar(slot, produto)}
+              className="shrink-0 rounded-[var(--radius-pill)] border border-foreground/[0.14] px-4 py-2 text-[0.8125rem] font-semibold text-foreground transition-colors hover:border-foreground/40"
+            >
+              Adicionar
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      {faltando.length > 1 && (
+        <button
+          type="button"
+          onClick={() => faltando.forEach(({ slot, produto }) => onAdicionar(slot, produto))}
+          className="mt-4 inline-flex h-11 items-center rounded-[var(--radius-pill)] bg-foreground px-6 text-[0.875rem] font-semibold [color:#fff] transition-opacity hover:opacity-90"
+        >
+          Adicionar os dois
+        </button>
+      )}
+    </div>
+  );
+}
+
+/* ——— escolha de família ————————————————————————————————————————————————— */
+
+/* Primeira tela do montador.
+ *
+ * Antes a família era um filtro em pílula ao lado de 78 violões: o cliente
+ * escolhia o instrumento antes de saber que a escolha muda o kit inteiro. Como
+ * o trilho de etapas depende da família, ela virou a pergunta de abertura, com
+ * foto e com o número de etapas visível — a pessoa sabe no que está entrando
+ * antes do primeiro clique. */
+function EscolhaDeFamilia({
+  familias,
+  onEscolher,
+}: {
+  familias: {
+    id: Familia;
+    label: string;
+    hint: string;
+    arte?: string;
+    exemplo: Product | null;
+    modelos: number;
+    etapas: number;
+  }[];
+  onEscolher: (f: Familia) => void;
+}) {
+  return (
+    <div className="mt-10 max-w-[900px]">
+      <h1
+        className="text-[clamp(1.875rem,4vw,2.75rem)] leading-[1.06] tracking-[-0.02em] text-foreground"
+        style={DISPLAY}
+      >
+        O que você toca?
+      </h1>
+      <p className="mt-3 max-w-[52ch] text-[0.9375rem] leading-relaxed text-foreground/65">
+        O resto do kit é montado em cima dessa escolha. Cada instrumento pede peças
+        diferentes, então as etapas mudam conforme o que você tocar.
+      </p>
+
+      <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {familias.map((f) => {
+          const foto = f.arte ?? (f.exemplo ? fotoLimpaDoProduto(f.exemplo) : null);
+          return (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => onEscolher(f.id)}
+              className="group overflow-hidden p-3 text-left transition-shadow hover:shadow-[var(--shadow-tile-hover)]"
+              style={CARTAO}
+            >
+              <span
+                className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-[10px]"
+                style={{ background: "var(--well)" }}
+              >
+                {foto && (
+                  <ImageWithFallback
+                    src={foto}
+                    alt=""
+                    className="h-full w-full object-contain p-2 mix-blend-multiply transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                )}
+              </span>
+              <span className="block text-[0.9375rem] font-semibold text-foreground" style={DISPLAY}>
+                {f.label}
+              </span>
+              <span className="mt-0.5 block text-[0.75rem] leading-snug text-foreground/60">
+                {f.hint}
+              </span>
+              <span className="mt-2 block text-[0.75rem] text-foreground/45">
+                {f.etapas} etapas · {f.modelos} {f.modelos === 1 ? "modelo" : "modelos"}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -425,7 +593,7 @@ function PecaTile({
         style={{ background: "var(--gradient-photo)" }}
       >
         <ImageWithFallback
-          src={getPrimaryProductImage(produto)}
+          src={fotoLimpaDoProduto(produto) ?? getPrimaryProductImage(produto)}
           alt={produto.name}
           className="h-full w-full object-contain p-3 mix-blend-multiply"
         />
@@ -463,31 +631,6 @@ function PecaTile({
   );
 }
 
-function Pilula({
-  ativo,
-  onClick,
-  children,
-}: {
-  ativo: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={ativo}
-      className={`h-9 rounded-[var(--radius-pill)] border px-4 text-[0.875rem] transition-colors ${
-        ativo
-          ? "border-foreground bg-foreground [color:#fff]"
-          : "border-foreground/15 text-foreground/70 hover:border-foreground/40"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
 /* ——— resumo ——————————————————————————————————————————————————————————— */
 
 function Resumo({
@@ -497,6 +640,7 @@ function Resumo({
   recados,
   onIr,
   onRemover,
+  acao,
 }: {
   passos: Slot[];
   sel: Selecao;
@@ -504,14 +648,31 @@ function Resumo({
   recados: Recado[];
   onIr: (slot: SlotId) => void;
   onRemover: (slot: SlotId, id: number) => void;
+  /* As ações moram dentro do painel porque ele é a única coisa que acompanha
+     a rolagem: com "Continuar" solto acima da grade, trocar de etapa exigia
+     voltar ao topo depois de olhar 22 violões. */
+  acao?: {
+    rotulo: string;
+    bloqueado: boolean;
+    onAvancar: () => void;
+    onPular?: () => void;
+  };
 }) {
+  const etapasFeitas = passos.filter((s) => sel[s.id].length > 0).length;
   return (
-    <div className="relative overflow-hidden p-5" style={CARTAO}>
-      <p className="mb-4 text-primary" style={CAPTION}>
-        // O QUE JÁ ENTROU
-      </p>
+    <div className="overflow-hidden" style={CARTAO}>
+      <div className="flex items-baseline justify-between gap-3 px-5 pt-5">
+        <h2 className="text-foreground" style={{ ...DISPLAY, fontSize: "17px", fontWeight: 600, letterSpacing: "-0.01em" }}>
+          Seu kit
+        </h2>
+        <span className="text-[0.75rem] text-foreground/45" style={CORPO}>
+          {etapasFeitas} de {passos.length} etapas
+        </span>
+      </div>
 
-      <ul className="space-y-3">
+      {/* Com kit cheio + recados o painel passava da viewport e o botão saía
+          da tela; a lista rola dentro do cartão e as ações ficam sempre à mão. */}
+      <ul className="mt-4 lg:max-h-[40vh] lg:overflow-y-auto lg:overscroll-contain">
         {passos.map((s) => {
           const itens = sel[s.id];
           if (itens.length === 0)
@@ -520,28 +681,48 @@ function Resumo({
                 <button
                   type="button"
                   onClick={() => onIr(s.id)}
-                  className="flex w-full items-center gap-3 rounded-[var(--radius-card-sm)] border border-dashed border-foreground/20 px-3 py-2.5 text-left text-[0.8125rem] text-foreground/45 transition-colors hover:border-foreground/40 hover:text-foreground/70"
+                  className="flex w-full items-center gap-3 px-5 py-2.5 text-left transition-colors hover:bg-foreground/[0.03]"
+                  style={{ borderTop: "1px solid var(--edge-subtle)" }}
                 >
-                  <span className="h-8 w-8 shrink-0 rounded-[6px] border border-dashed border-foreground/20" />
-                  {s.curto} — vazio
+                  <span
+                    className="h-9 w-9 shrink-0 rounded-[8px]"
+                    style={{ background: "var(--surface-2)" }}
+                  />
+                  <span className="min-w-0 flex-1 truncate text-[0.8125rem] text-foreground/50">{s.curto}</span>
+                  <span className="shrink-0 text-[0.75rem] text-foreground/40">a escolher</span>
                 </button>
               </li>
             );
-          return itens.map((p) => (
-            <li key={p.id} className="flex items-center gap-3">
+          return itens.map((p) => {
+            /* Cabo XLR e pedestal existem por causa do microfone. Listados soltos
+               no meio do kit, parecem escolha independente e o cliente tira um
+               dos dois sem saber que está desmontando o microfone. */
+            const doMicrofone =
+              (s.id === "ligar" || s.id === "segurar") &&
+              sel.cantar.length > 0 &&
+              /\bxlr|microfone\b/.test(p.name.toLowerCase());
+            return (
+            <li
+              key={p.id}
+              className="flex items-center gap-3 py-2.5 pr-5"
+              style={{
+                borderTop: doMicrofone ? undefined : "1px solid var(--edge-subtle)",
+                paddingLeft: doMicrofone ? 40 : 20,
+              }}
+            >
               <span
-                className="h-9 w-9 shrink-0 overflow-hidden rounded-[6px]"
-                style={{ background: "var(--gradient-photo)" }}
+                className="h-9 w-9 shrink-0 overflow-hidden rounded-[8px]"
+                style={{ background: "var(--well)" }}
               >
                 <ImageWithFallback
-                  src={getPrimaryProductImage(p)}
+                  src={fotoLimpaDoProduto(p) ?? getPrimaryProductImage(p)}
                   alt=""
                   className="h-full w-full object-contain p-1 mix-blend-multiply"
                 />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[0.8125rem] text-foreground/85">{p.name}</span>
-                <span className="num block text-foreground/55" style={{ ...CORPO, fontSize: "12px" }}>
+                <span className="num block text-foreground/50" style={{ ...CORPO, fontSize: "12px" }}>
                   {formatBRL(getPixPrice(p))}
                 </span>
               </span>
@@ -549,39 +730,63 @@ function Resumo({
                 type="button"
                 onClick={() => onRemover(s.id, p.id)}
                 aria-label={`Tirar ${p.name} do kit`}
-                className="shrink-0 text-foreground/35 transition-colors hover:text-foreground"
+                className="-mr-2 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-foreground/35 transition-colors hover:bg-foreground/5 hover:text-foreground"
               >
                 <X className="h-4 w-4" />
               </button>
             </li>
-          ));
+            );
+          });
         })}
       </ul>
 
       {recados.length > 0 && (
-        <div className="mt-5 space-y-2 border-t border-foreground/10 pt-4">
+        <div className="space-y-2 px-5 py-4" style={{ borderTop: "1px solid var(--edge-subtle)" }}>
           {recados.map((r, i) => (
             <Recadinho key={i} recado={r} onIr={onIr} />
           ))}
         </div>
       )}
 
-      <div className="mt-5 border-t border-foreground/10 pt-4">
-        <div className="flex items-baseline justify-between">
-          <span className="text-[0.8125rem] text-foreground/60">Kit fechado</span>
+      <div className="px-5 py-4" style={{ borderTop: "1px solid var(--edge-subtle)" }}>
+        <div className="flex items-baseline justify-between gap-3">
+          <span className="text-[0.8125rem] text-foreground/60" style={CORPO}>Kit fechado</span>
           <span
-            className="num"
-            style={{ ...CORPO, fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+            className="num text-foreground"
+            style={{ ...DISPLAY, fontSize: "24px", fontWeight: 700, letterSpacing: "-0.02em" }}
           >
             {formatBRL(totais.comDesconto)}
           </span>
         </div>
         {totais.economia > 0 && (
-          <p className="mt-1 text-right text-[0.75rem] text-[var(--buy-green)]">
-            {Math.round(DESCONTO_KIT * 100)}% off — você economiza {formatBRL(totais.economia)}
+          <p className="mt-1 text-right text-[0.75rem] text-[var(--buy-green)]" style={CORPO}>
+            {Math.round(DESCONTO_KIT * 100)}% off, você economiza {formatBRL(totais.economia)}
           </p>
         )}
       </div>
+
+      {acao && (
+        <div className="px-5 pb-5">
+          <button
+            type="button"
+            disabled={acao.bloqueado}
+            onClick={acao.onAvancar}
+            className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-foreground text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-25"
+          >
+            {acao.rotulo}
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          {acao.onPular && (
+            <button
+              type="button"
+              onClick={acao.onPular}
+              className="mt-1 inline-flex h-11 w-full items-center justify-center text-[0.875rem] text-foreground/55 transition-colors hover:text-foreground"
+            >
+              Pular esta etapa
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -661,7 +866,7 @@ function Revisao({
                   style={{ background: "var(--gradient-photo)" }}
                 >
                   <ImageWithFallback
-                    src={getPrimaryProductImage(p)}
+                    src={fotoLimpaDoProduto(p) ?? getPrimaryProductImage(p)}
                     alt=""
                     className="h-full w-full object-contain p-2 mix-blend-multiply"
                   />
@@ -714,7 +919,7 @@ function Revisao({
       </div>
 
       <aside className="mt-12 lg:mt-0">
-        <div className="relative overflow-hidden p-5 lg:sticky lg:top-[180px] lg:self-start" style={CARTAO}>
+        <div className="relative overflow-hidden p-5 lg:sticky lg:top-[228px] lg:self-start" style={CARTAO}>
           <div className="flex items-baseline justify-between">
             <span className="text-[0.8125rem] text-foreground/60">Soma das peças</span>
             <span className="num text-foreground/55 line-through" style={{ ...CORPO, fontSize: "13px" }}>
@@ -724,8 +929,8 @@ function Revisao({
           <div className="mt-2 flex items-baseline justify-between">
             <span className="text-[0.875rem] text-foreground">Kit fechado</span>
             <span
-              className="num"
-              style={{ ...CORPO, fontSize: "24px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+              className="num text-foreground"
+              style={{ ...DISPLAY, fontSize: "24px", fontWeight: 700, letterSpacing: "-0.02em" }}
             >
               {formatBRL(totais.comDesconto)}
             </span>

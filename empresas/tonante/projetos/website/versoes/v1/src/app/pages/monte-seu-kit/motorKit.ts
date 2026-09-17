@@ -18,6 +18,7 @@ import { allProducts, type Product } from "../../components/productsData";
 import { getVisibleCatalogProducts } from "../../components/productPresentation";
 import { getProductAttributes } from "../../components/productAttributes";
 import { cordaDoProduto, FAIXAS, type Faixa } from "../guia/motor";
+import { tipoDoProduto } from "../../v2/curadoria";
 import {
   somMedio,
   type Band,
@@ -56,7 +57,9 @@ export const FAMILIAS: Familia[] = [
   { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", foto: "/categorias/ukulele.png", audio: "ukulele" },
   { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", foto: "/categorias/bateria.png", audio: "bateria" },
   { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", foto: "/categorias/teclado.png", audio: "teclado" },
-  { id: "sopro", label: "Sopro", hint: "Sax e flauta: melodia com o fôlego", foto: "/categorias/sopro.png", audio: "flauta" },
+  /* Sopro saiu do quiz: um produto só (a flauta) não sustenta uma família
+     inteira de pergunta. Continua existindo como instrumento e em
+     bandLibrary, só não abre mais caminho aqui. */
 ];
 
 export const NIVEIS: { id: Nivel; label: string; sub: string; icone: string }[] = [
@@ -100,8 +103,17 @@ export function produtosDaFamilia(f: Instrumento): Product[] {
       return visiveis.filter((p) => p.tags.includes("Viola Caipira"));
     case "ukulele":
       return visiveis.filter((p) => p.tags.includes("Ukulele"));
-    /* Teclado e sopro ainda não têm catálogo. A tela continua navegável e o
-       resultado assume isso em voz alta em vez de devolver grid vazio. */
+    case "teclado": {
+      /* Suporte, banqueta e capa citam "teclado" no nome mas não são o
+         instrumento; tipoDoProduto já resolve isso (caem como "suporte").
+         Some ainda o filtro por nome pra não pegar acessório nenhum que por
+         acaso comece com a palavra. */
+      const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+      return visiveis.filter((p) => {
+        const nome = semAcento(p.name);
+        return tipoDoProduto(p) === "instrumento" && (nome.startsWith("teclado") || nome.startsWith("piano"));
+      });
+    }
     default:
       return [];
   }

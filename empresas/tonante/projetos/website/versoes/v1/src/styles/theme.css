@@ -931,3 +931,29 @@ select:not(:disabled) {
 }
 button:disabled,
 button[aria-disabled="true"] { cursor: not-allowed; }
+
+/* Descrição da PDP no celular: ela tem ~3200px e fica entre o preço e as
+   avaliações. Abre em 760px, com esmaecido no pé, e o resto vem num toque.
+   O corte é CSS e não JS pra não existir no desktop de jeito nenhum. */
+@media (max-width: 1023px) {
+  .pdp-desc-clamp {
+    position: relative;
+    max-height: 760px;
+  }
+  .pdp-desc-clamp::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 140px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--surface-1));
+  }
+  .pdp-desc-clamp.is-open {
+    max-height: none;
+  }
+  .pdp-desc-clamp.is-open::after {
+    display: none;
+  }
+}

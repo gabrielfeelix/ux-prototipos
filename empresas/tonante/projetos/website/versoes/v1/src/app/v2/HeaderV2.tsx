@@ -240,7 +240,9 @@ export function HeaderV2() {
         }}
       >
         <div className="mx-auto flex h-11 w-full items-center gap-4 px-4 md:px-12" style={{ maxWidth: "1680px" }}>
-          <div className="flex items-center gap-3.5">
+          {/* No celular a faixa é só o aviso: os perfis sociais e a central de
+              ajuda vivem na gaveta, e aqui só espremiam o texto que importa. */}
+          <div className="hidden items-center gap-3.5 sm:flex">
             {/* os três perfis oficiais, na mesma ordem do rodapé */}
             {SOCIAL_LINKS.map(({ label, href }) => {
               const Icon = ICONE_SOCIAL[label];
@@ -308,7 +310,10 @@ export function HeaderV2() {
           <Menu size={24} strokeWidth={1.9} />
         </button>
 
-        <Link to="/" aria-label="Tonante, início" className="flex-shrink-0 transition-opacity duration-200 hover:opacity-70">
+        {/* No celular a logo fica no centro: hambúrguer e carrinho têm 44px
+            cada, então o espaço que sobra é simétrico e ela cai no meio de
+            verdade. No desktop volta a ser o primeiro item da linha. */}
+        <Link to="/" aria-label="Tonante, início" className="flex flex-1 flex-shrink-0 justify-center transition-opacity duration-200 hover:opacity-70 md:flex-none md:justify-start">
           <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-8 md:h-11" style={{ width: "auto" }} />
         </Link>
 

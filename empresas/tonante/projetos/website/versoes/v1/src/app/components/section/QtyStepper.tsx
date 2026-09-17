@@ -17,10 +17,13 @@ type QtyStepperProps = {
   className?: string;
 };
 
+/* No celular todo botão do stepper tem 44px: é o alvo mínimo de toque, e
+   quantidade é justamente o controle que se erra com o polegar. A partir de
+   768px cada tamanho volta ao que era no desktop. */
 const SIZE_MAP: Record<Size, { btn: string; num: string; numFontSize: string; iconSize: number }> = {
-  sm: { btn: "w-7 h-7", num: "w-7 h-7", numFontSize: "12px", iconSize: 12 },
-  md: { btn: "w-8 h-9", num: "w-9 h-9", numFontSize: "13px", iconSize: 12 },
-  lg: { btn: "w-9 h-9", num: "w-10 h-9", numFontSize: "13px", iconSize: 13 },
+  sm: { btn: "w-11 h-11 md:w-7 md:h-7", num: "w-11 h-11 md:w-7 md:h-7", numFontSize: "12px", iconSize: 12 },
+  md: { btn: "w-11 h-11 md:w-8 md:h-9", num: "w-11 h-11 md:w-9 md:h-9", numFontSize: "13px", iconSize: 12 },
+  lg: { btn: "w-11 h-11 md:w-9 md:h-9", num: "w-11 h-11 md:w-10 md:h-9", numFontSize: "13px", iconSize: 13 },
 };
 
 /* Sem borda interna em volta do número: as duas linhas verticais partiam um

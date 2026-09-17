@@ -34,6 +34,11 @@ const COUPONS: Record<string, number> = {
 const GIFT_THRESHOLD = 7000;
 const FREE_SHIPPING_THRESHOLD = 299;
 
+/* Promoção de frete desligada por ora. A barra de progresso continua inteira
+   aqui embaixo — é só virar esta chave pra ela voltar quando a campanha rodar
+   de novo. */
+const FREE_SHIPPING_PROMO = false;
+
 const USER_PCYES_POINTS = 480;
 
 export function CartDrawer() {
@@ -201,7 +206,7 @@ export function CartDrawer() {
             </div>
 
             {/* Barra de frete grátis (CRO §6.17) — meta R$ 299 */}
-            {paidItems.length > 0 && (
+            {FREE_SHIPPING_PROMO && paidItems.length > 0 && (
               <div className="border-b border-foreground/5 px-7 py-3.5">
                 <div className="mb-2 flex items-center gap-2">
                   <Truck size={15} className="text-foreground/55" strokeWidth={2} />

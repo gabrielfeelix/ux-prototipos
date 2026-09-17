@@ -30,6 +30,9 @@ export function CookieConsent() {
           initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="fixed bottom-0 left-0 right-0 z-[80] p-4 md:p-6"
+          /* sobe junto com a barra de compra do celular (--fab-lift), senão
+             as duas se empilham no mesmo canto e o aviso cobre o botão */
+          style={{ marginBottom: "var(--fab-lift, 0px)" }}
         >
           <div className="max-w-[900px] mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 px-6 py-5 border bg-card border-border"
             style={{

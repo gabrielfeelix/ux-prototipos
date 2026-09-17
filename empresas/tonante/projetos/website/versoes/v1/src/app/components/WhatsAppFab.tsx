@@ -29,8 +29,11 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com o atendimento no WhatsApp"
-      className={`group/wa fixed bottom-5 right-5 ${carrinhoAberto ? "z-[40]" : "z-[90]"} flex h-14 w-14 items-center justify-center rounded-full transition-[transform,box-shadow,opacity] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 md:bottom-7 md:right-7`}
+      className={`group/wa fixed bottom-5 right-5 ${carrinhoAberto ? "z-[40]" : "z-[90]"} flex h-14 w-14 items-center justify-center rounded-full transition-[transform,box-shadow,opacity,margin]  duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 md:bottom-7 md:right-7`}
       style={{
+        /* a PDP levanta o botão quando a barra de compra do celular sobe, pela
+           variável --fab-lift: os dois moram em cantos diferentes da árvore. */
+        marginBottom: "var(--fab-lift, 0px)",
         background: "#25D366",
         boxShadow: "0 10px 30px -10px rgba(37,211,102,0.65), 0 2px 8px rgba(17,17,17,0.18)",
         opacity: visivel ? 1 : 0,

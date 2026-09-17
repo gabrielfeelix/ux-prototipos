@@ -25,8 +25,38 @@
  * cubo de guitarra). Inventar o passo deixaria um passo vazio ou, pior, um
  * cabo de PA vendido como cubo. */
 
+import { isFotoAmbientada } from "../../components/photoBackdrop";
+import { getProductImages } from "../../components/productPresentation";
 import { type Product } from "../../components/productsData";
+import { isKitProduct } from "../../lib/kits";
 import { catalogo, peso, tipoDoProduto } from "../../v2/curadoria";
+
+/* ——— quem pode entrar no kit ——————————————————————————————————————————— */
+
+/** Foto do produto sem cenário atrás.
+ *
+ * No montador os cards ficam em grade estreita, e foto ambientada (fundo preto
+ * do catálogo antigo, mesa de estúdio, arte de kit) desenha um retângulo escuro
+ * no meio de uma fileira de recortes brancos. `photoBackdrop` já sabe quais
+ * fotos têm cenário — a classificação é offline porque o CDN não manda CORS.
+ * Sem nenhuma foto limpa, o produto fica fora: é melhor não oferecer a peça do
+ * que sujar a etapa inteira com ela. */
+export function fotoLimpaDoProduto(p: Product): string | null {
+  return getProductImages(p).find((img) => !isFotoAmbientada(img)) ?? null;
+}
+
+/** O que pode ser oferecido no montador.
+ *
+ * Kit pronto é produto fechado, não peça: oferecer "Kit Primeiro Acorde" dentro
+ * do passo de extras vende um kit dentro do outro, e o preço do kit inteiro
+ * entra na conta como se fosse uma palheta. */
+export function pecaElegivel(p: Product): boolean {
+  if (isKitProduct(p)) return false;
+  return fotoLimpaDoProduto(p) !== null;
+}
+
+/** Catálogo do montador: sem kit pronto, sem foto com fundo. */
+const pool = catalogo.filter(pecaElegivel);
 
 /* ——— famílias ————————————————————————————————————————————————————————— */
 
@@ -41,6 +71,9 @@ export type Familia =
   | "bateria"
   | "cavaco"
   | "banjo"
+  | "teclado"
+  /* Quem canta também monta kit, e o microfone é o instrumento dele. */
+  | "voz"
   | "outro";
 
 const semAcento = (s: string) =>
@@ -52,7 +85,12 @@ const temTag = (p: Product, tag: string) =>
 /** Família do instrumento escolhido. Tag primeiro, nome como desempate. */
 export function familiaDoInstrumento(p: Product): Familia {
   const n = semAcento(p.name);
+  /* Microfone e teclado não têm categoria própria no ERP: os dois moram em
+     "Acessórios" junto com palheta e afinador. O nome é o dado confiável. */
+  if (tipoDoProduto(p) === "microfone") return "voz";
+  if (/^(teclado|piano)/.test(n)) return "teclado";
   if (p.category === "Baterias" || /\bbateria\b/.test(n)) return "bateria";
+  if (/^cavaco|^cavaquinho/.test(n)) return "cavaco";
   if (/\bukulele\b/.test(n) || temTag(p, "Ukulele")) return "ukulele";
   if (/\bviola\b/.test(n) && !/\bviolao/.test(n)) return "viola";
   if (p.category === "Contrabaixos" || /\b(contrabaixo|baixo)\b/.test(n)) return "baixo";
@@ -88,6 +126,8 @@ export const LABEL_FAMILIA: Record<Familia, string> = {
   bateria: "bateria",
   cavaco: "cavaquinho",
   banjo: "banjo",
+  teclado: "teclado",
+  voz: "microfone",
   outro: "instrumento",
 };
 
@@ -113,7 +153,14 @@ export function familiaDaCorda(p: Product): Familia {
 
 /* ——— passos ——————————————————————————————————————————————————————————— */
 
-export type SlotId = "instrumento" | "cordas" | "ligar" | "afinar" | "segurar" | "tocar";
+export type SlotId =
+  | "instrumento"
+  | "cordas"
+  | "ligar"
+  | "afinar"
+  | "segurar"
+  | "cantar"
+  | "tocar";
 
 export interface Slot {
   id: SlotId;
@@ -167,6 +214,13 @@ export const SLOTS: Slot[] = [
     max: 2,
   },
   {
+    id: "cantar",
+    titulo: "Pra cantar junto",
+    sub: "Quem toca e canta precisa de microfone. Se você só toca, pule.",
+    curto: "Voz",
+    max: 1,
+  },
+  {
     id: "tocar",
     titulo: "Pra tocar e conservar",
     sub: "Palheta, limpeza, o que sobra na mochila.",
@@ -175,12 +229,133 @@ export const SLOTS: Slot[] = [
   },
 ];
 
-/** Passos visíveis dado o que já foi escolhido. "Pra ligar" some no acústico. */
-export function slotsVisiveis(instrumento: Product | null): Slot[] {
-  return SLOTS.filter((s) => {
-    if (s.id === "ligar") return instrumento ? temCaptacao(instrumento) : false;
-    return true;
-  });
+const POR_ID = new Map(SLOTS.map((s) => [s.id, s]));
+
+/* Trilho por família.
+ *
+ * Antes a lista de passos era fixa com uma exceção solta ("Pra ligar" só
+ * aparecia com captação). Isso não escala: bateria não tem corda nem
+ * capotraste, teclado não tem nenhum dos dois, e microfone é o instrumento
+ * inteiro de quem canta. Quem manda no fluxo é o instrumento escolhido, então
+ * cada família declara a própria sequência e o resto do código só lê a tabela. */
+const TRILHO_CORDAS: SlotId[] = [
+  "instrumento",
+  "cordas",
+  "ligar",
+  "afinar",
+  "segurar",
+  "cantar",
+  "tocar",
+];
+
+const TRILHOS: Record<Familia, SlotId[]> = {
+  "violao-nylon": TRILHO_CORDAS,
+  "violao-aco": TRILHO_CORDAS,
+  guitarra: TRILHO_CORDAS,
+  baixo: TRILHO_CORDAS,
+  viola: TRILHO_CORDAS,
+  ukulele: TRILHO_CORDAS,
+  cavaco: TRILHO_CORDAS,
+  banjo: TRILHO_CORDAS,
+  /* Bateria não afina com afinador de clipe e não sai por cabo: o que ela pede
+     é onde sentar, o que abafar e microfone pra gravar. */
+  bateria: ["instrumento", "segurar", "cantar", "tocar"],
+  teclado: ["instrumento", "ligar", "segurar", "cantar", "tocar"],
+  /* No kit de voz o microfone É o instrumento; cabo e pedestal deixam de ser
+     acessório e passam a ser o que faz ele funcionar. */
+  voz: ["instrumento", "ligar", "segurar", "tocar"],
+  outro: TRILHO_CORDAS,
+};
+
+/* O mesmo passo tem nome diferente conforme o instrumento: "pra segurar" é
+   correia no violão, banqueta na bateria e suporte em X no teclado. Traduzir
+   aqui evita um passo chamado "Apoio" mostrando pedestal de microfone. */
+const TEXTO_POR_FAMILIA: Partial<Record<Familia, Partial<Record<SlotId, Partial<Slot>>>>> = {
+  bateria: {
+    segurar: {
+      titulo: "Pra sentar e firmar",
+      sub: "Banqueta na altura certa e o que prende o kit no lugar.",
+      curto: "Banqueta",
+    },
+    cantar: {
+      titulo: "Pra gravar o kit",
+      sub: "Microfone de bateria, se você grava ou toca ligado na mesa.",
+      curto: "Microfone",
+    },
+  },
+  teclado: {
+    ligar: {
+      titulo: "Pra ligar",
+      sub: "Cabo pra mesa, pro amplificador ou pra interface.",
+      curto: "Cabo",
+    },
+    segurar: {
+      titulo: "Pra apoiar",
+      sub: "Suporte em X e banqueta. Teclado no colo não toca.",
+      curto: "Suporte",
+    },
+  },
+  voz: {
+    instrumento: {
+      titulo: "O microfone",
+      sub: "Tudo que vem depois é escolhido em cima dele.",
+      curto: "Microfone",
+    },
+    ligar: {
+      titulo: "Pra ligar na mesa",
+      sub: "Microfone com fio precisa de XLR. Sem cabo ele não liga em nada.",
+      curto: "Cabo XLR",
+    },
+    segurar: {
+      titulo: "Pra posicionar",
+      sub: "Pedestal deixa as duas mãos livres pra tocar.",
+      curto: "Pedestal",
+    },
+    tocar: {
+      titulo: "Pra cuidar do som",
+      sub: "O que sobra na mochila de quem canta.",
+      curto: "Extras",
+    },
+  },
+};
+
+/** Passo com o texto da família. Sem override, devolve o passo como está. */
+export function passoParaFamilia(slot: SlotId, fam: Familia | null): Slot {
+  const base = POR_ID.get(slot)!;
+  const over = fam ? TEXTO_POR_FAMILIA[fam]?.[slot] : undefined;
+  return over ? { ...base, ...over } : base;
+}
+
+/* Abaixo disso o passo não vale a rolagem: duas opções não é escolha, é
+   obrigação disfarçada. A trava é medida no catálogo em vez de escrita na mão
+   porque o estoque muda e ninguém vai lembrar de revisar a tabela. */
+const MIN_PECAS = 3;
+
+/** Passos do instrumento escolhido, já sem os que o catálogo não sustenta.
+ *
+ * `familiaEscolhida` serve pro intervalo entre escolher "Teclado" na primeira
+ * tela e escolher o teclado em si: sem ela, a trilha prometia cordas e
+ * capotraste pra quem já tinha dito que toca teclado. */
+export function slotsVisiveis(
+  instrumento: Product | null,
+  familiaEscolhida?: Familia | null,
+): Slot[] {
+  const fam = instrumento ? familiaDoInstrumento(instrumento) : (familiaEscolhida ?? null);
+  const trilho = fam ? TRILHOS[fam] : TRILHO_CORDAS;
+  return trilho
+    .filter((id) => {
+      if (id === "instrumento") return true;
+      /* Sem instrumento escolhido ainda, o trilho é só uma promessa: não dá pra
+         medir o passo no catálogo, então ele aparece. A única exceção é o cabo
+         em instrumento de corda, que depende de o modelo ter captação — em
+         teclado e microfone o cabo é certo, e esconder pra mostrar depois faria
+         a trilha crescer no meio do caminho. */
+      if (!instrumento) return id !== "ligar" || fam === "teclado" || fam === "voz";
+      if (id === "ligar" && fam !== "teclado" && fam !== "voz" && !temCaptacao(instrumento))
+        return false;
+      return pecasDoSlot(id, instrumento).length >= MIN_PECAS;
+    })
+    .map((id) => passoParaFamilia(id, fam));
 }
 
 /* ——— peças de cada passo ——————————————————————————————————————————————— */
@@ -191,27 +366,62 @@ const ordenar = (lista: Product[]) =>
 const CATEGORIAS_INSTRUMENTO = ["Violões", "Guitarras", "Contrabaixos", "Baterias"];
 
 /** Famílias oferecidas no primeiro passo, na ordem em que a loja vende. */
-export const FAMILIAS_OFERECIDAS: { id: Familia; label: string }[] = [
-  { id: "violao-nylon", label: "Violão de nylon" },
-  { id: "violao-aco", label: "Violão de aço" },
-  { id: "guitarra", label: "Guitarra" },
-  { id: "baixo", label: "Contrabaixo" },
-  { id: "ukulele", label: "Ukulele" },
-  { id: "viola", label: "Viola" },
-  { id: "bateria", label: "Bateria" },
+/* A tela de entrada mostra estas famílias, nesta ordem, com uma frase do que
+   o instrumento é pra quem ainda não sabe. `arte` é a ilustração de categoria;
+   quando não existe (cavaquinho), o card cai na foto do próprio instrumento.
+   Nenhuma família entra aqui sem catálogo que a sustente: teclado tem dois
+   Casiotone mais suporte e banqueta, sopro tem uma flauta só e por isso fica
+   de fora até a loja passar a vender a linha. */
+export const FAMILIAS_OFERECIDAS: {
+  id: Familia;
+  label: string;
+  hint: string;
+  arte?: string;
+}[] = [
+  { id: "violao-nylon", label: "Violão de nylon", hint: "Corda macia, o que perdoa mais no começo", arte: "/categorias/violao.png" },
+  { id: "violao-aco", label: "Violão de aço", hint: "Som mais brilhante, pra quem já tem calo", arte: "/categorias/violao-alt-1.png" },
+  { id: "guitarra", label: "Guitarra", hint: "Precisa de amplificador pra existir", arte: "/categorias/guitarra.png" },
+  { id: "baixo", label: "Contrabaixo", hint: "Quatro cordas graves, o chão da banda", arte: "/categorias/contrabaixo.png" },
+  { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", arte: "/categorias/teclado.png" },
+  { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", arte: "/categorias/ukulele.png" },
+  { id: "viola", label: "Viola caipira", hint: "Dez cordas, afinação própria, som de raiz", arte: "/categorias/viola.png" },
+  { id: "cavaco", label: "Cavaquinho", hint: "O agudo que puxa a roda de samba" },
+  { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", arte: "/categorias/bateria.png" },
+  { id: "voz", label: "Voz", hint: "Canta, com ou sem instrumento na mão", arte: "/categorias/microfone.png" },
 ];
 
+/** O que conta como instrumento no montador.
+ *
+ * `CATEGORIAS_INSTRUMENTO` resolve violão, guitarra, baixo e bateria. Teclado e
+ * microfone ficaram em "Acessórios" no ERP, então entram por nome: sem isso o
+ * montador diria que a loja não vende teclado, o que não é verdade. */
+function ehInstrumentoDoMontador(p: Product): boolean {
+  const n = semAcento(p.name);
+  const t = tipoDoProduto(p);
+  /* O kit de 7 microfones é peça de bateria, não o microfone de quem canta. */
+  if (t === "microfone") return !/\bbateria\b/.test(n);
+  if (t !== "instrumento") return false;
+  if (CATEGORIAS_INSTRUMENTO.includes(p.category)) return true;
+  return /^(teclado|piano)/.test(n);
+}
+
 export function instrumentosDisponiveis(familia: Familia | null): Product[] {
-  const todos = ordenar(
-    catalogo.filter(
-      (p) => tipoDoProduto(p) === "instrumento" && CATEGORIAS_INSTRUMENTO.includes(p.category),
-    ),
-  );
+  const todos = ordenar(pool.filter(ehInstrumentoDoMontador));
   if (!familia) return todos;
   return todos.filter((p) => familiaDoInstrumento(p) === familia);
 }
 
+/** Quantos instrumentos a família tem de verdade hoje. */
+export function totalDaFamilia(f: Familia): number {
+  return instrumentosDisponiveis(f).length;
+}
+
 /** Peças de um passo, já filtradas pelo instrumento escolhido. */
+/* Cabo de instrumento, cabo de microfone e fonte de teclado são três coisas
+   com a mesma palavra no nome. Separar por XLR é o que existe de sinal
+   confiável: XLR é o conector de microfone, P10 é o de instrumento. */
+const ehCaboXLR = (nome: string) => /\bxlr\b/.test(nome) || /\bmicrofone\b/.test(nome);
+
 export function pecasDoSlot(slot: SlotId, instrumento: Product | null): Product[] {
   if (slot === "instrumento") return instrumentosDisponiveis(null);
 
@@ -219,7 +429,7 @@ export function pecasDoSlot(slot: SlotId, instrumento: Product | null): Product[
   const n = (p: Product) => semAcento(p.name);
 
   if (slot === "cordas") {
-    const cordas = catalogo.filter((p) => tipoDoProduto(p) === "cordas");
+    const cordas = pool.filter((p) => tipoDoProduto(p) === "cordas");
     if (!fam) return ordenar(cordas);
     /* A corda do instrumento errado não é "menos relevante", é inútil: some.
        O que fica sem família declarada continua na lista — jogo genérico
@@ -232,48 +442,100 @@ export function pecasDoSlot(slot: SlotId, instrumento: Product | null): Product[
     );
   }
 
-  if (slot === "ligar") return ordenar(catalogo.filter((p) => tipoDoProduto(p) === "cabo"));
+  if (slot === "ligar")
+    return ordenar(
+      pool.filter((p) => {
+        if (tipoDoProduto(p) !== "cabo") return false;
+        /* Microfone só liga em XLR; instrumento e teclado, em P10. Oferecer o
+           cabo do outro é vender peça que não encaixa. */
+        return fam === "voz" ? ehCaboXLR(n(p)) : !ehCaboXLR(n(p));
+      }),
+    );
 
   if (slot === "afinar")
     return ordenar(
-      catalogo.filter((p) => {
+      pool.filter((p) => {
         if (tipoDoProduto(p) !== "acessorio") return false;
         if (/\bafinador|metronomo\b/.test(n(p))) return true;
         /* Capotraste é peça de braço de violão e guitarra. Em baixo e bateria
            não existe onde encaixar. */
         if (/\bcapotraste\b/.test(n(p)))
-          return fam === null || ["violao-nylon", "violao-aco", "guitarra", "viola"].includes(fam);
+          return fam === null || ["violao-nylon", "violao-aco", "guitarra", "viola", "cavaco"].includes(fam);
         return false;
+      }),
+    );
+
+  if (slot === "cantar")
+    return ordenar(
+      pool.filter((p) => {
+        if (tipoDoProduto(p) !== "microfone") return false;
+        /* Kit de microfone de bateria é o caso de uso da bateria e só dela:
+           num violão, sobra microfone que ninguém vai posicionar. */
+        const deBateria = /\bbateria\b/.test(n(p));
+        return fam === "bateria" ? true : !deBateria;
       }),
     );
 
   if (slot === "segurar")
     return ordenar(
-      catalogo.filter((p) => {
+      pool.filter((p) => {
         const t = tipoDoProduto(p);
+        const nome = n(p);
+        const deMicrofone = /\bmicrofone\b/.test(nome);
+        const deTeclado = /\bteclado|piano\b/.test(nome);
+
+        /* Quem canta apoia o microfone; quem toca teclado apoia o teclado e
+           senta na banqueta. O mesmo passo, peças completamente diferentes. */
+        if (fam === "voz") return t === "suporte" && deMicrofone;
+        if (fam === "teclado") return t === "suporte" && (deTeclado || /\bbanqueta\b/.test(nome));
+        if (fam === "bateria")
+          return t === "suporte" && (/\bbanqueta\b/.test(nome) || /\bbateria\b/.test(nome) || /\btripe|estante\b/.test(nome));
+
         if (t === "suporte") {
-          /* Suporte de microfone e de teclado existem no catálogo e não têm o
-             que fazer no kit de quem escolheu um violão. */
-          if (/\bmicrofone\b/.test(n(p))) return false;
-          if (/\bteclado|piano\b/.test(n(p)) && fam !== "bateria") return false;
+          if (deMicrofone) return false;
+          if (deTeclado) return false;
           return true;
         }
-        return t === "acessorio" && /\bcorreia|talabarte|strap\b/.test(n(p));
+        return t === "acessorio" && /\bcorreia|talabarte|strap\b/.test(nome);
       }),
     );
 
   /* tocar */
   return ordenar(
-    catalogo.filter((p) => {
+    pool.filter((p) => {
       const t = tipoDoProduto(p);
       if (t === "manutencao") return true;
       if (t !== "acessorio") return false;
       if (/\bafinador|metronomo|capotraste|correia|talabarte\b/.test(n(p))) return false;
-      /* Palheta em baixo é escolha de estilo; em bateria, não é peça. */
-      if (/\bpalheta\b/.test(n(p))) return fam !== "bateria";
+      /* Palheta não existe em bateria, teclado nem microfone. */
+      if (/\bpalheta\b/.test(n(p))) return fam !== "bateria" && fam !== "teclado" && fam !== "voz";
       return true;
     }),
   );
+}
+
+/* ——— o que o microfone arrasta atrás ————————————————————————————————————— */
+
+/** Cabo XLR e pedestal: sem os dois o microfone escolhido não funciona.
+ *
+ * Isso aparece DENTRO do passo do microfone, na hora em que ele é escolhido,
+ * em vez de virar dois passos novos. Quem some com a dependência pra três telas
+ * adiante entrega um microfone que não liga em nada, e o cliente descobre isso
+ * quando a caixa chega. */
+export function dependenciasDoMicrofone(mic: Product | null): { cabo: Product | null; pedestal: Product | null } {
+  if (!mic) return { cabo: null, pedestal: null };
+  /* Microfone sem fio não precisa de cabo: ele já vem com receptor. */
+  const semFio = /\bsem ?fio|s\/fio|uhf|lapela\b/.test(semAcento(mic.name));
+  const cabo = semFio
+    ? null
+    : ordenar(pool.filter((p) => tipoDoProduto(p) === "cabo" && ehCaboXLR(semAcento(p.name))))[0] ?? null;
+  const pedestal =
+    ordenar(
+      pool.filter(
+        (p) => tipoDoProduto(p) === "suporte" && /\bmicrofone\b/.test(semAcento(p.name)),
+      ),
+    )[0] ?? null;
+  return { cabo, pedestal };
 }
 
 /* ——— o que combina ————————————————————————————————————————————————————— */
@@ -296,6 +558,7 @@ export const selecaoVazia = (): Selecao => ({
   ligar: [],
   afinar: [],
   segurar: [],
+  cantar: [],
   tocar: [],
 });
 
@@ -332,6 +595,21 @@ export function checarKit(sel: Selecao, fechando = false): Recado[] {
       });
     }
   }
+
+  /* Microfone com fio e sem cabo XLR é o caso mais caro de descobrir tarde: a
+     peça mais visível do kit chega e não liga em nada. */
+  const micComFio = sel.cantar.filter((p) => !/\bsem ?fio|s\/fio|uhf|lapela\b/.test(semAcento(p.name)));
+  if (micComFio.length > 0 && !sel.ligar.some((p) => /\bxlr|microfone\b/.test(semAcento(p.name)))) {
+    recados.push({
+      gravidade: "aviso",
+      slot: "ligar",
+      texto: "Microfone com fio precisa de cabo XLR. Sem ele, o microfone não liga na mesa nem na caixa.",
+    });
+  }
+
+  /* Bateria, teclado e microfone não têm jogo de cordas nem captação pra cobrar:
+     o resto das checagens é conversa de instrumento de corda. */
+  if (fam === "bateria" || fam === "teclado" || fam === "voz") return recados;
 
   if (fechando && temCaptacao(instrumento) && sel.ligar.length === 0) {
     recados.push({

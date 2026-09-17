@@ -958,7 +958,7 @@ function formatPreOrderDate(iso: string) {
 
 function MobilePurchaseFlow({
   product, qty, setQty, onBuyNow, pixPrice, installment, discount, onSeeDescription, shippingRef, preOrderInfo,
-}: StickyCardProps & { onSeeDescription: () => void; shippingRef?: React.RefObject<HTMLDivElement>; preOrderInfo?: PreOrderInfo | null }) {
+}: Omit<StickyCardProps, "onAddToCart" | "addedToCart"> & { onSeeDescription: () => void; shippingRef?: React.RefObject<HTMLDivElement>; preOrderInfo?: PreOrderInfo | null }) {
   const [paymentOpen, setPaymentOpen] = useState(false);
   const inStock = product.inStock !== false;
   const stockLabel = getStockLabel(product);
@@ -1983,6 +1983,9 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
    ═══════════════════════════════════════════════════════ */
 
 function ProductStandardDescription({ product, images }: { product: any; images: string[] }) {
+  /* No celular a descrição tem ~3200px: três telas e meia entre o preço e as
+     avaliações. Abre num pedaço e o resto vem com um toque. */
+  const [descAberta, setDescAberta] = useState(false);
   /* O texto e a escolha de foto vêm de productStory: a copy sai dos atributos
      reais do produto e cada foto entra pelo papel que cumpre (photoRoles), em
      vez de images[0..2] — que são sempre os planos abertos de estúdio, o
@@ -2044,7 +2047,7 @@ function ProductStandardDescription({ product, images }: { product: any; images:
     <section className="pb-20 border-t border-foreground/5">
       <div className="mx-auto mt-10 max-w-[1120px]">
         <div
-          className="overflow-hidden"
+          className={`overflow-hidden pdp-desc-clamp${descAberta ? " is-open" : ""}`}
           style={{
             borderRadius: "var(--radius-card-xl)",
             background: "var(--surface-1)",
@@ -2172,6 +2175,23 @@ function ProductStandardDescription({ product, images }: { product: any; images:
             </article>
           </section>
         </div>
+
+        {!descAberta && (
+          <button
+            onClick={() => setDescAberta(true)}
+            className="mx-auto mt-4 flex h-12 w-[calc(100%-2.5rem)] cursor-pointer items-center justify-center gap-1.5 rounded-pill lg:hidden"
+            style={{
+              border: "1px solid var(--edge)",
+              background: "var(--surface-1)",
+              fontFamily: "var(--font-family-inter)",
+              fontSize: "15px",
+              fontWeight: 600,
+              color: "var(--ink-strong)",
+            }}
+          >
+            Ver descrição completa <ChevronDown size={16} strokeWidth={2.2} />
+          </button>
+        )}
       </div>
     </section>
   );
@@ -2205,6 +2225,9 @@ export function ProductPage() {
 
   const [qty, setQty] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  /* A barra fixa de compra do celular existia mas nunca era ligada: nada
+     chamava este setter. Agora um observer olha o bloco de compra da página —
+     enquanto ele está à vista a barra fica fora; assim que sai, ela sobe. */
   const [showMobileStickyCta, setShowMobileStickyCta] = useState(false);
 
   const relatedRef = useRef<HTMLDivElement>(null);
@@ -2212,6 +2235,30 @@ export function ProductPage() {
   const descriptionRef = useRef<HTMLDivElement>(null);
   const mobileShippingRef = useRef<HTMLDivElement>(null);
   const relatedInView = useInView(relatedRef, { once: true, amount: 0.1 });
+
+  useEffect(() => {
+    const alvo = document.querySelector('[data-purchase-card="mobile-product-flow"]');
+    if (!alvo) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        /* só sobe depois que o bloco passou pra cima: se ele ainda está
+           abaixo da dobra (topo da página), a barra seria ruído. */
+        setShowMobileStickyCta(!e.isIntersecting && e.boundingClientRect.top < 0);
+      },
+      { threshold: 0 },
+    );
+    io.observe(alvo);
+    return () => io.disconnect();
+  }, [product?.id]);
+
+  /* Enquanto a barra está no ar, o botão de WhatsApp sobe pra não sentar em
+     cima dela. A conversa acontece por variável de CSS porque o FAB mora em
+     outro canto da árvore. */
+  useEffect(() => {
+    const raiz = document.documentElement;
+    raiz.style.setProperty("--fab-lift", showMobileStickyCta ? "72px" : "0px");
+    return () => raiz.style.setProperty("--fab-lift", "0px");
+  }, [showMobileStickyCta]);
 
   const scrollToReviews = () => {
     reviewsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2286,6 +2333,13 @@ export function ProductPage() {
   const galleryImages = getProductImages(product);
   const visibleProducts = getVisibleCatalogProducts(allProducts);
   const swatches = getProductSwatches(product);
+
+  // A subcategoria pode ter o mesmo nome da categoria; nesse caso vira uma migalha só.
+  const breadcrumbs = [
+    { label: "Home", to: "/" },
+    { label: product.category, to: getCatalogHref({ category: product.category }) },
+    { label: productSubcategory, to: getCatalogHref({ category: product.category, subcategory: productSubcategory }) },
+  ].filter((crumb, i, list) => list.findIndex((c) => c.label === crumb.label) === i);
 
   const related = visibleProducts
     .filter((p) => p.category === product.category && getProductSubcategory(p) === productSubcategory && p.id !== product.id)
@@ -2376,10 +2430,13 @@ export function ProductPage() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://pcyes.com.br/" },
-              { "@type": "ListItem", position: 2, name: product.category, item: `https://pcyes.com.br${getCatalogHref({ category: product.category })}` },
-              { "@type": "ListItem", position: 3, name: productSubcategory, item: `https://pcyes.com.br${getCatalogHref({ category: product.category, subcategory: productSubcategory })}` },
-              { "@type": "ListItem", position: 4, name: product.name },
+              ...breadcrumbs.map((crumb, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name: crumb.label,
+                item: `https://pcyes.com.br${crumb.to}`,
+              })),
+              { "@type": "ListItem", position: breadcrumbs.length + 1, name: product.name },
             ],
           },
         ]}
@@ -2387,11 +2444,7 @@ export function ProductPage() {
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="px-5 md:px-8 pt-2 pb-2 lg:pt-6 lg:pb-2">
         <ol className="max-w-[1760px] mx-auto flex items-center gap-1.5 flex-wrap">
-          {[
-            { label: "Home", to: "/" },
-            { label: product.category, to: getCatalogHref({ category: product.category }) },
-            { label: productSubcategory, to: getCatalogHref({ category: product.category, subcategory: productSubcategory }) },
-          ].map((crumb, i) => (
+          {breadcrumbs.map((crumb, i) => (
             <li key={crumb.label} className="flex items-center gap-1.5">
               {i > 0 && <span className="text-foreground/15" style={{ fontSize: "var(--text-caption)" }}>›</span>}
               <Link
@@ -2427,7 +2480,7 @@ export function ProductPage() {
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="order-2 w-full lg:order-none lg:w-[56%] xl:w-[58%] flex-shrink-0"
+            className="order-1 w-full lg:order-none lg:w-[56%] xl:w-[58%] flex-shrink-0"
           >
             <ProductGallery images={galleryImages} name={product.name} isDark={isDark} />
           </motion.div>
@@ -2474,12 +2527,17 @@ export function ProductPage() {
             preOrderInfo={preOrderInfo}
           />
 
+          {/* timbre do celular: depois do preço, não antes */}
+          <div className="order-5 w-full lg:hidden">
+            <TimbrePlayer product={product} className="mb-6" />
+          </div>
+
           {/* Middle column: title, rating, share/like, description */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.05 }}
-            className="order-1 w-full lg:order-none lg:flex-1 min-w-0"
+            className="order-2 w-full lg:order-none lg:flex-1 min-w-0"
           >
             {/* Brand + badges row */}
             <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
@@ -2612,8 +2670,11 @@ export function ProductPage() {
               </div>
             )}
 
-            {/* "Ouça este instrumento" — junto da decisão: cor → timbre → sobre */}
-            <TimbrePlayer product={product} className="mb-6" />
+            {/* "Ouça este instrumento" — junto da decisão: cor → timbre → sobre.
+                No celular ele sai daqui: entre o título e o preço, empurrava a
+                compra pra fora da tela. Lá embaixo há uma cópia, depois do
+                bloco de compra. */}
+            <TimbrePlayer product={product} className="mb-6 hidden lg:block" />
 
             <div className="h-px bg-foreground/6 mb-6" />
 
@@ -2731,12 +2792,22 @@ export function ProductPage() {
       </div>
 
       {/* Mobile sticky CTA */}
-      <div className={`fixed bottom-0 left-0 right-0 z-40 lg:hidden transition-all duration-300 ${
+      {/* z-75: acima do banner de cookies (80) não dá — ele também mora no pé
+          da tela —, mas acima do resto da página sim. */}
+      <div className={`fixed bottom-0 left-0 right-0 z-[75] lg:hidden transition-all duration-300 ${
         showMobileStickyCta ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
       }`}>
         <div
-          className="px-4 py-3 flex items-center gap-3 border-t border-foreground/10"
-          style={{ background: isDark ? "rgba(16,16,17,0.95)" : "rgba(var(--foreground-rgb), 0.95)", backdropFilter: "blur(20px)" }}
+          className="flex items-center gap-3 border-t border-foreground/10 px-4 py-3"
+          style={{
+            /* era rgba(var(--foreground-rgb),.95): no tema claro isso dava uma
+               barra #111 com texto #111 em cima. A barra é superfície, não
+               tinta. */
+            background: isDark ? "rgba(16,16,17,0.95)" : "rgba(255,255,255,0.96)",
+            backdropFilter: "blur(20px)",
+            paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))",
+            boxShadow: "0 -10px 30px -22px rgba(17,17,17,0.55)",
+          }}
         >
           <div className="flex-1 min-w-0">
             <p className="text-foreground/45 text-xs truncate" style={{ fontFamily: "var(--font-family-inter)" }}>
@@ -2756,7 +2827,7 @@ export function ProductPage() {
           <button
             onClick={handleBuyNow}
             disabled={preOrderInfo ? (preOrderInfo.reservedUnits >= preOrderInfo.totalUnits) : (product.inStock === false)}
-            className="px-5 py-3 flex items-center gap-2 font-semibold transition-all cursor-pointer disabled:opacity-40 text-white"
+            className="flex h-12 cursor-pointer items-center gap-2 px-5 font-semibold text-white transition-all disabled:opacity-40"
             style={{
               borderRadius: "var(--radius-button)",
               fontFamily: "var(--font-family-inter)",
