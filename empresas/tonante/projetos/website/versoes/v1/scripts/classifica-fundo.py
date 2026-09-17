@@ -115,6 +115,32 @@ def urls_do_catalogo():
     return sorted(urls)
 
 
+VAZIO_CONFIRMADO = (
+    "/* ESTÚDIO CONFIRMADO — conferido foto a foto, sobrepõe o script.\n"
+    " * Vazio: nada foi marcado à mão ainda. */\n"
+    "const ESTUDIO_CONFIRMADO = new Set<string>([]);\n\n"
+)
+
+
+def bloco_estudio_confirmado() -> str:
+    """Devolve o bloco ESTUDIO_CONFIRMADO do TS atual, comentário e tudo.
+
+    É a única parte do arquivo escrita por gente: a lista de fotos que o anel
+    externo lê errado (objeto que sangra pela borda sobre fundo branco). Sem
+    isto, regerar apagava a correção e a etapa "Pra ligar" sumia de novo do
+    montador."""
+    if not SAIDA.exists():
+        return VAZIO_CONFIRMADO
+    texto = SAIDA.read_text()
+    i = texto.find("/* ESTÚDIO CONFIRMADO")
+    if i < 0:
+        return VAZIO_CONFIRMADO
+    fim = texto.find("]);", i)
+    if fim < 0:
+        return VAZIO_CONFIRMADO
+    return texto[i:fim + 3] + "\n\n"
+
+
 def main():
     ambientadas = []
     desproporcionais = []
@@ -148,6 +174,11 @@ def main():
                 if not (PROPORCAO_OK[0] <= r <= PROPORCAO_OK[1]):
                     desproporcionais.append(url)
 
+    # Blocos escritos à mão no TS que a regeração não pode apagar: a lista de
+    # exceção conferida foto a foto e a regra de prefixo da arte de kit. Antes
+    # disso, rodar o script desfazia as duas correções em silêncio.
+    excecoes = bloco_estudio_confirmado()
+
     corpo = ",\n".join('  "%s"' % a for a in sorted(ambientadas))
     corpo_desp = ",\n".join('  "%s"' % a for a in sorted(desproporcionais))
     SAIDA.write_text(
@@ -165,6 +196,7 @@ def main():
         ' * %d de %d fotos são ambientadas — por isso a lista guarda a minoria.\n'
         ' */\n'
         'const AMBIENTADAS = new Set<string>([\n%s,\n]);\n\n'
+        '%s'
         '/* Ambientadas que também são muito estreitas ou muito deitadas: num\n'
         ' * quadro quase quadrado o `cover` amplia tanto que a foto vira uma tira\n'
         ' * borrada. Essas preenchem com a própria foto desfocada atrás e aparecem\n'
@@ -173,13 +205,16 @@ def main():
         '/** true quando a foto tem cenário e o quadro deve ser preenchido. */\n'
         'export function isFotoAmbientada(src?: string): boolean {\n'
         '  if (!src) return false;\n'
+        '  /* Arte de kit é composição inteira, não recorte de um objeto. */\n'
+        '  if (src.startsWith("/kits/")) return true;\n'
+        '  if (ESTUDIO_CONFIRMADO.has(src)) return false;\n'
         '  return AMBIENTADAS.has(src);\n'
         '}\n\n'
         '/** true quando preencher por corte destruiria a foto (ver acima). */\n'
         'export function isFotoDesproporcional(src?: string): boolean {\n'
         '  if (!src) return false;\n'
         '  return DESPROPORCIONAIS.has(src);\n'
-        '}\n' % (len(ambientadas), total, corpo, len(desproporcionais), corpo_desp)
+        '}\n' % (len(ambientadas), total, corpo, excecoes, len(desproporcionais), corpo_desp)
     )
     print("%d ambientadas de %d fotos -> %s" % (len(ambientadas), total, SAIDA.relative_to(RAIZ)))
 

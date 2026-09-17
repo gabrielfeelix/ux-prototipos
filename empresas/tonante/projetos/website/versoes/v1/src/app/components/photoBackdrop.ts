@@ -753,6 +753,42 @@ const DESPROPORCIONAIS = new Set<string>([
   "https://cdn.oderco.com.br/produtos/360331/360331-A6.png",
 ]);
 
+/* ESTÚDIO CONFIRMADO — conferido foto a foto, sobrepõe o script.
+ *
+ * O critério do classificador é o anel externo: se a borda não for quase toda
+ * branca, a foto é ambientada. Packshot de cabo quebra isso sem ter cenário
+ * nenhum — o cabo é enrolado e sangra pelos quatro lados do quadro, então o
+ * anel fica preto sobre um fundo que continua branco. Resultado medido: 21 das
+ * 23 fotos de cabo do catálogo caíam em AMBIENTADAS, `pecaElegivel` derrubava
+ * quase todas e a trava de 3 peças tirava a etapa "Pra ligar" do trilho. Kit de
+ * guitarra fechava sem cabo.
+ *
+ * As 21 foram vistas uma a uma: são packshot em branco ou recorte transparente.
+ * classifica-fundo.py preserva este bloco ao regerar. */
+const ESTUDIO_CONFIRMADO = new Set<string>([
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10964_1-17573495018096459.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10966_1-17573496127964037.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10967_1-17573496501567971.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10968_1-17573497860192444.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10969-17458757270742827.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/0/10971-17457919131095456.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13201_1-17573494242192622.png",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13202_1-17573492321702087.png",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13205_1-17573497533487480.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13206-17569949626965955.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13207-17569946547853736.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13228_1-17573491218686946.png",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/3/13230_1-17573491788535710.png",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152309-17522774362702068.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152310-17522773803622010.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/152321-17569947824839406.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157084_1-17573490355671638.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157085_1-17573490616384565.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157089_1-17573495851921192.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157090_1-17573495266677054.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157093_1-17573495532412015.jpeg",
+]);
+
 /** true quando a foto tem cenário e o quadro deve ser preenchido. */
 export function isFotoAmbientada(src?: string): boolean {
   if (!src) return false;
@@ -761,6 +797,7 @@ export function isFotoAmbientada(src?: string): boolean {
      desenha um selo pequeno no meio do card e joga fora o enquadramento. A
      regra é por prefixo porque a arte é gerada e a lista mudaria toda semana. */
   if (src.startsWith("/kits/")) return true;
+  if (ESTUDIO_CONFIRMADO.has(src)) return false;
   return AMBIENTADAS.has(src);
 }
 
