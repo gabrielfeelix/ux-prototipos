@@ -1,11 +1,16 @@
+import type { SVGProps } from "react";
+
 /**
  * Token de fidelidade Tonante — "Tons" (programa de pontos, irmão do PCYES Coin
  * mas com identidade própria). Visual: PALHETA de violão âmbar, em vez de moeda
  * (ownable, músico, não-gamer). Nome do componente mantido p/ compat de imports.
  */
-export function PcyesCoin({ size = 18 }: { size?: number }) {
+export function PcyesCoin({
+  size = 18,
+  ...rest
+}: { size?: number } & Omit<SVGProps<SVGSVGElement>, "width" | "height" | "viewBox">) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden {...rest}>
       <defs>
         <linearGradient id="tnpick-grad-shared" x1="20%" y1="8%" x2="80%" y2="95%">
           <stop offset="0%" stopColor="#fde0a3" />

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "./ui/dialog";
 import { useTheme } from "./ThemeProvider";
 import { Star, Check, Sparkles, Camera, Video, X as XIcon, Play } from "lucide-react";
+import { PcyesCoin } from "./PcyesCoin";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 export interface ReviewItem {
@@ -285,7 +286,7 @@ export function ReviewModal({ open, onClose, orderId, items, onSubmit }: Props) 
               Nota média {avgRating.toFixed(1)} ⭐ · Sua opinião vai ajudar a galera
             </p>
             <div className="mt-5 inline-flex items-center gap-2 px-4 py-2.5" style={{ borderRadius: "var(--radius-card-sm)", background: "rgba(200,120,0,0.10)", border: "1px solid rgba(200,120,0,0.28)" }}>
-              <Sparkles size={14} style={{ color: "var(--amber-deep)" }} />
+              <PcyesCoin size={14} />
               <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "var(--amber-deep)" }}>
                 +{earnedPoints} Ton Points creditados
               </span>

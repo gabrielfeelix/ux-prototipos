@@ -79,10 +79,14 @@ function OrderStatusTimeline({ status }: { status: Order["status"] }) {
 
 type Tab = "overview" | "orders" | "points" | "favorites" | "addresses" | "data" | "cards" | "help" | "privacy";
 
-const TABS: { key: Tab; icon: typeof Package; label: string; short: string }[] = [
+/* O ícone da aba pode ser um lucide ou a palheta do Ton Points, então o tipo é
+   o contrato mínimo que os dois cumprem: recebe `size` e props de <svg>. */
+type IconeTab = typeof Package | typeof PcyesCoin;
+
+const TABS: { key: Tab; icon: IconeTab; label: string; short: string }[] = [
   { key: "overview",  icon: LayoutDashboard, label: "Visão Geral",     short: "Visão"       },
   { key: "orders",    icon: Package,         label: "Meus Pedidos",    short: "Pedidos"     },
-  { key: "points",    icon: Sparkles,        label: "Ton Points",    short: "Points"      },
+  { key: "points",    icon: PcyesCoin,       label: "Ton Points",    short: "Points"      },
   { key: "favorites", icon: Heart,           label: "Favoritos",       short: "Favoritos"   },
   { key: "addresses", icon: MapPin,          label: "Endereços",       short: "Endereços"   },
   { key: "data",      icon: User,            label: "Dados Pessoais",  short: "Dados"       },
@@ -1365,7 +1369,7 @@ export function ProfilePage() {
                           {history.map((tx, idx) => {
                             const isPositive = tx.amount > 0;
                             const txDate = new Date(tx.date);
-                            const Icone = tx.type === "spend" ? Receipt : tx.type === "expire" ? AlertCircle : Sparkles;
+                            const Icone = tx.type === "spend" ? Receipt : tx.type === "expire" ? AlertCircle : PcyesCoin;
                             return (
                               <div
                                 key={tx.id}
