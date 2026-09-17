@@ -33,6 +33,7 @@ import { TimbrePlayer } from "./TimbrePlayer";
 import { ProductCard } from "./ProductCard";
 import { LuthierBlock } from "./ProductMusicBlocks";
 import { getHistoriaDoProduto } from "./productStory";
+import { KitDescription, isKitDescription } from "./KitDescription";
 
 /* ── helpers ─────────────────────────────────────────── */
 
@@ -2654,7 +2655,13 @@ export function ProductPage() {
 
           <div className="min-w-0 lg:col-start-1 lg:row-start-2">
             <div ref={descriptionRef} className="scroll-mt-[96px]">
-              <ProductStandardDescription product={product} images={galleryImages} />
+              {isKitDescription(product) ? (
+                /* Kit tem descrição própria: peças, cenas e o que dá pra tocar.
+                   Produto normal nunca entra aqui, e o kit nunca cai na padrão. */
+                <KitDescription product={product} />
+              ) : (
+                <ProductStandardDescription product={product} images={galleryImages} />
+              )}
               {/* autoria (V3 §8.2) — só renderiza quando há luthier */}
               <LuthierBlock product={product} />
             </div>
