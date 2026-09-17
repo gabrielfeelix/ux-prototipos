@@ -151,14 +151,14 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
     const lista = nomes.length > 1 ? `${nomes.slice(0, -1).join(", ")} e ${nomes.at(-1)}` : nomes[0];
     porques.push(
       som.corda === "nylon"
-        ? `Você marcou ${lista} — repertório de dedilhado, onde o nylon dá o corpo quente e a mão não sofre.`
+        ? `Você marcou ${lista}. É repertório de dedilhado, onde o nylon dá o corpo quente e a mão não sofre.`
         : som.corda === "aco"
-          ? `Você marcou ${lista} — repertório de palhetada, que pede o brilho e a projeção da corda de aço.`
-          : `Você marcou ${lista} — repertório que vai bem nos dois tipos de corda.`,
+          ? `Você marcou ${lista}. É repertório de palhetada, que pede o brilho e a projeção da corda de aço.`
+          : `Você marcou ${lista}. É repertório que vai bem nos dois tipos de corda.`,
     );
     if (som.nivel === "dificil" && nivel === "primeiro") {
       porques.push(
-        "Esse repertório é difícil de verdade. O instrumento abaixo dá conta — a curva está na mão, e ela vem com o tempo.",
+        "Esse repertório é difícil de verdade. O instrumento abaixo dá conta: a curva está na mão, e ela vem com o tempo.",
       );
     }
   }
@@ -170,7 +170,7 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
       : onde === "palco"
         ? "No palco o instrumento precisa sair na caixa de som. Captação resolve com um cabo."
         : onde === "estudio"
-          ? "Gravando, a captação dá a segunda via do som — o microfone e a linha juntos."
+          ? "Gravando, a captação dá a segunda via do som: o microfone e a linha juntos."
           : "Pra tocar em casa, captação é peso e preço que você não usa. Acústico puro soa melhor pelo mesmo dinheiro.",
   );
 
