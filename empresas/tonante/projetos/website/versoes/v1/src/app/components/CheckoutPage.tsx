@@ -991,7 +991,11 @@ export function CheckoutPage() {
                     key={s.key}
                     onClick={() => done && setStep(s.key as Step)}
                     disabled={!done}
-                    className="flex flex-1 items-center gap-2 min-h-[44px] md:min-h-0 disabled:cursor-not-allowed"
+                    className={`flex items-center gap-2 min-h-[44px] md:min-h-0 disabled:cursor-not-allowed ${
+                      /* A última etapa não estica: quem cede largura é a linha
+                         que vem antes dela, senão sobra vão depois da bolinha. */
+                      i === STEPS.length - 1 ? "flex-none" : "flex-1"
+                    }`}
                   >
                     <div
                       className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-all"
@@ -1014,8 +1018,13 @@ export function CheckoutPage() {
                     >
                       {s.label}
                     </span>
+                    {/* A linha entre as etapas também existe no celular: sem ela
+                        cada botão ocupava 1/4 da largura com a bolinha encostada
+                        na esquerda, e sobrava um vão morto depois da última. Com
+                        a linha esticando, as quatro se distribuem de ponta a
+                        ponta. */}
                     {i < STEPS.length - 1 && (
-                      <div className="hidden h-px flex-1 md:block" style={{ background: done ? "rgba(18,146,76,0.45)" : "var(--border)" }} />
+                      <div className="h-px flex-1" style={{ background: done ? "rgba(18,146,76,0.45)" : "var(--border)" }} />
                     )}
                   </button>
                 );
