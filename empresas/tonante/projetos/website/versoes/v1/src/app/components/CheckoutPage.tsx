@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -22,6 +22,7 @@ import {
   Copy,
   Clock,
   Ticket,
+  ChevronUp,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CTAButton, Eyebrow } from "./section";
@@ -379,6 +380,45 @@ export function CheckoutPage() {
   const [pixWaiting, setPixWaiting] = useState(false);
   const [pixCopied, setPixCopied] = useState(false);
   const [pixTimer, setPixTimer] = useState(600);
+
+  /* No celular o resumo não fica na rolagem: ele mora em folhas que sobem do
+     pé da tela. Uma folha por vez, porque as três saem do mesmo lugar. */
+  const [mobileSheet, setMobileSheet] = useState<"detalhes" | "cupom" | "pontos" | null>(null);
+  const mobileBarRef = useRef<HTMLDivElement | null>(null);
+
+  /* A barra fixa cresceu (agora tem as linhas de cupom e de pontos), então a
+     altura dela deixou de ser um número fixo. Ela se mede e publica em
+     `--checkout-bar-h`, que a página usa como respiro embaixo, e em
+     `--fab-lift`, que é como o WhatsApp e o banner de cookies sabem subir.
+     No desktop a barra é `lg:hidden` e mede zero, então nada acontece. */
+  useEffect(() => {
+    const raiz = document.documentElement;
+    const barra = mobileBarRef.current;
+    if (!barra) return;
+    const medir = () => {
+      const h = Math.round(barra.getBoundingClientRect().height);
+      raiz.style.setProperty("--checkout-bar-h", `${h}px`);
+      raiz.style.setProperty("--fab-lift", h > 0 ? `${h}px` : "0px");
+    };
+    medir();
+    const ro = new ResizeObserver(medir);
+    ro.observe(barra);
+    window.addEventListener("resize", medir);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", medir);
+      raiz.style.setProperty("--checkout-bar-h", "0px");
+      raiz.style.setProperty("--fab-lift", "0px");
+    };
+  }, []);
+
+  /* Esc fecha a folha, igual às outras gavetas do site. */
+  useEffect(() => {
+    if (!mobileSheet) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMobileSheet(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileSheet]);
 
   const subtotal = useMemo(
     () => items.reduce((sum, item) => (item.isGift ? sum : sum + parseBRL(item.price) * item.quantity), 0),
@@ -913,7 +953,7 @@ export function CheckoutPage() {
 
   return (
     <>
-      <div className="pt-6 md:pt-[88px] pb-24 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
+      <div className="pt-6 md:pt-[88px] pb-8 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
         <div className="mx-auto max-w-[1320px] px-5 py-4 md:px-8 md:py-6">
           <Link
             to="/carrinho"
@@ -1662,7 +1702,10 @@ export function CheckoutPage() {
               </div>
             </div>
 
-            <div className="lg:sticky lg:top-[150px] lg:self-start">
+            {/* Coluna da direita no desktop. No celular esse resumo repetia o
+                que a barra fixa já diz, então ele saiu da rolagem e virou a folha
+                "Ver detalhes" lá embaixo. */}
+            <div className="hidden lg:block lg:sticky lg:top-[150px] lg:self-start">
               <div
                 className="overflow-hidden p-6"
                 style={{
@@ -1918,12 +1961,72 @@ export function CheckoutPage() {
         </div>
       </div>
 
-      {/* Mobile fixed bottom action bar — total + step CTA. lg:hidden, abaixo dos modais (z-[120]). */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
+      {/* Barra fixa do celular. No celular ela é o único resumo na tela: total,
+          duas linhas sutis (cupom e Ton Points, no modelo da sidebar do carrinho)
+          e o "Ver detalhes", que abre a folha com fotos, valores e total. Assim a
+          pessoa só vê o que ela veio fazer naquela etapa.
+          z-[95] porque em z-40 o banner de cookies (80) e o WhatsApp (90)
+          passavam por cima dela. A folha fica em z-[120], acima de todos. */}
+      <div ref={mobileBarRef} className="fixed bottom-0 left-0 right-0 z-[95] lg:hidden">
         <div
-          className="flex items-center gap-3 border-t border-edge px-4 py-3"
+          className="border-t border-edge"
           style={{ background: "rgba(255,255,255,0.94)", backdropFilter: "blur(20px)" }}
         >
+          <div className="flex items-stretch border-b border-edge-subtle">
+            <button
+              onClick={() => setMobileSheet("cupom")}
+              className="flex min-h-[44px] flex-1 min-w-0 cursor-pointer items-center justify-center gap-1.5 px-3"
+              aria-haspopup="dialog"
+            >
+              {appliedCoupon ? (
+                <Check size={13} strokeWidth={2.4} className="shrink-0 text-[var(--buy-green-deep)]" />
+              ) : (
+                <Ticket size={13} strokeWidth={2} className="shrink-0 text-ink-muted" />
+              )}
+              <span
+                className="truncate"
+                style={{
+                  fontFamily: "var(--font-family-inter)",
+                  fontSize: "var(--text-caption)",
+                  fontWeight: appliedCoupon ? 700 : 600,
+                  color: appliedCoupon ? "var(--buy-green-deep)" : "rgba(var(--foreground-rgb), 0.62)",
+                }}
+              >
+                {appliedCoupon ? `${appliedCoupon} −${discountPct}%` : "Usar cupom"}
+              </span>
+            </button>
+
+            {maxPointsRedeem > 0 && (
+              <>
+                <span className="my-2 w-px shrink-0" style={{ background: "var(--edge-subtle)" }} aria-hidden="true" />
+                <button
+                  onClick={() => {
+                    /* Abrir a folha já com o resgate cheio: quem toca em "usar
+                       pontos" quer usar, não começar do zero e arrastar. */
+                    if (!pointsApplied && pointsToUse <= 0) setPointsToUse(maxPointsRedeem);
+                    setMobileSheet("pontos");
+                  }}
+                  className="flex min-h-[44px] flex-1 min-w-0 cursor-pointer items-center justify-center gap-1.5 px-3"
+                  aria-haspopup="dialog"
+                >
+                  <PcyesCoin size={14} />
+                  <span
+                    className="truncate"
+                    style={{
+                      fontFamily: "var(--font-family-inter)",
+                      fontSize: "var(--text-caption)",
+                      fontWeight: pointsValue > 0 ? 700 : 600,
+                      color: pointsValue > 0 ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.62)",
+                    }}
+                  >
+                    {pointsValue > 0 ? `−${formatBRL(pointsValue)}` : "Usar Ton Points"}
+                  </span>
+                </button>
+              </>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3 px-4 py-3">
           <div className="flex-1 min-w-0">
             <p
               className="text-ink-muted"
@@ -1937,6 +2040,15 @@ export function CheckoutPage() {
             >
               {formatBRL(total)}
             </p>
+            <button
+              onClick={() => setMobileSheet("detalhes")}
+              className="mt-0.5 inline-flex cursor-pointer items-center gap-1 text-ink-muted"
+              aria-haspopup="dialog"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+            >
+              Ver detalhes
+              <ChevronUp size={12} strokeWidth={2.4} />
+            </button>
           </div>
           {step < 3 ? (
             <CTAButton
@@ -1955,9 +2067,303 @@ export function CheckoutPage() {
               Finalizar pedido
             </CTAButton>
           )}
+          </div>
         </div>
       </div>
       <Footer />
+      {/* O respiro da barra fixa vem depois do rodapé, não antes: se ele ficasse
+          no fim do conteúdo, virava um vão branco no meio da página e o fim do
+          rodapé continuava escondido atrás da barra. */}
+      <div className="lg:hidden" style={{ height: "var(--checkout-bar-h, 72px)" }} aria-hidden="true" />
+
+      {/* Folha do celular: detalhes do pedido, cupom ou Ton Points. Uma folha por
+          vez, subindo do pé da tela. z-[120] igual às folhas de carteira, porque
+          o WhatsApp (90) e o banner de cookies (80) cobririam o botão de fechar. */}
+      <AnimatePresence>
+        {mobileSheet && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMobileSheet(null)}
+            className="fixed inset-0 z-[120] flex items-end justify-center bg-black/70 backdrop-blur-sm lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label={mobileSheet === "cupom" ? "Cupom de desconto" : mobileSheet === "pontos" ? "Ton Points" : "Detalhes do pedido"}
+          >
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-h-[86svh] w-full max-w-[520px] overflow-y-auto"
+              style={{
+                background: "var(--surface-1)",
+                color: "var(--ink-strong)",
+                borderRadius: "var(--radius-card-xl) var(--radius-card-xl) 0 0",
+                boxShadow: "0 -16px 40px -20px rgba(17,17,17,0.35)",
+              }}
+            >
+              <div className="flex items-center justify-between gap-3 px-5 pb-3 pt-4">
+                <span
+                  className="text-ink-strong"
+                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)", fontWeight: 700 }}
+                >
+                  {mobileSheet === "cupom" ? "Cupom de desconto" : mobileSheet === "pontos" ? "Ton Points" : "Detalhes do pedido"}
+                </span>
+                <button
+                  onClick={() => setMobileSheet(null)}
+                  aria-label="Fechar"
+                  className="-mr-2 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-[var(--surface-2)] hover:text-ink-strong"
+                >
+                  <X size={18} strokeWidth={2} aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="h-px" style={{ background: "var(--border)" }} />
+
+              {mobileSheet === "detalhes" && (
+                <div className="px-5 pb-6 pt-4">
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <div key={item.cartKey} className="flex items-center gap-3">
+                        <div className="relative h-14 w-14 flex-shrink-0">
+                          <div
+                            className="h-full w-full overflow-hidden"
+                            style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
+                          >
+                            <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                          </div>
+                          {item.quantity > 1 && (
+                            <span
+                              aria-label={`Quantidade ${item.quantity}`}
+                              className="absolute -right-1.5 -top-1.5 z-10 flex h-5 min-w-5 items-center justify-center rounded-full px-1 [color:#fff]"
+                              style={{
+                                background: "var(--primary)",
+                                fontFamily: "var(--font-family-inter)",
+                                fontSize: "var(--text-caption)",
+                                fontWeight: 700,
+                                boxShadow: "var(--shadow-brand-pill)",
+                              }}
+                            >
+                              {item.quantity}
+                            </span>
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="line-clamp-2 text-ink" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, lineHeight: 1.3 }}>
+                            {item.name}
+                          </p>
+                          <p
+                            style={{
+                              fontFamily: "var(--font-family-inter)",
+                              fontSize: "var(--text-sm)",
+                              fontWeight: 700,
+                              color: item.isGift ? "var(--buy-green-deep)" : "var(--ink-strong)",
+                              marginTop: "2px",
+                            }}
+                          >
+                            {item.isGift ? "Brinde · Grátis" : item.price}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="my-4 h-px" style={{ background: "var(--border)" }} />
+
+                  <div className="space-y-2">
+                    <Line label="Subtotal" value={formatBRL(subtotal)} />
+                    {discountValue > 0 && <Line label={`Cupom ${appliedCoupon}`} value={`−${formatBRL(discountValue)}`} positive />}
+                    <Line label="Frete" value={shippingPrice === 0 ? "Grátis" : formatBRL(shippingPrice)} positive={shippingPrice === 0} />
+                    {pointsValue > 0 && (
+                      <div className="flex items-center justify-between">
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 600 }}>
+                          Ton Points
+                        </span>
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 700 }}>
+                          −{formatBRL(pointsValue)}
+                        </span>
+                      </div>
+                    )}
+                    {pixDiscount > 0 && <Line label="Desconto no PIX (10%)" value={`−${formatBRL(pixDiscount)}`} positive />}
+                  </div>
+
+                  <div
+                    className="mt-4 rounded-[var(--radius-card-sm)] p-4"
+                    style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
+                  >
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                        Total
+                      </span>
+                      <span
+                        className="num"
+                        style={{
+                          fontFamily: "var(--font-family-inter)",
+                          fontSize: "var(--text-price-lg)",
+                          fontWeight: 700,
+                          letterSpacing: "-0.01em",
+                          color: payment === "pix" ? "var(--buy-green)" : "var(--ink-strong)",
+                        }}
+                      >
+                        {formatBRL(total)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex flex-col gap-2 text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
+                    <span className="inline-flex items-center gap-1.5">
+                      <ShieldCheck size={12} strokeWidth={2} className="text-[var(--buy-green-deep)]" />
+                      Compra 100% segura · SSL
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Truck size={12} strokeWidth={2} className="text-ink-muted" />
+                      Frete grátis acima de R$ 299
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => setMobileSheet(null)}
+                    className="mt-5 flex min-h-[48px] w-full cursor-pointer items-center justify-center gap-1.5 rounded-full border border-edge text-ink transition-colors hover:bg-[var(--surface-2)]"
+                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
+                  >
+                    Ver menos
+                  </button>
+                </div>
+              )}
+
+              {mobileSheet === "cupom" && (
+                <div className="px-5 pb-6 pt-4">
+                  {appliedCoupon ? (
+                    <div
+                      className="flex items-center justify-between gap-3 rounded-[var(--radius-card-sm)] px-4 py-3"
+                      style={{ border: "1px solid rgba(18, 146, 76, 0.30)", background: "rgba(18, 146, 76, 0.07)" }}
+                    >
+                      <span className="flex items-center gap-2">
+                        <Check size={14} strokeWidth={2.4} style={{ color: "var(--buy-green-deep)" }} />
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--buy-green-deep)" }}>
+                          {appliedCoupon}
+                        </span>
+                        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, color: "var(--buy-green-deep)" }}>
+                          −{discountPct}%
+                        </span>
+                      </span>
+                      <button
+                        onClick={() => { setAppliedCoupon(null); setCoupon(""); }}
+                        className="min-h-[44px] cursor-pointer px-1 text-ink-muted transition-colors hover:text-ink-strong"
+                        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
+                      >
+                        Remover
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Ex: TONANTE10"
+                          value={coupon}
+                          onChange={(e) => { setCoupon(e.target.value.toUpperCase()); setCouponError(""); }}
+                          onKeyDown={(e) => {
+                            if (e.key !== "Enter") return;
+                            const c = coupon.trim().toUpperCase();
+                            handleApplyCoupon();
+                            if (COUPONS[c]) setMobileSheet(null);
+                          }}
+                          aria-label="Código do cupom"
+                          autoFocus
+                          className="checkout-field flex-1 rounded-[var(--radius-card-sm)] px-3 text-ink-strong placeholder:text-ink-subtle"
+                          style={{
+                            background: "var(--surface-2)",
+                            border: "1px solid var(--edge-subtle)",
+                            fontFamily: "var(--font-family-inter)",
+                            fontWeight: 600,
+                          }}
+                        />
+                        <CTAButton
+                          onClick={() => {
+                            const c = coupon.trim().toUpperCase();
+                            handleApplyCoupon();
+                            if (COUPONS[c]) setMobileSheet(null);
+                          }}
+                          disabled={!coupon.trim()}
+                          variant="ink"
+                          size="md"
+                          className="shrink-0"
+                        >
+                          Aplicar
+                        </CTAButton>
+                      </div>
+                      {couponError && (
+                        <p className="mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--destructive)" }}>
+                          {couponError}
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+
+              {mobileSheet === "pontos" && (
+                <div className="px-5 pb-6 pt-4">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <span className="flex items-center gap-2">
+                      <PcyesCoin size={16} />
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--amber-deep)" }}>
+                        {userPoints} pts
+                      </span>
+                    </span>
+                    <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
+                      usa até {maxPointsRedeem} neste pedido
+                    </span>
+                  </div>
+
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <PointsStepper value={pointsToUse} onChange={setPointsToUse} max={maxPointsRedeem} step={10} />
+                    <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, color: "var(--amber-deep)" }}>
+                      {formatBRL(Math.min(pointsToUse, maxPointsRedeem) * POINT_BRL)}
+                    </span>
+                  </div>
+
+                  <input
+                    type="range"
+                    min={0}
+                    max={maxPointsRedeem}
+                    step={10}
+                    value={pointsToUse}
+                    onChange={(e) => setPointsToUse(Number(e.target.value))}
+                    aria-label="Ton Points a usar"
+                    className="w-full"
+                    style={{ accentColor: "var(--amber-deep)" }}
+                  />
+
+                  {pointsApplied ? (
+                    <button
+                      onClick={() => { setPointsApplied(false); setMobileSheet(null); }}
+                      className="mt-4 flex min-h-[48px] w-full cursor-pointer items-center justify-center rounded-full border border-edge text-ink transition-colors hover:bg-[var(--surface-2)]"
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
+                    >
+                      Não usar pontos
+                    </button>
+                  ) : (
+                    <CTAButton
+                      onClick={() => { setPointsApplied(true); setMobileSheet(null); }}
+                      disabled={pointsToUse <= 0}
+                      variant="ink"
+                      size="lg"
+                      className="mt-4 w-full"
+                    >
+                      Usar pontos
+                    </CTAButton>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Apple Pay sheet */}
       <AnimatePresence>
