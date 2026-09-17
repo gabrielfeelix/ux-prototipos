@@ -54,7 +54,9 @@ function DriverCard({ entry, index }: { entry: DriverEntry; index: number }) {
             className="h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.06]"
           />
           <span
-            className="absolute left-3.5 top-3.5 inline-flex w-fit items-center rounded-full border border-edge bg-black/55 px-2.5 py-1 text-ink-strong backdrop-blur"
+            /* Tinta escura sobre o véu preto lia como cinza sujo — sobre
+               fundo escuro a fonte é branca, e a borda acompanha. */
+            className="absolute left-3.5 top-3.5 inline-flex w-fit items-center rounded-full border border-white/20 bg-black/55 px-2.5 py-1 [color:#fff] backdrop-blur"
             style={{
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-caption)",
@@ -93,7 +95,9 @@ function DriverCard({ entry, index }: { entry: DriverEntry; index: number }) {
           </div>
 
           <span
-            className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-foreground/[0.05] px-4 py-2.5 text-foreground transition-colors group-hover:bg-primary group-hover:text-ink-strong"
+            /* No hover o fundo vira âmbar e a fonte vai a branco — tinta
+               escura sobre laranja é herança do tema antigo. */
+            className="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-foreground/[0.05] px-4 py-2.5 text-foreground transition-colors group-hover:bg-primary group-hover:[color:#fff]"
             style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
           >
             Ver downloads <ArrowUpRight size={15} />
@@ -149,7 +153,7 @@ export function DriversManuaisPage() {
             className="max-w-[640px]"
           >
             <span
-              className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-ink-strong"
+              className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary px-3 py-1 [color:#fff]"
               style={{
                 fontFamily: "var(--font-family-inter)",
                 fontSize: "var(--text-caption)",

@@ -96,7 +96,7 @@ function DownloadCard({
         onClick={() => setDownloaded(true)}
         className={`mt-6 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 transition-all hover:scale-[1.02] active:scale-[0.98] ${
           kind === "driver"
-            ? "bg-primary text-ink-strong"
+            ? "bg-primary [color:#fff]"
             : "border border-foreground/15 bg-foreground/[0.04] text-foreground hover:border-foreground/30"
         }`}
         style={{
@@ -148,7 +148,7 @@ function DriverNotFound() {
           </p>
           <Link
             to="/drivers-e-manuais"
-            className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-ink-strong transition-transform hover:scale-[1.03]"
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 [color:#fff] transition-transform hover:scale-[1.03]"
             style={{
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-sm)",
@@ -246,7 +246,7 @@ export function DriverDetailPage() {
             >
               <div className="flex items-center gap-3">
                 <span
-                  className="inline-flex w-fit items-center rounded-full bg-primary px-3 py-1 text-ink-strong"
+                  className="inline-flex w-fit items-center rounded-full bg-primary px-3 py-1 [color:#fff]"
                   style={{
                     fontFamily: "var(--font-family-inter)",
                     fontSize: "var(--text-caption)",
@@ -290,13 +290,18 @@ export function DriverDetailPage() {
                 <button
                   type="button"
                   onClick={scrollToDownloads}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-ink-strong transition-transform hover:scale-[1.03] active:scale-[0.98]"
+                  /* Texto branco sobre o âmbar, como no Newsletter: a tinta
+                     escura sobre laranja é herança do tema antigo. A sombra
+                     tingida de laranja saiu junto — dava ar de banner de
+                     promoção a um botão que só leva pro download. */
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 transition-transform hover:scale-[1.03] active:scale-[0.98]"
                   style={{
+                    color: "#ffffff",
                     fontFamily: "var(--font-family-inter)",
                     fontSize: "var(--text-sm)",
                     fontWeight: 700,
                     letterSpacing: "0.02em",
-                    boxShadow: "0 12px 28px -10px rgba(200, 120, 0,0.55)",
+                    boxShadow: "var(--shadow-card)",
                   }}
                 >
                   <Download size={15} /> Ver downloads
