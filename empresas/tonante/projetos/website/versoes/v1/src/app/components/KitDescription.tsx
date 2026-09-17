@@ -44,7 +44,7 @@ const CENAS: Record<string, { titulo: string; texto: string; foto: string }> = {
   quarto: {
     titulo: "No quarto, às onze da noite",
     texto:
-      "É onde a maior parte das horas acontece — sem plateia, sem pressa, no volume que não acorda ninguém. Um kit que só funciona no palco fica guardado seis dias por semana.",
+      "É onde a maior parte das horas acontece: sem plateia, sem pressa, no volume que não acorda ninguém. Um kit que só funciona no palco fica guardado seis dias por semana.",
     foto: "/cenas/quarto.png",
   },
   igreja: {
@@ -56,7 +56,7 @@ const CENAS: Record<string, { titulo: string; texto: string; foto: string }> = {
   palco: {
     titulo: "No palco, com hora marcada",
     texto:
-      "Aqui nada pode falhar e ninguém vai esperar você resolver. Cabo reserva não é exagero — é a diferença entre um susto de dez segundos e um show interrompido.",
+      "Aqui nada pode falhar e ninguém vai esperar você resolver. Cabo reserva não é exagero: é a diferença entre um susto de dez segundos e um show interrompido.",
     foto: "/cenas/palco.png",
   },
 };
@@ -237,7 +237,7 @@ function OQueDaPraTocar({ seed }: { seed: KitSeed }) {
         O que dá pra tocar com isso
       </h2>
       <p className="mt-3 max-w-[56ch] text-[0.9375rem] leading-relaxed text-foreground/65">
-        Medido pelo que cada som exige de corda e captação — não pelo que a gente
+        Medido pelo que cada som exige de corda e captação, não pelo que a gente
         gostaria de vender. O que não serve continua na lista, apagado.
       </p>
 

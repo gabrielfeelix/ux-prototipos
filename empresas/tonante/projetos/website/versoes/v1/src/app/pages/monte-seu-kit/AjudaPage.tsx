@@ -253,7 +253,7 @@ function PassoGosto({
 
   return (
     <>
-      <Titulo sub="Marque alguns. É só pra entender o som que você quer fazer — ninguém aqui julga playlist.">
+      <Titulo sub="É só pra entender o som que você quer fazer.">
         Quais artistas você ouve?
       </Titulo>
 
@@ -276,7 +276,7 @@ function PassoGosto({
 
       {lista.length === 0 ? (
         <p className="mt-10 text-[0.9375rem] text-foreground/60">
-          Nada com esse nome por aqui. Tente outro, ou siga sem marcar — o guia
+          Nada com esse nome por aqui. Tente outro, ou siga sem marcar. O guia
           funciona do mesmo jeito.
         </p>
       ) : (

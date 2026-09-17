@@ -30,7 +30,7 @@ const CAMINHOS: Caminho[] = [
     id: "ajuda",
     titulo: "Achar meu instrumento",
     texto:
-      "Quatro perguntas sobre o que você quer tocar. No fim, os instrumentos que fazem esse som — só o instrumento.",
+      "Quatro perguntas sobre o que você quer tocar. No fim, os instrumentos que fazem esse som.",
     foto: "/monte-seu-kit/ajuda.png",
     destino: "/monte-seu-kit/ajuda",
     destaque: true,

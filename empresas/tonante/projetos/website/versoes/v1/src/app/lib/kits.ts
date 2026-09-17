@@ -81,7 +81,7 @@ export const KIT_SEED: KitSeed[] = [
     instrumento: "violao",
     entrega: { corda: "nylon", captacao: "nenhuma" },
     pecas: [
-      { slot: "Violão", modelo: "Tonante Lorenzzo Clássico 39\"", descricao: "Nylon, tampo de spruce, corpo menor — cabe no colo de quem nunca segurou um.", busca: ["violão clássico", "lorenzzo", "nylon"] },
+      { slot: "Violão", modelo: "Tonante Lorenzzo Clássico 39\"", descricao: "Nylon, tampo de spruce, corpo menor. Cabe no colo de quem nunca segurou um.", busca: ["violão clássico", "lorenzzo", "nylon"] },
       { slot: "Afinador", modelo: "Afinador de clipe", descricao: "Prende na cabeça do braço e mostra a nota. Violão desafinado soa errado mesmo quando o acorde está certo.", busca: ["afinador"] },
       { slot: "Correia", modelo: "Correia de tecido", descricao: "Pra tocar em pé desde o começo, em vez de aprender torto sentado.", busca: ["correia"] },
       { slot: "Palhetas", modelo: "Cartela de palhetas", descricao: "Finas, que é o que a mão iniciante aguenta sem travar a levada.", busca: ["palheta"] },
@@ -89,7 +89,7 @@ export const KIT_SEED: KitSeed[] = [
     praQuem: {
       titulo: "Pra quem nunca tocou e não quer errar na primeira compra",
       texto:
-        "A maioria desiste do violão no primeiro mês, e quase nunca por falta de talento — é o dedo que dói e o som que não sai. Nylon resolve o dedo. O afinador resolve o som. O resto é você.",
+        "A maioria desiste do violão no primeiro mês, e quase nunca por falta de talento: é o dedo que dói e o som que não sai. Nylon resolve o dedo. O afinador resolve o som. O resto é você.",
     },
     porque: [
       { slot: "Violão", titulo: "Nylon, não aço", texto: "Corda de nylon tem metade da tensão da de aço. Nas primeiras semanas isso é a diferença entre praticar meia hora e parar em dez minutos." },
@@ -126,7 +126,7 @@ export const KIT_SEED: KitSeed[] = [
     praQuem: {
       titulo: "Pra quem já toca em casa e começou a ser chamado pra tocar fora",
       texto:
-        "A primeira vez que alguém pede pra você tocar num aniversário, numa roda, num culto, o violão acústico puro some no meio do barulho. Captação não é luxo — é ser ouvido.",
+        "A primeira vez que alguém pede pra você tocar num aniversário, numa roda, num culto, o violão acústico puro some no meio do barulho. Captação não é luxo, é ser ouvido.",
     },
     porque: [
       { slot: "Violão", titulo: "Aço projeta mais", texto: "Corda de aço tem mais brilho e mais volume que nylon. No meio de gente cantando junto, é o que sobra." },
@@ -135,7 +135,7 @@ export const KIT_SEED: KitSeed[] = [
     ],
     cenas: ["quarto", "igreja"],
     faq: [
-      { p: "Funciona sem ligar o cabo?", r: "Funciona. Eletroacústico é um violão acústico normal que também aceita cabo — em casa você toca desligado." },
+      { p: "Funciona sem ligar o cabo?", r: "Funciona. Eletroacústico é um violão acústico normal que também aceita cabo: em casa você toca desligado." },
       { p: "Preciso trocar a corda pra nylon?", r: "Não dá. O braço e o tampo são calculados pra tensão de aço; nylon nele fica frouxo e sem volume." },
       { p: "Precisa de amplificador?", r: "Não, se a igreja ou a casa de show já tem mesa. Se você quer autonomia, o kit Ministério inclui o amplificador." },
     ],
@@ -154,14 +154,14 @@ export const KIT_SEED: KitSeed[] = [
     instrumento: "violao",
     entrega: { corda: "nylon", captacao: "passiva" },
     pecas: [
-      { slot: "Violão", modelo: "Tonante Lorenzzo Eletroacústico Nylon", descricao: "Nylon com captação — o som redondo que não briga com a voz da congregação.", busca: ["violão elétrico nylon", "lorenzzo", "clássico"] },
+      { slot: "Violão", modelo: "Tonante Lorenzzo Eletroacústico Nylon", descricao: "Nylon com captação. O som redondo que não briga com a voz da congregação.", busca: ["violão elétrico nylon", "lorenzzo", "clássico"] },
       { slot: "Suporte", modelo: "Suporte de chão dobrável", descricao: "Violão em pé ao lado do púlpito, não deitado no banco nem encostado na parede.", busca: ["suporte violão", "suporte"] },
       { slot: "Cabo", modelo: "Cabo P10 de 3 metros", descricao: "Uma ponta no violão, outra na mesa. Nada mais.", busca: ["cabo p10", "cabo"] },
     ],
     praQuem: {
       titulo: "Pra quem ministra com o violão embaixo da voz",
       texto:
-        "Na ministração o violão não é o solista — é o chão. Nylon entrega isso melhor que aço: preenche sem cortar, sustenta sem chamar atenção.",
+        "Na ministração o violão não é o solista, é o chão. Nylon entrega isso melhor que aço: preenche sem cortar, sustenta sem chamar atenção.",
     },
     porque: [
       { slot: "Violão", titulo: "Nylon não briga com a voz", texto: "O brilho do aço disputa a mesma faixa da voz na mesa. Nylon senta embaixo e deixa a letra passar." },
@@ -191,7 +191,7 @@ export const KIT_SEED: KitSeed[] = [
     instrumento: "violao",
     entrega: { corda: "aco", captacao: "passiva" },
     pecas: [
-      { slot: "Violão", modelo: "Tonante Coral Eletroacústico 41\"", descricao: "Aço com equalizador embutido — corta no meio da banda inteira.", busca: ["violão elétrico", "coral", "eletroacústico"] },
+      { slot: "Violão", modelo: "Tonante Coral Eletroacústico 41\"", descricao: "Aço com equalizador embutido. Corta no meio da banda inteira.", busca: ["violão elétrico", "coral", "eletroacústico"] },
       { slot: "Amplificador", modelo: "Amplificador para violão", descricao: "Seu retorno, no seu volume, independente da mesa.", busca: ["amplificador", "cubo"] },
       { slot: "Cabo", modelo: "Cabo P10 de 3 metros", descricao: "Violão ao amplificador; a saída de linha vai pra mesa.", busca: ["cabo p10", "cabo"] },
       { slot: "Correia", modelo: "Correia de couro", descricao: "Duas horas de pé sem o ombro reclamar.", busca: ["correia couro", "correia"] },
@@ -199,7 +199,7 @@ export const KIT_SEED: KitSeed[] = [
     praQuem: {
       titulo: "Pra quem toca toda semana e precisa se ouvir",
       texto:
-        "O problema de quem toca em igreja raramente é o instrumento — é não ouvir o próprio som no retorno. Amplificador resolve isso sem pedir nada a ninguém.",
+        "O problema de quem toca em igreja raramente é o instrumento, é não ouvir o próprio som no retorno. Amplificador resolve isso sem pedir nada a ninguém.",
     },
     porque: [
       { slot: "Amplificador", titulo: "Retorno que é seu", texto: "Mesa dá o retorno que sobra. O amplificador ao seu lado dá o retorno que você escolhe." },
@@ -209,7 +209,7 @@ export const KIT_SEED: KitSeed[] = [
     cenas: ["igreja", "palco"],
     faq: [
       { p: "O amplificador substitui a mesa?", r: "Em sala pequena, sim. Em salão grande ele vira seu retorno e a saída de linha alimenta a mesa." },
-      { p: "Dá pra ligar microfone nele?", r: "Dá. O amplificador de violão tem canal de microfone — serve pra você cantar e tocar sozinho." },
+      { p: "Dá pra ligar microfone nele?", r: "Dá. O amplificador de violão tem canal de microfone, então serve pra você cantar e tocar sozinho." },
       { p: "É pesado pra carregar?", r: "Cerca de sete quilos. Cabe no porta-malas e se leva numa mão." },
     ],
   },
@@ -229,7 +229,7 @@ export const KIT_SEED: KitSeed[] = [
     instrumento: "violao",
     entrega: { corda: "aco", captacao: "passiva" },
     pecas: [
-      { slot: "Violão", modelo: "Tonante Coral Eletroacústico 41\"", descricao: "Aço com equalizador — a base de tudo.", busca: ["violão elétrico", "coral", "eletroacústico"] },
+      { slot: "Violão", modelo: "Tonante Coral Eletroacústico 41\"", descricao: "Aço com equalizador. A base de tudo.", busca: ["violão elétrico", "coral", "eletroacústico"] },
       { slot: "Microfone", modelo: "Microfone condensador com pedestal", descricao: "Voz com corpo, sem precisar colar a boca na cápsula.", busca: ["microfone condensador", "microfone"] },
       { slot: "Amplificador", modelo: "Amplificador para violão com dois canais", descricao: "Um canal pro violão, outro pra voz. Uma tomada só.", busca: ["amplificador", "cubo"] },
       { slot: "Cabos", modelo: "Dois cabos P10 de 3 metros", descricao: "Um pro violão, um pro microfone.", busca: ["cabo p10", "cabo"] },
@@ -240,7 +240,7 @@ export const KIT_SEED: KitSeed[] = [
         "Quando não há banda, tudo depende de duas coisas soarem bem ao mesmo tempo: a voz e o violão. Este kit é essas duas coisas resolvidas com dois cabos.",
     },
     porque: [
-      { slot: "Microfone", titulo: "Condensador, não dinâmico", texto: "Condensador pega o corpo da voz de meio metro de distância — você canta olhando pra congregação, não pro microfone." },
+      { slot: "Microfone", titulo: "Condensador, não dinâmico", texto: "Condensador pega o corpo da voz de meio metro de distância: você canta olhando pra congregação, não pro microfone." },
       { slot: "Amplificador", titulo: "Dois canais, uma tomada", texto: "Voz e violão com volume independente sem precisar de mesa nem de operador." },
       { slot: "Violão", titulo: "Equalizador no instrumento", texto: "Ajustar grave e agudo na hora, sem atravessar o salão pra mexer em outro aparelho." },
     ],
@@ -276,7 +276,7 @@ export const KIT_SEED: KitSeed[] = [
         "Guitarra sem amplificador é um instrumento mudo. O de estudo resolve isso no volume de apartamento, e ainda vai pro ensaio da banda dentro do carro.",
     },
     porque: [
-      { slot: "Guitarra", titulo: "Três single, não dois humbucker", texto: "SSS cobre limpo, blues, pop e rock. Humbucker é mais especializado — bom depois que você sabe o que quer." },
+      { slot: "Guitarra", titulo: "Três single, não dois humbucker", texto: "SSS cobre limpo, blues, pop e rock. Humbucker é mais especializado, bom depois que você já sabe o que quer." },
       { slot: "Amplificador", titulo: "Pequeno de propósito", texto: "Amplificador grande em quarto toca sempre no volume errado. O de estudo soa bem onde você realmente vai usar." },
       { slot: "Cabo", titulo: "Blindado", texto: "Cabo ruim chia e capta rádio. Num sinal de guitarra, o cabo é parte do timbre." },
     ],
@@ -284,7 +284,7 @@ export const KIT_SEED: KitSeed[] = [
     faq: [
       { p: "Dá pra tocar com fone?", r: "Dá. O amplificador tem saída de fone e corta o alto-falante." },
       { p: "Serve pra tocar em banda?", r: "Pra ensaio, sim. Pra palco com bateria acústica, o kit Bar tem a potência que falta." },
-      { p: "Vem com pedal?", r: "Não. O amplificador já tem distorção — pedal é a próxima compra, não a primeira." },
+      { p: "Vem com pedal?", r: "Não. O amplificador já tem distorção, então pedal é a próxima compra, não a primeira." },
     ],
   },
   {
@@ -339,10 +339,10 @@ export const KIT_SEED: KitSeed[] = [
     instrumento: "guitarra",
     entrega: { corda: "aco", captacao: "humbucker" },
     pecas: [
-      { slot: "Guitarra", modelo: "Tonante Telecaster", descricao: "Ataque seco e definido — a guitarra que atravessa mixagem cheia.", busca: ["guitarra", "telecaster"] },
+      { slot: "Guitarra", modelo: "Tonante Telecaster", descricao: "Ataque seco e definido. A guitarra que atravessa mixagem cheia.", busca: ["guitarra", "telecaster"] },
       { slot: "Amplificador", modelo: "Cabeçote e caixa", descricao: "Cabeçote e caixa separados: o timbre não muda quando a casa muda.", busca: ["amplificador", "cubo"] },
       { slot: "Pedal", modelo: "Pedal de efeito", descricao: "O timbre sujo que é seu, não o do amplificador emprestado.", busca: ["pedal"] },
-      { slot: "Cabos", modelo: "Três cabos P10", descricao: "Guitarra, pedal e cabeçote — mais o reserva.", busca: ["cabo p10", "cabo"] },
+      { slot: "Cabos", modelo: "Três cabos P10", descricao: "Guitarra, pedal e cabeçote, mais o reserva.", busca: ["cabo p10", "cabo"] },
       { slot: "Correia", modelo: "Correia de couro larga", descricao: "Guitarra pesada, hora e meia de show.", busca: ["correia couro", "correia"] },
     ],
     praQuem: {
@@ -351,7 +351,7 @@ export const KIT_SEED: KitSeed[] = [
         "Quando o show é seu, o backline da casa é uma aposta. Levar o próprio cabeçote é a diferença entre soar como você e soar como o que estava lá.",
     },
     porque: [
-      { slot: "Amplificador", titulo: "Cabeçote separado da caixa", texto: "O timbre mora no cabeçote. Levando ele, você soa igual em qualquer casa — mesmo usando a caixa de lá." },
+      { slot: "Amplificador", titulo: "Cabeçote separado da caixa", texto: "O timbre mora no cabeçote. Levando ele, você soa igual em qualquer casa, mesmo usando a caixa de lá." },
       { slot: "Guitarra", titulo: "Telecaster corta", texto: "O ataque seco da Telecaster acha espaço numa mixagem com teclado, baixo e bateria. Guitarra gorda some." },
       { slot: "Pedal", titulo: "Seu timbre sujo", texto: "Distorção de amplificador emprestado é loteria. O pedal é o timbre que você já sabe como responde." },
     ],
@@ -478,7 +478,7 @@ export function avaliarBanda(seed: KitSeed, band: Band): BandaNoKit {
     return {
       band,
       veredito: "apertado",
-      porque: "O instrumento dá conta — a dificuldade está na mão, não no kit.",
+      porque: "O instrumento dá conta. A dificuldade está na mão, não no kit.",
     };
   }
 
