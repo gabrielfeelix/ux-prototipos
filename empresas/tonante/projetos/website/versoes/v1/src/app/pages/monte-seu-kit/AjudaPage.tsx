@@ -547,7 +547,10 @@ function Resultado({ r }: { r: RespostasKit }) {
       </ul>
 
       {kit && (
-        <section className="mt-14 overflow-hidden rounded-[var(--radius-card-lg)] bg-[#FAF8F5]">
+        <section
+          className="mt-14 overflow-hidden rounded-[var(--radius-card-lg)]"
+          style={{ background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)", border: "1px solid rgba(var(--foreground-rgb), 0.08)" }}
+        >
           <div className="grid items-center gap-6 sm:grid-cols-[1.1fr_1fr]">
             <div className="p-7 sm:p-9">
               <p className="text-[0.875rem] text-foreground/55">Pelo que você contou, um kit resolve melhor</p>

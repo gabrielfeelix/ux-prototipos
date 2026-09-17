@@ -77,7 +77,11 @@ export function MonteSeuKitPage() {
           <EqualizerWave bars={56} height={26} className="mt-8" />
         </header>
 
-        <div className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+        {/* items-start: o grid estica os três cards até a altura do mais alto
+            (o do meio, que tem três linhas de texto), e <button> centraliza o
+            próprio conteúdo na vertical — então os cards de texto mais curto
+            desciam sozinhos e o do meio parecia levantado. */}
+        <div className="mt-12 grid items-start gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
           {CAMINHOS.map((c) => (
             <CaminhoCard
               key={c.id}
@@ -122,7 +126,10 @@ function CaminhoCard({
     >
       {/* A foto é o card. Sem caixa, sem borda, sem sombra: o recorte do
           estúdio já é a moldura, e um retângulo em volta dele só rouba luz. */}
-      <div className="relative overflow-hidden rounded-[var(--radius-card-lg)] bg-[#FAF8F5]">
+      <div
+        className="relative overflow-hidden rounded-[var(--radius-card-lg)]"
+        style={{ background: "var(--gradient-photo)" }}
+      >
         <img
           src={caminho.foto}
           alt=""

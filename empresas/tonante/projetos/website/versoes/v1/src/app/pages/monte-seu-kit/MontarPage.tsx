@@ -54,6 +54,26 @@ import {
 } from "./pecasKit";
 
 const DISPLAY = { fontFamily: "var(--font-family-figtree)" } as const;
+const CORPO = { fontFamily: "var(--font-family-inter)" } as const;
+
+/* Bloco de apoio: o mesmo degradê neutro do resumo do carrinho e do checkout
+   (CartPage:184). Cartão aqui é definido por borda e sombra, não por cor de
+   fundo — a loja não tem superfície bege. */
+const CARTAO = {
+  borderRadius: "var(--radius-card-lg)",
+  background:
+    "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
+  border: "1px solid rgba(var(--foreground-rgb), 0.08)",
+  boxShadow: "var(--shadow-card)",
+} as const;
+
+/* Etiqueta de seção no idioma da casa: caixa alta, tracking largo, barra dupla. */
+const CAPTION = {
+  fontFamily: "var(--font-family-inter)",
+  fontSize: "var(--text-caption)",
+  fontWeight: 700,
+  letterSpacing: "0.3em",
+} as const;
 
 export function MontarPage() {
   const navigate = useNavigate();
@@ -68,7 +88,7 @@ export function MontarPage() {
   const instrumento = sel.instrumento[0] ?? null;
   const passos = useMemo(() => slotsVisiveis(instrumento), [instrumento]);
   const passo = passos[Math.min(indice, passos.length - 1)];
-  const recados = useMemo(() => checarKit(sel), [sel]);
+  const recados = useMemo(() => checarKit(sel, revisando), [sel, revisando]);
   const totais = useMemo(() => totaisDoKit(sel), [sel]);
   const temErro = recados.some((r) => r.gravidade === "erro");
 
@@ -159,6 +179,31 @@ export function MontarPage() {
           </div>
 
           <Trilha passos={passos} indice={revisando ? passos.length : indice} sel={sel} onIr={irPara} />
+
+          {/* Avançar mora aqui em cima, ao lado da trilha. Só no rodapé da
+              grade obrigava a rolar por 22 violões pra trocar de etapa. */}
+          {!revisando && (
+            <div className="mt-5 hidden items-center justify-end gap-4 lg:flex">
+              {!passo.obrigatorio && (
+                <button
+                  type="button"
+                  onClick={avancar}
+                  className="text-[0.875rem] text-foreground/55 underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                >
+                  Pular esta etapa
+                </button>
+              )}
+              <button
+                type="button"
+                disabled={passo.obrigatorio && sel[passo.id].length === 0}
+                onClick={avancar}
+                className="inline-flex h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-foreground px-7 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
+              >
+                {indice >= passos.length - 1 ? "Revisar o kit" : "Continuar"}
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
 
           {revisando ? (
             <Revisao
@@ -255,7 +300,9 @@ export function MontarPage() {
               </div>
 
               <aside className="mt-12 lg:mt-0">
-                <div className="lg:sticky lg:top-24">
+                {/* 180px = barra de avisos + header + menu de categorias. Com
+                    top-24 o resumo sumia atrás do header ao rolar. */}
+                <div className="lg:sticky lg:top-[180px] lg:self-start">
                   <Resumo
                     passos={passos}
                     sel={sel}
@@ -279,7 +326,10 @@ export function MontarPage() {
                 <p className="text-[0.75rem] text-foreground/55">
                   {totais.itens.length} {totais.itens.length === 1 ? "peça" : "peças"} no kit
                 </p>
-                <p className="text-[1.0625rem] tabular-nums text-foreground" style={DISPLAY}>
+                <p
+                  className="num"
+                  style={{ ...CORPO, fontSize: "17px", fontWeight: 700, color: "#333333" }}
+                >
                   {formatBRL(totais.comDesconto)}
                 </p>
               </div>
@@ -370,7 +420,10 @@ function PecaTile({
           : "border-foreground/10 hover:shadow-[var(--shadow-tile-hover)]"
       }`}
     >
-      <div className="relative aspect-square overflow-hidden rounded-[var(--radius-card-sm)] bg-[#F6F4F1]">
+      <div
+        className="relative aspect-square overflow-hidden rounded-[var(--radius-card-sm)]"
+        style={{ background: "var(--gradient-photo)" }}
+      >
         <ImageWithFallback
           src={getPrimaryProductImage(produto)}
           alt={produto.name}
@@ -391,10 +444,21 @@ function PecaTile({
       <p className="mt-3 line-clamp-2 text-[0.8125rem] leading-snug text-foreground/85">
         {produto.name}
       </p>
-      <p className="mt-2 text-[0.9375rem] tabular-nums text-foreground" style={DISPLAY}>
-        {formatBRL(getPixPrice(produto))}
-        <span className="ml-1 text-[0.6875rem] text-foreground/50">no PIX</span>
-      </p>
+      {/* Preço igual ao do card de produto (v2/ProductCardV2): valor em tinta
+          normal, "à vista no PIX" em verde. O verde é do PIX e só dele. */}
+      <div className="mt-2 flex flex-wrap items-baseline gap-x-1.5">
+        <span
+          className="num"
+          style={{ ...CORPO, fontSize: "17px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+        >
+          {formatBRL(getPixPrice(produto))}
+        </span>
+        <span
+          style={{ ...CORPO, fontSize: "11.5px", fontWeight: 600, color: "var(--buy-green)", whiteSpace: "nowrap" }}
+        >
+          à vista no PIX
+        </span>
+      </div>
     </button>
   );
 }
@@ -442,10 +506,12 @@ function Resumo({
   onRemover: (slot: SlotId, id: number) => void;
 }) {
   return (
-    <div className="rounded-[var(--radius-card-lg)] bg-[#FAF8F5] p-5">
-      <p className="text-[0.875rem] text-foreground/55">O que já entrou</p>
+    <div className="relative overflow-hidden p-5" style={CARTAO}>
+      <p className="mb-4 text-primary" style={CAPTION}>
+        // O QUE JÁ ENTROU
+      </p>
 
-      <ul className="mt-4 space-y-3">
+      <ul className="space-y-3">
         {passos.map((s) => {
           const itens = sel[s.id];
           if (itens.length === 0)
@@ -463,7 +529,10 @@ function Resumo({
             );
           return itens.map((p) => (
             <li key={p.id} className="flex items-center gap-3">
-              <span className="h-9 w-9 shrink-0 overflow-hidden rounded-[6px] bg-white">
+              <span
+                className="h-9 w-9 shrink-0 overflow-hidden rounded-[6px]"
+                style={{ background: "var(--gradient-photo)" }}
+              >
                 <ImageWithFallback
                   src={getPrimaryProductImage(p)}
                   alt=""
@@ -472,7 +541,7 @@ function Resumo({
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[0.8125rem] text-foreground/85">{p.name}</span>
-                <span className="block text-[0.75rem] tabular-nums text-foreground/50">
+                <span className="num block text-foreground/55" style={{ ...CORPO, fontSize: "12px" }}>
                   {formatBRL(getPixPrice(p))}
                 </span>
               </span>
@@ -500,7 +569,10 @@ function Resumo({
       <div className="mt-5 border-t border-foreground/10 pt-4">
         <div className="flex items-baseline justify-between">
           <span className="text-[0.8125rem] text-foreground/60">Kit fechado</span>
-          <span className="text-[1.25rem] tabular-nums text-foreground" style={DISPLAY}>
+          <span
+            className="num"
+            style={{ ...CORPO, fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+          >
             {formatBRL(totais.comDesconto)}
           </span>
         </div>
@@ -516,11 +588,17 @@ function Resumo({
 
 function Recadinho({ recado, onIr }: { recado: Recado; onIr: (slot: SlotId) => void }) {
   const erro = recado.gravidade === "erro";
+  /* Mesmo padrão dos avisos do carrinho: cor da marca a 8% de fundo, borda a
+     30%, texto na cor cheia. Vermelho é o do desconto (--gradient-discount),
+     âmbar é o acento da marca. */
   return (
     <div
-      className={`rounded-[var(--radius-card-sm)] p-3 text-[0.8125rem] leading-relaxed ${
-        erro ? "bg-[#FDECEA] text-[#7A1C15]" : "bg-[#FBF3E4] text-[#6B4A10]"
-      }`}
+      className="rounded-[var(--radius-card-sm)] p-3 text-[0.8125rem] leading-relaxed"
+      style={{
+        background: erro ? "rgba(179,38,30,0.08)" : "rgba(200,120,0,0.08)",
+        border: `1px solid ${erro ? "rgba(179,38,30,0.3)" : "rgba(200,120,0,0.3)"}`,
+        color: erro ? "#b3261e" : "var(--amber-deep)",
+      }}
     >
       <span className="flex gap-2">
         <TriangleAlert className="mt-[0.15em] h-3.5 w-3.5 shrink-0" />
@@ -578,7 +656,10 @@ function Revisao({
           {passos.map((s) =>
             sel[s.id].map((p) => (
               <li key={p.id} className="flex items-center gap-4 py-4">
-                <span className="h-16 w-16 shrink-0 overflow-hidden rounded-[var(--radius-card-sm)] bg-[#F6F4F1]">
+                <span
+                  className="h-16 w-16 shrink-0 overflow-hidden rounded-[var(--radius-card-sm)]"
+                  style={{ background: "var(--gradient-photo)" }}
+                >
                   <ImageWithFallback
                     src={getPrimaryProductImage(p)}
                     alt=""
@@ -594,7 +675,10 @@ function Revisao({
                   </span>
                 </span>
                 <span className="shrink-0 text-right">
-                  <span className="block text-[0.9375rem] tabular-nums text-foreground">
+                  <span
+                    className="num block"
+                    style={{ ...CORPO, fontSize: "15px", fontWeight: 700, color: "#333333" }}
+                  >
                     {formatBRL(getPixPrice(p))}
                   </span>
                   <button
@@ -630,16 +714,19 @@ function Revisao({
       </div>
 
       <aside className="mt-12 lg:mt-0">
-        <div className="rounded-[var(--radius-card-lg)] bg-[#FAF8F5] p-5 lg:sticky lg:top-24">
+        <div className="relative overflow-hidden p-5 lg:sticky lg:top-[180px] lg:self-start" style={CARTAO}>
           <div className="flex items-baseline justify-between">
             <span className="text-[0.8125rem] text-foreground/60">Soma das peças</span>
-            <span className="tabular-nums text-foreground/60 line-through">
+            <span className="num text-foreground/55 line-through" style={{ ...CORPO, fontSize: "13px" }}>
               {formatBRL(totais.cheio)}
             </span>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
             <span className="text-[0.875rem] text-foreground">Kit fechado</span>
-            <span className="text-[1.5rem] tabular-nums text-foreground" style={DISPLAY}>
+            <span
+              className="num"
+              style={{ ...CORPO, fontSize: "24px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+            >
               {formatBRL(totais.comDesconto)}
             </span>
           </div>
@@ -658,7 +745,7 @@ function Revisao({
             Levar o kit
           </button>
           {temErro && (
-            <p className="mt-3 text-center text-[0.75rem] leading-relaxed text-[#7A1C15]">
+            <p className="mt-3 text-center text-[0.75rem] leading-relaxed" style={{ color: "#b3261e" }}>
               Tem peça que não serve no seu instrumento. Troque antes de fechar.
             </p>
           )}

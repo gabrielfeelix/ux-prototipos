@@ -150,26 +150,45 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
                 backfaceVisibility: "hidden",
                 borderRadius: 16,
                 background: BRAND_THEMES[brand.toLowerCase().replace(/\s+/g, "")] ?? "linear-gradient(135deg, #1a1a1c 0%, #28282b 60%, #1a1a1c 100%)",
-                border: "1px solid rgba(var(--foreground-rgb), 0.12)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
                 boxShadow: "var(--shadow-float)",
                 transition: "background 0.4s ease",
               }}
             >
+              {/* brilho diagonal: o cartão sem ele parecia um retângulo chapado */}
+              <span
+                aria-hidden
+                style={{
+                  position: "absolute", inset: 0, borderRadius: 16, pointerEvents: "none",
+                  background: "linear-gradient(118deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.03) 38%, rgba(255,255,255,0) 58%)",
+                }}
+              />
               <div className="flex items-start justify-between">
-                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(var(--foreground-rgb), 0.6)" }}>
-                  {data.isDefault ? "PADRÃO" : " "}
-                </span>
+                <div className="flex items-center gap-2.5">
+                  {/* chip */}
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 30, height: 22, borderRadius: 4,
+                      background: "linear-gradient(135deg, #e6c98a 0%, #b89355 45%, #f0dcae 70%, #a8853f 100%)",
+                      boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.18)",
+                    }}
+                  />
+                  <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(255, 255, 255, 0.55)" }}>
+                    {data.isDefault ? "PADRÃO" : ""}
+                  </span>
+                </div>
                 {brand ? (
                   <CardBrandLogo brand={brand} style={{ width: 48, height: 30, borderRadius: 5, overflow: "hidden", display: "block" }} />
                 ) : (
                   <span style={{
                     padding: "4px 10px",
                     borderRadius: 6,
-                    background: "rgba(var(--foreground-rgb), 0.08)",
+                    background: "rgba(255, 255, 255, 0.08)",
                     fontFamily: "var(--font-family-inter)",
                     fontSize: "var(--text-caption)",
                     fontWeight: 700,
-                    color: "rgba(var(--foreground-rgb), 0.6)",
+                    color: "rgba(255, 255, 255, 0.6)",
                     letterSpacing: "0.1em",
                   }}>-</span>
                 )}
@@ -177,10 +196,11 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
               <div
                 style={{
                   fontFamily: "var(--font-family-inter)",
-                  fontSize: "var(--text-lg)",
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  color: "rgba(var(--foreground-rgb), 0.95)",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                  letterSpacing: "0.14em",
+                  color: "#ffffff",
+                  textShadow: "0 1px 2px rgba(0,0,0,0.35)",
                   fontVariantNumeric: "tabular-nums",
                 }}
               >
@@ -188,14 +208,14 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
               </div>
               <div className="flex items-end justify-between gap-3">
                 <div className="min-w-0">
-                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(var(--foreground-rgb), 0.45)" }}>NOME</p>
-                  <p className="truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.92)", letterSpacing: "0.04em", marginTop: 3 }}>
+                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(255, 255, 255, 0.45)" }}>NOME</p>
+                  <p className="truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(255, 255, 255, 0.92)", letterSpacing: "0.04em", marginTop: 3 }}>
                     {data.name.toUpperCase() || "SEU NOME"}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(var(--foreground-rgb), 0.45)" }}>VALIDADE</p>
-                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.92)", marginTop: 3, fontVariantNumeric: "tabular-nums" }}>
+                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(255, 255, 255, 0.45)" }}>VALIDADE</p>
+                  <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(255, 255, 255, 0.92)", marginTop: 3, fontVariantNumeric: "tabular-nums" }}>
                     {data.expiry || "MM/AA"}
                   </p>
                 </div>
@@ -210,13 +230,13 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
                 transform: "rotateY(180deg)",
                 borderRadius: 16,
                 background: "linear-gradient(135deg, #1a1a1c 0%, #28282b 60%, #1a1a1c 100%)",
-                border: "1px solid rgba(var(--foreground-rgb), 0.12)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
                 boxShadow: "var(--shadow-float)",
               }}
             >
               <div className="mt-6 h-10 w-full" style={{ background: "rgba(0,0,0,0.6)" }} />
               <div className="flex-1 px-5 pt-6 flex flex-col justify-center gap-2">
-                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(var(--foreground-rgb), 0.55)" }}>
+                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", color: "rgba(255, 255, 255, 0.55)" }}>
                   CÓDIGO DE SEGURANÇA (CVV)
                 </span>
                 <div
@@ -225,7 +245,7 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
                     height: 36,
                     minWidth: 80,
                     borderRadius: 6,
-                    background: "rgba(var(--foreground-rgb), 0.92)",
+                    background: "rgba(255, 255, 255, 0.92)",
                     color: "#1a1a1c",
                     fontFamily: "var(--font-family-inter)",
                     fontSize: "var(--text-base)",
@@ -238,7 +258,7 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
                 </div>
               </div>
               <div className="px-5 pb-3">
-                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "rgba(var(--foreground-rgb), 0.45)" }}>
+                <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "rgba(255, 255, 255, 0.45)" }}>
                   Esse código está atrás do seu cartão, ao lado da assinatura.
                 </span>
               </div>

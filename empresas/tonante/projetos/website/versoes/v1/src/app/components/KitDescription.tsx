@@ -100,7 +100,10 @@ function PraQuemE({ seed }: { seed: KitSeed }) {
       </div>
       {/* Único bloco full-bleed da página: o macro preenche o quadro inteiro,
           sem respiro, porque é o contraponto ao branco de tudo em volta. */}
-      <div className="overflow-hidden rounded-[var(--radius-card-lg)] bg-[#FAF8F5]">
+      <div
+        className="overflow-hidden rounded-[var(--radius-card-lg)]"
+        style={{ background: "var(--gradient-photo)" }}
+      >
         <img
           src={`/kits/quem/${seed.key}.png`}
           alt=""
@@ -159,7 +162,10 @@ function Cenas({ seed }: { seed: KitSeed }) {
     <section className="space-y-14">
       {/* Onde o v3 põe a régua de FPS, aqui vai o som. É a única métrica que um
           instrumento tem e que o cliente entende sem legenda. */}
-      <div className="flex flex-wrap items-center gap-6 rounded-[var(--radius-card-lg)] bg-[#FAF8F5] px-7 py-6">
+      <div
+        className="flex flex-wrap items-center gap-6 rounded-[var(--radius-card-lg)] px-7 py-6"
+        style={{ background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)", border: "1px solid rgba(var(--foreground-rgb), 0.08)" }}
+      >
         <button
           type="button"
           onClick={alternar}

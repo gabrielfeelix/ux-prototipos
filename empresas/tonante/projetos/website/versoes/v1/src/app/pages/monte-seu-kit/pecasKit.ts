@@ -299,8 +299,12 @@ export const selecaoVazia = (): Selecao => ({
   tocar: [],
 });
 
-/** Tudo que o kit tem a dizer sobre si. Erro bloqueia o fechamento; aviso não. */
-export function checarKit(sel: Selecao): Recado[] {
+/** Tudo que o kit tem a dizer sobre si. Erro bloqueia o fechamento; aviso não.
+ *
+ * `fechando` liga os avisos de AUSÊNCIA (falta cabo, falta jogo reserva). Eles
+ * só valem quando o kit está pronto: cobrar no meio do caminho uma peça que o
+ * passo seguinte ainda vai oferecer é ralhar com quem está obedecendo. */
+export function checarKit(sel: Selecao, fechando = false): Recado[] {
   const recados: Recado[] = [];
   const instrumento = sel.instrumento[0] ?? null;
   if (!instrumento) return recados;
@@ -329,7 +333,7 @@ export function checarKit(sel: Selecao): Recado[] {
     }
   }
 
-  if (temCaptacao(instrumento) && sel.ligar.length === 0) {
+  if (fechando && temCaptacao(instrumento) && sel.ligar.length === 0) {
     recados.push({
       gravidade: "aviso",
       slot: "ligar",
@@ -354,7 +358,7 @@ export function checarKit(sel: Selecao): Recado[] {
     });
   }
 
-  if (sel.cordas.length === 0) {
+  if (fechando && sel.cordas.length === 0) {
     recados.push({
       gravidade: "aviso",
       slot: "cordas",

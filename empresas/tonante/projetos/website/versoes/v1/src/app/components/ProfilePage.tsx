@@ -136,6 +136,16 @@ function dataCurta(d: string) {
   return Number.isNaN(dia.getTime()) ? "" : dia.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
 }
 
+/* "2026-04-07 09:15" -> "7 abr, 09:15" — o card em rota mostra a hora, a
+   lista de pedidos não; por isso não dá pra reaproveitar dataCurta. */
+function dataHora(d: string) {
+  const [dia, hora] = d.split(" ");
+  const data = new Date(dia + "T12:00:00");
+  if (Number.isNaN(data.getTime())) return d;
+  const curta = data.toLocaleDateString("pt-BR", { day: "numeric", month: "short" }).replace(".", "").replace(" de ", " ");
+  return hora ? `${curta}, ${hora}` : curta;
+}
+
 function saudacao() {
   const h = new Date().getHours();
   if (h < 12) return "Bom dia";
@@ -592,16 +602,24 @@ export function ProfilePage() {
                               </span>
                             </h3>
                             <p className="text-foreground/60 mt-1.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                              {stages[stageIdx].label} · Pedido {nextOrder.id}
-                              {nextOrder.destination ? ` · ${nextOrder.destination}` : ""}
+                              {nextOrder.destination
+                                ? `${stages[stageIdx].label} para ${nextOrder.destination.replace(" · ", ", ")}`
+                                : stages[stageIdx].label}
+                            </p>
+                            <p className="text-foreground/50 mt-1 sm:hidden" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
+                              {nextOrder.id} · {nextOrder.items.length} {nextOrder.items.length === 1 ? "item" : "itens"} · {nextOrder.total}
                             </p>
                           </div>
                           {/* pilha de fotos: identifica o pedido sem pedir leitura */}
                           <button
                             onClick={() => { setProfileTab("orders"); setSelectedOrderId(nextOrder.id); }}
                             aria-label={`Abrir pedido ${nextOrder.id}`}
-                            className="hidden sm:flex items-center flex-shrink-0 cursor-pointer"
+                            className="hidden sm:flex flex-col items-end gap-2 flex-shrink-0 cursor-pointer group"
                           >
+                            <span className="text-foreground/50 group-hover:text-foreground/70 transition-colors" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
+                              {nextOrder.id} · {nextOrder.items.length} {nextOrder.items.length === 1 ? "item" : "itens"} · {nextOrder.total}
+                            </span>
+                            <span className="flex items-center">
                             {nextOrder.items.slice(0, 3).map((item, i) => (
                               <span
                                 key={i}
@@ -634,6 +652,7 @@ export function ProfilePage() {
                                 +{nextOrder.items.length - 3}
                               </span>
                             )}
+                            </span>
                           </button>
                         </div>
 
@@ -646,7 +665,7 @@ export function ProfilePage() {
                                   className="block h-full"
                                   style={{ borderRadius: "var(--radius-pill)", background: idx === stageIdx ? "var(--primary)" : "var(--ink-strong)", transformOrigin: "left" }}
                                   initial={{ scaleX: 0 }}
-                                  animate={{ scaleX: idx <= stageIdx ? 1 : 0 }}
+                                  animate={{ scaleX: idx < stageIdx ? 1 : idx === stageIdx ? 0.45 : 0 }}
                                   transition={{ duration: 0.55, delay: 0.1 + idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
                                 />
                               </span>
@@ -655,23 +674,24 @@ export function ProfilePage() {
                           {lastUpdate && (
                             <p className="mt-3 flex flex-wrap items-baseline gap-x-2 text-foreground/70" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                               <span className="text-foreground/85">{lastUpdate.description}</span>
-                              <span className="text-foreground/45">{lastUpdate.date}</span>
+                              <span className="text-foreground/45">{dataHora(lastUpdate.date)}</span>
                             </p>
                           )}
                         </div>
 
                         {/* ações: uma primária, o resto discreto */}
-                        <div className="mt-6 flex flex-wrap items-center gap-2">
+                        <div className="mt-6 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2">
                           <button
                             onClick={() => { setProfileTab("orders"); setSelectedOrderId(nextOrder.id); }}
-                            className="inline-flex items-center justify-center min-h-[44px] gap-2 px-5 py-2 btn-tonante transition-transform cursor-pointer active:scale-[0.98]"
+                            className="inline-flex w-full sm:w-auto items-center justify-center min-h-[44px] gap-2 px-5 py-2 btn-tonante transition-transform cursor-pointer active:scale-[0.98]"
                             style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
                           >
                             <Truck size={15} aria-hidden="true" /> Rastrear pedido
                           </button>
+                          <div className="flex items-center justify-between gap-2 sm:contents">
                           <button
                             onClick={() => setProfileTab("help")}
-                            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 text-foreground/65 hover:text-foreground transition-colors cursor-pointer"
+                            className="inline-flex items-center justify-center min-h-[44px] px-4 py-2 -ml-4 sm:ml-0 text-foreground/65 hover:text-foreground transition-colors cursor-pointer"
                             style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 500 }}
                           >
                             Preciso de ajuda
@@ -686,6 +706,7 @@ export function ProfilePage() {
                               <ChevronRight size={15} aria-hidden="true" />
                             </button>
                           )}
+                          </div>
                         </div>
                       </div>
                     );
@@ -1223,81 +1244,103 @@ export function ProfilePage() {
 
               {activeTab === "points" && (() => {
                 const history = user.pcyesPointsHistory ?? [];
+                const saldo = user.pcyesPoints ?? 0;
                 const totalEarned = history.filter((h) => h.amount > 0).reduce((acc, h) => acc + h.amount, 0);
                 const totalSpent = -history.filter((h) => h.amount < 0).reduce((acc, h) => acc + h.amount, 0);
                 const nextExpiring = history.filter((h) => h.expiresAt && h.amount > 0).sort((a, b) => new Date(a.expiresAt!).getTime() - new Date(b.expiresAt!).getTime())[0];
                 const today = new Date(2026, 4, 18);
                 const daysToExpire = nextExpiring ? Math.ceil((new Date(nextExpiring.expiresAt!).getTime() - today.getTime()) / (1000 * 60 * 60 * 24)) : 0;
+                const limitePedido = Math.min(saldo, 480);
+                const painel = {
+                  borderRadius: "var(--radius-card-xl)",
+                  background: isDark ? "rgba(var(--foreground-rgb), 0.03)" : "var(--surface-1)",
+                  border: "1px solid var(--edge-subtle)",
+                  boxShadow: isDark ? "none" : "var(--shadow-card)",
+                } as const;
+                const hairline = isDark ? "1px solid rgba(var(--foreground-rgb), 0.07)" : "1px solid var(--edge-subtle)";
+                const tituloBloco: React.CSSProperties = {
+                  fontFamily: "var(--font-family-figtree)",
+                  fontSize: "17px",
+                  fontWeight: 600,
+                  letterSpacing: "-0.01em",
+                };
+                const formas = [
+                  { icon: ShoppingBag, title: "Comprar", desc: "1 ponto a cada R$ 10 do pedido" },
+                  { icon: Star, title: "Avaliar o que chegou", desc: "5 pontos por avaliação publicada" },
+                  { icon: Share2, title: "Indicar quem toca", desc: "50 pontos na primeira compra do amigo" },
+                ];
+                const tipoLabel: Record<string, string> = { earn: "Compra", bonus: "Bônus", spend: "Resgate", expire: "Vencimento" };
                 return (
                   <motion.div key="points" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-                    <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
-                      <h2 className="text-foreground" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "26px", fontWeight: 700, letterSpacing: "-0.02em" }}>Ton Points</h2>
-                      <p className="text-foreground/55" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>1 pt = R$ 0,10 · Use até 30% por pedido</p>
-                    </div>
+                    <h2 className="text-foreground mb-6" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "26px", fontWeight: 700, letterSpacing: "-0.02em" }}>Ton Points</h2>
 
-                    {/* Hero saldo */}
-                    <div className="relative mb-3 overflow-hidden p-6" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
-                      <div className="flex items-center gap-4 mb-4">
-                        <PcyesCoin size={56} />
-                        <div className="flex-1">
-                          <p style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--primary)" }}>Saldo disponível</p>
-                          <p style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-h3)", fontWeight: 700, lineHeight: 1, color: "var(--primary)" }}>
-                            {(user.pcyesPoints ?? 0).toLocaleString("pt-BR")}
+                    {/* Painel do saldo: o número é a manchete, o resto explica */}
+                    <div className="mb-3 overflow-hidden" style={painel}>
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 p-6 sm:p-7">
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <PcyesCoin size={22} />
+                            <p className="text-foreground/60" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Saldo disponível</p>
+                          </div>
+                          <p className="text-foreground flex items-baseline gap-2" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "clamp(34px, 6vw, 46px)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1 }}>
+                            {saldo.toLocaleString("pt-BR")}
+                            <span className="text-foreground/45" style={{ fontSize: "17px", fontWeight: 600, letterSpacing: "0" }}>pontos</span>
                           </p>
-                          <p className="text-foreground/65 mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                            Equivale a <span className="text-foreground font-semibold">R$ {((user.pcyesPoints ?? 0) * 0.1).toFixed(2).replace(".", ",")}</span> em desconto
+                          <p className="text-foreground/65 mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
+                            Valem <span className="text-foreground" style={{ fontWeight: 600 }}>R$ {(saldo * 0.1).toFixed(2).replace(".", ",")}</span> de desconto. Cada pedido aceita até 30% do valor em pontos.
                           </p>
                         </div>
+                        <Link
+                          to="/produtos"
+                          className="inline-flex w-full sm:w-auto items-center justify-center min-h-[44px] px-5 py-2 btn-tonante transition-transform cursor-pointer active:scale-[0.98] flex-shrink-0"
+                          style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
+                        >
+                          Usar nas compras
+                        </Link>
+                      </div>
+
+                      {/* três números que contextualizam o saldo, no mesmo painel */}
+                      <div className="grid grid-cols-2 sm:grid-cols-3" style={{ borderTop: hairline }}>
+                        {[
+                          { label: "Acumulado", valor: totalEarned },
+                          { label: "Já resgatado", valor: totalSpent },
+                          { label: "Limite por pedido", valor: limitePedido },
+                        ].map((stat, i) => (
+                          <div
+                            key={stat.label}
+                            className={`px-6 py-4 ${i === 2 ? "col-span-2 sm:col-span-1" : ""}`}
+                            style={{ borderLeft: i === 0 ? undefined : hairline, borderTop: i === 2 ? hairline : undefined }}
+                          >
+                            <p className="text-foreground/55" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>{stat.label}</p>
+                            <p className="text-foreground mt-0.5" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "21px", fontWeight: 600, letterSpacing: "-0.01em" }}>
+                              {stat.valor.toLocaleString("pt-BR")} <span className="text-foreground/45" style={{ fontSize: "var(--text-caption)", fontWeight: 500 }}>pts</span>
+                            </p>
+                          </div>
+                        ))}
                       </div>
 
                       {nextExpiring && daysToExpire > 0 && daysToExpire <= 60 && (
-                        <div className="flex items-center gap-2 p-3 mt-3" style={{ borderRadius: "var(--radius-card-xl)", background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.22)" }}>
-                          <AlertCircle size={14} className="text-yellow-500 flex-shrink-0" />
-                          <p className="text-yellow-500" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
-                            {nextExpiring.amount} pts vencem em {daysToExpire} {daysToExpire === 1 ? "dia" : "dias"} · {new Date(nextExpiring.expiresAt!).toLocaleDateString("pt-BR")}
+                        <div className="flex items-center gap-2.5 px-6 py-3.5" style={{ borderTop: hairline, background: isDark ? "rgba(var(--foreground-rgb), 0.02)" : "rgba(17,17,17,0.015)" }}>
+                          <span className="h-2 w-2 rounded-full flex-shrink-0" style={{ background: "var(--primary)" }} aria-hidden="true" />
+                          <p className="text-foreground/70" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
+                            <span className="text-foreground" style={{ fontWeight: 600 }}>{nextExpiring.amount} pontos</span> vencem em {daysToExpire} {daysToExpire === 1 ? "dia" : "dias"}, dia {new Date(nextExpiring.expiresAt!).toLocaleDateString("pt-BR")}.
                           </p>
                         </div>
                       )}
                     </div>
 
-                    {/* Stats grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3">
-                      <div className="p-4" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
-                        <p className="text-foreground/55 mb-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Acumulado</p>
-                        <p className="text-foreground flex items-baseline gap-1" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 600 }}>
-                          {totalEarned} <span className="text-foreground/55" style={{ fontSize: "var(--text-caption)", fontWeight: 500 }}>pts</span>
-                        </p>
-                      </div>
-                      <div className="p-4" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
-                        <p className="text-foreground/55 mb-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Resgatado</p>
-                        <p className="text-foreground flex items-baseline gap-1" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 600 }}>
-                          {totalSpent} <span className="text-foreground/55" style={{ fontSize: "var(--text-caption)", fontWeight: 500 }}>pts</span>
-                        </p>
-                      </div>
-                      <div className="p-4 col-span-2 md:col-span-1" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
-                        <p className="text-foreground/55 mb-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Próximo pedido pode usar até</p>
-                        <p className="text-foreground flex items-baseline gap-1" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 600 }}>
-                          {Math.min(user.pcyesPoints ?? 0, 480)} <span className="text-foreground/55" style={{ fontSize: "var(--text-caption)", fontWeight: 500 }}>pts</span>
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Como funciona */}
-                    <div className="p-5 mb-3" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
-                      <p className="text-foreground mb-3" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Como ganhar mais</p>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                        {[
-                          { icon: ShoppingBag, title: "Cada compra", desc: "1 pt a cada R$ 10 gastos" },
-                          { icon: Star, title: "Avaliar produtos", desc: "+5 pts por avaliação" },
-                          { icon: Share2, title: "Indicar amigos", desc: "+50 pts quando o amigo compra" },
-                        ].map((item) => (
-                          <div key={item.title} className="flex items-start gap-2.5 p-3" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)" }}>
-                            <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "var(--well)", border: "1px solid var(--edge-subtle)" }}>
-                              <item.icon size={13} style={{ color: "var(--primary)" }} />
-                            </div>
+                    {/* Como ganhar mais: três linhas, uma superfície */}
+                    <div className="p-6 sm:p-7 mb-3" style={painel}>
+                      <h3 className="text-foreground mb-4" style={tituloBloco}>Como ganhar mais pontos</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                        {formas.map((item) => (
+                          <div key={item.title} className="flex items-start gap-3">
+                            <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(200,120,0,0.10)" }}>
+                              <item.icon size={15} style={{ color: "var(--primary)" }} aria-hidden="true" />
+                            </span>
                             <div className="min-w-0">
-                              <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>{item.title}</p>
-                              <p className="text-foreground/60" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>{item.desc}</p>
+                              <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>{item.title}</p>
+                              <p className="text-foreground/60 mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.5 }}>{item.desc}</p>
                             </div>
                           </div>
                         ))}
@@ -1305,47 +1348,55 @@ export function ProfilePage() {
                     </div>
 
                     {/* Histórico */}
-                    <div className="overflow-hidden" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
-                      <div className="px-5 py-3 flex items-center justify-between" style={{ borderBottom: isDark ? "1px solid rgba(var(--foreground-rgb), 0.04)" : "1px solid rgba(0,0,0,0.04)" }}>
-                        <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase" }}>Histórico</p>
-                        <p className="text-foreground/55" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>{history.length} {history.length === 1 ? "transação" : "transações"}</p>
+                    <div className="overflow-hidden" style={painel}>
+                      <div className="flex items-baseline justify-between gap-3 px-6 sm:px-7 pt-6 pb-4">
+                        <h3 className="text-foreground" style={tituloBloco}>Histórico</h3>
+                        <p className="text-foreground/50" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
+                          {history.length} {history.length === 1 ? "lançamento" : "lançamentos"}
+                        </p>
                       </div>
                       {history.length === 0 ? (
-                        <div className="text-center py-12 px-6">
-                          <PcyesCoin size={40} />
-                          <p className="text-foreground/55 mt-3" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Nenhuma transação ainda</p>
+                        <div className="text-center px-6 pb-12 pt-4">
+                          <div className="flex justify-center mb-3 opacity-70"><PcyesCoin size={36} /></div>
+                          <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>Nenhum ponto ainda</p>
+                          <p className="text-foreground/55 mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>A primeira compra já rende pontos.</p>
                         </div>
                       ) : (
                         <div>
                           {history.map((tx, idx) => {
                             const isPositive = tx.amount > 0;
                             const txDate = new Date(tx.date);
-                            const txTypeMap = {
-                              earn: { label: "Ganhou", color: "text-green-500" },
-                              bonus: { label: "Bônus", color: "text-yellow-500" },
-                              spend: { label: "Resgatou", color: "text-foreground/65" },
-                              expire: { label: "Expirou", color: "text-red-400" },
-                            };
-                            const txStyle = txTypeMap[tx.type];
+                            const Icone = tx.type === "spend" ? Receipt : tx.type === "expire" ? AlertCircle : Sparkles;
                             return (
-                              <div key={tx.id} className="flex items-center gap-3 px-5 py-3" style={{ borderTop: idx > 0 ? (isDark ? "1px solid rgba(var(--foreground-rgb), 0.03)" : "1px solid rgba(0,0,0,0.03)") : undefined }}>
-                                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: isPositive ? "rgba(34,197,94,0.10)" : "rgba(239,68,68,0.08)" }}>
-                                  {isPositive ? <Sparkles size={13} className="text-green-500" /> : <Receipt size={13} className="text-foreground/70" />}
-                                </div>
+                              <div
+                                key={tx.id}
+                                className="flex items-center gap-3.5 px-6 sm:px-7 py-4"
+                                style={{ borderTop: hairline }}
+                              >
+                                <span
+                                  className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                                  style={{ background: isPositive ? "rgba(200,120,0,0.10)" : "rgba(var(--foreground-rgb), 0.06)" }}
+                                >
+                                  <Icone size={15} style={{ color: isPositive ? "var(--primary)" : "rgba(var(--foreground-rgb), 0.55)" }} aria-hidden="true" />
+                                </span>
                                 <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 mb-0.5">
-                                    <p className="text-foreground truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: "var(--font-weight-medium)" }}>{tx.description}</p>
-                                    <span className={`${txStyle.color} flex-shrink-0`} style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>
-                                      {txStyle.label}
-                                    </span>
-                                  </div>
-                                  <p className="text-foreground/55" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                                    {txDate.toLocaleDateString("pt-BR")} · {txDate.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
-                                    {tx.expiresAt && isPositive && ` · vence em ${new Date(tx.expiresAt).toLocaleDateString("pt-BR")}`}
+                                  <p className="text-foreground truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 500 }}>{tx.description}</p>
+                                  <p className="text-foreground/50 mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
+                                    {tipoLabel[tx.type] ?? tx.type} · {txDate.toLocaleDateString("pt-BR")}
+                                    {tx.expiresAt && isPositive ? ` · vence ${new Date(tx.expiresAt).toLocaleDateString("pt-BR")}` : ""}
                                   </p>
                                 </div>
-                                <p className={`flex-shrink-0 ${isPositive ? "text-green-500" : "text-foreground/65"}`} style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: 700 }}>
-                                  {isPositive ? "+" : ""}{tx.amount} <span style={{ fontSize: "var(--text-caption)", fontWeight: 600 }}>pts</span>
+                                <p
+                                  className="flex-shrink-0"
+                                  style={{
+                                    fontFamily: "var(--font-family-figtree)",
+                                    fontSize: "17px",
+                                    fontWeight: 600,
+                                    fontVariantNumeric: "tabular-nums",
+                                    color: isPositive ? "var(--primary)" : "rgba(var(--foreground-rgb), 0.55)",
+                                  }}
+                                >
+                                  {isPositive ? "+" : ""}{tx.amount.toLocaleString("pt-BR")}
                                 </p>
                               </div>
                             );
