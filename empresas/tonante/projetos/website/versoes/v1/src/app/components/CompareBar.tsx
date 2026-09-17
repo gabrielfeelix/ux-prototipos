@@ -10,18 +10,63 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 /* Comparador do catálogo (ref: Gibson/Epiphone, layout nosso).
    Só compara produtos do MESMO tipo — comparar um violão com uma capa não
    responde pergunta nenhuma, e a tabela de specs sairia com metade das linhas
-   vazia. O tipo é a subcategoria quando existe (Violão Clássico, Capas), senão
-   a categoria. */
+   vazia. O tipo é a CATEGORIA: só 14 produtos do catálogo têm subcategoria
+   preenchida, então usá-la barraria duas guitarras irmãs só porque uma tem
+   "Les Paul" e a outra não. */
 
 export const COMPARE_MAX = 3;
 
 export function compareTypeOf(product: Product): string {
-  return (product.subcategory || "").trim() || product.category;
+  return product.category;
 }
 
-/* Botão sob o card. Fora do quadro da foto de propósito: o card já usa os
-   quatro cantos da imagem (medalhão, desconto, favoritar, espiar, ouvir o
-   timbre) e mais um flutuante ali vira disputa de hover. */
+export type CompareCardState = {
+  /** modo comparar ligado na barra de controle do catálogo */
+  active: boolean;
+  selected: boolean;
+  disabled: boolean;
+  onToggle: () => void;
+};
+
+/* Pílula dentro do card, canto superior direito da foto — só existe no modo
+   comparar, e nesse modo o card recolhe o play/espiar do hover pra não ter
+   dois botões disputando o mesmo canto. */
+export function ComparePill({ selected, disabled, onToggle, className = "" }: {
+  selected: boolean;
+  disabled?: boolean;
+  onToggle: () => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggle(); }}
+      aria-pressed={selected}
+      disabled={disabled && !selected}
+      className={`z-[3] inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-2 transition-all disabled:cursor-not-allowed ${className}`}
+      style={{
+        borderRadius: "var(--radius-pill)",
+        background: selected ? "var(--primary)" : "rgba(255,255,255,0.94)",
+        color: selected ? "#ffffff" : "var(--ink-strong)",
+        border: `1px solid ${selected ? "var(--primary)" : "var(--edge)"}`,
+        boxShadow: "0 2px 10px rgba(17,17,17,0.10)",
+        fontFamily: "var(--font-family-inter)",
+        fontSize: "12.5px",
+        fontWeight: 600,
+        opacity: disabled && !selected ? 0.45 : 1,
+      }}
+    >
+      {selected && (
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+          <path d="M2.5 6.3 4.8 8.6 9.5 3.9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+      {selected ? "Selecionado" : "Comparar"}
+    </button>
+  );
+}
+
+/* Versão em linha (lista) — checkbox + rótulo. */
 export function CompareToggle({
   selected,
   disabled,
@@ -143,6 +188,7 @@ function Slot({ product, onRemove }: { product?: Product; onRemove?: () => void 
 }
 
 export function CompareBar({
+  open,
   items,
   collapsed,
   onToggleCollapsed,
@@ -151,6 +197,7 @@ export function CompareBar({
   onStart,
   notice,
 }: {
+  open: boolean;
   items: Product[];
   collapsed: boolean;
   onToggleCollapsed: () => void;
@@ -164,7 +211,7 @@ export function CompareBar({
 
   return (
     <AnimatePresence>
-      {items.length > 0 && (
+      {open && (
         <motion.div
           initial={{ y: "100%" }}
           animate={{ y: 0 }}

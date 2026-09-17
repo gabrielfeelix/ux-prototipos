@@ -17,6 +17,7 @@ import { getPreOrderInfo } from "../components/PreOrderData";
 import { PreOrderPill } from "../components/section";
 import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
 import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
+import { ComparePill, type CompareCardState } from "../components/CompareBar";
 
 /* ProductCardV2 — card do teste /v2 (referência: tema Helix).
    Foto numa caixa cinza-clara sem borda, badges no topo, ações que só
@@ -50,9 +51,11 @@ interface ProductCardV2Props {
   style?: React.CSSProperties;
   /** "catalog" libera o espiar (olho); na home o card fica limpo */
   context?: "home" | "catalog";
+  /** modo comparar do catálogo — ver components/CompareBar.tsx */
+  compare?: CompareCardState;
 }
 
-export function ProductCardV2({ product: base, href, rank, onAdd, className = "", style, context = "home" }: ProductCardV2Props) {
+export function ProductCardV2({ product: base, href, rank, onAdd, className = "", style, context = "home", compare }: ProductCardV2Props) {
   const { addItem } = useCart();
   const navigate = useNavigate();
   /* As miniaturas são VARIANTES de acabamento (branca, preta, natural…),
@@ -200,8 +203,18 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
           )}
         </div>
 
+        {/* modo comparar: a pílula toma o canto e o play/espiar sai de cena */}
+        {compare?.active && (
+          <ComparePill
+            selected={compare.selected}
+            disabled={compare.disabled}
+            onToggle={compare.onToggle}
+            className="absolute right-3 top-3"
+          />
+        )}
+
         {/* instrumento: ouvir o timbre. catálogo: espiar. home não-instrumento: nada */}
-        {amostra || preset ? (
+        {compare?.active ? null : amostra || preset ? (
           <button
             onClick={() => {
               if (playing) {

@@ -88,14 +88,21 @@ export function LegalPageLayout({
             transition={{ duration: 0.6, ease: easeOut }}
             className="max-w-3xl"
           >
+            {/* Mesma pílula do ProductCardV2, que é o badge da casa: gradiente
+                de marca com texto BRANCO. Âmbar com tinta escura por dentro não
+                existe em nenhum outro lugar do site — era herança do template,
+                e o glow âmbar embaixo também (a Tonante usa sombra neutra). */}
             <span
-              className="inline-flex w-fit items-center rounded-full bg-primary px-2.5 py-1 text-ink-strong"
+              className="inline-flex w-fit items-center rounded-pill px-2.5 py-1"
               style={{
+                backgroundImage: "var(--gradient-brand)",
+                color: "#fff",
                 fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-caption)",
-                letterSpacing: "0.18em",
-                fontWeight: 700,
-                boxShadow: "0 6px 22px -4px rgba(200, 120, 0,0.55)",
+                fontSize: "11px",
+                letterSpacing: "0.1em",
+                fontWeight: 800,
+                textTransform: "uppercase",
+                boxShadow: "var(--shadow-brand-pill)",
               }}
             >
               {badge}

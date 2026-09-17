@@ -14,6 +14,7 @@ import { getCardSpecs } from "./productAttributes";
 import { DiscountBadge } from "./section";
 import { useFavorites } from "./FavoritesContext";
 import { useCardVariant } from "./CardVariantContext";
+import { type CompareCardState } from "./CompareBar";
 import { ProductCardV2 } from "../v2/ProductCardV2";
 
 /**
@@ -39,6 +40,7 @@ interface ProductCardProps {
   emphasizeDiscount?: boolean;
   onAdd?: (product: Product) => void;
   onFavorite?: (product: Product) => void;
+  compare?: CompareCardState;
   className?: string;
   style?: CSSProperties;
 }
@@ -48,11 +50,11 @@ interface ProductCardProps {
 export function ProductCard(props: ProductCardProps) {
   const variant = useCardVariant();
   if (variant === "v2") {
-    const { product, href, rank, onAdd, className, style } = props;
+    const { product, href, rank, onAdd, className, style, compare } = props;
     // o card da v2 não tem moldura: descarta o realce de borda/sombra que a
     // prateleira aplica no #1 (isso é linguagem do card clássico)
     const { borderColor: _b, boxShadow: _s, border: _br, background: _bg, ...cleanStyle } = style ?? {};
-    return <ProductCardV2 product={product} href={href} rank={rank} onAdd={onAdd} className={className} style={cleanStyle} />;
+    return <ProductCardV2 product={product} href={href} rank={rank} onAdd={onAdd} className={className} style={cleanStyle} compare={compare} />;
   }
   return <ProductCardClassic {...props} />;
 }

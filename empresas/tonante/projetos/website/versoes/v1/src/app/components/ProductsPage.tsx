@@ -7,6 +7,7 @@ import {
   SlidersHorizontal, ArrowUpDown, ChevronDown, Grid3X3, LayoutList,
   Heart, ShoppingBag, Star, X, ArrowUpRight, ChevronLeft,
   ChevronRight, Check, Eye, Minus, Plus,
+  Scale,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "./CartContext";
@@ -424,6 +425,7 @@ export function ProductsPage() {
      comparar violão com capa devolveria uma tabela meio vazia. Ver
      CompareBar.tsx. */
   const compareNavigate = useNavigate();
+  const [compareMode, setCompareMode] = useState(false);
   const [compareItems, setCompareItems] = useState<Product[]>([]);
   const [compareCollapsed, setCompareCollapsed] = useState(false);
   const [compareNotice, setCompareNotice] = useState<string | null>(null);
@@ -817,6 +819,15 @@ export function ProductsPage() {
     return () => window.clearTimeout(t);
   }, [compareNotice]);
 
+  const compareStateFor = (product: Product) => ({
+    active: compareMode,
+    selected: compareItems.some((p) => p.id === product.id),
+    disabled:
+      (compareType !== null && compareType !== compareTypeOf(product)) ||
+      compareItems.length >= COMPARE_MAX,
+    onToggle: () => toggleCompare(product),
+  });
+
   const toggleCompare = useCallback((product: Product) => {
     setCompareItems((current) => {
       if (current.some((p) => p.id === product.id)) {
@@ -832,6 +843,7 @@ export function ProductsPage() {
       }
       setCompareNotice(null);
       setCompareCollapsed(false);
+      setCompareMode(true);
       return [...current, product];
     });
   }, []);
@@ -1288,6 +1300,30 @@ export function ProductsPage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 xl:flex-nowrap">
+              {/* Comparar — liga o modo e sobe a barra do comparador */}
+              <button
+                onClick={() => {
+                  setCompareMode((on) => {
+                    if (on) { setCompareItems([]); setCompareNotice(null); }
+                    return !on;
+                  });
+                }}
+                aria-pressed={compareMode}
+                className="flex min-h-[44px] cursor-pointer items-center gap-2 border px-4 py-2 transition-colors lg:min-h-0"
+                style={{
+                  borderRadius: "var(--radius-pill)",
+                  borderColor: compareMode ? "var(--ink-strong)" : "var(--edge)",
+                  background: compareMode ? "var(--ink-strong)" : "transparent",
+                  color: compareMode ? "#ffffff" : "var(--ink-muted)",
+                  fontFamily: "var(--font-family-inter)",
+                  fontSize: "var(--text-sm)",
+                  fontWeight: 600,
+                }}
+              >
+                <Scale size={14} strokeWidth={1.9} />
+                {compareMode ? "Cancelar" : "Comparar"}
+              </button>
+
               {/* Sort */}
               <div className="relative">
                 <button onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
@@ -1443,20 +1479,8 @@ export function ProductsPage() {
                           swatches
                           favorite
                           onAdd={handleAddToCart}
+                          compare={compareStateFor(product)}
                         />
-                        {/* comparador: mora abaixo do card porque os quatro
-                            cantos da foto já têm dono (medalhão, desconto,
-                            favoritar, espiar/ouvir) */}
-                        <div className="mt-3">
-                          <CompareToggle
-                            selected={compareItems.some((p) => p.id === product.id)}
-                            disabled={
-                              (compareType !== null && compareType !== compareTypeOf(product)) ||
-                              compareItems.length >= COMPARE_MAX
-                            }
-                            onToggle={() => toggleCompare(product)}
-                          />
-                        </div>
                       </motion.div>
                     ))}
                   </AnimatePresence>
@@ -1523,6 +1547,7 @@ export function ProductsPage() {
                               className="sm:hidden mt-2.5 flex w-full items-center justify-center gap-2 rounded-full py-2 cursor-pointer"
                               style={{ background: "var(--gradient-buy)", color: "white", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, letterSpacing: "0.04em", boxShadow: "var(--shadow-buy-cta-sm)" }}
                             ><ShoppingBag size={14} strokeWidth={2} /> Comprar</button>
+                            {compareMode && (
                             <CompareToggle
                               selected={compareItems.some((p) => p.id === product.id)}
                               disabled={
@@ -1531,6 +1556,7 @@ export function ProductsPage() {
                               }
                               onToggle={() => toggleCompare(product)}
                             />
+                            )}
                           </div>
 
                           {/* Favorite — absolute top-right on mobile, inline column on desktop */}
@@ -1903,16 +1929,17 @@ export function ProductsPage() {
 
       {/* ── Comparador (barra inferior) ── */}
       <CompareBar
+        open={compareMode || compareItems.length > 0}
         items={compareItems}
         collapsed={compareCollapsed}
         onToggleCollapsed={() => setCompareCollapsed((v) => !v)}
         onRemove={(id) => setCompareItems((c) => c.filter((p) => p.id !== id))}
-        onClear={() => { setCompareItems([]); setCompareNotice(null); }}
+        onClear={() => { setCompareItems([]); setCompareNotice(null); setCompareMode(false); }}
         onStart={() => compareNavigate(`/comparar?ids=${compareItems.map((p) => p.id).join(",")}`)}
         notice={compareNotice}
       />
       {/* respiro pra barra não comer a paginação nem o rodapé */}
-      {compareItems.length > 0 && (
+      {(compareMode || compareItems.length > 0) && (
         <div aria-hidden style={{ height: compareCollapsed ? 84 : 196 }} />
       )}
 
