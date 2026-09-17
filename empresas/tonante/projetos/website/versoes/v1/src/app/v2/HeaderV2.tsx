@@ -173,7 +173,11 @@ export function HeaderV2() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, []);
+    /* `pathname` na dependência porque o header muda de altura conforme a rota
+       (no checkout ele não tem a linha da busca). Sem remedir, o spacer
+       continuava reservando a altura da rota anterior e sobrava um vão de
+       ~56px entre o header e o começo da página. */
+  }, [pathname]);
 
   /* --header-h: a altura que o header ocupa AGORA (ele encolhe ao rolar).
      Quem gruda logo abaixo dele — a barra de filtros da listagem — precisa
@@ -457,10 +461,14 @@ export function HeaderV2() {
       </div>
 
       {/* busca do celular — campo aberto, não ícone: em loja a busca é o
-          caminho principal e esconder atrás de um toque derruba o uso. */}
-      <div className="px-4 pb-2.5 md:hidden">
-        <SearchBar panelAnchor="viewport" compact />
-      </div>
+          caminho principal e esconder atrás de um toque derruba o uso. No
+          checkout ela sai: quem está pagando não está procurando produto, e a
+          linha a menos devolve altura de tela para a etapa. */}
+      {pathname !== "/checkout" && (
+        <div className="px-4 pb-2.5 md:hidden">
+          <SearchBar panelAnchor="viewport" compact />
+        </div>
+      )}
 
       {/* faixa de navegação — some ao rolar; no celular vive na gaveta */}
       <div

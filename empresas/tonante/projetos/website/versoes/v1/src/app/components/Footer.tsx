@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import { Facebook, Instagram, Linkedin, Youtube, ShieldCheck, ChevronDown } from "lucide-react";
 import { SOCIAL_LINKS, type SocialLabel } from "./socialLinks";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -9,7 +9,6 @@ import { useIsMobile } from "./ui/use-mobile";
 // portado da referência de marca (_ref). Statement serif + headers âmbar +
 // bandeiras reais (translúcidas) sob "Pague com" e cluster de certificados.
 const brandLogoWhite = "/brand/tonante-wordmark-white.png";
-const brandLogoDark = "/brand/tonante-wordmark-dark.png";
 const paymentMethodsImage = "/img/pagamentos.png";
 
 const footerColumns = [
@@ -81,37 +80,10 @@ function SocialIcon({ label }: { label: SocialLabel }) {
 }
 
 export function Footer() {
-  const { pathname } = useLocation();
   /* No celular as colunas de links nascem fechadas (ver .footer-col no
      theme.css); a partir de 768px o <details> fica aberto e o resumo perde a
      seta e o clique. */
   const isMobile = useIsMobile();
-  const isCheckout = pathname === "/checkout";
-
-  if (isCheckout) {
-    return (
-      <footer className="bg-[#f5f5f5] border-t border-foreground/10 text-foreground py-12 mt-auto">
-        <div className="mx-auto max-w-5xl px-5 md:px-8">
-          <div className="flex flex-col items-center justify-center gap-6 text-center">
-            <Link to="/" className="hover:opacity-80 transition-opacity" aria-label="Tonante">
-              <ImageWithFallback src={brandLogoDark} alt="Tonante" className="h-[34px] w-auto object-contain" />
-            </Link>
-            <p className="max-w-md text-[var(--text-sm)] text-foreground/60" style={{ fontFamily: "var(--font-family-inter)", lineHeight: "1.6" }}>
-              Desde 1954, a Tonante conecta pessoas à música. Violões, guitarras, contrabaixos e acessórios feitos para fazer parte da história de cada artista.
-            </p>
-            <div className="flex flex-col items-center gap-2 pt-4">
-              <span className="label" style={{ color: "var(--amber-deep)", fontSize: 10 }}>Pague com</span>
-              <ImageWithFallback src={paymentMethodsImage} alt="Formas de pagamento: Visa, Mastercard, Amex, Hipercard, Elo, Pix e Boleto" className="h-7 w-auto max-w-full object-contain" />
-            </div>
-            <p className="text-foreground/40 mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-              &copy; {new Date().getFullYear()} Tonante | Todos os direitos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
-    );
-  }
-
   return (
     <footer
       data-keep-dark

@@ -412,6 +412,15 @@ export function CheckoutPage() {
     };
   }, []);
 
+  /* Trocar de etapa no celular voltava a tela na mesma altura da etapa
+     anterior: a pessoa mudava de passo e caía no meio de um formulário novo,
+     sem ver o título nem a régua de etapas. Cada etapa recomeça no topo. */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(max-width: 1023px)").matches) return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
+
   /* Esc fecha a folha, igual às outras gavetas do site. */
   useEffect(() => {
     if (!mobileSheet) return;
@@ -953,7 +962,7 @@ export function CheckoutPage() {
 
   return (
     <>
-      <div className="pt-6 md:pt-[88px] pb-8 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
+      <div className="pt-2 md:pt-[88px] pb-8 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
         <div className="mx-auto max-w-[1320px] px-5 py-4 md:px-8 md:py-6">
           <Link
             to="/carrinho"
