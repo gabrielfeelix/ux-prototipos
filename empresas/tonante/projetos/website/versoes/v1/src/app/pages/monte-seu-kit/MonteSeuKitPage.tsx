@@ -59,7 +59,7 @@ export function MonteSeuKitPage() {
 
   return (
     <main className="bg-white">
-      <div className="mx-auto max-w-[1280px] px-4 pb-24 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+      <div className="mx-auto max-w-[1280px] px-4 pb-24 pt-9 sm:px-6 lg:px-8 lg:pt-12">
         {/* A medida vai em px, não em ch: `ch` no <header> usa a fonte do CORPO,
             não a do display, e 46ch dava uns 370px — o título quebrava em duas
             palavras por linha e virava poema. */}
@@ -68,14 +68,14 @@ export function MonteSeuKitPage() {
             className="text-[clamp(2.5rem,6.5vw,4.5rem)] leading-[1.04] tracking-[-0.022em] text-foreground"
             style={{ fontFamily: "var(--font-family-figtree)" }}
           >
-            Escolha o instrumento certo pra você
+            Por onde você quer começar?
           </h1>
           {/* A onda entra no lugar da linha de apoio: ela já diz "som" sem
               precisar escrever, e escolher pelo som é o assunto da página. */}
           <EqualizerWave bars={56} height={26} className="mt-8" />
         </header>
 
-        <div className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-3">
+        <div className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
           {CAMINHOS.map((c) => (
             <CaminhoCard
               key={c.id}
