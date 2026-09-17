@@ -5,7 +5,7 @@ Estado em 2026-09-17. Branch `tonante/website-v1`, projeto em
 
 **Este handoff é só sobre celular.** O handoff anterior (15/09), com header,
 card v2, cor, tipografia, vídeos dos músicos e catálogo, está em
-`git show 13a65aee:docs/HANDOFF.md` e continua valendo para tudo que não
+`git show 13a65aee:./docs/HANDOFF.md` (o repo é um monorepo: o `./` importa) e continua valendo para tudo que não
 estiver aqui. `docs/STATE.md` é o complemento obrigatório: ele tem o registro
 detalhado da rodada mobile.
 
