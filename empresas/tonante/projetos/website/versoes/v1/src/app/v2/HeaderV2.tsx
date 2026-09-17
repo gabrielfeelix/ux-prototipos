@@ -175,6 +175,22 @@ export function HeaderV2() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
+  /* --header-h: a altura que o header ocupa AGORA (ele encolhe ao rolar).
+     Quem gruda logo abaixo dele — a barra de filtros da listagem — precisa
+     desse número, senão escorrega por baixo. Um ResizeObserver acompanha a
+     animação de colapso quadro a quadro. */
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const aplica = () => {
+      document.documentElement.style.setProperty("--header-h", `${Math.round(el.getBoundingClientRect().height)}px`);
+    };
+    aplica();
+    const ro = new ResizeObserver(aplica);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   useEffect(() => {
     ultimoY.current = window.scrollY;
     const onScroll = () => {

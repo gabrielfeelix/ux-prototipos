@@ -1283,8 +1283,15 @@ export function ProductsPage() {
           </header>
 
           {/* ── Top control bar — full width above sidebar+grid ── */}
-          <div className="flex flex-col gap-4 mb-6 pb-4 border-b border-foreground/10 xl:flex-row xl:items-center xl:justify-between">
-            <div className="flex min-w-0 flex-wrap items-center gap-4">
+          {/* No celular esta barra gruda logo abaixo do header (--header-h):
+              filtro e ordenação são o controle da página e sumiam depois da
+              primeira fileira de produtos. Comparar, "mostrar N" e o botão de
+              grade/lista ficam só no desktop — são controles de mesa. */}
+          <div
+            className="sticky z-30 -mx-5 mb-6 flex flex-row flex-wrap items-center justify-between gap-3 border-b border-foreground/10 bg-[var(--background)] px-5 py-3 md:px-8 lg:static lg:mx-0 lg:gap-4 lg:px-0 lg:pb-4 lg:pt-0 xl:flex-nowrap"
+            style={{ top: "var(--header-h, 120px)" }}
+          >
+            <div className="flex min-w-0 flex-wrap items-center gap-3 lg:gap-4">
               <button onClick={() => setMobileFiltersOpen(true)}
                 className="lg:hidden flex items-center gap-2 px-4 py-2 min-h-[44px] border border-foreground/15 text-foreground/70 hover:text-foreground transition-colors"
                 style={{ borderRadius: "var(--radius-button)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
@@ -1294,7 +1301,10 @@ export function ProductsPage() {
                   <span className="ml-1 w-5 h-5 rounded-full bg-foreground text-background flex items-center justify-center font-bold" style={{ fontSize: "var(--text-caption)" }}>{activeFilterCount}</span>
                 )}
               </button>
-              <span className="text-foreground/60" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
+              {/* a contagem sai da barra grudada no celular: com ela, filtro e
+                  ordenação não cabiam na mesma linha e a barra virava duas.
+                  Ela reaparece logo acima da grade. */}
+              <span className="hidden text-foreground/60 lg:inline" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
                 Mostrando <span className="text-foreground font-semibold">{filtered.length}</span> {filtered.length === 1 ? "produto" : "produtos"}
               </span>
             </div>
@@ -1309,7 +1319,7 @@ export function ProductsPage() {
                   });
                 }}
                 aria-pressed={compareMode}
-                className="flex min-h-[44px] cursor-pointer items-center gap-2 border px-4 py-2 transition-colors lg:min-h-0"
+                className="hidden min-h-[44px] cursor-pointer items-center gap-2 border px-4 py-2 transition-colors lg:flex lg:min-h-0"
                 style={{
                   borderRadius: "var(--radius-pill)",
                   borderColor: "var(--ink-strong)",
@@ -1352,7 +1362,7 @@ export function ProductsPage() {
                 </AnimatePresence>
               </div>
 
-              <div ref={itemsPerPageDropdownRef} className="relative flex items-center gap-2 text-foreground/70" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>
+              <div ref={itemsPerPageDropdownRef} className="relative hidden items-center gap-2 text-foreground/70 lg:flex" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>
                 <span>Mostrar:</span>
                 <button
                   type="button"
@@ -1414,7 +1424,7 @@ export function ProductsPage() {
               </div>
 
               {/* Grid / List */}
-              <div className="flex border border-foreground/10 overflow-hidden" style={{ borderRadius: "var(--radius-button)" }}>
+              <div className="hidden overflow-hidden border border-foreground/10 lg:flex" style={{ borderRadius: "var(--radius-button)" }}>
                 <button onClick={() => setGridMode("grid")}
                   className={`cursor-pointer p-2 transition-colors ${gridMode === "grid" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
                   aria-label="Visualização em grade"
@@ -1442,6 +1452,15 @@ export function ProductsPage() {
 
             {/* ── Products area ── */}
             <div className="flex-1 min-w-0">
+              {filtered.length > 0 && (
+                <p
+                  className="mb-4 text-foreground/55 lg:hidden"
+                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
+                >
+                  <span className="font-semibold text-foreground">{filtered.length}</span>{" "}
+                  {filtered.length === 1 ? "produto" : "produtos"}
+                </p>
+              )}
               {/* ── Products Area ── */}
               {filtered.length === 0 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-20">
@@ -1650,22 +1669,27 @@ export function ProductsPage() {
                     </button>
                   </div>
                   
-                  {/* Mobile Pagination */}
-                  <div className="flex md:hidden items-center justify-between mt-12 mb-4 w-full gap-4">
-                    <button
-                      onClick={() => { setCurrentPage((p) => Math.max(1, p - 1)); mainRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-                      disabled={currentPage === 1}
-                      className="flex-1 py-3.5 border border-foreground/20 text-foreground/70 disabled:opacity-30 rounded-full font-medium transition-opacity"
+                  {/* No celular não há "página 3 de 20": o dedo continua a
+                      lista. Cada toque traz mais 16 e o rodapé diz onde está. */}
+                  <div className="mt-10 mb-4 flex flex-col items-center gap-3 md:hidden">
+                    <span
+                      className="text-foreground/50"
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
                     >
-                      Anterior
-                    </button>
-                    <span className="text-sm font-medium text-foreground/60">{currentPage} / {pageCount}</span>
+                      {paginatedProducts.length} de {filtered.length} produtos
+                    </span>
                     <button
-                      onClick={() => { setCurrentPage((p) => Math.min(pageCount, p + 1)); mainRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-                      disabled={currentPage === pageCount}
-                      className="flex-1 py-3.5 border border-foreground/20 text-foreground/70 disabled:opacity-30 rounded-full font-medium transition-opacity"
+                      onClick={() => setItemsPerPage((n) => (n + 16) as typeof itemsPerPage)}
+                      className="h-12 w-full cursor-pointer rounded-full font-semibold transition-opacity active:opacity-80"
+                      style={{
+                        border: "1px solid var(--edge)",
+                        background: "var(--surface-1)",
+                        fontFamily: "var(--font-family-inter)",
+                        fontSize: "15px",
+                        color: "var(--ink-strong)",
+                      }}
                     >
-                      Próxima
+                      Carregar mais
                     </button>
                   </div>
                 </>
@@ -1691,11 +1715,13 @@ export function ProductsPage() {
         {mobileFiltersOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden"
+              className="fixed inset-0 z-[95] bg-black/60 backdrop-blur-sm lg:hidden"
               onClick={() => setMobileFiltersOpen(false)}
             />
             <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed left-0 top-0 bottom-0 w-[320px] max-w-[85vw] z-50 overflow-y-auto p-6"
+              /* z-96: acima do banner de cookies (80) e do WhatsApp (90), que
+                 são fixos no pé da tela e cobriam o botão de aplicar */
+              className="fixed bottom-0 left-0 top-0 z-[96] w-[320px] max-w-[85vw] overflow-y-auto p-6"
               style={{ background: "var(--surface-1)", borderRight: `1px solid ${isDark ? "rgba(var(--foreground-rgb), 0.06)" : "rgba(0,0,0,0.06)"}` }}
             >
               <div className="flex items-center justify-between mb-8">

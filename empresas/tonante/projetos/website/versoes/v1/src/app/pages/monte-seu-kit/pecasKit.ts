@@ -446,9 +446,16 @@ export function pecasDoSlot(slot: SlotId, instrumento: Product | null): Product[
     return ordenar(
       pool.filter((p) => {
         if (tipoDoProduto(p) !== "cabo") return false;
+        const nome = n(p);
+        /* `tipoDoProduto` chama de cabo tudo que liga alguma coisa. Nesta etapa
+           o cliente quer um cabo pronto: plug solto é peça de solda, e
+           "Microfone com Cabo USB" é microfone (o nome dele casa a regra de
+           cabo antes da de microfone). */
+        if (/\bplug|adaptador|conector\b/.test(nome)) return false;
+        if (/^microfone/.test(nome)) return false;
         /* Microfone só liga em XLR; instrumento e teclado, em P10. Oferecer o
            cabo do outro é vender peça que não encaixa. */
-        return fam === "voz" ? ehCaboXLR(n(p)) : !ehCaboXLR(n(p));
+        return fam === "voz" ? ehCaboXLR(nome) : !ehCaboXLR(nome);
       }),
     );
 
@@ -524,17 +531,37 @@ export function pecasDoSlot(slot: SlotId, instrumento: Product | null): Product[
  * quando a caixa chega. */
 export function dependenciasDoMicrofone(mic: Product | null): { cabo: Product | null; pedestal: Product | null } {
   if (!mic) return { cabo: null, pedestal: null };
+
+  /* A dependência é sugestão automática, então ela tem que ser a peça mais
+     barata que resolve — não a mais "relevante" da vitrine. Com o peso normal
+     de catálogo, o cabo sugerido era um rolo de 100 metros de R$ 349 pra ligar
+     um microfone de R$ 180. */
+  const maisBarato = (lista: Product[]) =>
+    [...lista].sort((a, b) => a.priceNum - b.priceNum)[0] ?? null;
+
   /* Microfone sem fio não precisa de cabo: ele já vem com receptor. */
   const semFio = /\bsem ?fio|s\/fio|uhf|lapela\b/.test(semAcento(mic.name));
   const cabo = semFio
     ? null
-    : ordenar(pool.filter((p) => tipoDoProduto(p) === "cabo" && ehCaboXLR(semAcento(p.name))))[0] ?? null;
-  const pedestal =
-    ordenar(
-      pool.filter(
-        (p) => tipoDoProduto(p) === "suporte" && /\bmicrofone\b/.test(semAcento(p.name)),
-      ),
-    )[0] ?? null;
+    : maisBarato(
+        pool.filter((p) => {
+          if (tipoDoProduto(p) !== "cabo" || !ehCaboXLR(semAcento(p.name))) return false;
+          const n = semAcento(p.name);
+          /* `tipoDoProduto` chama de "cabo" tudo que liga alguma coisa, plug e
+             adaptador incluídos. Sugerir um plug solto de R$ 12 é pior que
+             sugerir o rolo caro: o cliente acha que comprou cabo e recebe um
+             conector pra soldar. Cabo pronto tem "cabo" no nome, e rolo de 100
+             metros é matéria-prima de luthier. */
+          /* E "Microfone com Cabo USB PODCAST-400U" é microfone, não cabo: o
+             nome dele casa a regra de cabo antes da de microfone. Quem é cabo
+             ABRE o nome com "cabo". */
+          if (!/^cabo\b/.test(n)) return false;
+          return !/\b\d{2,3} ?mt\b|\bbobina\b/.test(n);
+        }),
+      );
+  const pedestal = maisBarato(
+    pool.filter((p) => tipoDoProduto(p) === "suporte" && /\bmicrofone\b/.test(semAcento(p.name))),
+  );
   return { cabo, pedestal };
 }
 
@@ -599,7 +626,12 @@ export function checarKit(sel: Selecao, fechando = false): Recado[] {
   /* Microfone com fio e sem cabo XLR é o caso mais caro de descobrir tarde: a
      peça mais visível do kit chega e não liga em nada. */
   const micComFio = sel.cantar.filter((p) => !/\bsem ?fio|s\/fio|uhf|lapela\b/.test(semAcento(p.name)));
-  if (micComFio.length > 0 && !sel.ligar.some((p) => /\bxlr|microfone\b/.test(semAcento(p.name)))) {
+  const temCaboPraOferecer = dependenciasDoMicrofone(micComFio[0] ?? null).cabo !== null;
+  if (
+    micComFio.length > 0 &&
+    temCaboPraOferecer &&
+    !sel.ligar.some((p) => /\bxlr|microfone\b/.test(semAcento(p.name)))
+  ) {
     recados.push({
       gravidade: "aviso",
       slot: "ligar",
