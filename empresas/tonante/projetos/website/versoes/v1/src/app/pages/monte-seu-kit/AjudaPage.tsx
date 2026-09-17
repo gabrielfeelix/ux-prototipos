@@ -181,12 +181,16 @@ function PassoInstrumento({ onPick }: { onPick: (id: (typeof FAMILIAS)[number]["
             onBlur={parar}
             className="group text-left focus:outline-none"
           >
-            <div className="relative overflow-hidden rounded-[var(--radius-card-lg)] bg-[#FAF8F5]">
+            {/* Mesma moldura da grade de categorias da home (v2/CategoriasV2,
+                variante "soft"): em repouso é só arte sobre branco, e a sombra
+                aparece no hover levantando o tile 2px. Fundo bege aqui brigava
+                com o recorte de estúdio das fotos, que já são brancas. */}
+            <div className="relative overflow-hidden rounded-[8px] bg-white transition-[box-shadow,transform] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-tile-hover)] group-focus-visible:-translate-y-0.5 group-focus-visible:shadow-[var(--shadow-tile-hover)] motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
               <img
                 src={f.foto}
                 alt=""
                 loading="lazy"
-                className="aspect-square w-full object-contain p-5 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05] group-focus-visible:scale-[1.05] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                className="aspect-square w-full object-contain p-5"
               />
               {soando === f.id && (
                 <span className="absolute bottom-3 right-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-amber-text shadow-sm backdrop-blur-sm">
@@ -275,7 +279,7 @@ function PassoGosto({
         <button
           type="button"
           onClick={onNext}
-          className="h-12 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold text-white transition-opacity hover:opacity-90"
+          className="h-12 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90"
         >
           {escolhidas.length ? `Continuar com ${escolhidas.length}` : "Continuar"}
         </button>
@@ -304,7 +308,7 @@ function Chip({
       onClick={onClick}
       className={`h-9 rounded-[var(--radius-pill)] px-4 text-[0.875rem] transition-colors ${
         ativo
-          ? "bg-foreground text-white"
+          ? "bg-foreground [color:#fff]"
           : "border border-foreground/12 text-foreground/70 hover:border-foreground/30 hover:text-foreground"
       }`}
     >
@@ -345,17 +349,17 @@ function BandTile({ band, marcada, onClick }: { band: Band; marcada: boolean; on
       />
       <div className="absolute inset-0 flex flex-col justify-end p-4">
         <span
-          className={`text-[1.0625rem] leading-[1.1] tracking-[-0.01em] ${claro ? "text-[#111]" : "text-white"}`}
+          className={`text-[1.0625rem] leading-[1.1] tracking-[-0.01em] ${claro ? "text-[#111]" : "[color:#fff]"}`}
           style={{ fontFamily: "var(--font-family-figtree)" }}
         >
           {band.name}
         </span>
-        <span className={`mt-1 text-[0.75rem] ${claro ? "text-[#111]/65" : "text-white/70"}`}>
+        <span className={`mt-1 text-[0.75rem] ${claro ? "text-[#111]/65" : "[color:rgba(255,255,255,0.7)]"}`}>
           {band.tag}
         </span>
       </div>
       {marcada && (
-        <span className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--amber)] text-white">
+        <span className="absolute right-3 top-3 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--amber)] [color:#fff]">
           <Check className="h-3.5 w-3.5" strokeWidth={3} />
         </span>
       )}
@@ -450,7 +454,7 @@ function PassoContexto({ onDone }: { onDone: (onde: Onde, faixa: Faixa) => void 
         type="button"
         disabled={!onde || !faixa}
         onClick={() => onde && faixa && onDone(onde, faixa)}
-        className="mt-12 h-12 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
+        className="mt-12 h-12 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
       >
         Ver o resultado
       </button>
@@ -503,7 +507,7 @@ function Resultado({ r }: { r: RespostasKit }) {
               <button
                 type="button"
                 onClick={() => navigate(`/produto/${kit.id}`)}
-                className="mt-6 h-11 rounded-[var(--radius-pill)] bg-foreground px-7 text-[0.9375rem] font-semibold text-white transition-opacity hover:opacity-90"
+                className="mt-6 h-11 rounded-[var(--radius-pill)] bg-foreground px-7 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90"
               >
                 Ver o kit
               </button>

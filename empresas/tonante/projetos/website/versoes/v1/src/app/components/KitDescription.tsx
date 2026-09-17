@@ -163,7 +163,7 @@ function Cenas({ seed }: { seed: KitSeed }) {
         <button
           type="button"
           onClick={alternar}
-          className="inline-flex h-12 items-center gap-3 rounded-[var(--radius-pill)] bg-foreground px-6 text-[0.9375rem] font-semibold text-white transition-opacity hover:opacity-90"
+          className="inline-flex h-12 items-center gap-3 rounded-[var(--radius-pill)] bg-foreground px-6 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90"
         >
           <Volume2 className="h-4 w-4" />
           {tocando ? "Parando…" : "Ouvir como soa"}
@@ -278,7 +278,7 @@ function BandaCard({ item }: { item: BandaNoKit }) {
         )}
         <div className="absolute inset-0 flex flex-col justify-end p-3.5">
           <span
-            className={`text-[0.9375rem] leading-[1.15] ${claro ? "text-[#111]" : "text-white"}`}
+            className={`text-[0.9375rem] leading-[1.15] ${claro ? "text-[#111]" : "[color:#fff]"}`}
             style={{ fontFamily: "var(--font-family-figtree)" }}
           >
             {band.name}
