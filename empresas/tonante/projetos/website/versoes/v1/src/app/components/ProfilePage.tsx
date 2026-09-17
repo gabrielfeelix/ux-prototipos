@@ -1329,34 +1329,33 @@ export function ProfilePage() {
                       )}
                     </div>
 
-                    {/* Como ganhar mais: três linhas, uma superfície */}
-                    <div className="p-6 sm:p-7 mb-3" style={painel}>
+                    {/* Sem caixa: o saldo é o único painel da tela. Três painéis
+                        iguais empilhados achatavam a hierarquia — não dava pra
+                        saber onde olhar. Aqui o conteúdo respira direto na página. */}
+                    <section className="mt-10">
                       <h3 className="text-foreground mb-4" style={tituloBloco}>Como ganhar mais pontos</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-7">
                         {formas.map((item) => (
-                          <div key={item.title} className="flex items-start gap-3">
-                            <span className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(200,120,0,0.10)" }}>
-                              <item.icon size={15} style={{ color: "var(--primary)" }} aria-hidden="true" />
-                            </span>
-                            <div className="min-w-0">
-                              <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>{item.title}</p>
-                              <p className="text-foreground/60 mt-0.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.5 }}>{item.desc}</p>
-                            </div>
+                          <div key={item.title} className="min-w-0">
+                            <item.icon size={17} className="text-foreground/40 mb-2.5" aria-hidden="true" />
+                            <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>{item.title}</p>
+                            <p className="text-foreground/60 mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.55 }}>{item.desc}</p>
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </section>
 
-                    {/* Histórico */}
-                    <div className="overflow-hidden" style={painel}>
-                      <div className="flex items-baseline justify-between gap-3 px-6 sm:px-7 pt-6 pb-4">
+                    {/* Histórico: lista, não cartão. A régua de hairlines já
+                        separa os lançamentos; uma borda em volta era ruído. */}
+                    <section className="mt-10">
+                      <div className="flex items-baseline justify-between gap-3 mb-1">
                         <h3 className="text-foreground" style={tituloBloco}>Histórico</h3>
                         <p className="text-foreground/50" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                           {history.length} {history.length === 1 ? "lançamento" : "lançamentos"}
                         </p>
                       </div>
                       {history.length === 0 ? (
-                        <div className="text-center px-6 pb-12 pt-4">
+                        <div className="text-center px-6 py-12" style={{ borderTop: hairline }}>
                           <div className="flex justify-center mb-3 opacity-70"><PcyesCoin size={36} /></div>
                           <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>Nenhum ponto ainda</p>
                           <p className="text-foreground/55 mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>A primeira compra já rende pontos.</p>
@@ -1370,14 +1369,14 @@ export function ProfilePage() {
                             return (
                               <div
                                 key={tx.id}
-                                className="flex items-center gap-3.5 px-6 sm:px-7 py-4"
+                                className="flex items-center gap-3.5 py-4"
                                 style={{ borderTop: hairline }}
                               >
                                 <span
                                   className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-                                  style={{ background: isPositive ? "rgba(200,120,0,0.10)" : "rgba(var(--foreground-rgb), 0.06)" }}
+                                  style={{ background: "rgba(var(--foreground-rgb), 0.05)" }}
                                 >
-                                  <Icone size={15} style={{ color: isPositive ? "var(--primary)" : "rgba(var(--foreground-rgb), 0.55)" }} aria-hidden="true" />
+                                  <Icone size={15} style={{ color: "rgba(var(--foreground-rgb), 0.5)" }} aria-hidden="true" />
                                 </span>
                                 <div className="flex-1 min-w-0">
                                   <p className="text-foreground truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 500 }}>{tx.description}</p>
@@ -1403,7 +1402,7 @@ export function ProfilePage() {
                           })}
                         </div>
                       )}
-                    </div>
+                    </section>
                   </motion.div>
                 );
               })()}

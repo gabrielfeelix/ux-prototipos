@@ -206,11 +206,11 @@ export function CartDrawer() {
                 <div className="mb-2 flex items-center gap-2">
                   <Truck size={15} className="text-foreground/55" strokeWidth={2} />
                   {freeShipUnlocked ? (
-                    <span className="num text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>
+                    <span className="num text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
                       🎉 Você ganhou frete grátis!
                     </span>
                   ) : (
-                    <span className="num text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
+                    <span className="num text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>
                       Faltam <strong className="num text-ink-strong">{formatPrice(remainingForFreeShip)}</strong> para frete grátis
                     </span>
                   )}
@@ -233,7 +233,7 @@ export function CartDrawer() {
               <div className="border-b border-foreground/5 px-7 py-3">
                 <div className={`flex items-center gap-2.5 rounded-card-md border px-3.5 py-2.5 ${giftUnlocked ? "border-foreground/10 bg-foreground/[0.04]" : "border-foreground/8 bg-foreground/[0.03]"}`}>
                   <Gift size={16} className="flex-shrink-0 text-primary" strokeWidth={2} />
-                  <p className="flex-1 text-foreground/80" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.35 }}>
+                  <p className="flex-1 text-foreground/80" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.35 }}>
                     {giftUnlocked
                       ? giftItem
                         ? "Brinde selecionado ✓"
@@ -243,8 +243,8 @@ export function CartDrawer() {
                   {giftUnlocked && (
                     <button
                       onClick={() => { setGiftDismissed(false); setGiftModalOpen(true); }}
-                      className="flex-shrink-0 text-primary hover:opacity-80 transition-opacity cursor-pointer"
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "700", letterSpacing: "0.06em" }}
+                      className="-my-1.5 inline-flex min-h-[36px] flex-shrink-0 items-center rounded-full px-2 text-primary transition-opacity hover:opacity-80 cursor-pointer"
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: "700", letterSpacing: "0.06em" }}
                     >
                       {giftItem ? "TROCAR" : "ESCOLHER"}
                     </button>
@@ -304,7 +304,7 @@ export function CartDrawer() {
                               {item.isGift && item.originalPrice && (
                                 <p className="text-foreground/20 line-through" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>{item.originalPrice}</p>
                               )}
-                              <p className={item.isGift ? "text-primary" : "text-foreground/50"} style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: item.isGift ? "600" : "400" }}>
+                              <p className={item.isGift ? "text-primary" : "text-foreground/65"} style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: item.isGift ? "600" : "400" }}>
                                 {item.price}
                               </p>
                             </div>
@@ -319,13 +319,13 @@ export function CartDrawer() {
                               </div>
                             ) : (
                               <QtyStepper
-                                size="sm"
+                                size="md"
                                 value={item.quantity}
                                 onChange={(next) => updateQuantity(item.cartKey, next)}
                               />
                             )}
-                            <button onClick={() => item.isGift ? setGiftItem(null) : removeItem(item.cartKey)} aria-label={item.isGift ? "Remover brinde" : `Remover ${item.name}`} className="text-foreground/20 hover:text-primary transition-colors cursor-pointer">
-                              <Trash2 size={14} />
+                            <button onClick={() => item.isGift ? setGiftItem(null) : removeItem(item.cartKey)} aria-label={item.isGift ? "Remover brinde" : `Remover ${item.name}`} className="-mr-2 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-foreground/35 transition-colors hover:bg-foreground/5 hover:text-primary cursor-pointer">
+                              <Trash2 size={16} />
                             </button>
                           </div>
                         </div>
@@ -345,7 +345,7 @@ export function CartDrawer() {
                     mais que 100% e o CTA caía pra fora da tela. */}
                 <div>
                   <button onClick={() => setCouponOpen(!couponOpen)}
-                    className={`flex items-center justify-between w-full py-2 px-3 cursor-pointer group transition-colors ${
+                    className={`flex min-h-[40px] items-center justify-between w-full py-2 px-3 cursor-pointer group transition-colors ${
                       appliedCoupon ? "rounded-[var(--radius-card-sm)] border" : ""
                     }`}
                     style={appliedCoupon ? { borderColor: "rgba(18, 146, 76, 0.30)", background: "rgba(18, 146, 76, 0.07)" } : undefined}
@@ -358,7 +358,7 @@ export function CartDrawer() {
                       )}
                       <span
                         className={appliedCoupon ? "" : "text-foreground/65 group-hover:text-foreground/85 transition-colors"}
-                        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: appliedCoupon ? "var(--buy-green-press)" : undefined }}
+                        style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, color: appliedCoupon ? "var(--buy-green-press)" : undefined }}
                       >
                         {appliedCoupon ? `Cupom ${appliedCoupon} aplicado` : "Cupom de desconto"}
                       </span>
@@ -370,9 +370,9 @@ export function CartDrawer() {
                     </div>
                     <span
                       className={appliedCoupon ? "" : "text-foreground/35 group-hover:text-foreground/55 transition-colors"}
-                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: appliedCoupon ? "var(--buy-green-press)" : undefined, textDecoration: appliedCoupon ? "underline" : undefined, textUnderlineOffset: "3px" }}
+                      style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, color: appliedCoupon ? "var(--buy-green-press)" : undefined, textDecoration: appliedCoupon ? "underline" : undefined, textUnderlineOffset: "3px" }}
                     >
-                      {appliedCoupon ? "Alterar" : <ChevronDown size={11} className={`transition-transform duration-300 ${couponOpen ? "rotate-180" : ""}`} />}
+                      {appliedCoupon ? "Alterar" : <ChevronDown size={14} className={`transition-transform duration-300 ${couponOpen ? "rotate-180" : ""}`} />}
                     </span>
                   </button>
                   <AnimatePresence>
@@ -386,7 +386,7 @@ export function CartDrawer() {
                                 <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "var(--buy-green-press)" }}>{appliedCoupon}</span>
                                 <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "var(--buy-green)" }}>(-{discountPct}%)</span>
                               </div>
-                              <button onClick={() => { setAppliedCoupon(null); setCoupon(""); }} aria-label="Remover cupom" className="text-foreground/30 hover:text-foreground transition-colors cursor-pointer"><X size={13} aria-hidden="true" /></button>
+                              <button onClick={() => { setAppliedCoupon(null); setCoupon(""); }} aria-label="Remover cupom" className="-mr-1.5 flex h-9 w-9 items-center justify-center rounded-full text-foreground/60 transition-colors hover:bg-foreground/5 hover:text-foreground cursor-pointer"><X size={16} aria-hidden="true" /></button>
                             </div>
                           ) : (
                             <>
@@ -395,10 +395,10 @@ export function CartDrawer() {
                                   onChange={(e) => { setCoupon(e.target.value.toUpperCase()); setCouponError(""); }}
                                   onKeyDown={(e) => e.key === "Enter" && handleApplyCoupon()}
                                   className="flex-1 px-3 py-2 border border-foreground/8 bg-foreground/[0.03] text-foreground placeholder:text-foreground/15 focus:border-foreground/20 focus:outline-none transition-colors"
-                                  style={{ borderRadius: "var(--radius-button)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }} />
+                                  style={{ borderRadius: "var(--radius-button)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)" }} />
                                 <button onClick={handleApplyCoupon} disabled={!coupon.trim()}
-                                  className="px-3 py-2 text-foreground/30 hover:text-foreground/60 transition-all duration-300 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
-                                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}
+                                  className="min-h-[40px] px-3 py-2 text-foreground/60 hover:text-foreground transition-all duration-300 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
+                                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
                                 >Aplicar</button>
                               </div>
                               {couponError && <p className="text-primary mt-1" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>{couponError}</p>}
@@ -414,18 +414,18 @@ export function CartDrawer() {
 
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-foreground/35" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Subtotal</span>
-                    <span className="text-foreground/60" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>{formatPrice(subtotal)}</span>
+                    <span className="text-foreground/65" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Subtotal</span>
+                    <span className="text-foreground/75" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>{formatPrice(subtotal)}</span>
                   </div>
                   {discountValue > 0 && (
                     <div className="flex items-center justify-between">
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--buy-green-press)" }}>Desconto ({discountPct}%)</span>
-                      <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--buy-green-press)" }}>-{formatPrice(discountValue)}</span>
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, color: "var(--buy-green-press)" }}>Desconto ({discountPct}%)</span>
+                      <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, color: "var(--buy-green-press)" }}>-{formatPrice(discountValue)}</span>
                     </div>
                   )}
                   <div className="flex items-center justify-between">
-                    <span className="text-foreground/35" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Frete</span>
-                    <span className="text-foreground/45" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Calculado no checkout</span>
+                    <span className="text-foreground/65" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Frete</span>
+                    <span className="text-foreground/65" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>Calculado no checkout</span>
                   </div>
                 </div>
 
@@ -440,31 +440,31 @@ export function CartDrawer() {
                 <div className="grid grid-cols-2 gap-2.5">
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="flex min-h-[52px] cursor-pointer items-center justify-center rounded-full border border-foreground/12 bg-transparent px-2 text-center text-foreground/70 transition-colors hover:border-foreground/22 hover:text-foreground"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                    className="flex min-h-[52px] cursor-pointer items-center justify-center rounded-full border border-foreground/12 bg-transparent px-2 text-center text-foreground/80 transition-colors hover:border-foreground/22 hover:text-foreground"
+                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 600 }}
                   >Continuar comprando</button>
                   <button
                     className="flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-full transition-[transform,background-color] duration-200 hover:scale-[1.01] active:scale-[0.98] [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)]"
                     style={{
                       color: "#fff",
                       fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-caption)",
+                      fontSize: "15px",
                       fontWeight: 700,
                       boxShadow: "var(--shadow-buy-cta-sm)",
                     }}
                     onClick={() => { setIsOpen(false); navigate("/checkout"); }}
                     aria-label="Revisar pedido"
-                  ><ShoppingBag size={15} strokeWidth={2} /> Revisar pedido</button>
+                  ><ShoppingBag size={17} strokeWidth={2} /> Revisar pedido</button>
                 </div>
 
                 <div className="flex items-center justify-center pt-1">
                   <button
                     onClick={() => clearCart()}
-                    className="inline-flex items-center gap-1 text-foreground/30 hover:text-primary transition-colors cursor-pointer"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                    className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full px-3 text-foreground/65 hover:text-primary transition-colors cursor-pointer"
+                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
                     aria-label="Limpar carrinho"
                   >
-                    <Trash2 size={12} strokeWidth={2} />
+                    <Trash2 size={14} strokeWidth={2} />
                     Limpar carrinho
                   </button>
                 </div>
