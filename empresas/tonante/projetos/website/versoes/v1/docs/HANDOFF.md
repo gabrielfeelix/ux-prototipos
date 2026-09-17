@@ -1,201 +1,175 @@
-# Handoff — Tonante website
+# Handoff — Tonante, frente MOBILE
 
-Estado em 2026-09-15, 10h. Branch `tonante/website-v1`, projeto em
+Estado em 2026-09-17. Branch `tonante/website-v1`, projeto em
 `~/dev/ux-prototipos/empresas/tonante/projetos/website/versoes/v1`.
-Substitui o handoff de 14/09. O que ele dizia sobre estrutura da home, header,
-card v2, cor e tipografia **continua valendo** — leia `docs/STATE.md` junto.
 
-**O site é protótipo e não vai ao ar.** Placeholder (número de WhatsApp,
-depoimento de músico, flag de estoque, arte de banco de imagem) **não é
-pendência** e não deve ser listado como risco. Decisão do Gabriel, 15/09.
+**Este handoff é só sobre celular.** O handoff anterior (15/09), com header,
+card v2, cor, tipografia, vídeos dos músicos e catálogo, está em
+`git show 13a65aee:docs/HANDOFF.md` e continua valendo para tudo que não
+estiver aqui. `docs/STATE.md` é o complemento obrigatório: ele tem o registro
+detalhado da rodada mobile.
 
-## Tem outro agente trabalhando no mesmo repo
+**O site é protótipo e não vai ao ar.** Placeholder (WhatsApp, depoimento de
+músico, flag de estoque, arte de banco de imagem) não é pendência e não deve
+ser listado como risco. Decisão do Gabriel, 15/09.
 
-Um agente paralelo cuidava de **imagens e catálogo**. **Encerrou em 15/09** —
-não há mais ninguém mexendo no repo junto. O que ele deixou commitado:
+---
 
-- `5aa0f7fb` — 32 produtos do site institucional (`productsSiteOficial.ts`):
-  Pro Series, Volcano, Legacy, Muriel's, Star Light, baterias Sonora e cores
-  que faltavam. Entram em `allProducts`.
-- `24c5da7a` — Baterias no menu de categorias.
-- `cca1c0f2` — 6 SKUs cuja URL de cache do Magento devolve o placeholder cinza
-  com status 200.
+## 1. O próximo trabalho: o checkout no celular
 
-Deixou também `scripts/fotos-oficiais.py`, que raspa a media library do
-WordPress de `tonantebrasil.com.br` (`/wp-json/wp/v2/media`), casa por número de
-SKU (`CP111602` → `111602_2.jpg`), baixa, converte pra WebP, deduplica e regera
-`productGalleries.ts` (95 SKUs, 1205 fotos em `public/produtos/oficial/`).
-Agora que ele parou, esses arquivos são seus — mas rode o script antes de
-editar `productGalleries.ts` na mão, porque ele regera o arquivo inteiro.
+Pedido do Gabriel, 17/09, com as palavras dele preservadas onde importam.
 
-## O que mudou nesta sessão (commitado em 15/09)
+> "no mobile esse resumo no checkout, depois que eu já passei da cartpage, não
+> faz sentido. A gente já tem aquele footer ali com o preço e valor justamente
+> pra isso. O que poderíamos ter é ali um **ver detalhes**, e clicando abre de
+> baixo pra cima os detalhes — a imagem dos produtos, cupons, etc. Mas sem
+> ficar aparente ali as coisas na tela, assim a pessoa se foca só no que ela
+> está ali pra fazer naquela etapa. Aí ela pode ver detalhes ou ver menos, pra
+> voltar pro padrão. A única coisa que acho bom é colocar ali **usar cupom** e
+> **usar Ton Points**, nesse footer fixo, algo pequeno igual tem na sidebar do
+> mobile, algo sutil, uma linha. E só clicando é que abre."
 
-```
-836a419d  classificador de fundo de foto (scripts/classifica-fundo.py)
-fa1ebf22  regra do quadro: QuadroFoto.tsx + ProductCardV2
-e78cca6a  instrumentos dos músicos viram produtos reais (223 e 285)
-ee43eb22  vídeo do feed não trava no hover + ordem do trilho
-993aadd9  preço real da Oderço nos 11 violões do site institucional
-d72c9b67  faixa de números sai da home, vídeo de 70 anos mais alto
-```
+### O que isso quer dizer, em termos do código
 
-`ProductPage.tsx` (regra do quadro em toda a PDP) entrou junto com o commit do
-outro agente. `npx vite build` passa limpo depois de tudo isso.
+Hoje, no celular, a página de checkout mostra **duas vezes** a mesma
+informação: o card "Resumo" (`CheckoutPage.tsx:1665` em diante — lista de itens
+com foto, cupom, Ton Points, linhas de valor e total) empilha logo abaixo do
+formulário da etapa, e a barra fixa do rodapé (`CheckoutPage.tsx:1921`) já
+carrega TOTAL + CTA da etapa. O card é `lg:sticky` porque no desktop ele é a
+coluna da direita; no celular ele só vira mais uma tela de rolagem depois do
+que a pessoa veio fazer.
 
-`productsData.ts` e `photoBackdrop.ts` já foram commitados pelo outro agente
-junto com o trabalho dele, com o repreçamento dentro.
+O alvo:
 
-### 1. Regra do quadro (foto de produto)
+1. **O card "Resumo" some da rolagem no celular** (fica `hidden lg:block`, ou o
+   equivalente). No desktop nada muda — aquela coluna está validada.
+2. **A barra fixa ganha "Ver detalhes"**, que abre uma folha de baixo para
+   cima (bottom sheet) com o conteúdo do resumo: fotos dos produtos,
+   quantidades, frete, descontos e total. Fechando, volta ao padrão — o Gabriel
+   chamou de "ver menos".
+3. **Cupom e Ton Points viram duas linhas sutis na própria barra fixa**, no
+   modelo do que já existe na sidebar do carrinho no celular (ver
+   `CartDrawer.tsx`, é a referência visual que ele citou). Uma linha cada, sem
+   campo aberto: **só abre ao tocar**.
 
-Regra do Gabriel, textual: *"tem fundo branco? remove e fica no fundo do card.
-é ambientada? tem que preencher o card todo"*. Vale na foto principal e nas
-miniaturas. Implementada em `QuadroFoto.tsx`, em três casos:
+### O que já existe e deve ser reaproveitado, não reescrito
 
-1. **Recorte de estúdio** — aparece inteiro, `object-contain`, e o branco some
-   no fundo do quadro via `mixBlendMode: multiply`.
-2. **Ambientada** — `object-cover`, preenche. Sem isso o corte da foto aparece
-   dentro do card e parece defeito.
-3. **Ambientada e desproporcional** (retrato 240×1167, banner 1200×328) — em
-   quadro quase quadrado o `cover` amplia 5× e vira tira borrada. Aí a própria
-   foto desfocada e ampliada faz o fundo e a foto aparece inteira por cima.
+| peça | onde |
+|---|---|
+| card Resumo completo (itens, cupom, Ton Points, linhas, total) | `CheckoutPage.tsx:1665`–`~1900` |
+| cupom inline, com estado e validação (`setCouponError`, `appliedCoupon`) | `CheckoutPage.tsx:435`, `:1725` |
+| Ton Points, com input e limite | `CheckoutPage.tsx:1792` |
+| barra fixa do celular (TOTAL + Continuar/Finalizar) | `CheckoutPage.tsx:1921` |
+| linha sutil de cupom/pontos como referência visual | `CartDrawer.tsx` |
+| botão da casa (verde `--buy-green`, texto branco) | `section/CTAButton.tsx` |
 
-Quem sabe em que caso cada arquivo cai é **`photoBackdrop.ts`**, gerado por
-`scripts/classifica-fundo.py` — medido **offline** porque o CDN não manda CORS
-(mesmo motivo do `instrumentFraming`). Hoje: **598 ambientadas de 1567 fotos,
-174 delas desproporcionais**.
+### Armadilhas conhecidas nessa área
 
-O classificador amostra dois anéis: 0–4% e 8–12% da borda. Anel branco = recorte.
-Os dois anéis existem porque recorte com moldura desenhada tem anel externo
-colorido e miolo branco, enquanto foto deitada colada num quadrado tem tarja
-branca em cima e conteúdo nas laterais — só o anel de dentro separa os dois.
+- **A barra fixa do checkout está em z-40.** O banner de cookies (z-80) e o
+  botão de WhatsApp (z-90) passam por cima dela. Ao mexer nela, siga a tabela
+  de z-index da seção 3 — e a folha de detalhes precisa ficar **acima de 90**,
+  senão o cookie cobre o botão de fechar.
+- **`--fab-lift`** já existe para levantar WhatsApp e cookies quando uma barra
+  sobe no pé da tela (hoje só a PDP a usa). A barra do checkout deveria passar
+  a usar a mesma variável.
+- **Campo de formulário no celular** já tem regra central no `theme.css`
+  (`.checkout-field` etc.: `min-height: 44px; font-size: 16px !important`).
+  Abaixo de 16px o iOS dá zoom ao focar. Campo novo tem que entrar nessa lista.
 
-**Regerar quando entrar foto nova**: `python3 scripts/classifica-fundo.py --cdn`
-(~4 min; sem `--cdn` mede só as locais). Ele varre `productsData.ts`,
-`productsExtra.ts`, `productsSiteOficial.ts` e `public/produtos/oficial/`.
-Atenção: o catálogo usa **dois hosts** (`www.oderco.com.br/media/...` e
-`cdn.oderco.com.br/produtos/...`) e o segundo devolve **403** pro User-Agent
-padrão do urllib.
+---
 
-**Armadilha já paga**: na PDP a foto some num fade do `framer-motion`. Enquanto
-anima, o wrapper vira grupo isolado e o `multiply` fica sem fundo com que se
-misturar — o branco do recorte aparecia como um quadrado por ~1s. O `motion.div`
-agora pinta o mesmo cinza do quadro em **cor opaca** (não alpha) e declara
-`isolation: isolate`. Não troque por gradiente com alpha, o bug volta.
+## 2. O que esta rodada já entregou (não refazer)
 
-### 2. Preços agora são os reais da Oderço
+Commits `83c4ce0c` → `216b6a21`. Todos com o "porquê" na mensagem — leia
+`git log` antes de mexer em qualquer um desses arquivos.
 
-O dump estava ~3× acima da loja real (mediana da razão 0,31; só 11 de 275 dentro
-de ±20%), e errava pros dois lados — `CP22169` custava R$ 79,90 aqui e R$ 307,28
-lá. **276 produtos** repreçados pelo GraphQL público da Oderço:
+- **`83c4ce0c` — menu e busca no celular.** `HeaderV2` não tinha nenhum menu:
+  busca, conta, favoritos e ajuda eram `hidden` sem substituto. Nasceu
+  `v2/MobileMenu.tsx` (gaveta com drill-down categoria → tipo/marca, linhas de
+  56px) e a busca virou campo aberto na 2ª linha do header, variante `compact`
+  da `SearchBar` (sem o seletor de categoria, input de 16px). A faixa preta de
+  avisos colapsa ao rolar: header fixo 164px → 120px.
+- **`b782ad4c` — PDP.** Foto primeiro, timbre depois do preço, descrição
+  colapsada em 760px, stepper a 44px. A barra fixa de compra **existia e nunca
+  ligava** (`setShowMobileStickyCta` não era chamado por ninguém) e no tema
+  claro saía #111 sobre #111. 11.127px → 8.836px.
+- **`2506913a` — listagem.** Barra de Filtros/Ordenar grudada abaixo do header
+  via `--header-h`; comparar, "mostrar N" e grade/lista só no desktop;
+  paginação numerada virou "Carregar mais".
+- **`5bc9c337` — home e rodapé.** Banner reenquadrado (46svh, âncora 16%),
+  `.touch-visivel` para os controles que só existiam no hover, rodapé em
+  `<details>`. Home 14.326px → 13.288px.
+- **`7e3d1711`, `0fe21854`, `216b6a21` — acertos.** Gaveta fechada sai do
+  alcance do Tab; barra de compra passa a usar `CTAButton` (o verde certo é
+  `--buy-green`, `rgb(27,184,99)`, **não** `--gradient-buy`) e recolhe com o
+  carrinho aberto; `pt-[80px]` fantasma some do topo do carrinho e do checkout.
 
-```bash
-curl -s https://www.oderco.com.br/graphql -H 'Content-Type: application/json' \
-  -d '{"query":"{products(search:\"CP111630\",pageSize:1){items{sku name price_range{minimum_price{final_price{value}}} stock_status}}}"}'
-```
+---
 
-O **percentual** de desconto foi preservado: onde havia `oldPrice`, ele foi
-escalado pelo mesmo fator, senão apareceria badge de −98%. Os 58 descontos do
-catálogo ficaram entre 2% e 25%.
+## 3. Contratos que o celular passou a ter
 
-**34 SKUs continuam com o preço antigo (inflado)** — a Oderço não responde por
-eles. Decisão pendente: marcar com comentário ou escalar pela mediana (÷3,2).
+**Empilhamento no pé da tela.** Três coisas disputam o mesmo canto:
 
-### 3. Feed de músicos
+| z | quem |
+|---|---|
+| 40 | barra fixa do checkout (**ainda baixa demais, ver seção 1**) |
+| 61 | `CartDrawer` |
+| 75 | barra de compra da PDP |
+| 80 | banner de cookies |
+| 90 | botão de WhatsApp |
+| 95 / 96 | gaveta de menu · gaveta de filtros |
 
-- Ordem do trilho é lista explícita `ORDEM` em `MusicosTonante.tsx`: Paulo André,
-  Rogério Alves, André Batista, Thiago Nunes, Alfredo José. Músico fora da lista
-  entra no fim sozinho.
-- **Vídeos travavam no hover.** Eram 15 `<video>` no trilho (3 voltas × 5) todos
-  com `preload="metadata"`: disputavam as 6 conexões por origem e o vídeo sob o
-  mouse ficava na fila. Agora `preload="none"` e o `play()` repete em
-  `loadeddata`/`canplay`. **Não verificado no Chrome do Gabriel** — o Chromium
-  headless não tem codec H.264 (`DEMUXER_ERROR_NO_SUPPORTED_STREAMS`).
-- Alfredo José ganhou sobrenome.
+Gaveta ou folha nova tem que passar de 90.
 
-### 4. Produtos dos músicos
+**Variáveis de CSS que uma parte da tela publica para a outra:**
 
-- Rogério aponta pro **produto real do catálogo**: `Cavaco Acústico Tonante
-  Natural`, id 223. O SKU inventado 284 foi apagado.
-- O violão do Thiago **existe**: `CP111630`, "Violão Elétrico Safira 41" — Tampo
-  em Zebra — EQ 4 Bandas — Fosco — VSZ1954N41Z", R$ 489,90, marcado OUT_OF_STOCK
-  na Oderço (aqui fica `inStock: true` de propósito, com comentário). A busca por
-  "zebrano" dava zero porque o catálogo chama o tampo de **"Zebra"**. Fica em
-  `productsExtra.ts` com SKU do ERP, que é o que casa com a galeria oficial.
+- `--header-h` — altura que o `HeaderV2` tem **agora** (ele encolhe ao rolar),
+  atualizada por `ResizeObserver`. Quem gruda abaixo do header usa isso.
+- `--fab-lift` — quanto o WhatsApp e o banner de cookies precisam subir porque
+  alguma barra ocupou o pé da tela.
 
-## Pendências
+**Utilitárias do `theme.css`, todas dentro de media query para não existirem no
+desktop:**
 
-Ordenadas por impacto visual, que é o que importa num protótipo.
+- `.pdp-desc-clamp` / `.is-open` — descrição da PDP em `max-width: 1023px`.
+- `.touch-visivel` — em `@media (hover: none)`, mostra o que só aparecia no
+  hover.
+- `.touch-sobe` — o par da anterior: abre o espaço de quem sobe no hover. As
+  duas andam juntas; usar uma sem a outra foi exatamente o bug que empilhou o
+  botão de compra em cima do preço no card do músico.
+- `.footer-col` — colunas do rodapé como sanfona abaixo de 768px.
 
-1. **`public/ofertas/` está vazia** — faltam `mais-vendidos.jpg`, `ofertas.jpg`,
-   `primeiro-instrumento.jpg` (retrato 1024×1536). `OfertasV2` cai em fallback.
-2. **`public/categorias/`** — faltam `afinadores`, `capas`, `palhetas`, `cabos`,
-   `correias` (1024×1024). Existem violão, guitarra, contrabaixo, encordoamento,
-   microfone, suporte.
-3. **`MonteSeuKit` refeita 100%** — vira o "Combo Tonante". Está na home,
-   posição 8.
-4. **`LinhasDeViolao`** — o outro institucional que o Gabriel acha feio, logo
-   depois do MonteSeuKit: dois blocos fracos seguidos.
-5. **Seção "Primeiro instrumento"** — saiu das abas do `OfertasV2` pra virar
-   seção própria e nunca foi criada.
-6. **`GuiaIniciante` como banner** — ele cogitou trazer de volta, decisão aberta.
-7. **Botão de acessibilidade do header não faz nada** (placeholder combinado).
-8. **~19 CTAs em âmbar no checkout** — 10 em `CheckoutPage`, 9 em `CartPage`,
-   contra o preto do resto do site.
-9. **`SearchModal.tsx` órfão** com catálogo PCYES hardcoded — candidato a
-   deletar. `SearchBar` tem 3 cópias de markup dentro do `Navbar`.
-10. **Órfãos em `public/produtos/`**: `111630_*.png`, `violao-tonante-zebrano*.png`
-    e `-2/-3/-4.jpg`, `cavaquinho-tonante-natural.jpg`. Nada referencia (o 285
-    usa a galeria oficial em `public/produtos/oficial/111630/`). Ficaram fora do
-    commit de propósito. O modo automático bloqueia `rm`, então peça pro Gabriel.
+---
 
-### Decisões abertas com ele
+## 4. Como medir (não confie no olho)
 
-- **Arte de campanha com texto** (a do 70 anos): o `cover` corta as letras
-  ("...ada para celebrar gerações"). Cabe um quarto caso "arte com texto fica
-  inteira", ou a arte sai da galeria?
-- **Os 34 SKUs sem preço na Oderço** (ver acima).
-- Testar o hover dos vídeos no Chrome dele.
+Não há navegador de UI aqui. O que funciona:
 
-## Como verificar visualmente
+- Servidor: `npx vite --port 5199 --strictPort` na raiz do projeto.
+- Chrome: `~/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome` com
+  `LD_LIBRARY_PATH=~/.cache/chromelibs/extract/usr/lib/x86_64-linux-gnu`
+  (as libs `libnss3`/`libnspr4`/`libasound2t64` foram extraídas ali sem root).
+  Subir com `--headless=new --remote-debugging-port=NNNN --no-sandbox
+  --hide-scrollbars --window-size=390,844` e falar CDP puro pelo WebSocket do
+  Node 24.
+- Antes de navegar: `Page.bringToFront` + `Emulation.setFocusEmulationEnabled`,
+  senão `motion/react` fica parado no `initial` e o print sai branco.
+- Para medir celular de verdade: `Emulation.setDeviceMetricsOverride`
+  `{width:390,height:844,deviceScaleFactor:2,mobile:true}` +
+  `Emulation.setTouchEmulationEnabled`. Com toque emulado, `@media (hover:none)`
+  entra — que é o ponto.
+- **Espere ~7s depois do `Page.navigate`**: com HMR ligado o app às vezes
+  mostra a tela de "CARREGANDO…" e a medição sai zerada.
+- Diagnóstico barato, sem gastar imagem: rodar `Runtime.evaluate` medindo
+  `document.documentElement.scrollWidth` (tem que dar 390 em toda rota),
+  `getBoundingClientRect()` dos blocos e `getComputedStyle` dos botões. Foi
+  assim que apareceram o verde errado e a barra que nunca ligava.
 
-Dev server: `npm run dev` (costuma estar em `localhost:5173`). Não há Playwright;
-use o Chrome do ms-playwright com as libs extraídas, via CDP:
+## 5. Como o Gabriel trabalha
 
-```bash
-CHROME=~/.cache/ms-playwright/chromium-1169/chrome-linux/chrome
-LD_LIBRARY_PATH=$HOME/.cache/chromelibs/usr/lib/x86_64-linux-gnu \
-  "$CHROME" --headless=new --disable-gpu --no-sandbox \
-  --remote-debugging-port=9333 --user-data-dir=/tmp/claude-1000/chromeprof about:blank &
-```
-
-Os scripts vivem no scratchpad da sessão e somem com ela; refazer leva minutos.
-Eram três, com `WebSocket` nativo do Node 24 (o pacote `ws` não está instalado):
-`cap.mjs` (navega, fecha cookies/popup, roda um JS, printa), `ev.mjs` (avalia
-expressão e imprime o retorno — mede DOM sem gastar imagem) e `pdp.mjs` (printa
-a mesma página em 350/900/2500ms, que foi como o flash do fundo branco apareceu).
-
-URL de PDP é canônica, não `/produto/:id`: `/violoes/tonante/<seoSlug>/`.
-
-Armadilhas do headless: **vídeo não toca** (sem H.264), **canvas com foto de
-produto é impossível** (sem CORS), e cookies/newsletter cobrem a tela — os
-scripts já clicam em "Aceitar" e "Não, obrigado".
-
-`npx tsc --noEmit` tem erros **pré-existentes** em `vite.config.ts`, `Navbar.tsx`
-(17, todos de `Variants` do motion), `CartPage.tsx`, `CheckoutPage.tsx`,
-`ProductPage.tsx` (props faltando em `StickyCard`) e `MonteSeuPcPage.tsx`.
-`npx vite build` passa limpo.
-
-## Como o Gabriel trabalha
-
-- Manda print da referência e cobra fidelidade: respeitar medidas em vez de
-  aproximar. Inspeciona o DevTools da referência e passa os números.
-- **Revisa por screenshot. Capturar e mostrar vale mais que descrever.**
-- Não quer spec pra aprovar: pede, você faz e mostra o print.
-- Repara em motion: as coisas têm que **surgir**, com deslocamento leve na
-  direção final. Padrão `cubic-bezier(0.22, 1, 0.36, 1)` com 420ms (600ms no
-  zoom da foto). `transition` inline sobrescreve a classe do Tailwind, e o
-  Tailwind v4 anima `translate`/`scale`, não `transform`.
-- Menos informação por card, mais respiro, menos "cara de IA".
-- Quando ele diz "tira isso", é remover — não esconder.
-- Fala em português, direto. Responde melhor a alternativa concreta que a
-  pergunta aberta.
+- Ele pede, você faz e **mostra print**. Não monte lista de specs para aprovar.
+- Em dúvida entre duas soluções, escolha a recomendada e siga; ele corrige
+  depois se não for.
+- **Nunca use travessão em texto de interface** (só em comentário de código).
+- Voz das respostas: seca, sem floreio. Commits e código, português normal e
+  completo, sempre explicando o porquê.
