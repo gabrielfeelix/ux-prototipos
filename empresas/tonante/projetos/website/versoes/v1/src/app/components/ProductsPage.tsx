@@ -1584,21 +1584,20 @@ export function ProductsPage() {
                             aria-label={isFavorite(displayProduct.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                           ><Heart size={15} className={isFavorite(displayProduct.id) ? "fill-red-500 text-red-500" : ""} strokeWidth={2} /></button>
 
-                          {/* desktop: preço encostado na coluna de ação, que é
-                             onde o olho para antes de decidir. Alinhado à direita
-                             para as linhas empilharem numa régua só. */}
-                          <div className="hidden sm:flex flex-shrink-0 items-center self-stretch sm:pl-2 sm:pr-1" style={{ minWidth: "232px" }}>
-                            <ListPrice product={displayProduct} align="right" />
-                          </div>
-
-                          {/* Desktop actions column */}
-                          <div className="hidden sm:flex sm:flex-col items-end justify-between gap-3 flex-shrink-0 self-stretch">
+                          {/* desktop: preço e botão na MESMA coluna, um em cima
+                             do outro. O preço morava numa coluna própria, centrado
+                             na altura da linha, e sobrava solto no meio do caminho
+                             entre o nome e o botão — lido nem como parte da
+                             informação, nem como parte da decisão. */}
+                          <div className="hidden sm:flex sm:flex-col items-end justify-between gap-3 flex-shrink-0 self-stretch" style={{ minWidth: "248px" }}>
                             <button onClick={() => toggleFavorite(displayProduct.id)}
                               className="w-10 h-10 border border-foreground/15 rounded-full flex items-center justify-center text-foreground/40 hover:text-foreground hover:border-foreground/30 transition-all bg-foreground/[0.02] cursor-pointer"
                               aria-label={isFavorite(displayProduct.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                             ><Heart size={16} className={isFavorite(displayProduct.id) ? "fill-red-500 text-red-500" : ""} strokeWidth={2} /></button>
+                            <div className="flex w-full flex-col items-end gap-2.5">
+                            <ListPrice product={displayProduct} align="right" />
                             <button onClick={() => handleAddToCart(displayProduct)}
-                              className="flex items-center gap-2 px-7 py-3 rounded-full transition-transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
+                              className="flex w-full min-w-[212px] items-center justify-center gap-2 px-7 py-3 rounded-full transition-transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
                               style={{
                                 background: "var(--gradient-buy)",
                                 color: "white",
@@ -1609,6 +1608,7 @@ export function ProductsPage() {
                                 boxShadow: "var(--shadow-buy-cta-sm)",
                               }}
                             ><ShoppingBag size={14} strokeWidth={2} /> Comprar</button>
+                            </div>
                           </div>
                         </motion.div>
                       );
@@ -1867,7 +1867,7 @@ export function ProductsPage() {
                           <span className={`relative inline-flex h-2 w-2 rounded-full ${urgent ? "bg-[#e08c12]" : "bg-emerald-500"}`} />
                         </span>
                         <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: urgent ? "#ff5a52" : "rgba(var(--foreground-rgb), 0.85)" }}>
-                          {urgent ? `Últimas ${stockLeft} unidades em estoque` : `${stockLeft} em estoque · envio em 24h`}
+                          {urgent ? `Últimas ${stockLeft} unidades em estoque` : `${stockLeft} em estoque · envio em 24h úteis`}
                         </span>
                       </div>
                     );
