@@ -329,7 +329,7 @@ export function HeaderV2() {
         {/* No celular a logo fica no centro: hambúrguer e carrinho têm 44px
             cada, então o espaço que sobra é simétrico e ela cai no meio de
             verdade. No desktop volta a ser o primeiro item da linha. */}
-        <Link to="/" aria-label="Tonante, início" className="flex flex-1 flex-shrink-0 justify-center transition-opacity duration-200 hover:opacity-70 md:flex-none md:justify-start">
+        <Link to="/" aria-label="Tonante, início" className="flex min-h-11 flex-1 flex-shrink-0 items-center justify-center transition-opacity duration-200 hover:opacity-70 md:flex-none md:justify-start">
           <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-8 md:h-11" style={{ width: "auto" }} />
         </Link>
 

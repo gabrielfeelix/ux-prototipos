@@ -93,7 +93,12 @@ export function MobileMenu({ open, onClose, categorias }: Props) {
         style={{
           background: "#ffffff",
           transform: open ? "translateX(0)" : "translateX(-100%)",
-          transition: "transform .32s cubic-bezier(0.22,1,0.36,1)",
+          /* fechada, a gaveta fica fora da tela mas continua na árvore: sem
+             `visibility: hidden` os links dela seguem alcançáveis pelo Tab e
+             o leitor de tela lê um menu que ninguém vê. A visibilidade só
+             desliga quando a animação de saída termina. */
+          visibility: open ? "visible" : "hidden",
+          transition: "transform .32s cubic-bezier(0.22,1,0.36,1), visibility 0s linear " + (open ? "0s" : ".32s"),
           boxShadow: open ? "0 0 60px -10px rgba(17,17,17,0.45)" : "none",
         }}
       >
@@ -109,7 +114,7 @@ export function MobileMenu({ open, onClose, categorias }: Props) {
               {cat.label}
             </button>
           ) : (
-            <Link to="/" onClick={onClose} className="pl-2" aria-label="Tonante, início">
+            <Link to="/" onClick={onClose} className="flex min-h-11 items-center pl-2" aria-label="Tonante, início">
               <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-8" style={{ width: "auto" }} />
             </Link>
           )}
