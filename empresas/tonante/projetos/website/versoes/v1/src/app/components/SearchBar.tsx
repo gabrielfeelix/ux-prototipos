@@ -113,8 +113,10 @@ function CardBusca({ p, fundo, onNavigate }: { p: Product; fundo: string; onNavi
       </div>
       {/* coluna do painel é mais estreita que a da vitrine (5 cards em
           1320px): 11px é o tamanho em que a linha inteira ainda cabe sem
-          truncar — "no cartão" cortado tirava justamente o que a linha diz. */}
-      <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "11px", color: "#6b6b6b", marginTop: "3px", lineHeight: 1.3, whiteSpace: "nowrap" }}>
+          truncar — "no cartão" cortado tirava justamente o que a linha diz.
+          No celular a coluna tem ~165px e nem 11px cabe: lá a linha quebra em
+          duas em vez de vazar por cima do card vizinho. */}
+      <div className="num whitespace-normal md:whitespace-nowrap" style={{ fontFamily: "var(--font-family-inter)", fontSize: "11px", color: "#6b6b6b", marginTop: "3px", lineHeight: 1.3 }}>
         {parcelas}x de {formatBRL(valorParcela)} sem juros no cartão
       </div>
     </Link>
@@ -128,7 +130,11 @@ export function SearchBar({
   panelAnchor = "bar",
   /** "lg" = barra mais alta e fonte maior (header da v2) */
   size = "md",
-}: { className?: string; panelAnchor?: "bar" | "viewport"; size?: "md" | "lg" }) {
+  /** variante do header no celular: sem o seletor de categoria (come 120px
+      dos 390 disponíveis) e com fonte de 16px, abaixo disso o iOS dá zoom
+      sozinho ao focar o campo. */
+  compact = false,
+}: { className?: string; panelAnchor?: "bar" | "viewport"; size?: "md" | "lg"; compact?: boolean }) {
   const lg = size === "lg";
   /* fundo da caixa de foto: no painel da v2 (ancorado na viewport) o mesmo
      degradê claro da vitrine; na v1 o poço do tema. */
@@ -237,13 +243,14 @@ export function SearchBar({
         <div
           className="flex items-center overflow-hidden rounded-full border-[1.5px] transition-all"
           style={{
-            height: lg ? 52 : 44,
+            height: compact ? 46 : lg ? 52 : 44,
             background: "var(--surface-1)",
             borderColor: searchPanelOpen ? "var(--primary)" : "#d6d6d6",
             boxShadow: "none",
           }}
         >
           {/* All categories dropdown */}
+          {!compact && (
           <div className="relative h-full flex-shrink-0">
             <button
               type="button"
@@ -260,15 +267,16 @@ export function SearchBar({
             </button>
             <span className="absolute right-0 top-1/2 h-5 w-px -translate-y-1/2" style={{ background: "rgba(17,17,17,0.12)" }} />
           </div>
+          )}
 
           <input
             ref={searchInputRef}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setSearchPanelOpen(true)}
-            placeholder="O que você está procurando?"
+            placeholder={compact ? "Buscar instrumento, marca…" : "O que você está procurando?"}
             className="h-full min-w-0 flex-1 bg-transparent px-4 text-ink-strong outline-none placeholder:text-ink-subtle"
-            style={{ fontFamily: "var(--font-family-inter)", fontSize: lg ? "15px" : "var(--text-sm)" }}
+            style={{ fontFamily: "var(--font-family-inter)", fontSize: compact ? "16px" : lg ? "15px" : "var(--text-sm)" }}
           />
 
           {searchQuery && (
@@ -295,7 +303,7 @@ export function SearchBar({
 
         {/* X close (when panel open) */}
         <AnimatePresence>
-          {searchPanelOpen && (
+          {searchPanelOpen && !compact && (
             <motion.button
               key="search-close"
               type="button"
@@ -360,8 +368,8 @@ export function SearchBar({
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className={
                 panelAnchor === "viewport"
-                  ? "fixed left-1/2 z-[60] w-[min(1320px,calc(100vw-64px))] -translate-x-1/2 overflow-hidden rounded-card-lg shadow-[var(--shadow-pop)]"
-                  : "absolute left-1/2 top-[58px] z-[60] w-[min(1320px,calc(100vw-64px))] -translate-x-1/2 overflow-hidden rounded-card-lg shadow-[var(--shadow-pop)]"
+                  ? "fixed left-1/2 z-[60] w-[min(1320px,calc(100vw-24px))] max-h-[calc(100dvh-150px)] overflow-y-auto overscroll-contain -translate-x-1/2 rounded-card-lg shadow-[var(--shadow-pop)] md:w-[min(1320px,calc(100vw-64px))] md:max-h-none md:overflow-hidden"
+                  : "absolute left-1/2 top-[58px] z-[60] w-[min(1320px,calc(100vw-24px))] max-h-[calc(100dvh-150px)] overflow-y-auto overscroll-contain -translate-x-1/2 rounded-card-lg shadow-[var(--shadow-pop)] md:w-[min(1320px,calc(100vw-64px))] md:max-h-none md:overflow-hidden"
               }
               style={{
                 background: panelAnchor === "viewport" ? "#ffffff" : "var(--surface-2)",
@@ -370,11 +378,11 @@ export function SearchBar({
               }}
             >
               {searchQuery.trim().length === 0 ? (
-                <div className="grid grid-cols-[1fr_260px] gap-0">
+                <div className="grid grid-cols-1 gap-0 md:grid-cols-[1fr_260px]">
                   {/* Left: produtos */}
-                  <div className="border-r border-edge-subtle px-10 py-9">
+                  <div className="border-b border-edge-subtle px-5 py-6 md:border-b-0 md:border-r md:px-10 md:py-9">
                     <h4
-                      className="mb-7 text-ink-strong"
+                      className="mb-5 text-ink-strong md:mb-7"
                       style={{
                         fontFamily: "var(--font-family-figtree)",
                         fontSize: "var(--text-lg)",
@@ -384,7 +392,7 @@ export function SearchBar({
                     >
                       Produtos mais buscados
                     </h4>
-                    <div className="grid grid-cols-5 gap-6">
+                    <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 md:gap-6">
                       {mostSearchedProducts.map((p) => (
                         <CardBusca
                           key={p.id}
@@ -397,9 +405,9 @@ export function SearchBar({
                   </div>
 
                   {/* Right: keywords */}
-                  <div className="px-7 py-9">
+                  <div className="px-5 py-6 md:px-7 md:py-9">
                     <h4
-                      className="mb-6 text-ink-strong"
+                      className="mb-4 text-ink-strong md:mb-6"
                       style={{
                         fontFamily: "var(--font-family-figtree)",
                         fontSize: "var(--text-lg)",
@@ -437,8 +445,8 @@ export function SearchBar({
                   </div>
                 </div>
               ) : searchResults.length > 0 ? (
-                <div className="px-10 py-9">
-                  <div className="mb-7 flex items-baseline justify-between">
+                <div className="px-5 py-6 md:px-10 md:py-9">
+                  <div className="mb-5 flex items-baseline justify-between md:mb-7">
                     <h4
                       className="text-ink-strong"
                       style={{
@@ -457,7 +465,7 @@ export function SearchBar({
                       {searchResults.length} {searchResults.length === 1 ? "PRODUTO" : "PRODUTOS"}
                     </span>
                   </div>
-                  <div className="grid grid-cols-5 gap-6 max-h-[520px] overflow-y-auto pr-1">
+                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 md:gap-6 max-h-none md:max-h-[520px] md:overflow-y-auto md:pr-1">
                     {searchResults.map((p) => (
                       <CardBusca
                         key={p.id}
@@ -472,7 +480,7 @@ export function SearchBar({
                   </div>
                 </div>
               ) : (
-                <div className="px-10 py-16 text-center">
+                <div className="px-6 py-12 text-center md:px-10 md:py-16">
                   <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 600 }}>
                     Nenhum produto encontrado
                   </p>

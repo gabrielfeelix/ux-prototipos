@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
   Instagram, Facebook, Youtube, Store, Headphones, Truck, CreditCard, Guitar,
-  Heart, Package, LogOut, HelpCircle, Hand,
+  Heart, Package, LogOut, HelpCircle, Hand, Menu,
   type LucideIcon, Compass,
 } from "lucide-react";
 import { useCart } from "../components/CartContext";
@@ -16,6 +16,8 @@ import { allProducts, type Product } from "../components/productsData";
 import { getProductUrl } from "../lib/slug";
 import { SearchBar } from "../components/SearchBar";
 import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
+import { MobileMenu } from "./MobileMenu";
+import { useIsMobile } from "../components/ui/use-mobile";
 
 /* Ícone de cada perfil da faixa preta. A lista em si vive em
    components/socialLinks.ts — aqui só o desenho. */
@@ -131,6 +133,9 @@ export function HeaderV2() {
      tinham gatilho nenhum. Abre pelo ícone de recado da faixa preta. */
   const cats = useHoverPanel();
   const conta = useHoverPanel();
+  /* gaveta do celular — o desktop não a monta */
+  const [menuAberto, setMenuAberto] = useState(false);
+  const isMobile = useIsMobile();
   const [catAtiva, setCatAtiva] = useState(MEGA[0].label);
 
   /* Headroom: descendo, a faixa de navegação colapsa e ficam só avisos +
@@ -208,7 +213,7 @@ export function HeaderV2() {
 
   // navegou: fecha tudo
   useEffect(() => {
-    cats.setOpen(false); conta.setOpen(false);
+    cats.setOpen(false); conta.setOpen(false); setMenuAberto(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
@@ -223,8 +228,18 @@ export function HeaderV2() {
       style={{ background: "#ffffff", boxShadow: scrolled ? "0 6px 20px -18px rgba(17,17,17,0.45)" : "none", transition: "box-shadow .25s ease" }}
     >
       {/* faixa utilitária — preta; o aviso é o herói */}
-      <div data-keep-dark style={{ background: "var(--ink-strong)" }}>
-        <div className="mx-auto flex h-11 w-full items-center gap-4 px-5 md:px-12" style={{ maxWidth: "1680px" }}>
+      <div
+        data-keep-dark
+        style={{
+          background: "var(--ink-strong)",
+          /* no celular o cabeçalho fixo vale 3 faixas: a dos avisos sai ao
+             descer e volta ao subir, junto do resto do headroom. */
+          maxHeight: isMobile && scrolled ? 0 : 44,
+          overflow: "hidden",
+          transition: "max-height .28s ease",
+        }}
+      >
+        <div className="mx-auto flex h-11 w-full items-center gap-4 px-4 md:px-12" style={{ maxWidth: "1680px" }}>
           <div className="flex items-center gap-3.5">
             {/* os três perfis oficiais, na mesma ordem do rodapé */}
             {SOCIAL_LINKS.map(({ label, href }) => {
@@ -279,9 +294,22 @@ export function HeaderV2() {
       </div>
 
       {/* faixa principal */}
-      <div className="mx-auto flex w-full items-center gap-5 px-5 py-4 md:gap-16 md:px-12" style={{ maxWidth: "1680px" }}>
+      <div className="mx-auto flex w-full items-center gap-3 px-4 py-2.5 md:gap-16 md:px-12 md:py-4" style={{ maxWidth: "1680px" }}>
+        {/* hambúrguer — só existe no celular, onde categorias, conta, ajuda e
+            favoritos não cabem na barra */}
+        <button
+          type="button"
+          onClick={() => setMenuAberto(true)}
+          aria-label="Abrir menu"
+          aria-expanded={menuAberto}
+          className="-ml-2 grid h-11 w-11 flex-shrink-0 cursor-pointer place-items-center rounded-full active:bg-[var(--surface-2)] md:hidden"
+          style={{ color: "var(--ink-strong)" }}
+        >
+          <Menu size={24} strokeWidth={1.9} />
+        </button>
+
         <Link to="/" aria-label="Tonante, início" className="flex-shrink-0 transition-opacity duration-200 hover:opacity-70">
-          <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-9 md:h-11" style={{ width: "auto" }} />
+          <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-8 md:h-11" style={{ width: "auto" }} />
         </Link>
 
         {/* mesma barra + painel "mais buscados" do header da v1 */}
@@ -380,7 +408,7 @@ export function HeaderV2() {
           <button
             onClick={() => setIsOpen(true)}
             aria-label={`Abrir carrinho${totalItems > 0 ? `, ${totalItems} item(ns)` : ""}`}
-            className="group/cart relative grid h-[52px] w-[52px] cursor-pointer place-items-center rounded-full transition-[background-color,box-shadow,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-12px_rgba(17,17,17,0.65)] active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/30 focus-visible:ring-offset-2"
+            className="group/cart relative grid h-11 w-11 cursor-pointer place-items-center rounded-full md:h-[52px] md:w-[52px] transition-[background-color,box-shadow,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-12px_rgba(17,17,17,0.65)] active:translate-y-0 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/30 focus-visible:ring-offset-2"
             style={{ background: "var(--ink-strong)", color: "#ffffff" }}
           >
             <ShoppingCart
@@ -407,8 +435,15 @@ export function HeaderV2() {
         </div>
       </div>
 
-      {/* faixa de navegação — some ao rolar */}
+      {/* busca do celular — campo aberto, não ícone: em loja a busca é o
+          caminho principal e esconder atrás de um toque derruba o uso. */}
+      <div className="px-4 pb-2.5 md:hidden">
+        <SearchBar panelAnchor="viewport" compact />
+      </div>
+
+      {/* faixa de navegação — some ao rolar; no celular vive na gaveta */}
       <div
+        className="hidden md:block"
         style={{
           borderTop: "1px solid var(--border)",
           borderBottom: scrolled ? "1px solid transparent" : "1px solid var(--border)",
@@ -591,6 +626,17 @@ export function HeaderV2() {
       </div>
     </header>
 
+    <MobileMenu
+      open={menuAberto}
+      onClose={() => setMenuAberto(false)}
+      categorias={MEGA.map((m) => ({
+        label: m.label,
+        href: m.href,
+        count: m.count,
+        tipos: m.tipos.map((t) => ({ label: t.label, href: t.href, count: t.count })),
+        marcas: m.marcas,
+      }))}
+    />
     </>
   );
 }
