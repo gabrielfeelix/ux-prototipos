@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { Footer } from "../Footer";
+import { LoadingScreen } from "../LoadingScreen";
 
 interface DynamicHtmlPageProps {
   htmlPath: string;
@@ -9,10 +10,17 @@ interface DynamicHtmlPageProps {
 export function DynamicHtmlPage({ htmlPath }: DynamicHtmlPageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [html, setHtml] = useState<string>("");
+  /* Estas páginas são HTML solto de 200KB+ buscado por fetch, injetado no DOM e
+     só então estilizado pelos <style> e <link> que vêm dentro dele. Até isso
+     acabar o container está vazio e o que aparecia na tela era o rodapé
+     sozinho, no alto, parecendo página quebrada. A tela de carregamento da
+     marca cobre a espera — ela existe pra isso. */
+  const [pronto, setPronto] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     let cancelled = false;
+    setPronto(false);
     fetch(htmlPath)
       .then((res) => res.text())
       .then((text) => {
@@ -128,7 +136,13 @@ export function DynamicHtmlPage({ htmlPath }: DynamicHtmlPageProps) {
 
     window.scrollTo(0, 0);
 
+    /* Dois quadros antes de descobrir a página: no primeiro o browser ainda
+       não aplicou os estilos recém-injetados, e sair antes disso troca o
+       carregamento por um lampejo de HTML sem CSS. */
+    const frame = requestAnimationFrame(() => requestAnimationFrame(() => setPronto(true)));
+
     return () => {
+      cancelAnimationFrame(frame);
       resizeObserver?.disconnect();
       window.removeEventListener("resize", syncWrapperOffset);
       overridesLink.remove();
@@ -145,8 +159,17 @@ export function DynamicHtmlPage({ htmlPath }: DynamicHtmlPageProps) {
 
   return (
     <>
+      {/* O container fica montado desde o começo — é nele que o efeito injeta.
+          Quem some é o rodapé: ele no alto da tela vazia era o "trava" que se
+          via antes da página chegar. */}
       <div ref={containerRef} />
-      <Footer />
+      {pronto ? (
+        <Footer />
+      ) : (
+        <div className="fixed inset-0 z-[120]">
+          <LoadingScreen />
+        </div>
+      )}
     </>
   );
 }
