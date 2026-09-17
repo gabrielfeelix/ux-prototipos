@@ -253,8 +253,8 @@ function PassoGosto({
 
   return (
     <>
-      <Titulo sub="Marque quem você ouve. Serve pra saber o som que você quer fazer, não pra julgar gosto.">
-        Quem você quer tocar?
+      <Titulo sub="Marque alguns. É só pra entender o som que você quer fazer — ninguém aqui julga playlist.">
+        Quais artistas você ouve?
       </Titulo>
 
       <div className="mt-8 flex flex-wrap items-center gap-2">
