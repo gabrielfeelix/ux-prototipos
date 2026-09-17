@@ -342,18 +342,18 @@ export function slotsVisiveis(
 ): Slot[] {
   const fam = instrumento ? familiaDoInstrumento(instrumento) : (familiaEscolhida ?? null);
   const trilho = fam ? TRILHOS[fam] : TRILHO_CORDAS;
+  /* Sem instrumento escolhido, a trilha é medida no modelo mais representativo
+     da família. Medir em cima de algo é o que mantém a trilha do mesmo tamanho
+     do começo ao fim: prometer "Cabo XLR" e apagar o passo depois é pior que
+     nunca ter prometido. */
+  const referencia = instrumento ?? (fam ? instrumentosDisponiveis(fam)[0] ?? null : null);
+  if (!referencia) return trilho.map((id) => passoParaFamilia(id, fam));
   return trilho
     .filter((id) => {
       if (id === "instrumento") return true;
-      /* Sem instrumento escolhido ainda, o trilho é só uma promessa: não dá pra
-         medir o passo no catálogo, então ele aparece. A única exceção é o cabo
-         em instrumento de corda, que depende de o modelo ter captação — em
-         teclado e microfone o cabo é certo, e esconder pra mostrar depois faria
-         a trilha crescer no meio do caminho. */
-      if (!instrumento) return id !== "ligar" || fam === "teclado" || fam === "voz";
-      if (id === "ligar" && fam !== "teclado" && fam !== "voz" && !temCaptacao(instrumento))
+      if (id === "ligar" && fam !== "teclado" && fam !== "voz" && !temCaptacao(referencia))
         return false;
-      return pecasDoSlot(id, instrumento).length >= MIN_PECAS;
+      return pecasDoSlot(id, referencia).length >= MIN_PECAS;
     })
     .map((id) => passoParaFamilia(id, fam));
 }

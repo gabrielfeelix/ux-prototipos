@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getCatalogHref } from "../components/productPresentation";
+import { useIsMobile } from "../components/ui/use-mobile";
 
 /* HeroBannersV2 — mesmos banners da v1, porém full-bleed (sem margem,
    sem raio, sem sombra) e mais altos, como no tema Local. */
@@ -20,6 +21,7 @@ export function HeroBannersV2() {
   // altura = tudo o que sobra da 1ª dobra abaixo do header, medido de verdade
   // (o header tem 3 faixas e muda de altura em breakpoint).
   const [headerH, setHeaderH] = useState(178);
+  const isMobile = useIsMobile();
   const n = SLIDES.length;
 
   useEffect(() => {
@@ -40,7 +42,15 @@ export function HeroBannersV2() {
 
   return (
     <section className="relative w-full overflow-hidden" style={{ background: "#ffffff" }}>
-      <div className="relative w-full" style={{ height: `max(420px, calc(100svh - ${headerH}px))` }}>
+      {/* A arte é 1942×809 (2,4:1). Numa tela de 390px, "cobrir" a dobra
+          inteira mostra ~27% da largura: some a manchete, some o botão e fica
+          só um pedaço de guitarra. No celular o quadro é mais baixo e ancorado
+          à esquerda, que é onde mora o texto da peça. A saída definitiva é
+          arte vertical própria — isto é o melhor possível com a que existe. */}
+      <div
+        className="relative w-full"
+        style={{ height: isMobile ? "max(340px, 46svh)" : `max(420px, calc(100svh - ${headerH}px))` }}
+      >
         {SLIDES.map((s, i) => {
           const on = i === idx;
           return (
@@ -52,7 +62,7 @@ export function HeroBannersV2() {
               aria-hidden={!on}
               tabIndex={on ? 0 : -1}
             >
-              <img src={s.img} alt={s.alt} className="h-full w-full object-cover" />
+              <img src={s.img} alt={s.alt} className="h-full w-full object-cover object-[16%_center] md:object-center" />
             </Link>
           );
         })}

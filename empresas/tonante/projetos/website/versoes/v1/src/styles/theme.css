@@ -957,3 +957,33 @@ button[aria-disabled="true"] { cursor: not-allowed; }
     display: none;
   }
 }
+
+/* Controle que só aparece no hover precisa existir onde não há hover. Em tela
+   de toque, quem depende de `group-hover` fica invisível e o primeiro toque
+   vira só "revelar" — dois toques pra uma ação. `touch-visivel` marca esses
+   controles: onde não há ponteiro fino, eles já nascem à mostra. */
+@media (hover: none) {
+  .touch-visivel {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Rodapé: as quatro colunas de links viram sanfona no celular. Abertas, elas
+   somam ~1000px que ninguém percorre; o rodapé inteiro tinha 2065px numa tela
+   de 390. No desktop o <details> vem aberto e o resumo é só um título. */
+.footer-col > summary {
+  list-style: none;
+}
+.footer-col > summary::-webkit-details-marker {
+  display: none;
+}
+.footer-col[open] .fc-seta {
+  transform: rotate(180deg);
+}
+@media (min-width: 768px) {
+  .footer-col > summary {
+    margin-bottom: 18px;
+    pointer-events: none;
+  }
+}

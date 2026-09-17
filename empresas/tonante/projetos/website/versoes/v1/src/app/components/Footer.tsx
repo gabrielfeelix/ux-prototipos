@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router";
-import { Facebook, Instagram, Linkedin, Youtube, ShieldCheck } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, ShieldCheck, ChevronDown } from "lucide-react";
 import { SOCIAL_LINKS, type SocialLabel } from "./socialLinks";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { getCatalogHref } from "./productPresentation";
+import { useIsMobile } from "./ui/use-mobile";
 
 // Footer "stage" — tratamento escuro (var(--stage)) com glow âmbar e grão,
 // portado da referência de marca (_ref). Statement serif + headers âmbar +
@@ -81,6 +82,10 @@ function SocialIcon({ label }: { label: SocialLabel }) {
 
 export function Footer() {
   const { pathname } = useLocation();
+  /* No celular as colunas de links nascem fechadas (ver .footer-col no
+     theme.css); a partir de 768px o <details> fica aberto e o resumo perde a
+     seta e o clique. */
+  const isMobile = useIsMobile();
   const isCheckout = pathname === "/checkout";
 
   if (isCheckout) {
@@ -153,7 +158,7 @@ export function Footer() {
         </div>
 
         {/* topo: marca + 3 colunas */}
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-10">
+        <div className="grid grid-cols-1 gap-y-0 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-10">
           {/* marca + statement + social */}
           <div>
             <Link to="/" className="inline-block hover:opacity-80 transition-opacity" aria-label="Tonante">
@@ -181,11 +186,29 @@ export function Footer() {
             </div>
           </div>
 
-          {/* colunas de links */}
+          {/* colunas de links — no celular cada uma vira uma sanfona: abertas,
+              as quatro listas somam quase mil pixels de rodapé que ninguém
+              lê de cabo a rabo. No desktop o <details> fica sempre aberto
+              (open={} via CSS) e o marcador some. */}
           {footerColumns.map((col) => (
-            <div key={col.title}>
-              <p className="label" style={{ color: "var(--amber)", marginBottom: 18 }}>{col.title}</p>
-              <ul className="m-0 flex list-none flex-col gap-3 p-0">
+            <details
+              key={col.title}
+              className="footer-col border-t border-white/10 md:border-0"
+              open={!isMobile}
+            >
+              <summary
+                className="label flex cursor-pointer list-none items-center justify-between py-4 md:cursor-default md:py-0"
+                style={{ color: "var(--amber)", minHeight: 52 }}
+              >
+                {col.title}
+                <ChevronDown
+                  size={16}
+                  strokeWidth={2.2}
+                  className="fc-seta transition-transform duration-200 md:hidden"
+                  style={{ color: "var(--amber)" }}
+                />
+              </summary>
+              <ul className="m-0 flex list-none flex-col gap-3 p-0 pb-5 md:pb-0">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -200,7 +223,7 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </details>
           ))}
         </div>
 

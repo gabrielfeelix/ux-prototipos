@@ -184,7 +184,7 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
             onClick={() => setComSom((s) => !s)}
             aria-label={comSom ? "Desligar o som" : "Ligar o som"}
             aria-pressed={comSom}
-            className="absolute right-[52px] top-[7px] z-[4] flex h-9 w-9 cursor-pointer items-center justify-center rounded-full opacity-0 transition-opacity duration-200 group-hover/post:opacity-100"
+            className="absolute right-[52px] top-[7px] z-[4] flex h-9 w-9 cursor-pointer items-center justify-center rounded-full opacity-0 transition-opacity duration-200 group-hover/post:opacity-100 touch-visivel"
             style={{ background: "rgba(17,17,17,0.45)", backdropFilter: "blur(6px)", border: "none", color: "#fff" }}
           >
             {comSom ? <Volume2 size={16} strokeWidth={2} /> : <VolumeX size={16} strokeWidth={2} />}
@@ -247,7 +247,7 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
                 é overflow:hidden — por isso o nome curto do instrumento, com
                 teto de duas linhas. O preço é o do Pix, o mesmo que o card de
                 produto mostra grande, pra não haver dois preços no site. */}
-            <div className="pointer-events-none min-w-0 opacity-0 transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:opacity-100">
+            <div className="pointer-events-none min-w-0 opacity-0 transition-opacity duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:opacity-100 touch-visivel">
               <p
                 className="line-clamp-2"
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.90)", margin: 0, lineHeight: 1.3, textShadow: "0 1px 8px rgba(0,0,0,0.55)" }}
@@ -274,7 +274,7 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
             onClick={comprar}
             onMouseEnter={() => setCtaHover(true)}
             onMouseLeave={() => setCtaHover(false)}
-            className="absolute inset-x-4 bottom-4 z-[4] flex h-12 translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-pill opacity-0 transition-[translate,opacity,background-color,color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:translate-y-0 group-hover/post:opacity-100"
+            className="absolute inset-x-4 bottom-4 z-[4] flex h-12 translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-pill opacity-0 transition-[translate,opacity,background-color,color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:translate-y-0 group-hover/post:opacity-100 touch-visivel"
             style={{
               background: ctaHover ? "var(--ink-strong)" : "#ffffff",
               color: ctaHover ? "#ffffff" : "var(--ink-strong)",
