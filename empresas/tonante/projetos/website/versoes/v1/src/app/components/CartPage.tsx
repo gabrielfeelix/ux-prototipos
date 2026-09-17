@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -21,6 +21,8 @@ import {
   X,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { CTAButton } from "./section";
+import { PcyesCoin } from "./PcyesCoin";
 import { useCart } from "./CartContext";
 import { useCheckoutPrefs } from "./CheckoutPrefsContext";
 import { Footer } from "./Footer";
@@ -30,8 +32,8 @@ import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPres
 const POINT_BRL = 0.1; // valor de 1 Ton Point em reais (igual ao perfil)
 
 const COUPONS: Record<string, number> = {
-  PCYES10: 10,
-  PROMO20: 20,
+  TONANTE10: 10,
+  AFINADO20: 20,
   BEMVINDO: 15,
 };
 
@@ -181,8 +183,38 @@ export function CartPage() {
     return digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits;
   };
 
-  const cardBg = "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)";
-  const cardBorder = "1px solid rgba(var(--foreground-rgb), 0.08)";
+  /* Cartão da casa: superfície branca definida por borda e sombra, igual ao
+     checkout e à PDP. O cinza translúcido veio da página herdada e era o que
+     deixava o carrinho todo chapado. */
+  const mobileBarRef = useRef<HTMLDivElement | null>(null);
+
+  /* A barra fixa se mede e publica a altura: `--cart-bar-h` é o respiro da
+     página e `--fab-lift` é como o botão de WhatsApp e o banner de cookies
+     sabem subir. Sem isso o WhatsApp sentava em cima do CTA. No desktop a
+     barra é `lg:hidden` e mede zero, então nada acontece. */
+  useEffect(() => {
+    const raiz = document.documentElement;
+    const barra = mobileBarRef.current;
+    if (!barra) return;
+    const medir = () => {
+      const h = Math.round(barra.getBoundingClientRect().height);
+      raiz.style.setProperty("--cart-bar-h", `${h}px`);
+      raiz.style.setProperty("--fab-lift", h > 0 ? `${h}px` : "0px");
+    };
+    medir();
+    const ro = new ResizeObserver(medir);
+    ro.observe(barra);
+    window.addEventListener("resize", medir);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", medir);
+      raiz.style.setProperty("--cart-bar-h", "0px");
+      raiz.style.setProperty("--fab-lift", "0px");
+    };
+  }, []);
+
+  const cardBg = "var(--surface-1)";
+  const cardBorder = "1px solid var(--border)";
 
   if (items.length === 0) {
     return (
@@ -432,7 +464,7 @@ export function CartPage() {
                         borderRadius: "var(--radius-card-md)",
                         background: cardBg,
                         border: cardBorder,
-                        boxShadow: "inset 0 1px 0 rgba(var(--foreground-rgb), 0.04)",
+                        boxShadow: "var(--shadow-card)",
                       }}
                     >
                       {/* Image */}
@@ -440,14 +472,20 @@ export function CartPage() {
                         className="relative h-[100px] w-[100px] flex-shrink-0 overflow-hidden md:h-[120px] md:w-[120px]"
                         style={{
                           borderRadius: "var(--radius-card-sm)",
-                          background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.08) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-                          border: "1px solid rgba(var(--foreground-rgb), 0.06)",
+                          /* prata da casa (mesma moldura da sidebar do carrinho e
+                             do resumo do checkout). Com `multiply` o fundo branco
+                             do PNG do produto encosta na moldura em vez de virar
+                             um quadrado branco dentro do cartão. */
+                          background: "var(--gradient-photo)",
+                          border: "1px solid var(--border)",
+                          boxShadow: "var(--shadow-card-hairline)",
                         }}
                       >
                         <ImageWithFallback
                           src={item.image}
                           alt={item.name}
                           className="h-full w-full object-contain p-2.5 md:p-3"
+                          style={{ mixBlendMode: "multiply" }}
                         />
                         {item.isGift && (
                           <span
@@ -503,7 +541,7 @@ export function CartPage() {
                               style={{
                                 borderRadius: "var(--radius-card-sm)",
                                 border: "1px solid rgba(var(--foreground-rgb), 0.1)",
-                                background: "rgba(var(--foreground-rgb), 0.03)",
+                                background: "var(--surface-2)",
                               }}
                             >
                               <button
@@ -658,7 +696,7 @@ export function CartPage() {
                         style={{
                           borderRadius: "var(--radius-card-sm)",
                           border: "1px solid rgba(var(--foreground-rgb), 0.1)",
-                          background: "rgba(var(--foreground-rgb), 0.03)",
+                          background: "var(--surface-2)",
                           fontFamily: "var(--font-family-inter)",
                           fontSize: "var(--text-sm)",
                           fontWeight: 600,
@@ -772,7 +810,7 @@ export function CartPage() {
                           style={{
                             borderRadius: "var(--radius-card-sm)",
                             border: "1px solid rgba(var(--foreground-rgb), 0.1)",
-                            background: "rgba(var(--foreground-rgb), 0.03)",
+                            background: "var(--surface-2)",
                             fontFamily: "var(--font-family-inter)",
                             fontSize: "var(--text-sm)",
                             fontWeight: 600,
@@ -939,7 +977,7 @@ export function CartPage() {
                 </div>
 
                 {/* Total */}
-                <div className="mb-5 rounded-[var(--radius-card-sm)] p-4" style={{ background: "rgba(var(--foreground-rgb), 0.03)", border: "1px solid rgba(var(--foreground-rgb), 0.06)" }}>
+                <div className="mb-5 rounded-[var(--radius-card-sm)] p-4" style={{ background: "var(--surface-2)", border: "1px solid rgba(var(--foreground-rgb), 0.06)" }}>
                   <div className="mb-1 flex items-baseline justify-between">
                     <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
                       Total
@@ -1048,21 +1086,22 @@ export function CartPage() {
                         className="group relative flex flex-row cursor-pointer overflow-hidden text-left transition-all duration-300 md:block"
                         style={{
                           borderRadius: "var(--radius-card-lg)",
-                          background: "linear-gradient(135deg, rgba(var(--foreground-rgb), 0.06) 0%, rgba(var(--foreground-rgb), 0.02) 100%)",
-                          border: isSelected ? "1.5px solid rgba(200, 120, 0,0.7)" : "1px solid rgba(var(--foreground-rgb), 0.08)",
+                          background: "var(--surface-1)",
+                          border: isSelected ? "1.5px solid rgba(200, 120, 0,0.7)" : "1px solid var(--border)",
                           boxShadow: isSelected
                             ? "0 24px 60px -20px rgba(200, 120, 0,0.35), inset 0 1px 0 rgba(var(--foreground-rgb), 0.05)"
-                            : "var(--shadow-card-hairline)",
+                            : "var(--shadow-card)",
                         }}
                       >
                         <div
                           className="relative h-[132px] w-[132px] flex-shrink-0 overflow-hidden border-r border-edge-subtle md:h-[210px] md:w-full md:border-r-0 md:border-b"
-                          style={{ background: "radial-gradient(circle at top, rgba(17, 17, 17, 0.08) 0%, transparent 60%)" }}
+                          style={{ background: "var(--gradient-photo)" }}
                         >
                           <ImageWithFallback
                             src={getPrimaryProductImage(product)}
                             alt={product.name}
                             className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04] md:p-6"
+                            style={{ mixBlendMode: "multiply" }}
                           />
                           <div
                             className="absolute left-2 top-2 flex h-7 w-7 items-center justify-center rounded-full text-ink-strong md:left-4 md:top-4 md:h-9 md:w-9"
@@ -1148,11 +1187,20 @@ export function CartPage() {
         )}
       </AnimatePresence>
 
-      {/* Mobile fixed bottom action bar — total + checkout CTA. lg:hidden, abaixo dos modais (z-[80]). */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">
+      {/* Barra fixa do celular. Era uma barra #0e0e0e com texto `text-ink-strong`
+          (que no tema claro é escuro): o total sumia dentro dela. E em z-40 o
+          botão de WhatsApp (90) sentava em cima do CTA, cortando "Finalizar
+          compra" pela metade. Agora ela é superfície, como a da PDP e a do
+          checkout, e sobe para z-[95]. */}
+      <div ref={mobileBarRef} className="fixed bottom-0 left-0 right-0 z-[95] lg:hidden">
         <div
           className="flex items-center gap-3 border-t border-edge px-4 py-3"
-          style={{ background: "rgba(14,14,14,0.95)", backdropFilter: "blur(20px)" }}
+          style={{
+            background: "rgba(255,255,255,0.96)",
+            backdropFilter: "blur(20px)",
+            paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))",
+            boxShadow: "0 -10px 30px -22px rgba(17,17,17,0.55)",
+          }}
         >
           <div className="flex-1 min-w-0">
             <p
@@ -1162,67 +1210,26 @@ export function CartPage() {
               Total
             </p>
             <p
-              className="text-ink-strong"
-              style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1 }}
+              className="num text-ink-strong"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-price-lg)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.1 }}
             >
               {formatBRL(total)}
             </p>
           </div>
-          <button
-            onClick={() => navigate("/checkout")}
-            className="inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full px-6 text-ink-strong transition-transform active:scale-[0.97]"
-            style={{
-              minHeight: 46,
-              background: "var(--gradient-buy)",
-              fontFamily: "var(--font-family-inter)",
-              fontSize: "var(--text-caption)",
-              fontWeight: 800,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              boxShadow: "var(--shadow-buy-cta)",
-            }}
-          >
-            <Lock size={14} strokeWidth={2.4} />
+          {/* mesmo botão de compra do resto do site: --buy-green chapado. Era um
+              <button> à parte com var(--gradient-buy), que é outro verde. */}
+          <CTAButton onClick={() => navigate("/checkout")} variant="buy" size="md" className="shrink-0">
+            <Lock size={13} strokeWidth={2.6} />
             Finalizar compra
-          </button>
+          </CTAButton>
         </div>
       </div>
 
       <Footer />
+      {/* Respiro da barra fixa depois do rodapé: antes o fim do rodapé ficava
+          escondido atrás dela. */}
+      <div className="lg:hidden" style={{ height: "var(--cart-bar-h, 72px)" }} aria-hidden="true" />
     </>
-  );
-}
-
-function PcyesCoin({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <defs>
-        <radialGradient id="pcoin-grad" cx="35%" cy="30%" r="80%">
-          <stop offset="0%" stopColor="#fde68a" />
-          <stop offset="50%" stopColor="#facc15" />
-          <stop offset="100%" stopColor="#b45309" />
-        </radialGradient>
-        <radialGradient id="pcoin-shine" cx="30%" cy="25%" r="35%">
-          <stop offset="0%" stopColor="#fff" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <circle cx="16" cy="16" r="14" fill="url(#pcoin-grad)" stroke="#92400e" strokeWidth="1.2" />
-      <circle cx="16" cy="16" r="11" fill="none" stroke="#92400e" strokeWidth="0.7" strokeDasharray="1.5 1.2" opacity="0.45" />
-      <text
-        x="16"
-        y="21.5"
-        textAnchor="middle"
-        fontFamily="var(--font-family-figtree), system-ui, sans-serif"
-        fontSize="14"
-        fontWeight="900"
-        fill="#7c2d12"
-        letterSpacing="-0.04em"
-      >
-        P
-      </text>
-      <ellipse cx="12" cy="11" rx="4.5" ry="3" fill="url(#pcoin-shine)" />
-    </svg>
   );
 }
 
