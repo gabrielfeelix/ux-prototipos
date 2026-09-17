@@ -27,6 +27,8 @@ import { Footer } from "./Footer";
 import { allProducts } from "./productsData";
 import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPresentation";
 
+const POINT_BRL = 0.1; // valor de 1 Ton Point em reais (igual ao perfil)
+
 const COUPONS: Record<string, number> = {
   PCYES10: 10,
   PROMO20: 20,
@@ -92,8 +94,13 @@ export function CartPage() {
     : shippingOptions && selectedShipping
     ? shippingOptions.find((o) => o.id === selectedShipping)?.price ?? 0
     : 0;
-  const maxPointsRedeem = Math.min(userPoints, Math.floor((subtotal - discountValue) * 0.3));
-  const pointsValue = pointsApplied ? Math.min(pointsToUse, maxPointsRedeem) : 0;
+  // 1 pt = R$ 0,10 (mesma conversão exibida no perfil) e o resgate cobre no
+  // máximo 30% do pedido. O teto vira múltiplo de 10 pra casar com o step.
+  const maxPointsRedeem = Math.min(
+    userPoints,
+    Math.floor(((subtotal - discountValue) * 0.3) / POINT_BRL / 10) * 10,
+  );
+  const pointsValue = pointsApplied ? Math.min(pointsToUse, maxPointsRedeem) * POINT_BRL : 0;
   const baseAfterPoints = subtotal - discountValue + shippingPrice - pointsValue;
   const pixDiscount = baseAfterPoints * 0.1;
   const giftProgress = Math.min(100, (subtotal / GIFT_THRESHOLD) * 100);
@@ -816,7 +823,7 @@ export function CartPage() {
                   >
                     <span className="flex items-center gap-2">
                       <PcyesCoin size={20} />
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "#facc15" : "rgba(var(--foreground-rgb), 0.78)" }}>
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: pointsApplied ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.78)" }}>
                         Ton Points
                       </span>
                       <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "rgba(var(--foreground-rgb), 0.4)" }}>
@@ -829,7 +836,7 @@ export function CartPage() {
                         fontSize: "var(--text-caption)",
                         fontWeight: 800,
                         letterSpacing: "0.1em",
-                        color: pointsApplied ? "#facc15" : "rgba(var(--foreground-rgb), 0.45)",
+                        color: pointsApplied ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.45)",
                         textTransform: "uppercase",
                       }}
                     >
@@ -845,7 +852,7 @@ export function CartPage() {
                         transition={{ duration: 0.22 }}
                         className="overflow-hidden"
                       >
-                        <div className="border-t px-3 pb-3 pt-3" style={{ borderColor: "rgba(250,204,21,0.2)" }}>
+                        <div className="border-t px-3 pb-3 pt-3" style={{ borderColor: "rgba(200,120,0,0.2)" }}>
                           <div className="mb-2.5 flex items-center justify-between gap-3">
                             <NumberStepper
                               value={pointsToUse}
@@ -853,7 +860,7 @@ export function CartPage() {
                               min={0}
                               max={maxPointsRedeem}
                               step={10}
-                              accent="#facc15"
+                              accent="var(--primary)"
                               ariaLabel="Quantidade de pontos a usar"
                             />
                             <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "rgba(var(--foreground-rgb), 0.5)", fontWeight: 600 }}>
@@ -870,11 +877,11 @@ export function CartPage() {
                             aria-label="Slider quantidade de pontos"
                             className="w-full"
                             style={{
-                              accentColor: "#facc15",
+                              accentColor: "var(--amber-deep)",
                             }}
                           />
                           <p className="mt-2 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                            Você vai economizar <span style={{ color: "#facc15", fontWeight: 800 }}>{formatBRL(pointsValue)}</span>
+                            Você vai economizar <span style={{ color: "var(--amber-deep)", fontWeight: 800 }}>{formatBRL(pointsValue)}</span>
                           </p>
                         </div>
                       </motion.div>
@@ -921,10 +928,10 @@ export function CartPage() {
                   </div>
                   {pointsValue > 0 && (
                     <div className="flex items-center justify-between">
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 600 }}>
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 600 }}>
                         Ton Points
                       </span>
-                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "#facc15", fontWeight: 700 }}>
+                      <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--amber-deep)", fontWeight: 700 }}>
                         −{formatBRL(pointsValue)}
                       </span>
                     </div>

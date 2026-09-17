@@ -51,6 +51,7 @@ import {
   type RespostasKit,
 } from "./motorKit";
 import { kitHero } from "../../lib/kits";
+import { Footer } from "../../components/Footer";
 
 type Passo = "instrumento" | "gosto" | "nivel" | "contexto" | "resultado";
 
@@ -77,6 +78,7 @@ export function AjudaPage() {
   const indice = ORDEM.indexOf(passo);
 
   return (
+    <>
     <main className="min-h-[70vh] bg-white">
       <div className="mx-auto max-w-[1180px] px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6">
@@ -125,6 +127,8 @@ export function AjudaPage() {
         @media (prefers-reduced-motion: reduce) { .quiz-passo { animation: none; } }
       `}</style>
     </main>
+    <Footer />
+    </>
   );
 }
 
@@ -335,13 +339,15 @@ function Chip({
    fallback que o v3 só usa quando a logo falha (ProgramTile:1603) — aqui ele é
    o padrão. Quando houver arquivo em /bandas/{id}.jpg, `cover` assume. */
 function BandTile({ band, marcada, onClick }: { band: Band; marcada: boolean; onClick: () => void }) {
-  const claro = ehClaro(band.bg1);
+  /* Com capa de álbum por cima, o texto não pode depender mais do bg1: a foto é
+     que está atrás dele. Branco sobre o scrim, sempre. */
+  const claro = band.cover ? false : ehClaro(band.bg1);
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={marcada}
-      className="group relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card-md)] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--amber)] focus-visible:ring-offset-2"
+      className="group relative aspect-square overflow-hidden rounded-[var(--radius-card-md)] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--amber)] focus-visible:ring-offset-2"
       style={{ background: `linear-gradient(155deg, ${band.bg1} 0%, ${band.bg2} 100%)` }}
     >
       {band.cover && (
@@ -351,6 +357,14 @@ function BandTile({ band, marcada, onClick }: { band: Band; marcada: boolean; on
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+        />
+      )}
+      {/* Scrim: capa de álbum é imprevisível (metade são fotos claras), então o
+          nome só se sustenta sobre um degradê fixo no rodapé do card. */}
+      {band.cover && (
+        <span
+          className="pointer-events-none absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 38%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0) 100%)" }}
         />
       )}
       <span

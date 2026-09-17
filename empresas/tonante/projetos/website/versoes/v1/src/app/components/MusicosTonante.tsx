@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router";
-import { Instagram, Volume2, VolumeX, ShoppingBag } from "lucide-react";
+import { MessageCircle, Volume2, VolumeX, ShoppingBag } from "lucide-react";
 import { SectionHeader } from "./section/SectionHeader";
 import { CarouselNavButton } from "./section/CarouselNavButton";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { MusicianStoryModal } from "./MusicianStoryModal";
 import { MUSICIANS, type Musician } from "./musiciansData";
 import { allProducts } from "./productsData";
 import { getPrimaryProductImage } from "./productPresentation";
@@ -48,10 +49,9 @@ const PERFIL_URL = "https://instagram.com/tonanteinstrumentos";
 
    O card inteiro NÃO é clicável de propósito: cursor normal, nada de camada
    invisível por cima. Assim cada alvo tem hover próprio — a miniatura mostra o
-   nome e leva pra PDP, o botão compra e abre o carrinho, o selo do IG vai pro
-   perfil. O modal com a história do músico saiu daqui (vive em
-   MusicianStoryModal.tsx, à espera de um gatilho próprio). */
-function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
+   nome e leva pra PDP, o botão compra e abre o carrinho, o balão abre a
+   história do músico (MusicianStoryModal). */
+function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: boolean; onHistoria: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hover, setHover] = useState(false);
   const [comSom, setComSom] = useState(false);
@@ -119,9 +119,6 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
   const [zoomBase, dyBase] = (produto && INSTRUMENT_FRAMING[produto.id]) ?? FRAMING_PADRAO;
   const zoomThumb = Math.min(zoomBase * 1.25, 3.4);
   const dyThumb = dyBase * (50 / 66);
-
-  const igUrl = m.instagram ? `https://instagram.com/${m.instagram.replace("@", "")}` : undefined;
-  const igIcon = <Instagram size={22} strokeWidth={1.8} color="#ffffff" style={{ filter: "drop-shadow(0 1px 6px rgba(0,0,0,0.55))" }} />;
 
   return (
     <div
@@ -194,22 +191,17 @@ function MusicianCard({ m, autoPlay }: { m: Musician; autoPlay: boolean }) {
           </button>
         )}
 
-        {/* selo do Instagram — sempre visível, é o que marca o card como post */}
-        {igUrl ? (
-          <a
-            href={igUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Instagram de ${m.name}`}
-            className="absolute right-4 top-4 z-[4] transition-opacity duration-200 hover:opacity-70"
-          >
-            {igIcon}
-          </a>
-        ) : (
-          <span aria-hidden="true" className="pointer-events-none absolute right-4 top-4 z-[4]">
-            {igIcon}
-          </span>
-        )}
+        {/* balão no lugar do antigo selo do Instagram: é o gatilho da história
+            do músico (MusicianStoryModal), que traz o depoimento e o vídeo
+            inteiro. O perfil do IG continua no rodapé da seção. */}
+        <button
+          type="button"
+          onClick={onHistoria}
+          aria-label={`Ler a história de ${m.name}`}
+          className="absolute right-4 top-4 z-[4] cursor-pointer border-none bg-transparent p-0 transition-opacity duration-200 hover:opacity-70"
+        >
+          <MessageCircle size={22} strokeWidth={1.8} color="#ffffff" style={{ filter: "drop-shadow(0 1px 6px rgba(0,0,0,0.55))" }} />
+        </button>
 
         {/* miniatura do instrumento = o produto marcado no post, com nome e
             preço ao lado. A miniatura fica sempre visível; nome e preço entram
@@ -310,6 +302,9 @@ export function MusicosTonante() {
      existe (toque), nada acionaria o vídeo — aí o autoplay da viewport
      continua valendo. */
   const [semHover, setSemHover] = useState(false);
+  /* história aberta = índice do músico em MUSICIANS (o modal navega por essa
+     lista, não pela do trilho) */
+  const [historia, setHistoria] = useState<number | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -416,7 +411,8 @@ export function MusicosTonante() {
               <MusicianCard
                 key={`${m.id}-${i}`}
                 m={m}
-                autoPlay={naTela && semHover}
+                autoPlay={naTela && semHover && historia === null}
+                onHistoria={() => setHistoria(MUSICIANS.findIndex((x) => x.id === m.id))}
               />
             ))}
           </div>
@@ -438,6 +434,9 @@ export function MusicosTonante() {
         </div>
       </div>
 
+      {historia !== null && (
+        <MusicianStoryModal index={historia} onClose={() => setHistoria(null)} onNav={setHistoria} />
+      )}
     </section>
   );
 }

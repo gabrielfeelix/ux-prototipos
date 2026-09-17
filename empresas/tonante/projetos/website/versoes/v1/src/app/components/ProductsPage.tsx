@@ -1312,9 +1312,9 @@ export function ProductsPage() {
                 className="flex min-h-[44px] cursor-pointer items-center gap-2 border px-4 py-2 transition-colors lg:min-h-0"
                 style={{
                   borderRadius: "var(--radius-pill)",
-                  borderColor: compareMode ? "var(--ink-strong)" : "var(--edge)",
-                  background: compareMode ? "var(--ink-strong)" : "transparent",
-                  color: compareMode ? "#ffffff" : "var(--ink-muted)",
+                  borderColor: "var(--ink-strong)",
+                  background: compareMode ? "transparent" : "var(--ink-strong)",
+                  color: compareMode ? "var(--ink-strong)" : "#ffffff",
                   fontFamily: "var(--font-family-inter)",
                   fontSize: "var(--text-sm)",
                   fontWeight: 600,
@@ -1327,7 +1327,7 @@ export function ProductsPage() {
               {/* Sort */}
               <div className="relative">
                 <button onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-                  className="flex items-center gap-2 min-h-[44px] lg:min-h-0 text-foreground/50 hover:text-foreground/80 transition-colors"
+                  className="flex min-h-[44px] cursor-pointer items-center gap-2 text-foreground/50 transition-colors hover:text-foreground/80 lg:min-h-0"
                   style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
                 >
                   <ArrowUpDown size={14} />
@@ -1342,7 +1342,7 @@ export function ProductsPage() {
                     >
                       {sortOptions.map((opt) => (
                         <button key={opt.value} onClick={() => { setSortBy(opt.value); setSortDropdownOpen(false); }}
-                          className={`w-full text-left px-4 py-2.5 transition-colors ${sortBy === opt.value ? "text-foreground bg-foreground/[0.06]" : "text-foreground/70 hover:text-foreground hover:bg-foreground/[0.03]"
+                          className={`w-full cursor-pointer px-4 py-2.5 text-left transition-colors ${sortBy === opt.value ? "text-foreground bg-foreground/[0.06]" : "text-foreground/70 hover:text-foreground hover:bg-foreground/[0.03]"
                             }`}
                           style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
                         >{opt.label}</button>
@@ -1395,7 +1395,7 @@ export function ProductsPage() {
                               }}
                               className={`flex w-full items-center justify-between rounded-[var(--radius-card-sm)] px-3 py-2.5 text-left transition-colors cursor-pointer ${
                                 active
-                                  ? "bg-primary text-ink-strong"
+                                  ? "bg-[var(--ink-strong)] text-white"
                                   : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
                               }`}
                               style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
@@ -1416,11 +1416,11 @@ export function ProductsPage() {
               {/* Grid / List */}
               <div className="flex border border-foreground/10 overflow-hidden" style={{ borderRadius: "var(--radius-button)" }}>
                 <button onClick={() => setGridMode("grid")}
-                  className={`p-2 transition-colors ${gridMode === "grid" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
+                  className={`cursor-pointer p-2 transition-colors ${gridMode === "grid" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
                   aria-label="Visualização em grade"
                 ><Grid3X3 size={16} /></button>
                 <button onClick={() => setGridMode("list")}
-                  className={`p-2 transition-colors ${gridMode === "list" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
+                  className={`cursor-pointer p-2 transition-colors ${gridMode === "list" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
                   aria-label="Visualização em lista"
                 ><LayoutList size={16} /></button>
               </div>

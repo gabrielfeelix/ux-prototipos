@@ -265,16 +265,23 @@ function BandaCard({ item }: { item: BandaNoKit }) {
   const { band, veredito, porque } = item;
   const r = ROTULO[veredito];
   const apagado = veredito === "nao-e-pra-isso";
-  const claro = ehClaro(band.bg1);
+  /* Com capa, quem está atrás do texto é a foto, não bg1. Ver o scrim abaixo. */
+  const claro = band.cover ? false : ehClaro(band.bg1);
 
   return (
     <article className={apagado ? "opacity-45" : ""}>
       <div
-        className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card-md)]"
+        className="relative aspect-square overflow-hidden rounded-[var(--radius-card-md)]"
         style={{ background: `linear-gradient(155deg, ${band.bg1} 0%, ${band.bg2} 100%)` }}
       >
         {band.cover && (
           <img src={band.cover} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" onError={esconder} />
+        )}
+        {band.cover && (
+          <span
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 38%, rgba(0,0,0,0.05) 70%, rgba(0,0,0,0) 100%)" }}
+          />
         )}
         <div className="absolute inset-0 flex flex-col justify-end p-3.5">
           <span

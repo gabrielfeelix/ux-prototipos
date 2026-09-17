@@ -136,16 +136,16 @@
      precisa ser visivelmente mais fundo que o hover, senão o clique não dá
      retorno em tela sensível ao toque, onde não existe hover.
 
-     #12924c dá 4.01:1 contra texto branco, um degrau abaixo do mínimo AA de
-     4.5 (o verde que passava era #148747, mais fechado). Escolha de design do
-     Gabriel por um verde mais aberto; se um dia isso for auditado, é aqui que
-     se ajusta — e o texto do botão é branco e bold, o que ameniza sem
-     resolver. */
-  --buy-green:                #12924c;
-  --buy-green-hover:          #0f7a3f;
-  --buy-green-press:          #0b6333;
-  --buy-green-deep:           #0b6333;
-  --gradient-buy:             linear-gradient(135deg, #169051 0%, #0f6b3c 100%);
+     #1bb863 dá 2.8:1 contra texto branco, abaixo do mínimo AA de 4.5 (o verde
+     que passava era #148747, bem mais fechado; #12924c dava 4.01:1). Escolha
+     de design do Gabriel por um verde mais claro e aberto; se um dia isso for
+     auditado, é aqui que se ajusta — e o texto do botão é branco e bold, o que
+     ameniza sem resolver. */
+  --buy-green:                #1bb863;
+  --buy-green-hover:          #169e54;
+  --buy-green-press:          #128646;
+  --buy-green-deep:           #128646;
+  --gradient-buy:             linear-gradient(135deg, #1ebd67 0%, #159a53 100%);
   /* Novidade = azul, o único azul da página. Não disputa com o âmbar da marca
      (que é acento), com o verde de compra nem com o laranja da pré-venda —
      quatro pills no mesmo card precisam dizer quatro coisas diferentes. */
@@ -913,3 +913,21 @@ html.light [data-page-light-scope] [data-keep-dark] .bg-black { background-color
   transition: background-color 200ms ease, color 200ms ease;
 }
 .btn-tonante-ghost:hover { background: var(--surface-glass); color: var(--ink-strong); }
+
+/* ─── Cursor ───────────────────────────────────────────────────────────
+   Todo controle clicável nasce com mão. Era `cursor-pointer` escrito
+   botão por botão, e quem esquecia deixava um controle que não parece
+   clicável — foi o caso da barra do catálogo (ordenar, grade/lista).
+   `:disabled` e `[aria-disabled]` ficam de fora: lá a mão prometeria
+   uma ação que não acontece. */
+button:not(:disabled):not([aria-disabled="true"]),
+summary,
+[role="button"]:not([aria-disabled="true"]),
+[role="tab"]:not([aria-disabled="true"]),
+[role="option"]:not([aria-disabled="true"]),
+label[for],
+select:not(:disabled) {
+  cursor: pointer;
+}
+button:disabled,
+button[aria-disabled="true"] { cursor: not-allowed; }

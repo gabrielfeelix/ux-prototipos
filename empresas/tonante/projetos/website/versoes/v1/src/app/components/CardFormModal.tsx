@@ -315,30 +315,16 @@ export function CardFormModal({ open, onClose, initial, onSubmit }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 cursor-pointer hover:brightness-110 transition-all"
-              style={{
-                borderRadius: 10,
-                background: isDark ? "rgba(var(--foreground-rgb), 0.05)" : "rgba(0,0,0,0.04)",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 600,
-                color: isDark ? "rgba(var(--foreground-rgb), 0.85)" : "rgba(0,0,0,0.85)",
-              }}
+              className="btn-tonante-ghost min-h-[44px] px-5 py-2 md:min-h-0"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={!valid}
-              className="px-4 py-2 bg-primary text-primary-foreground transition-all"
-              style={{
-                borderRadius: 10,
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 700,
-                opacity: valid ? 1 : 0.5,
-                cursor: valid ? "pointer" : "not-allowed",
-              }}
+              className="btn-tonante min-h-[44px] px-5 py-2 md:min-h-0"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}
             >
               {initial ? "Salvar" : "Adicionar"}
             </button>

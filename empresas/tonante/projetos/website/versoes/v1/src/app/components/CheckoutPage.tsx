@@ -42,6 +42,8 @@ const STEPS = [
   { key: 3, label: "Revisão", icon: ShieldCheck },
 ] as const;
 
+const POINT_BRL = 0.1; // valor de 1 Ton Point em reais (igual ao perfil)
+
 const COUPONS: Record<string, number> = {
   TONANTE10: 10,
   AFINADO20: 20,
@@ -412,8 +414,13 @@ export function CheckoutPage() {
   const shippingPrice = shippingOptions.find((o) => o.id === selectedShipping)?.price ?? 0;
   const discountPct = appliedCoupon ? COUPONS[appliedCoupon] || 0 : 0;
   const discountValue = (subtotal * discountPct) / 100;
-  const maxPointsRedeem = Math.min(userPoints, Math.floor((subtotal - discountValue) * 0.3));
-  const pointsValue = pointsApplied ? Math.min(pointsToUse, maxPointsRedeem) : 0;
+  // 1 pt = R$ 0,10 (mesma conversão exibida no perfil) e o resgate cobre no
+  // máximo 30% do pedido. O teto vira múltiplo de 10 pra casar com o step.
+  const maxPointsRedeem = Math.min(
+    userPoints,
+    Math.floor(((subtotal - discountValue) * 0.3) / POINT_BRL / 10) * 10,
+  );
+  const pointsValue = pointsApplied ? Math.min(pointsToUse, maxPointsRedeem) * POINT_BRL : 0;
   const baseTotal = subtotal - discountValue + shippingPrice - pointsValue;
   const pixDiscount = payment === "pix" ? Math.max(0, (subtotal - discountValue - pointsValue)) * 0.1 : 0;
   const total = baseTotal - pixDiscount;

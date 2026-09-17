@@ -46,14 +46,14 @@ export function LoadingScreen({
         style={{ animation: "tn-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both" }}
       >
         {/* width/height do arquivo (1148×475) reservam o espaço: a wordmark
-            entra sem empurrar a onda pra baixo. fetchPriority high + preload no
+            entra sem empurrar a onda pra baixo. fetchpriority high + preload no
             index.html garantem que ela chegue antes do resto. */}
         <img
           src="/brand/tonante-wordmark-dark.png"
           alt="Tonante"
           width={1148}
           height={475}
-          fetchPriority="high"
+          {...{ fetchpriority: "high" }}
           decoding="sync"
           className="h-11 md:h-14"
           style={{ width: "auto", aspectRatio: "1148 / 475" }}

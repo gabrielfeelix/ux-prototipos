@@ -12,10 +12,12 @@
 import { useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import { MonteSeuKit } from "../../components/MonteSeuKit";
+import { Footer } from "../../components/Footer";
 
 export function MontarPage() {
   const navigate = useNavigate();
   return (
+    <>
     <main className="bg-white">
       <div className="mx-auto max-w-[1280px] px-4 pt-10 sm:px-6 lg:px-8">
         <button
@@ -29,5 +31,7 @@ export function MontarPage() {
       </div>
       <MonteSeuKit />
     </main>
+    <Footer />
+    </>
   );
 }

@@ -102,8 +102,11 @@ export function MusicianStoryModal({ index, onClose, onNav }: { index: number; o
             {m.role}{m.city ? ` · ${m.city}` : ""}
           </p>
 
-          <blockquote style={{ margin: "26px 0 0", padding: 0 }}>
-            <p style={{ fontFamily: "var(--font-family-figtree)", fontStyle: "italic", fontSize: "clamp(18px,2vw,22px)", lineHeight: 1.4, color: "rgba(255,255,255,0.92)", margin: 0 }}>
+          <blockquote style={{ margin: "22px 0 0", padding: 0 }}>
+            {/* o depoimento é o conteúdo da seção, não uma legenda: cabe um
+                parágrafo inteiro. Daí o corpo um pouco menor e a entrelinha
+                mais solta que a de um destaque curto. */}
+            <p style={{ fontFamily: "var(--font-family-figtree)", fontStyle: "italic", fontSize: "clamp(16.5px,1.5vw,19px)", lineHeight: 1.55, color: "rgba(255,255,255,0.92)", margin: 0 }}>
               <span aria-hidden="true" style={{ color: "var(--amber-bright)", fontSize: "1.4em", lineHeight: 0, verticalAlign: "-0.18em", marginRight: 6 }}>“</span>
               {m.quote}
               <span aria-hidden="true" style={{ color: "var(--amber-bright)", fontSize: "1.4em", lineHeight: 0, verticalAlign: "-0.18em", marginLeft: 6 }}>”</span>

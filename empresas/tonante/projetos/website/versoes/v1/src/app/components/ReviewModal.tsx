@@ -111,7 +111,7 @@ export function ReviewModal({ open, onClose, orderId, items, onSubmit }: Props) 
                   Avaliar pedido {orderId}
                 </DialogTitle>
                 <DialogDescription style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", marginTop: 4, color: isDark ? "rgba(var(--foreground-rgb), 0.6)" : "rgba(0,0,0,0.6)" }}>
-                  Sua nota ajuda outros gamers · Ganhe até <span style={{ color: "#facc15", fontWeight: 700 }}>+{baseEarn + 15} pts</span> com foto + comentário
+                  Sua nota ajuda quem ainda vai comprar · Ganhe até <span style={{ color: "var(--amber-deep)", fontWeight: 700 }}>+{baseEarn + 15} pts</span> com foto + comentário
                 </DialogDescription>
               </div>
             </div>
@@ -199,9 +199,9 @@ export function ReviewModal({ open, onClose, orderId, items, onSubmit }: Props) 
                       className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-all hover:brightness-125"
                       style={{
                         width: 70, height: 70, borderRadius: 10,
-                        background: "rgba(250,204,21,0.04)",
-                        border: "1.5px dashed rgba(250,204,21,0.38)",
-                        color: "#facc15",
+                        background: "rgba(200,120,0,0.04)",
+                        border: "1.5px dashed rgba(200,120,0,0.38)",
+                        color: "var(--amber-deep)",
                       }}
                     >
                       <div className="flex items-center gap-0.5">
@@ -256,18 +256,18 @@ export function ReviewModal({ open, onClose, orderId, items, onSubmit }: Props) 
               <div className="flex items-center gap-2 min-w-0">
                 <p className="truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: isDark ? "rgba(var(--foreground-rgb), 0.55)" : "rgba(0,0,0,0.55)" }}>
                   {allRated ? (
-                    <><Check size={11} className="inline" /> Pronto · Ganhará <span style={{ color: "#facc15", fontWeight: 700 }}>+{projectedPts} pts</span></>
+                    <><Check size={11} className="inline" /> Pronto · Ganhará <span style={{ color: "var(--amber-deep)", fontWeight: 700 }}>+{projectedPts} pts</span></>
                   ) : `${rated}/${total} ${rated === 1 ? "item avaliado" : "itens avaliados"}`}
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <button type="button" onClick={onClose} className="px-4 py-2 cursor-pointer hover:brightness-110 transition-all"
-                  style={{ borderRadius: 10, background: isDark ? "rgba(var(--foreground-rgb), 0.05)" : "rgba(0,0,0,0.04)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600, color: isDark ? "rgba(var(--foreground-rgb), 0.85)" : "rgba(0,0,0,0.85)" }}>
+                <button type="button" onClick={onClose} className="btn-tonante-ghost min-h-[44px] px-5 py-2 md:min-h-0"
+                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}>
                   Cancelar
                 </button>
                 <button type="button" onClick={handleSubmit} disabled={!allRated}
-                  className="px-4 py-2 bg-primary text-primary-foreground transition-all"
-                  style={{ borderRadius: 10, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, opacity: allRated ? 1 : 0.45, cursor: allRated ? "pointer" : "not-allowed" }}>
+                  className="btn-tonante min-h-[44px] px-5 py-2 md:min-h-0"
+                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
                   Enviar avaliação
                 </button>
               </div>
@@ -284,15 +284,15 @@ export function ReviewModal({ open, onClose, orderId, items, onSubmit }: Props) 
             <p className="mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: isDark ? "rgba(var(--foreground-rgb), 0.6)" : "rgba(0,0,0,0.6)" }}>
               Nota média {avgRating.toFixed(1)} ⭐ · Sua opinião vai ajudar a galera
             </p>
-            <div className="mt-5 inline-flex items-center gap-2 px-4 py-2.5" style={{ borderRadius: "var(--radius-card-sm)", background: "rgba(250,204,21,0.10)", border: "1px solid rgba(250,204,21,0.28)" }}>
-              <Sparkles size={14} style={{ color: "#facc15" }} />
-              <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "#facc15" }}>
-                +{earnedPoints} PCYES Points creditados
+            <div className="mt-5 inline-flex items-center gap-2 px-4 py-2.5" style={{ borderRadius: "var(--radius-card-sm)", background: "rgba(200,120,0,0.10)", border: "1px solid rgba(200,120,0,0.28)" }}>
+              <Sparkles size={14} style={{ color: "var(--amber-deep)" }} />
+              <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, color: "var(--amber-deep)" }}>
+                +{earnedPoints} Ton Points creditados
               </span>
             </div>
             <div className="mt-6">
-              <button type="button" onClick={onClose} className="px-5 py-2.5 bg-primary text-primary-foreground hover:brightness-110 transition-all cursor-pointer"
-                style={{ borderRadius: 10, fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
+              <button type="button" onClick={onClose} className="btn-tonante min-h-[44px] px-5 py-2.5 md:min-h-0"
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}>
                 Fechar
               </button>
             </div>

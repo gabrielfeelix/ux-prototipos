@@ -11,6 +11,7 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { EqualizerWave } from "../../components/section/EqualizerWave";
+import { Footer } from "../../components/Footer";
 
 interface Caminho {
   id: string;
@@ -58,6 +59,7 @@ export function MonteSeuKitPage() {
   const [ativo, setAtivo] = useState<string | null>("ajuda");
 
   return (
+    <>
     <main className="bg-white">
       <div className="mx-auto max-w-[1280px] px-4 pb-24 pt-9 sm:px-6 lg:px-8 lg:pt-12">
         {/* A medida vai em px, não em ch: `ch` no <header> usa a fonte do CORPO,
@@ -89,6 +91,8 @@ export function MonteSeuKitPage() {
         </div>
       </div>
     </main>
+    <Footer />
+    </>
   );
 }
 

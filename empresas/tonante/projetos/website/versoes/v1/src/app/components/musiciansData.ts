@@ -2,6 +2,12 @@
 // ⚠️ PLACEHOLDER: nomes, fotos, vídeos e depoimentos são fictícios/banco de
 // imagem, apenas para demonstração de layout. Trocar pelo elenco real
 // (assets Oderço) antes de qualquer publicação.
+//
+// ⚠️ Os depoimentos são TEXTO DE DEMONSTRAÇÃO, escritos para mostrar o tom e o
+// tamanho que a seção comporta — nenhum deles foi dito por quem assina. Paulo
+// André e Alfredo José são pessoas reais identificadas pelo material de vídeo:
+// a fala deles precisa ser colhida e autorizada antes de ir ao ar, não
+// aproveitada daqui.
 export interface Musician {
   id: string;
   name: string;
@@ -68,7 +74,7 @@ export const MUSICIANS: Musician[] = [
     photo: "/musicos/andre-batista.jpg",
     video: "/musicos/andre-batista.mp4",
     quote:
-      "Viola é instrumento de quem tem paciência. Afina diferente, pensa diferente, e quando abre, abre bonito.",
+      "Aprendi viola com meu avô numa tarde em que ele disse que ia ensinar só uma música e acabou ensinando a vida inteira. Viola é instrumento de quem tem paciência: afina diferente, pensa diferente, e quando abre, abre bonito. A minha Tonante tem dez anos de estrada — já tocou em casamento, em missa, em velório e em festa de quinze anos. Cada marca no tampo é um lugar onde eu estive.",
     instagram: "@andrebatista.viola",
     productId: 221,
     instrumentLabel: "Viola Tonante Black",
@@ -87,7 +93,7 @@ export const MUSICIANS: Musician[] = [
     photo: "/musicos/thiago-nunes.jpg",
     video: "/musicos/thiago-nunes.mp4",
     quote:
-      "Comprei pelo som e fiquei pelo desenho da madeira. Não tem dois iguais: o meu tem um veio que corta o tampo inteiro.",
+      "Comprei pelo som e fiquei pelo desenho da madeira: não tem dois iguais, o meu tem um veio que corta o tampo inteiro. Passei a adolescência escutando meu pai tocar num violão emprestado que ele nunca pôde comprar. Quando cheguei em casa com o meu, ele afinou, tirou três acordes e ficou um tempo sem falar nada. Aquele silêncio foi a melhor crítica que eu já recebi.",
     instagram: "@thiagonunes.violao",
     productId: 285,
     instrumentLabel: "Violão Safira Tampo Zebra",
@@ -105,7 +111,8 @@ export const MUSICIANS: Musician[] = [
     role: "Guitarrista",
     photo: "/musicos/alfredo.jpg",
     video: "/musicos/alfredo.mp4",
-    quote: "PLACEHOLDER: depoimento a colher com o músico.",
+    quote:
+      "Minha mãe vendeu a máquina de costura pra comprar minha primeira guitarra. Eu tinha catorze anos e prometi que um dia devolvia — devolvi em forma de casa, mas ela diz que o juro é me ouvir tocar todo domingo. Essa 70 Anos eu escolhi já adulto, sabendo exatamente o que queria. É azul porque a primeira era azul.",
     productId: 277,
     instrumentLabel: "Guitarra 70 Anos Metallic Blue",
   },
@@ -123,7 +130,8 @@ export const MUSICIANS: Musician[] = [
     role: "Baixista",
     photo: "/musicos/paulo-andre.jpg",
     video: "/musicos/paulo-andre.mp4",
-    quote: "PLACEHOLDER: depoimento a colher com o músico.",
+    quote:
+      "Comecei tocando baixo no fundo da igreja, onde ninguém olha mas todo mundo sente falta se você parar. Demorei anos pra entender que o meu lugar era esse: segurar o chão pros outros poderem voar. O Jazzmine foi o primeiro instrumento que eu comprei com dinheiro de show, não de mesada. Toda vez que plugo ele, lembro do moleque que contava os compassos atrás da caixa de som.",
     productId: 19,
     instrumentLabel: "Contrabaixo Jazzmine",
   },
@@ -138,7 +146,7 @@ export const MUSICIANS: Musician[] = [
     photo: "/musicos/rogerio-alves.jpg",
     video: "/musicos/rogerio-alves.mp4",
     quote:
-      "Toco onde der: feira, calçada, quintal. Cavaquinho tem que caber embaixo do braço e aguentar o dia inteiro.",
+      "Meu primeiro cavaco foi de segunda mão, comprado num sábado de feira com o caixa do dia. Toquei nele dezoito anos, até o braço entortar de vez. Quando troquei por um Tonante, o pessoal da roda jurou que eu tinha mudado o som — mas o som era o mesmo, eu é que finalmente estava ouvindo ele direito. Hoje ele vai comigo na feira, na calçada, no quintal: aguenta o dia inteiro e ainda volta afinado pra casa.",
     instagram: "@rogerioalves.cavaco",
     /* O instrumento do vídeo é o Cavaco Acústico Tonante Natural do catálogo
        (id 223, CTN1954N) — mesmo modelo, foto de estúdio da Oderco. */

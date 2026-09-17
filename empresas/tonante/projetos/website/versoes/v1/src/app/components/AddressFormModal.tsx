@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "./ui/dialog";
-import { useTheme } from "./ThemeProvider";
 import type { UserAddress } from "./AuthContext";
 import { MapPin } from "lucide-react";
 import { FieldLabel, FieldInput } from "./section";
@@ -31,8 +30,6 @@ function maskCep(v: string) {
 }
 
 export function AddressFormModal({ open, onClose, initial, onSubmit }: Props) {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark" || resolvedTheme === undefined;
   const [data, setData] = useState<Omit<UserAddress, "id">>(EMPTY);
 
   useEffect(() => {
@@ -56,18 +53,18 @@ export function AddressFormModal({ open, onClose, initial, onSubmit }: Props) {
           background: "var(--surface-1)",
           borderRadius: "var(--radius-card-lg)",
           overflow: "hidden",
-          color: isDark ? "#fafafa" : "#0a0a0a",
+          color: "var(--ink-strong)",
         }}
       >
-        <div className="px-6 pt-6 pb-4 flex items-center gap-3" style={{ borderBottom: isDark ? "1px solid rgba(var(--foreground-rgb), 0.06)" : "1px solid rgba(0,0,0,0.06)" }}>
-          <div className="flex items-center justify-center" style={{ width: 36, height: 36, borderRadius: 10, background: "rgba(17, 17, 17, 0.08)" }}>
-            <MapPin size={18} className="text-primary" />
+        <div className="px-6 pt-6 pb-4 flex items-center gap-3" style={{ borderBottom: "1px solid var(--edge-subtle)" }}>
+          <div className="flex items-center justify-center" style={{ width: 36, height: 36, borderRadius: "var(--radius-card-sm)", background: "var(--surface-2)", border: "1px solid var(--edge-subtle)" }}>
+            <MapPin size={18} style={{ color: "var(--amber-deep)" }} />
           </div>
           <div className="flex-1 min-w-0">
-            <DialogTitle style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 600, color: isDark ? "#fafafa" : "#0a0a0a" }}>
+            <DialogTitle style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 700, letterSpacing: "-0.01em", color: "var(--ink-strong)" }}>
               {initial ? "Editar endereço" : "Adicionar endereço"}
             </DialogTitle>
-            <DialogDescription style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: isDark ? "rgba(var(--foreground-rgb), 0.55)" : "rgba(0,0,0,0.55)" }}>
+            <DialogDescription style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", color: "var(--ink-muted)" }}>
               Será usado nas suas compras e entregas.
             </DialogDescription>
           </div>
@@ -153,7 +150,7 @@ export function AddressFormModal({ open, onClose, initial, onSubmit }: Props) {
               className="accent-primary"
               style={{ width: 16, height: 16 }}
             />
-            <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: isDark ? "rgba(var(--foreground-rgb), 0.8)" : "rgba(0,0,0,0.8)" }}>
+            <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "var(--ink-strong)" }}>
               Definir como endereço padrão
             </span>
           </label>
@@ -162,30 +159,16 @@ export function AddressFormModal({ open, onClose, initial, onSubmit }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 cursor-pointer hover:brightness-110 transition-all"
-              style={{
-                borderRadius: 10,
-                background: isDark ? "rgba(var(--foreground-rgb), 0.05)" : "rgba(0,0,0,0.04)",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 600,
-                color: isDark ? "rgba(var(--foreground-rgb), 0.85)" : "rgba(0,0,0,0.85)",
-              }}
+              className="btn-tonante-ghost min-h-[44px] px-5 py-2 md:min-h-0"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={!valid}
-              className="px-4 py-2 bg-primary text-primary-foreground transition-all"
-              style={{
-                borderRadius: 10,
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 700,
-                opacity: valid ? 1 : 0.5,
-                cursor: valid ? "pointer" : "not-allowed",
-              }}
+              className="btn-tonante min-h-[44px] px-5 py-2 md:min-h-0"
+              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700 }}
             >
               {initial ? "Salvar" : "Adicionar"}
             </button>
