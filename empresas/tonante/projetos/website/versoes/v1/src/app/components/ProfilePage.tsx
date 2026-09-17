@@ -854,23 +854,6 @@ export function ProfilePage() {
                     )}
                   </div>
 
-                  {/* Atalhos rápidos */}
-                  <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between p-5" style={{ borderRadius: "var(--radius-card-xl)", background: isDark ? "rgba(17, 17, 17, 0.04)" : "rgba(17, 17, 17, 0.03)", border: "1px solid rgba(17, 17, 17, 0.08)" }}>
-                    <div className="flex items-center gap-3">
-                      <Sparkles size={18} className="text-primary" />
-                      <div>
-                        <p className="text-foreground" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: "var(--font-weight-medium)" }}>
-                          Pra completar o som
-                        </p>
-                        <p className="text-foreground/65" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-                          Acessórios e instrumentos que combinam com os seus
-                        </p>
-                      </div>
-                    </div>
-                    <Link to="/produtos" className="inline-flex items-center justify-center min-h-[44px] md:min-h-0 px-4 py-2 btn-tonante transition-all" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: "var(--font-weight-medium)" }}>
-                      Ver produtos
-                    </Link>
-                  </div>
                 </motion.div>
               )}
 
@@ -1439,7 +1422,7 @@ export function ProfilePage() {
                           <Package size={28} className="text-foreground/30 mx-auto mb-4" />
                           <p className="text-foreground/55 mb-2" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: "var(--font-weight-medium)" }}>Nenhum kit salvo ainda</p>
                           <p className="text-foreground/45 mb-6" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>Monte sua build e clique em "Salvar" para guardar aqui.</p>
-                          <Link to="/monte-seu-pc" className="btn-tonante inline-block px-5 py-2.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13.5px", fontWeight: 600 }}>Montar kit</Link>
+                          <Link to="/monte-seu-kit" className="btn-tonante inline-block px-5 py-2.5" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13.5px", fontWeight: 600 }}>Montar kit</Link>
                         </div>
                       ) : (
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
@@ -1491,7 +1474,7 @@ export function ProfilePage() {
                                   <p className="text-foreground tabular-nums" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-base)", fontWeight: 700, letterSpacing: "-0.01em" }}>{formatBRLBuild(b.total)}</p>
                                 </div>
                                 <Link
-                                  to="/monte-seu-pc"
+                                  to="/monte-seu-kit"
                                   className="btn-tonante inline-flex min-h-[44px] items-center gap-1.5 px-3.5 py-2 md:min-h-0"
                                   style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
                                 >

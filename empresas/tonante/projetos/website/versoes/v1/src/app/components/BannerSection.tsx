@@ -284,7 +284,7 @@ export function BannerSection() {
           transition={{ duration: 0.5 }}
         >
           <Link
-            to="/monte-seu-pc"
+            to="/monte-seu-kit"
             className="inline-flex items-center justify-center rounded-full border border-edge bg-white px-8 py-3.5 text-black shadow-[0_20px_70px_rgba(0,0,0,0.35)] transition-all duration-500 hover:border-primary hover:bg-primary hover:text-ink-strong"
             style={{
               fontFamily: "var(--font-family-inter)",

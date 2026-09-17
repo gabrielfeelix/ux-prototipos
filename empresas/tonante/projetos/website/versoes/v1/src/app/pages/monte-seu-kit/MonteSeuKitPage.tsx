@@ -21,26 +21,33 @@ interface Caminho {
   destaque?: boolean;
 }
 
+/* Os três rótulos precisam dizer O QUE VOLTA, não o que o cliente sente. Os
+   primeiros diziam "me ajuda a escolher" e "quero montar meu kit": os dois
+   soam a mesma coisa, e nenhum avisa que um devolve um instrumento e os outros
+   dois devolvem um kit. */
 const CAMINHOS: Caminho[] = [
   {
     id: "ajuda",
-    titulo: "Me ajuda a escolher",
-    texto: "Quatro perguntas sobre o que você quer tocar. No fim, os instrumentos que fazem esse som.",
+    titulo: "Achar meu instrumento",
+    texto:
+      "Quatro perguntas sobre o que você quer tocar. No fim, os instrumentos que fazem esse som — só o instrumento.",
     foto: "/monte-seu-kit/ajuda.png",
     destino: "/monte-seu-kit/ajuda",
     destaque: true,
   },
   {
     id: "montar",
-    titulo: "Quero montar meu kit",
-    texto: "Você escolhe o instrumento e as peças, uma a uma. A gente avisa se algo não combina.",
+    titulo: "Montar um kit peça por peça",
+    texto:
+      "Você escolhe o instrumento e o que vai junto: cabo, correia, afinador, suporte. A gente avisa se alguma peça não combina.",
     foto: "/monte-seu-kit/montar.png",
     destino: "/monte-seu-kit/montar",
   },
   {
     id: "pronto",
-    titulo: "Já tá pronto, quero levar",
-    texto: "Oito kits fechados, do primeiro violão ao palco. Chega, liga e toca.",
+    titulo: "Levar um kit já montado",
+    texto:
+      "Kits fechados, do primeiro violão ao palco, com preço único. Chega, liga e toca.",
     foto: "/monte-seu-kit/pronto.png",
     destino: "/pronto-pra-tocar",
   },

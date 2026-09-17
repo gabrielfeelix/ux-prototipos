@@ -20,7 +20,9 @@ export function RootLayout() {
   // HeaderV2 é o cabeçalho do site inteiro (já inclui a faixa de avisos).
   // Só /legado — a home antiga — segue com Navbar + AnnouncementBar.
   const isLegacyChrome = pathname === "/legado" || pathname.startsWith("/legado/");
-  const hideHeader = pathname === "/monte-seu-pc";
+  /* Nenhuma rota esconde o header hoje. O Monte seu kit tem Voltar próprio
+     e ganha mais navegando com a loja em volta do que em tela cheia. */
+  const hideHeader = false;
 
   useEffect(() => {
     window.scrollTo(0, 0);

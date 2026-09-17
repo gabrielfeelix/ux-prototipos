@@ -5,10 +5,9 @@ import { Link, useLocation, useNavigate } from "react-router";
 import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
   Instagram, Facebook, Youtube, Store, Headphones, Truck, CreditCard, Guitar,
-  Heart, Package, LogOut, HelpCircle, Hand, MessageCircle,
+  Heart, Package, LogOut, HelpCircle, Hand,
   type LucideIcon, Compass,
 } from "lucide-react";
-import { MusicianStoryModal } from "../components/MusicianStoryModal";
 import { useCart } from "../components/CartContext";
 import { useAuth } from "../components/AuthContext";
 import { useFavorites } from "../components/FavoritesContext";
@@ -130,7 +129,6 @@ export function HeaderV2() {
   const [aviso, setAviso] = useState(0);
   /* história do músico: o vídeo + depoimento que já existiam no site e não
      tinham gatilho nenhum. Abre pelo ícone de recado da faixa preta. */
-  const [historia, setHistoria] = useState<number | null>(null);
   const cats = useHoverPanel();
   const conta = useHoverPanel();
   const [catAtiva, setCatAtiva] = useState(MEGA[0].label);
@@ -228,18 +226,8 @@ export function HeaderV2() {
       <div data-keep-dark style={{ background: "var(--ink-strong)" }}>
         <div className="mx-auto flex h-11 w-full items-center gap-4 px-5 md:px-12" style={{ maxWidth: "1680px" }}>
           <div className="flex items-center gap-3.5">
-            {/* Recado da Tonante no lugar do Instagram: a faixa levava a três
-                perfis externos e nenhum deles trazia o cliente de volta. O
-                rodapé continua listando os três. */}
-            <button
-              type="button"
-              onClick={() => setHistoria(0)}
-              aria-label="Ver o recado de quem toca Tonante"
-              className="cursor-pointer text-white/60 transition-colors duration-200 hover:text-white focus-visible:text-white focus-visible:outline-none"
-            >
-              <MessageCircle size={16} strokeWidth={1.8} />
-            </button>
-            {SOCIAL_LINKS.filter(({ label }) => label !== "Instagram").map(({ label, href }) => {
+            {/* os três perfis oficiais, na mesma ordem do rodapé */}
+            {SOCIAL_LINKS.map(({ label, href }) => {
               const Icon = ICONE_SOCIAL[label];
               return (
                 <a
@@ -472,7 +460,7 @@ export function HeaderV2() {
           {/* serviços — equivalente ao "picking up / delivery" do Local */}
           <div className="ml-auto hidden items-center gap-8 2xl:flex">
             <ServicoLink to="/onde-encontrar" icon={Store} eyebrow="Quer tocar antes?" label="Lojas para experimentar" />
-            <ServicoLink to="/guia" icon={Compass} eyebrow="Na dúvida do modelo?" label="Nós te ajudamos a escolher" />
+            <ServicoLink to="/monte-seu-kit" icon={Compass} eyebrow="Na dúvida do modelo?" label="Nós te ajudamos a escolher" />
           </div>
         </div>
       </div>
@@ -603,9 +591,6 @@ export function HeaderV2() {
       </div>
     </header>
 
-    {historia !== null && (
-      <MusicianStoryModal index={historia} onClose={() => setHistoria(null)} onNav={setHistoria} />
-    )}
     </>
   );
 }
