@@ -1987,8 +1987,16 @@ export function CheckoutPage() {
           passavam por cima dela. A folha fica em z-[120], acima de todos. */}
       <div ref={mobileBarRef} className="fixed bottom-0 left-0 right-0 z-[95] lg:hidden">
         <div
-          className="border-t border-edge"
-          style={{ background: "rgba(240,240,240,0.96)", backdropFilter: "blur(20px)" }}
+          /* Cantos de cima arredondados e cinza mais claro: a barra passa a ler
+             como folha encostada no pé da tela, do mesmo material da folha de
+             detalhes que ela abre. `overflow-hidden` porque a divisória da alça
+             vazava pelos cantos. */
+          className="overflow-hidden border-t border-edge"
+          style={{
+            background: "rgba(250,250,250,0.96)",
+            backdropFilter: "blur(20px)",
+            borderRadius: "var(--radius-card-xl) var(--radius-card-xl) 0 0",
+          }}
         >
           {/* Uma alça só, na largura toda: cupom e Ton Points saíram da barra e
               viraram linha dentro da folha de detalhes. Duas ações lado a lado
@@ -2028,8 +2036,18 @@ export function CheckoutPage() {
               Total
             </p>
             <p
-              className="num text-ink-strong"
-              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-price-lg)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.1 }}
+              className="num"
+              /* Verde no PIX, igual ao total da folha de detalhes e ao da
+                 coluna do desktop: o número da barra era o único que ficava
+                 em tinta normal, e o valor com desconto não parecia desconto. */
+              style={{
+                fontFamily: "var(--font-family-inter)",
+                fontSize: "var(--text-price-lg)",
+                fontWeight: 700,
+                letterSpacing: "-0.01em",
+                lineHeight: 1.1,
+                color: payment === "pix" ? "var(--buy-green)" : "var(--ink-strong)",
+              }}
             >
               {formatBRL(total)}
             </p>
