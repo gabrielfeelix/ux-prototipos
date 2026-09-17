@@ -1990,59 +1990,34 @@ export function CheckoutPage() {
           className="border-t border-edge"
           style={{ background: "rgba(240,240,240,0.96)", backdropFilter: "blur(20px)" }}
         >
-          <div className="flex items-stretch border-b border-edge-subtle">
-            <button
-              onClick={() => setMobileSheet("cupom")}
-              className="flex min-h-[44px] flex-1 min-w-0 cursor-pointer items-center justify-center gap-1.5 px-3"
-              aria-haspopup="dialog"
+          {/* Uma alça só, na largura toda: cupom e Ton Points saíram da barra e
+              viraram linha dentro da folha de detalhes. Duas ações lado a lado
+              aqui disputavam atenção com o "Continuar" e ainda gastavam 44px de
+              tela em toda etapa, pra uma coisa que a maioria não usa. A alça
+              também diz o que o resto da barra não dizia: isso abre pra cima. */}
+          <button
+            onClick={() => setMobileSheet("detalhes")}
+            className="flex w-full cursor-pointer flex-col items-center gap-1.5 border-b border-edge-subtle px-4 pb-2.5 pt-2.5"
+            aria-haspopup="dialog"
+          >
+            <span
+              className="h-1 w-9 rounded-full"
+              style={{ background: "rgba(var(--foreground-rgb), 0.18)" }}
+              aria-hidden="true"
+            />
+            <span
+              className="inline-flex items-center gap-1"
+              style={{
+                fontFamily: "var(--font-family-inter)",
+                fontSize: "var(--text-sm)",
+                fontWeight: 600,
+                color: "rgba(var(--foreground-rgb), 0.72)",
+              }}
             >
-              {appliedCoupon ? (
-                <Check size={13} strokeWidth={2.4} className="shrink-0 text-[var(--buy-green-deep)]" />
-              ) : (
-                <Ticket size={13} strokeWidth={2} className="shrink-0 text-ink-muted" />
-              )}
-              <span
-                className="truncate"
-                style={{
-                  fontFamily: "var(--font-family-inter)",
-                  fontSize: "var(--text-caption)",
-                  fontWeight: appliedCoupon ? 700 : 600,
-                  color: appliedCoupon ? "var(--buy-green-deep)" : "rgba(var(--foreground-rgb), 0.62)",
-                }}
-              >
-                {appliedCoupon ? `${appliedCoupon} −${discountPct}%` : "Usar cupom"}
-              </span>
-            </button>
-
-            {maxPointsRedeem > 0 && (
-              <>
-                <span className="my-2 w-px shrink-0" style={{ background: "var(--edge-subtle)" }} aria-hidden="true" />
-                <button
-                  onClick={() => {
-                    /* Abrir a folha já com o resgate cheio: quem toca em "usar
-                       pontos" quer usar, não começar do zero e arrastar. */
-                    if (!pointsApplied && pointsToUse <= 0) setPointsToUse(maxPointsRedeem);
-                    setMobileSheet("pontos");
-                  }}
-                  className="flex min-h-[44px] flex-1 min-w-0 cursor-pointer items-center justify-center gap-1.5 px-3"
-                  aria-haspopup="dialog"
-                >
-                  <PcyesCoin size={14} />
-                  <span
-                    className="truncate"
-                    style={{
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-caption)",
-                      fontWeight: pointsValue > 0 ? 700 : 600,
-                      color: pointsValue > 0 ? "var(--amber-deep)" : "rgba(var(--foreground-rgb), 0.62)",
-                    }}
-                  >
-                    {pointsValue > 0 ? `−${formatBRL(pointsValue)}` : "Usar Ton Points"}
-                  </span>
-                </button>
-              </>
-            )}
-          </div>
+              Ver detalhes
+              <ChevronUp size={13} strokeWidth={2.4} />
+            </span>
+          </button>
 
           <div className="flex items-center gap-3 px-4 py-3">
           <div className="flex-1 min-w-0">
@@ -2058,15 +2033,6 @@ export function CheckoutPage() {
             >
               {formatBRL(total)}
             </p>
-            <button
-              onClick={() => setMobileSheet("detalhes")}
-              className="mt-0.5 inline-flex cursor-pointer items-center gap-1 text-ink-muted"
-              aria-haspopup="dialog"
-              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
-            >
-              Ver detalhes
-              <ChevronUp size={12} strokeWidth={2.4} />
-            </button>
           </div>
           {step < 3 ? (
             <CTAButton
@@ -2190,6 +2156,72 @@ export function CheckoutPage() {
                   </div>
 
                   <div className="my-4 h-px" style={{ background: "var(--border)" }} />
+
+                  {/* Cupom e Ton Points vivem aqui desde que saíram da barra
+                      fixa. Ficam antes das linhas de total de propósito: quem
+                      aplica vê o número mudar logo embaixo, sem fechar a folha. */}
+                  <div className="mb-4 overflow-hidden rounded-[var(--radius-card-sm)]" style={{ border: "1px solid var(--border)" }}>
+                    <button
+                      onClick={() => setMobileSheet("cupom")}
+                      className="flex min-h-[52px] w-full cursor-pointer items-center gap-2.5 px-4 transition-colors hover:bg-[var(--surface-2)]"
+                      aria-haspopup="dialog"
+                    >
+                      {appliedCoupon ? (
+                        <Check size={15} strokeWidth={2.4} className="shrink-0 text-[var(--buy-green-deep)]" />
+                      ) : (
+                        <Ticket size={15} strokeWidth={2} className="shrink-0 text-ink-muted" />
+                      )}
+                      <span
+                        className="flex-1 truncate text-left"
+                        style={{
+                          fontFamily: "var(--font-family-inter)",
+                          fontSize: "var(--text-sm)",
+                          fontWeight: appliedCoupon ? 700 : 600,
+                          color: appliedCoupon ? "var(--buy-green-deep)" : "var(--ink)",
+                        }}
+                      >
+                        {appliedCoupon ? `${appliedCoupon} −${discountPct}%` : "Tenho um cupom"}
+                      </span>
+                      <ChevronRight size={15} strokeWidth={2.2} className="shrink-0 text-ink-subtle" />
+                    </button>
+
+                    {maxPointsRedeem > 0 && (
+                      <>
+                        <div className="h-px" style={{ background: "var(--border)" }} />
+                        <button
+                          onClick={() => {
+                            /* Abrir a folha já com o resgate cheio: quem toca em
+                               "usar pontos" quer usar, não começar do zero e
+                               arrastar o controle até o fim. */
+                            if (!pointsApplied && pointsToUse <= 0) setPointsToUse(maxPointsRedeem);
+                            setMobileSheet("pontos");
+                          }}
+                          className="flex min-h-[52px] w-full cursor-pointer items-center gap-2.5 px-4 transition-colors hover:bg-[var(--surface-2)]"
+                          aria-haspopup="dialog"
+                        >
+                          <PcyesCoin size={16} />
+                          <span
+                            className="flex-1 truncate text-left"
+                            style={{
+                              fontFamily: "var(--font-family-inter)",
+                              fontSize: "var(--text-sm)",
+                              fontWeight: pointsValue > 0 ? 700 : 600,
+                              color: pointsValue > 0 ? "var(--amber-deep)" : "var(--ink)",
+                            }}
+                          >
+                            {pointsValue > 0 ? `Ton Points −${formatBRL(pointsValue)}` : "Usar Ton Points"}
+                          </span>
+                          <span
+                            className="shrink-0 text-ink-subtle"
+                            style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
+                          >
+                            {userPoints} pts
+                          </span>
+                          <ChevronRight size={15} strokeWidth={2.2} className="shrink-0 text-ink-subtle" />
+                        </button>
+                      </>
+                    )}
+                  </div>
 
                   <div className="space-y-2">
                     <Line label="Subtotal" value={formatBRL(subtotal)} />
