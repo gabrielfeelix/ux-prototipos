@@ -17,6 +17,7 @@ import { getPreOrderInfo } from "../components/PreOrderData";
 import { PreOrderPill } from "../components/section";
 import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
 import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
+import { tomarFoco, largarFoco } from "../lib/audioFoco";
 import { ComparePill, type CompareCardState } from "../components/CompareBar";
 
 /* ProductCardV2 — card do teste /v2 (referência: tema Helix).
@@ -217,17 +218,17 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
         {compare?.active ? null : amostra || preset ? (
           <button
             onClick={() => {
-              if (playing) {
-                stopStrum();
-                stopSample();
-                setPlaying(false);
-                return;
-              }
-              stopStrum();
-              stopSample();
+              /* `soltar` é o que este card faz quando perde a vez — parar o som
+                 e devolver o botão ao play. Quem começar a tocar depois chama
+                 isso por nós (ver lib/audioFoco); sem ele, dois cards ficavam
+                 com o quadrado de "parar" ao mesmo tempo. */
+              const soltar = () => { stopStrum(); stopSample(); setPlaying(false); };
+              if (playing) { soltar(); largarFoco(soltar); return; }
+              tomarFoco(soltar);
               setPlaying(true);
-              if (amostra) playSample(amostra, () => setPlaying(false));
-              else if (preset) playStrum(preset, () => setPlaying(false));
+              const fim = () => { setPlaying(false); largarFoco(soltar); };
+              if (amostra) playSample(amostra, fim);
+              else if (preset) playStrum(preset, fim);
             }}
             aria-label={playing ? `Parar o timbre de ${p.name}` : `Ouvir o timbre de ${p.name}`}
             aria-pressed={playing}

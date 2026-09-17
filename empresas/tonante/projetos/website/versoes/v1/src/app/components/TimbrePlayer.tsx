@@ -3,6 +3,7 @@ import { Play, Square } from "lucide-react";
 import type { Product } from "./productsData";
 import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
 import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
+import { tomarFoco, largarFoco } from "../lib/audioFoco";
 
 /* TimbrePlayer — "Ouça este instrumento" (V3 §8.1).
    Fonte em 3 tempos, do mais honesto ao mais genérico:
@@ -65,15 +66,18 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
   };
 
   const play = () => {
-    if (playing) { stop(); return; }
+    if (playing) { stop(); largarFoco(stop); return; }
     // mata qualquer áudio real em curso (synth a lib já mata)
     stopSample();
     stopStrum();
+    /* e avisa quem estava tocando, pra o botão dele voltar ao play */
+    tomarFoco(stop);
     setPlaying(true);
+    const fim = () => { setPlaying(false); largarFoco(stop); };
     if (hasSample) {
-      cancelRef.current = playSample(src!, () => setPlaying(false));
+      cancelRef.current = playSample(src!, fim);
     } else if (preset) {
-      cancelRef.current = playStrum(preset, () => setPlaying(false));
+      cancelRef.current = playStrum(preset, fim);
     }
   };
 
