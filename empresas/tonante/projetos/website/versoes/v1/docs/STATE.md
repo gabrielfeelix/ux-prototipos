@@ -1,9 +1,87 @@
 # Estado — Tonante website
 
-Atualizado em 2026-09-14. Branch `tonante/website-v1`.
+Atualizado em 2026-09-17. Branch `tonante/website-v1`.
 Complementa `HANDOFF.md`, que continua valendo para tudo que não está aqui.
 
-## O que mudou nesta rodada
+## Rodada mobile (17/09) — commits 83c4ce0c…0fe21854
+
+O site foi desenhado no desktop e validado lá. Esta rodada passou o celular a
+limpo em quatro fases. Medições feitas em Chrome headless a 390×844, com
+`Emulation.setTouchEmulationEnabled` (sem hover) — os números abaixo são dessa
+medição, não estimativa.
+
+### O que estava quebrado (para não voltar)
+
+- **`HeaderV2` não tinha menu no celular.** Busca (`hidden md:block`), conta
+  (`hidden sm:block`), ajuda/acessibilidade/favoritos (`hidden md:flex`) sumiam
+  sem substituto. Sobravam logo, carrinho e uma tira de categorias com alvos de
+  31px. Existia um menu mobile completo em `Navbar.tsx`, mas ele só monta em
+  `/legado`, rota que nada linka — era código morto.
+- **A barra fixa de compra da PDP existia e nunca ligava:**
+  `setShowMobileStickyCta` não era chamado em lugar nenhum. E no tema claro ela
+  vinha com `background: rgba(var(--foreground-rgb),.95)` e `text-foreground` —
+  barra #111 com letra #111.
+- **`--gradient-buy` não é o verde da casa.** O botão de compra oficial é
+  `<CTAButton variant="buy">`, que usa `--buy-green` chapado
+  (`rgb(27,184,99)`). Qualquer botão de compra novo deve usar o componente, não
+  recriar o estilo.
+- **`.footer-col`, `.touch-visivel`, `.touch-sobe` e `.pdp-desc-clamp`** vivem
+  no `theme.css` justamente para não existirem no desktop: são regras dentro de
+  `@media (max-width:1023px)` ou `@media (hover:none)`.
+
+### O que passou a existir
+
+| o que | onde |
+|---|---|
+| gaveta de menu com drill-down (categoria → tipo/marca) | `v2/MobileMenu.tsx` |
+| busca aberta na 2ª linha do header, variante `compact` | `HeaderV2` + `SearchBar` |
+| `--header-h` (altura atual do header, por ResizeObserver) | `HeaderV2` |
+| barra de filtros grudada abaixo do header | `ProductsPage` |
+| "Carregar mais" no lugar da paginação numerada | `ProductsPage` |
+| barra fixa de compra ligada, com `CTAButton` | `ProductPage` |
+| `--fab-lift` (WhatsApp e cookies sobem junto com a barra) | `ProductPage` → `WhatsAppFab`, `CookieConsent` |
+| colunas do rodapé em `<details>` | `Footer` |
+
+### Empilhamento no pé da tela (z-index)
+
+Três coisas disputam o mesmo canto. A ordem combinada é:
+
+| z | quem |
+|---|---|
+| 61 | `CartDrawer` |
+| 75 | barra fixa de compra da PDP (recolhe com o carrinho aberto) |
+| 80 | banner de cookies |
+| 90 | botão de WhatsApp |
+| 95/96 | gaveta de menu e gaveta de filtros |
+
+Gaveta nova precisa ficar **acima de 90**, senão cookies e WhatsApp cobrem o
+botão de ação dela. Foi o que acontecia com os filtros em z-50.
+
+### Alturas no celular (390px)
+
+| página | antes | depois |
+|---|---|---|
+| PDP (`/produto/19`) | 11.127px | 8.836px |
+| home | 14.326px | 13.288px |
+| rodapé (em toda página) | 2.065px | 1.213px |
+| banner da home | 650px | 388px |
+| header fixo | 164px sempre | 164px no topo, 120px ao rolar |
+
+Nenhuma rota tem rolagem horizontal: `scrollWidth` = 390 em `/`, `/produtos`,
+`/produto/:id`, `/carrinho`, `/checkout` e `/monte-seu-kit`.
+
+### O que ficou de fora
+
+- **Arte vertical do banner.** A peça é 1942×809 (2,4:1); no celular ela está
+  reenquadrada (46svh, âncora em 16%) para mostrar manchete e CTA. É o teto do
+  material existente — a saída de verdade é arte 4:5 própria por slide.
+- **A home ainda tem 13.288px**, concentrados no quiz de cordas (2.410px) e em
+  acessórios (1.825px). Encurtar ali é decisão de conteúdo.
+- **Cobertura responsiva do `v2/`**: `ProductCardV2` (406 linhas) e `HomeV2`
+  seguem sem nenhum prefixo `sm:/md:/lg:`. Funcionam porque a grade que os
+  contém é responsiva, não porque eles sejam.
+
+## O que mudou na rodada anterior (14/09)
 
 ### A home trocou a StoryBand por um vídeo
 `StoryBand` saiu da `HomeV2`; no lugar entrou `v2/Video70Anos.tsx`: faixa de
@@ -129,6 +207,9 @@ são 10 cordas, é **viola caipira**, e existe no catálogo real (id 221).
 7. Padrões de layout que o Gabriel levantou e ainda não viraram trabalho: banner
    de largura total, "faixa" (ele não gosta do nome, gosta do efeito) e mais
    respiro entre seções, com imagem ou frase.
+
+8. **Arte de banner vertical para o celular** (ver "O que ficou de fora"), e a
+   cobertura responsiva de `ProductCardV2` / `HomeV2`.
 
 Continuam de pé as pendências do `HANDOFF.md` que não foram tocadas: número do
 WhatsApp, botão de acessibilidade, seção "Primeiro instrumento", `MonteSeuKit`,
