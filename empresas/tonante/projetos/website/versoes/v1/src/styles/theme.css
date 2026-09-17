@@ -207,6 +207,15 @@
   --shadow-float: 0 18px 44px -26px rgba(17,17,17,0.28);
   --shadow-pop:   0 14px 36px -24px rgba(17,17,17,0.24);
 
+  /* Tile de categoria — em repouso não tem sombra nenhuma; esta é a do
+     hover. Camadas (contato curto + média + difusa larga), no espírito das
+     superfícies da Apple: o tile é branco sobre fundo branco, então a
+     sombra é a única borda que ele ganha. */
+  --shadow-tile-hover:
+    0 1px 2px rgba(17,17,17,0.04),
+    0 6px 14px -8px rgba(17,17,17,0.05),
+    0 14px 38px -20px rgba(17,17,17,0.10);
+
   /* Easing house Tonante. */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -874,3 +883,33 @@ html.light [data-page-light-scope] [data-keep-dark] .text-white\/30 { color: rgb
 /* Reseta bg-black dentro do subtree keep-dark p/ stage Tonante */
 html.light [data-page-light-scope] [data-keep-dark].bg-black,
 html.light [data-page-light-scope] [data-keep-dark] .bg-black { background-color: #131314 !important; }
+
+/* ─── Botões do perfil ─────────────────────────────────────────────────
+   Dois botões, não sete. A tela do perfil tinha CTA em âmbar (que sobre
+   fundo claro lê como marrom), cinza translúcido e pílula preta na mesma
+   dobra — "Adicionar endereço" era o caso mais visível. Aqui ficam só o
+   sólido de tinta (ação principal) e o de contorno (ação de apoio), o
+   mesmo par que a lista de pedidos usa. */
+.btn-tonante {
+  background: var(--ink-strong);
+  color: #ffffff;
+  border-radius: var(--radius-pill);
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+.btn-tonante:hover { background: #2b2b2b; }
+.btn-tonante:active { transform: scale(0.98); }
+.btn-tonante[disabled],
+.btn-tonante:disabled {
+  background: var(--edge-subtle);
+  color: var(--ink-subtle);
+  cursor: not-allowed;
+}
+
+.btn-tonante-ghost {
+  background: transparent;
+  color: var(--ink-muted);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-pill);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.btn-tonante-ghost:hover { background: var(--surface-glass); color: var(--ink-strong); }

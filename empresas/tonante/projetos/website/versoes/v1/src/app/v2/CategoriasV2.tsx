@@ -6,9 +6,17 @@ import { allProducts } from "../components/productsData";
 import { getPrimaryProductImage, getCatalogHref } from "../components/productPresentation";
 
 /* CategoriasV2 — "Compre por categoria".
-   Grade de 6 por linha: círculo cinza com a arte dentro e o nome embaixo.
+   Grade de 6 por linha com a arte dentro de um tile e o nome embaixo.
    `art` aponta para /categorias/<slug>.png; enquanto a arte final não
-   existe, cai no produto mais bem avaliado da categoria. */
+   existe, cai no produto mais bem avaliado da categoria.
+
+   Três variantes, trocáveis por `?cat=`:
+     soft   (padrão) — tile quadrado, raio 8px igual à caixa de foto do
+                       ProductCardV2. Em repouso não tem contorno nem
+                       sombra; a sombra em camadas (--shadow-tile-hover)
+                       só entra no hover.
+     circle          — o círculo com hairline, versão anterior.
+     card            — card retangular com borda, primeira versão. */
 
 const fallback = (category: string, subMatch?: string) => {
   const pool = allProducts.filter(
@@ -64,39 +72,59 @@ const CATS: Cat[] = [
   { label: "Palhetas", art: "/categorias/palhetas.png", href: getCatalogHref({ category: "Acessórios", search: "palheta" }), fallbackImg: fallback("Acessórios", "palheta") },
 ];
 
-function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
+type Variant = "soft" | "circle" | "card";
+
+function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
   const [src, setSrc] = useState(cat.art);
   const [hover, setHover] = useState(false);
 
+  const soft = variant === "soft";
+  const circle = variant === "circle";
+  /* soft e circle compartilham o layout (moldura quadrada + nome fora);
+     só mudam raio, contorno e sombra. */
+  const bare = soft || circle;
+
   return (
-    /* altura fixa: a arte tem teto e sempre sobra respiro entre ela e as
-       bordas; o nome ocupa uma faixa de 2 linhas, então 1 ou 2 linhas não
-       mudam a altura do card. */
+    /* na variante card a altura é fixa: a arte tem teto e sempre sobra
+       respiro entre ela e as bordas; o nome ocupa uma faixa de 2 linhas,
+       então 1 ou 2 linhas não mudam a altura do card. */
     <Link
       to={cat.href}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={
-        round
+        bare
           ? "group/cat flex flex-col items-center"
           : "group/cat flex h-[220px] flex-col items-center px-4 py-5 transition-shadow hover:shadow-[var(--shadow-card)] md:h-[250px]"
       }
-      style={round ? undefined : { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "10px" }}
+      style={bare ? undefined : { background: "#ffffff", border: "1px solid var(--border)", borderRadius: "10px" }}
     >
       {/* artes alinhadas pela base: todas apoiam na mesma linha logo acima do
          nome; a sobra fica em cima */}
       <div
         className={
-          round
-            ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden rounded-full transition-colors`
+          bare
+            ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden ${circle ? "rounded-full" : ""}`
             : "flex min-h-0 w-full flex-1 items-end justify-center overflow-hidden"
         }
         style={
-          round
-            /* a arte de estúdio já traz o próprio fundo; o círculo só precisa de
-               um contorno pra não sumir na página branca */
-            ? { background: "#ffffff", border: "1px solid var(--edge)" }
-            : undefined
+          soft
+            /* em repouso o tile não tem contorno nem sombra: a grade é só
+               arte sobre branco, e a moldura aparece no hover. A sombra
+               cresce do nada e o tile sobe 2px, então o cartão "levanta"
+               em vez de piscar. */
+            ? {
+                background: "#ffffff",
+                borderRadius: "8px",
+                boxShadow: hover ? "var(--shadow-tile-hover)" : "none",
+                transform: hover ? "translateY(-2px)" : "none",
+                transition: "box-shadow .35s var(--ease), transform .35s var(--ease)",
+              }
+            : circle
+              /* a arte de estúdio já traz o próprio fundo; o círculo só precisa
+                 de um contorno pra não sumir na página branca */
+              ? { background: "#ffffff", border: "1px solid var(--edge)", transition: "border-color .35s var(--ease)" }
+              : undefined
         }
       >
         {cat.crop ? (
@@ -110,9 +138,9 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
               style={{
                 mixBlendMode: "multiply",
                 /* sobe um pouco pra sombra de contato não encostar na borda */
-                transform: `translate(${cat.offsetX ?? 0}%, -3%) scale(${(cat.zoom ?? 1.4) * (round ? 1.18 : 1) * (hover ? 1.06 : 1)})${cat.flip ? " scaleX(-1)" : ""}`,
+                transform: `translate(${cat.offsetX ?? 0}%, -3%) scale(${(cat.zoom ?? 1.4) * (bare ? 1.18 : 1) * (hover ? 1.06 : 1)})${cat.flip ? " scaleX(-1)" : ""}`,
                 transformOrigin: cat.focus ?? "50% 70%",
-                transition: "transform .45s ease-out",
+                transition: "transform .5s var(--ease)",
               }}
             />
           </div>
@@ -122,40 +150,81 @@ function CatCard({ cat, round }: { cat: Cat; round: boolean }) {
             alt=""
             aria-hidden="true"
             onError={() => setSrc(cat.fallbackImg)}
-            /* no círculo a foto preenche tudo (object-cover): com `contain` o
+            /* na moldura a foto preenche tudo (object-cover): com `contain` o
                quadrado branco da arte aparecia recortado contra o fundo do
                card, e lia como imagem cortada do lado direito. */
             className={
-              round
+              bare
                 ? "h-full w-full object-cover object-center"
                 : "max-h-[92%] w-auto max-w-[80%] object-contain object-bottom"
             }
             style={{
-              mixBlendMode: round ? undefined : "multiply",
+              mixBlendMode: bare ? undefined : "multiply",
               transform: `translateX(${cat.offsetX ?? 0}%) scale(${(cat.artScale ?? 1) * (hover ? 1.06 : 1)})${cat.flip ? " scaleX(-1)" : ""}`,
-              transformOrigin: round ? "50% 50%" : "50% 100%",
-              transition: "transform .45s ease-out",
+              transformOrigin: bare ? "50% 50%" : "50% 100%",
+              transition: "transform .5s var(--ease)",
             }}
           />
         )}
       </div>
+      {/* O nome reage junto do tile, mas atrasado: o tile levanta, o nome
+         acompanha 40ms depois e o sublinhado abre por último. Escalonar
+         assim faz o conjunto ler como um movimento só, com causa e efeito,
+         em vez de três coisas piscando ao mesmo tempo. */}
       <span
         className={
-          round
-            ? "mt-3 flex h-11 w-full items-start justify-center text-center line-clamp-2"
-            : "flex h-11 w-full items-center justify-center text-center line-clamp-2"
+          bare
+            ? "mt-3.5 flex h-11 w-full items-start justify-center"
+            : "flex h-11 w-full items-center justify-center"
         }
-        style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 500, lineHeight: 1.25, color: "var(--ink-strong)" }}
+        style={
+          bare
+            ? {
+                transform: hover ? "translateY(-1px)" : "none",
+                transition: "transform .35s var(--ease) 40ms",
+              }
+            : undefined
+        }
       >
-        {cat.label}
+        {/* line-clamp traz overflow:hidden, que corta o sublinhado na altura
+           da linha: os 4px de padding dão o respiro que ele precisa. */}
+        <span
+          className="line-clamp-2 text-center"
+          style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 500, lineHeight: 1.25, color: "var(--ink-strong)", paddingBottom: bare ? "4px" : undefined }}
+        >
+          {/* sublinhado como background animável em vez de border: cresce do
+             centro, para na largura real do texto (não do card) e, com
+             box-decoration-break: clone, sublinha cada linha do rótulo de
+             duas linhas. Peso da fonte não muda — mudaria o reflow. */}
+          <span
+            style={
+              bare
+                ? {
+                    backgroundImage: "linear-gradient(currentColor, currentColor)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "50% 100%",
+                    backgroundSize: hover ? "100% 1.5px" : "0% 1.5px",
+                    paddingBottom: "2.5px",
+                    WebkitBoxDecorationBreak: "clone",
+                    boxDecorationBreak: "clone",
+                    transition: "background-size .42s var(--ease) 60ms",
+                  }
+                : undefined
+            }
+          >
+            {cat.label}
+          </span>
+        </span>
       </span>
     </Link>
   );
 }
 
 export function CategoriasV2() {
-  // círculo é o padrão; /?cat=card volta à versão em card retangular
-  const round = new URLSearchParams(useLocation().search).get("cat") !== "card";
+  /* tile quadrado com sombra é o padrão; ?cat=circle volta ao círculo com
+     hairline e ?cat=card à primeira versão em card retangular */
+  const param = new URLSearchParams(useLocation().search).get("cat");
+  const variant: Variant = param === "card" ? "card" : param === "circle" ? "circle" : "soft";
 
   return (
     <section className="px-5 py-14 md:px-12" style={{ background: "#ffffff" }}>
@@ -170,7 +239,7 @@ export function CategoriasV2() {
         {/* grade única: as 12 categorias de uma vez, 6 por linha */}
         <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-8">
           {CATS.map((c) => (
-            <CatCard key={c.label} cat={c} round={round} />
+            <CatCard key={c.label} cat={c} variant={variant} />
           ))}
         </div>
 

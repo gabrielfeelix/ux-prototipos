@@ -1,0 +1,98 @@
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/robots.txt") {
+      const robotsContent = `# =========================================
+# Default rules
+# =========================================
+
+User-agent: *
+Content-Signal: search=yes,ai-train=no
+Allow: /
+ 
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /wishlist/
+Disallow: /sendfriend/
+Disallow: /catalog/product_compare/
+Disallow: /review/
+ 
+Disallow: /catalogsearch/
+Disallow: /search/
+
+Disallow: /*?
+Disallow: /*?p=
+Disallow: /*&p=
+ 
+Disallow: /*?order=
+Disallow: /*&order=
+Disallow: /*?dir=
+Disallow: /*&dir=
+Disallow: /*?mode=
+Disallow: /*&mode=
+Disallow: /*?limit=
+Disallow: /*&limit=
+ 
+ 
+Disallow: /*?product_list
+Disallow: /*&product_list
+Disallow: /*?product_list_order=
+Disallow: /*&product_list_order=
+Disallow: /*?product_list_dir=
+Disallow: /*&product_list_dir=
+Disallow: /*?product_list_limit=
+Disallow: /*&product_list_limit=
+Disallow: /*?product_list_mode=
+Disallow: /*&product_list_mode=
+ 
+Disallow: /*?SID=
+Disallow: /*&SID=
+Disallow: /*?utm_
+Disallow: /*&utm_
+Disallow: /*?___store=
+Disallow: /*&___store=
+Disallow: /*?___from_store=
+Disallow: /*&___from_store=
+ 
+Disallow: /*?ajax=
+Disallow: /*&ajax=
+Disallow: /rss/
+Disallow: /tag/
+ 
+ 
+User-agent: Amazonbot
+Disallow: /
+ 
+User-agent: Applebot-Extended
+Disallow: /
+ 
+User-agent: Bytespider
+Disallow: /
+ 
+User-agent: CCBot
+Disallow: /
+ 
+User-agent: CloudflareBrowserRenderingCrawler
+Disallow: /
+ 
+User-agent: Google-Extended
+Disallow: /
+ 
+User-agent: meta-externalagent
+Disallow: /
+
+Sitemap: https://www.pcyes.com.br/sitemap.xml`;
+
+      return new Response(robotsContent, {
+        headers: {
+          "content-type": "text/plain;charset=UTF-8",
+          "cache-control": "public, max-age=3600"
+        },
+      });
+    }
+
+    return fetch(request);
+  },
+};

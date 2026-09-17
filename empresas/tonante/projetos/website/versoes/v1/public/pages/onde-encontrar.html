@@ -167,8 +167,12 @@
   }
 
   /* ─── PAINEL DO MAPA ─── */
+  /* O offset vem do header real do SPA, medido em JS (--locator-sticky-top =
+     altura do header + 10px de respiro). O 140px do fallback é a altura do
+     header da v2 já somada: sem ele, o painel encosta e o header come o topo
+     do mapa antes do JS rodar. */
   .map-panel {
-    position: sticky; top: 104px; height: fit-content;
+    position: sticky; top: var(--locator-sticky-top, 140px); height: fit-content;
     align-self: start;
     background: var(--surface);
     border: 1px solid var(--hairline);
@@ -409,6 +413,14 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: start;
     gap: 16px;
+    /* troca de resultado é um crossfade curto: sem ele, clicar numa região
+       troca 22 cards por 8 num único quadro e a lista parece piscar. */
+    transition: opacity 160ms ease;
+  }
+  .cards-grid.is-swapping { opacity: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .cards-grid { transition: none; }
+    .cards-grid.is-swapping { opacity: 1; }
   }
   @media (max-width: 1280px) { .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 640px)  { .cards-grid { grid-template-columns: 1fr; } }
@@ -666,7 +678,7 @@
         <span class="search-field__icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </span>
-        <input class="search-input" id="q-name" type="text" placeholder="Buscar por loja, cidade..." oninput="applyFilters()" autocomplete="off"/>
+        <input class="search-input" id="q-name" type="text" placeholder="Buscar por loja, cidade..." oninput="applyFilters(true)" autocomplete="off"/>
       </div>
       <div class="search-field search-field--cep">
         <span class="search-field__icon search-field__icon--cep">
@@ -1000,7 +1012,10 @@ function renderCard(r) {
 /* ═══ FILTER LOGIC ═══ */
 function normCep(c) { return c.replace(/\D/g,""); }
 
-function applyFilters() {
+/* `imediato` = mudança que vem de digitação: a lista se refaz a cada tecla e
+   o crossfade viraria pisca-pisca. Filtro por clique (região, tipo, estado)
+   ganha o fade; busca por texto só reancora o scroll. */
+function applyFilters(imediato) {
   const nameQ = document.getElementById("q-name").value.toLowerCase().trim();
   const cepQ  = normCep(document.getElementById("q-cep").value).padEnd(8,"0");
   const hasCep = normCep(document.getElementById("q-cep").value).length >= 3;
@@ -1027,20 +1042,67 @@ function applyFilters() {
   const count = document.getElementById("results-count");
   count.textContent = results.length + " resultado" + (results.length !== 1 ? "s" : "");
 
-  if (!results.length) {
-    grid.innerHTML = `
-    <div class="empty">
+  const html = !results.length
+    ? `<div class="empty">
       ${ICONS.bag}
       <p>Nenhuma loja por aqui</p>
       <small>Ajuste os filtros ou tente outra cidade</small>
       <button onclick="clearFilters()">Limpar filtros</button>
-    </div>`;
-  } else {
-    grid.innerHTML = results.map(renderCard).join("");
-  }
+    </div>`
+    : results.map(renderCard).join("");
+
+  swapGrid(grid, html, !imediato);
 
   updateClearBtn();
   updateActiveTags();
+}
+
+/* Offset do topo: altura do header fixo do SPA + 10px de respiro. Medido em
+   vez de fixado porque o header muda de altura entre breakpoints — e é o
+   mesmo número que o sticky do mapa e a âncora de scroll usam. */
+function stickyTop() {
+  const h = document.querySelector("header")?.getBoundingClientRect().height || 130;
+  return Math.round(h) + 10;
+}
+
+/* O header da v2 encolhe ao rolar (194px no topo, 130px depois da faixa de
+   avisos sair), então uma medida só ficava errada num dos dois estados: com a
+   do topo o painel parava 64px abaixo do header, com a rolada o header comia
+   o topo do mapa. Re-mede no scroll e só escreve quando o número muda. */
+let stickyAtual = 0;
+function syncStickyTop() {
+  const v = stickyTop();
+  if (v === stickyAtual) return;
+  stickyAtual = v;
+  document.documentElement.style.setProperty("--locator-sticky-top", v + "px");
+}
+
+/* Trocar a lista muda a altura da página: filtrar de 41 lojas pra 8 encolhe o
+   documento em ~2500px e o scroll, que o navegador mantém onde estava, passa
+   a apontar pro fim da lista curta — parecia que a página "pulava pra baixo".
+   Depois de cada troca, se o topo da grade ficou acima do header, o scroll
+   volta suave pra ele: o resultado do filtro aparece do primeiro card. */
+function swapGrid(grid, html, fade) {
+  const reduz = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const pintar = () => {
+    grid.innerHTML = html;
+    grid.classList.remove("is-swapping");
+    ancorarNaGrade(grid);
+  };
+  if (reduz || !fade || !grid.children.length) return pintar();
+  grid.classList.add("is-swapping");
+  setTimeout(pintar, 160);
+}
+
+function ancorarNaGrade(grid) {
+  const limite = stickyTop();
+  const topo = grid.getBoundingClientRect().top;
+  if (topo >= limite - 1) return;
+  const alvo = Math.max(0, window.scrollY + topo - limite);
+  window.scrollTo({
+    top: alvo,
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+  });
 }
 
 function hasActiveFilters() {
@@ -1147,7 +1209,7 @@ function buildStateDropdown() {
 function handleCep(el) {
   const nums = el.value.replace(/\D/g,"").slice(0,8);
   el.value = nums.length > 5 ? `${nums.slice(0,5)}-${nums.slice(5)}` : nums;
-  applyFilters();
+  applyFilters(true);
 }
 
 /* ═══ CLEAR ═══ */
@@ -1182,6 +1244,16 @@ function toggleMobileFilters() {
     if (!document.getElementById("cards-grid")) return false;
     buildBrazilMap();
     buildStateDropdown();
+    syncStickyTop();
+    if (!window.__tonanteLocatorSticky) {
+      window.__tonanteLocatorSticky = true;
+      window.addEventListener("resize", syncStickyTop);
+      /* ResizeObserver no próprio header, não evento de scroll: é o header
+         que muda de altura (a faixa de avisos sai ao rolar), e o observer
+         avisa exatamente quando isso acontece — sem medir a cada pixel. */
+      const hdr = document.querySelector("header");
+      if (hdr && window.ResizeObserver) new ResizeObserver(syncStickyTop).observe(hdr);
+    }
     applyFilters();
     document.getElementById("stat-total").textContent = RETAILERS.length;
     document.getElementById("stat-cidades").textContent = new Set(RETAILERS.map(r=>r.city).filter(Boolean)).size;

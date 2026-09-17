@@ -33,137 +33,168 @@ function parseInlineBold(text: string): ReactNode[] {
   });
 }
 
+/* Os rótulos que chegam aqui vêm de três lugares: categoria do catálogo,
+   subcategoria e tag em destaque. Os plurais da vitrine da home ("Violas",
+   "Cabos") não são categorias — são tags no singular. O alias costura os
+   dois vocabulários. */
 const ALIASES: Record<string, string> = {
-  "Teclado": "Teclados",
-  "Mouse": "Mouses",
-  "Headset": "Headsets",
-  "Fone de Ouvido": "Headsets",
+  "Violão": "Violões",
+  "Guitarra": "Guitarras",
+  "Contrabaixo": "Contrabaixos",
+  "Baixo": "Contrabaixos",
+  "Bateria": "Baterias",
+  "Violas": "Viola",
+  "Viola Caipira": "Viola",
+  "Ukuleles": "Ukulele",
+  "Cordas": "Cordas & Encordoamentos",
+  "Encordoamento": "Cordas & Encordoamentos",
+  "Encordoamentos": "Cordas & Encordoamentos",
+  "Suportes & Pedestais": "Suportes",
+  "Pedestais": "Suportes",
+  "Suporte": "Suportes",
+  "Cabos": "Cabo",
+  "Microfones": "Microfone",
+  "Palhetas": "Palheta",
+  "Correias": "Correia",
+  "Afinadores": "Afinador",
+  "Acessório": "Acessórios",
 };
 
 const SEO: Record<string, SeoEntry> = {
   default: {
-    title: "Sobre os Produtos PCYES",
+    title: "Sobre os Produtos Tonante",
     paragraphs: [
-      "A PCYES fabrica componentes e periféricos gamer com presença consolidada nas principais lojas de tecnologia do Brasil. O catálogo da loja oficial PCYES reúne hardware, refrigeração, fontes, gabinetes, monitores, cadeiras e a linha completa de acessórios para PC gamer.",
-      "Todos os produtos PCYES contam com garantia de fábrica, nota fiscal, suporte técnico em português e envio para todo o território nacional. Compre direto da marca PCYES e tenha acesso a estoque atualizado, atendimento pós venda e mercadoria 100% original.",
+      "A Tonante fabrica instrumentos musicais no Brasil desde 1954. O catálogo da loja oficial reúne violões de nylon e de aço, violas, cavacos, ukuleles, guitarras, contrabaixos, baterias acústicas e a linha completa de cordas, suportes e acessórios de palco e estúdio.",
+      "Todo instrumento Tonante sai da fábrica afinado e conferido, com garantia de 2 anos contra defeitos de fabricação, nota fiscal e envio para todo o país. As marcas parceiras do catálogo passam pela curadoria Tonante: só entra o que a gente usaria no próprio palco.",
     ],
   },
-  "Periféricos": {
-    title: "Sobre Periféricos Gamer PCYES",
-    // Exemplo demonstrando suporte a H2/H3/bold (subset markdown).
-    // O editor rich text final injetaria nodes nesse mesmo shape.
+  "Violões": {
+    title: "Sobre os Violões Tonante",
     nodes: [
-      { type: "p", text: "A linha de **periféricos gamer PCYES** inclui teclados mecânicos, mouses gamer, headsets, mousepads e acessórios para setup. Cada produto é testado em fábrica e acompanha garantia oficial de 12 meses." },
-      { type: "h3", text: "Teclados mecânicos" },
-      { type: "p", text: "Os teclados PCYES utilizam **switches mecânicos** de alta durabilidade, iluminação RGB e layout ABNT2 nacional. Linhas full size, TKL, 75%, 65% e 60% em versões com fio e wireless." },
-      { type: "h3", text: "Mouses gamer" },
-      { type: "p", text: "Os mouses gamer PCYES contam com **sensor óptico** de alta precisão, taxa de polling configurável e botões programáveis para FPS, MOBA e MMO. Cabo paracord, pés de PTFE e construção em ABS premium." },
-      { type: "h3", text: "Headsets e áudio" },
-      { type: "p", text: "Drivers de neodímio, áudio espacial e microfone com cancelamento de ruído. Compatíveis com PC, PS5, Xbox Series e Nintendo Switch." },
+      { type: "p", text: "O **violão Tonante** é o instrumento que abriu a fábrica em 1954 e continua sendo o centro do catálogo. A linha vai do infantil 1/2 e 3/4 ao eletroacústico de palco, em versões com cordas de nylon e de aço, tampo natural ou acabamento preto." },
+      { type: "h3", text: "Violões de nylon" },
+      { type: "p", text: "Braço mais largo, tensão mais baixa e timbre redondo: é o violão de **estudo clássico**, de MPB e de quem está começando. A pisada leve poupa os dedos nas primeiras semanas, quando a mão ainda não tem calo." },
+      { type: "h3", text: "Violões de aço" },
+      { type: "p", text: "Projeção maior e ataque mais definido, para **folk, country, gospel e roda de violão**. Nos modelos cutaway o recorte libera as casas agudas, e os eletroacústicos trazem captação com equalizador embutido para ligar direto na mesa." },
+      { type: "h3", text: "Violas, cavacos e ukuleles" },
+      { type: "p", text: "A mesma oficina que faz os violões produz a **viola caipira** de 10 cordas, o cavaco de 4 cordas e os ukuleles soprano e concert. São instrumentos de corpo menor, indicados para quem toca em pé, viaja com o instrumento ou tem mão pequena." },
       { type: "h2", text: "Garantia e atendimento" },
-      { type: "p", text: "Todo periférico gamer PCYES sai de fábrica com software de personalização compatível com Windows, permitindo ajuste de **macros**, perfis de iluminação e mapeamento de teclas. Compre periférico gamer PCYES com **garantia oficial de 12 meses**, nota fiscal e frete para todo o Brasil." },
+      { type: "p", text: "Cada violão é afinado, conferido e embalado na fábrica antes de sair. Compre violão Tonante direto da loja oficial com **garantia de 2 anos** contra defeitos de fabricação, nota fiscal, atendimento por WhatsApp e envio para todo o Brasil." },
     ],
   },
-  "Teclados": {
-    title: "Sobre Teclados Gamer PCYES",
+  "Guitarras": {
+    title: "Sobre as Guitarras Tonante",
     paragraphs: [
-      "O teclado gamer PCYES combina switches mecânicos, iluminação RGB e layout ABNT2 nacional. A linha de teclados gamer PCYES inclui modelos full size, TKL, 75%, 65% e 60%, em versões com fio e wireless. Cada teclado mecânico PCYES tem keycaps em ABS double shot, anti ghosting completo, N key rollover e cabo destacável USB C nos modelos premium.",
-      "O teclado gamer PCYES é compatível com Windows, macOS e Linux, e funciona em PCs gamer, notebooks e setups de streaming. Compre teclado mecânico PCYES na loja oficial, com garantia de 12 meses, suporte técnico em português e envio para todo o Brasil.",
+      "A guitarra elétrica Tonante chega em duas famílias: a linha Cecille, de corpo TL, com ataque seco e brilho de ponte que sustenta country, blues e pop; e a linha Star Light, de configuração SS, mais versátil entre limpo cristalino e crunch. As cores vão de Cobalt Blue e Azure a Sangria e Polar White.",
+      "Toda guitarra Tonante sai da fábrica com escala regulada, tastos nivelados e captação testada no amplificador. Compre guitarra elétrica direto da loja oficial com garantia de 2 anos contra defeitos de fabricação, nota fiscal e envio para todo o Brasil.",
     ],
   },
-  "Mouses": {
-    title: "Sobre Mouses Gamer PCYES",
+  "Contrabaixos": {
+    title: "Sobre os Contrabaixos Tonante",
     paragraphs: [
-      "O mouse gamer PCYES tem sensor óptico de alta precisão, taxa de resposta configurável e botões programáveis para diferentes estilos de jogo. A linha de mouse gamer PCYES inclui modelos com fio, sem fio 2.4 GHz, Bluetooth, ambidestros, ultraleves e versões com peso ajustável.",
-      "Cada mouse gamer PCYES acompanha software para configuração de perfis de DPI, ajuste de RGB e gravação de macros. Pés de PTFE, cabo paracord e construção em ABS premium garantem deslize suave e durabilidade. Compre mouse gamer PCYES com garantia oficial e entrega em todo o Brasil.",
+      "O contrabaixo elétrico Tonante vem nas linhas Jazzmine e Theodor, em versões de 4 e 5 cordas. O Jazzmine tem timbre mais articulado, bom para slap e para gravação; o Theodor entrega fundamental mais grossa, do tipo que preenche o palco atrás da banda. Acabamentos Deep Dark, Sunset e Yellow Cake.",
+      "Escala longa, braço regulado de fábrica e captação conferida no amplificador antes do envio. Compre contrabaixo Tonante na loja oficial com garantia de 2 anos contra defeitos de fabricação, nota fiscal e entrega em todo o território nacional.",
     ],
   },
-  "Headsets": {
-    title: "Sobre Headsets Gamer PCYES",
+  "Baterias": {
+    title: "Sobre as Baterias Tonante Sonora",
     paragraphs: [
-      "O headset gamer PCYES traz drivers de neodímio, áudio espacial e microfone com cancelamento de ruído para gameplay competitivo. A linha de headset gamer PCYES inclui modelos USB 7.1, P2 estéreo, wireless 2.4 GHz e Bluetooth 5.0, compatíveis com PC gamer, PS5, Xbox Series e Nintendo Switch.",
-      "Espuma memory foam, estrutura em metal reforçado e arco ajustável fazem do headset gamer PCYES uma escolha confortável para longas sessões de jogo ou de stream. Compre headset gamer PCYES com garantia oficial, nota fiscal e suporte técnico em português.",
+      "A bateria acústica Tonante Sonora tem cascos em 6 folhas de poplar, que dão ressonância profunda e equilibrada, com ferragens dimensionadas para aguentar estrada. A configuração padrão traz bumbo 22×16\", caixa 14×5,5\" e tons de 10×7\" e 12×8\", nos acabamentos Black Sparkle e Grey Sparkle.",
+      "É um kit que atende apresentação ao vivo, estúdio e sala de ensaio sem trocar de pele. Compre bateria Tonante Sonora na loja oficial com garantia de 2 anos contra defeitos de fabricação, nota fiscal e frete para todo o Brasil.",
     ],
   },
-  "Refrigeração": {
-    title: "Sobre Refrigeração PCYES",
+  "Cordas & Encordoamentos": {
+    title: "Sobre Cordas e Encordoamentos",
     paragraphs: [
-      "A linha de refrigeração PCYES reúne water cooler AIO, cooler para processador, fans com PWM, pasta térmica e acessórios para gerenciamento térmico. Cada water cooler PCYES é compatível com soquetes Intel LGA 1700, 1200 e 115x, e AMD AM4, AM5 e TR4, com radiadores de 120 mm, 240 mm e 360 mm.",
-      "Os fans PCYES utilizam rolamentos hidrodinâmicos para operação silenciosa e iluminação ARGB sincronizável via Aura Sync, Mystic Light e RGB Fusion. A refrigeração PCYES atende desde builds de entrada até estações de overclock high end, com garantia oficial e envio para todo o Brasil.",
+      "O encordoamento é a peça que mais muda o som do instrumento e a única que se troca sozinha. O catálogo Tonante cobre jogos para violão de nylon e de aço, viola de 10 cordas, cavaco, ukulele, guitarra e contrabaixo de 4 e 5 cordas, em bronze 85/15, níquel e aço, com calibres de .009 a .052.",
+      "Corda mais leve pede menos força e facilita bend; corda mais pesada sustenta afinação grave e projeta mais. Compre encordoamento na loja oficial Tonante, com jogos das nossas linhas e das marcas parceiras que passam pela curadoria da casa, e receba em todo o Brasil.",
     ],
   },
-  "Computadores": {
-    title: "Sobre Computadores PCYES",
+  "Suportes": {
+    title: "Sobre Suportes e Pedestais",
     paragraphs: [
-      "O PC gamer PCYES já vem montado, com cabeamento organizado e teste de estabilidade antes do envio. A linha de computadores PCYES inclui PC gamer entrada, intermediário e high end, além de mini PCs para escritório e estação de trabalho. Cada PC gamer PCYES roda títulos atuais em 1080p, 1440p e 4K, com configurações que combinam processadores Intel Core e AMD Ryzen.",
-      "Compre PC gamer montado direto da loja oficial PCYES, com garantia de fábrica, nota fiscal e envio para todo o Brasil. Configurações personalizadas disponíveis sob consulta com a equipe técnica.",
+      "Instrumento apoiado no canto da parede cai. A linha de suportes Tonante reúne suporte de chão para violão e guitarra, suporte em X simples e duplo para teclado, pedestal de microfone reto e girafa com cachimbo, pedestal para caixa de som, tripé de caixa, estante para partitura e banquetas para piano e teclado.",
+      "São peças em aço com pintura preta, reguláveis em altura e dobráveis nos modelos de viagem, pensadas para montar e desmontar toda semana. Compre suporte e pedestal na loja oficial Tonante com nota fiscal e envio para todo o Brasil.",
     ],
   },
-  "Hardware": {
-    title: "Sobre Hardware PCYES",
+  "Acessórios": {
+    title: "Sobre Acessórios Tonante",
     paragraphs: [
-      "A linha de hardware PCYES traz memória RAM DDR4 e DDR5, placa mãe e demais componentes para montagem ou upgrade de PC gamer. As memórias RAM PCYES contam com perfis XMP 3.0 e EXPO, dissipador em alumínio escovado e iluminação RGB compatível com Aura Sync e Mystic Light.",
-      "Cada componente da linha de hardware PCYES é testado em fábrica e entregue com garantia oficial. Compre memória RAM PCYES, placa mãe PCYES e acessórios para PC gamer com frete e nota fiscal para todo o Brasil.",
+      "São os itens pequenos que decidem o ensaio: palheta, correia, cabo P10, cabo de microfone XLR, afinador cromático, capotraste, abafador anti-feedback, apoio de pé para violonista, adaptador P2/P10 e capa para transporte.",
+      "Aqui convivem a linha Tonante e as marcas parceiras selecionadas pela casa — Ibox, Angel, Ninja Cable, entre outras. Compre acessórios para instrumento na loja oficial com nota fiscal, estoque atualizado e frete para todo o Brasil.",
     ],
   },
-  "Fontes": {
-    title: "Sobre Fontes PCYES",
+  "Viola": {
+    title: "Sobre as Violas Tonante",
     paragraphs: [
-      "A fonte gamer PCYES atende builds de entrada, intermediárias e high end, com potências de 500 W, 600 W, 750 W, 850 W e 1000 W. Toda fonte PCYES é certificada 80 Plus, com proteções OVP, UVP, OCP, OPP e SCP, garantindo operação estável e segura sob carga máxima.",
-      "A linha de fonte PCYES inclui modelos modular, semi modular e cabeada, com ventoinha silenciosa de 120 mm ou 140 mm. Compre fonte de alimentação PCYES com garantia oficial estendida e envio para todo o Brasil.",
+      "A viola caipira Tonante tem 10 cordas em 5 pares e corpo menor que o do violão, o que deixa o timbre mais agudo e brilhante — o som do sertanejo raiz, da folia de reis e da moda de viola. As versões acústica e eletroacústica vêm em acabamento natural ou preto, e a eletroacústica liga direto na mesa.",
+      "Vem da mesma oficina dos violões, afinada em cebolão e conferida antes do envio. Compre viola caipira na loja oficial Tonante com garantia de 2 anos contra defeitos de fabricação, nota fiscal e entrega em todo o Brasil.",
     ],
   },
-  "SSD e HD": {
-    title: "Sobre SSDs e HDs PCYES",
+  "Ukulele": {
+    title: "Sobre os Ukuleles Tonante",
     paragraphs: [
-      "O SSD PCYES oferece leitura acima de 3.500 MB/s nos modelos NVMe PCIe 3.0 e 4.0, ideal para reduzir tempo de boot, acelerar carregamento de jogos e ampliar a biblioteca Steam, Epic e Xbox PC. A linha de SSD PCYES inclui versões M.2 NVMe e SATA III 2.5 polegadas, com capacidades de 240 GB, 480 GB, 960 GB, 1 TB e 2 TB.",
-      "Cada SSD PCYES tem TBW estendido, firmware otimizado e garantia de 5 anos nos modelos premium. Compre SSD gamer PCYES e HD PCYES com nota fiscal, garantia oficial e envio para todo o Brasil.",
+      "O ukulele Tonante da linha Haka vem nos tamanhos soprano e concert, em mahogany e KOA. O soprano é o mais compacto e o mais agudo, bom para viagem e para mão pequena; o concert tem corpo e escala maiores, com nota mais cheia e mais espaço entre os trastes.",
+      "São 4 cordas de nylon e tensão baixa, o que torna o ukulele o instrumento de corda mais rápido de aprender — os primeiros acordes saem no mesmo dia. Compre ukulele na loja oficial Tonante com garantia de 2 anos, nota fiscal e envio para todo o Brasil.",
     ],
   },
-  "Streaming": {
-    title: "Sobre Equipamentos de Streaming PCYES",
+  "Cabo": {
+    title: "Sobre Cabos para Instrumento",
     paragraphs: [
-      "A linha de equipamentos de streaming PCYES reúne microfone condensador, placa de captura, suporte de microfone e acessórios para criadores de conteúdo. O microfone PCYES funciona em modo plug and play via USB, compatível com OBS Studio, Streamlabs, Discord e principais plataformas de live streaming.",
-      "A placa de captura PCYES suporta captura em 1080p 60 fps e 4K 30 fps via HDMI, com baixa latência e compatibilidade com Windows e macOS. Compre equipamento de streaming PCYES com garantia oficial e entrega em todo o Brasil.",
+      "Cabo ruim chia, oxida e falha no meio do show. O catálogo Tonante traz cabo de guitarra P10/P10 com plugue reto e 90°, nos comprimentos de 3,05 m, 4,57 m e 6,10 m, em capa de PVC ou revestimento têxtil, e cabo de microfone XLR macho/fêmea nas mesmas medidas.",
+      "Condutor de 0,20 mm e 0,30 mm, blindagem contra ruído e solda reforçada no plugue, que é onde o cabo costuma morrer. Marcas parceiras selecionadas pela curadoria Tonante — Angel, Ninja Cable e outras. Compre cabo com nota fiscal e frete para todo o Brasil.",
     ],
   },
-  "Monitores": {
-    title: "Sobre Monitores Gamer PCYES",
+  "Microfone": {
+    title: "Sobre Microfones e Pedestais",
     paragraphs: [
-      "O monitor gamer PCYES traz alta taxa de atualização (144 Hz, 165 Hz, 240 Hz), tempo de resposta de 1 ms e tecnologia FreeSync para gameplay sem tearing. A linha de monitor gamer PCYES inclui painéis IPS, VA e curvos, em tamanhos de 24, 27, 32 e 34 polegadas ultrawide.",
-      "As resoluções vão de Full HD a 4K UHD, com ampla cobertura sRGB e suporte a HDR nos modelos premium. Compre monitor gamer PCYES com garantia oficial, frete para todo o Brasil e suporte técnico em português.",
+      "A linha de microfone do catálogo Tonante cobre voz ao vivo, ensaio e gravação caseira, com os pedestais e cabos XLR que fazem o conjunto funcionar: pedestal reto, girafa com cachimbo, cachimbo avulso, cabo XLR macho/fêmea e adaptadores.",
+      "Quem canta e toca junto resolve o palco com um girafa e um cabo de 6,10 m — sobra fio para andar. Compre microfone, pedestal e cabo na loja oficial Tonante, com marcas parceiras selecionadas pela casa, nota fiscal e envio para todo o Brasil.",
     ],
   },
-  "Placas de Vídeo": {
-    title: "Sobre Placas de Vídeo PCYES",
+  "Palheta": {
+    title: "Sobre Palhetas",
     paragraphs: [
-      "A placa de vídeo PCYES atende gaming em 1080p, 1440p e 4K, edição de vídeo e cargas de inteligência artificial. A loja oficial PCYES vende placa de vídeo NVIDIA GeForce RTX e AMD Radeon, em versões com refrigeração dupla ou tripla, backplate em metal e boost clock de fábrica.",
-      "Compre placa de vídeo PCYES com garantia oficial, nota fiscal e envio para todo o Brasil. Estoque atualizado das gerações atual e anterior, com modelos de entrada, intermediários e high end para todos os perfis de PC gamer.",
+      "A palheta muda o ataque antes de qualquer pedal. As finas, de 0,46 mm a 0,73 mm, flexionam e favorecem levada de acompanhamento; as médias e grossas, de 0,88 mm a 1,0 mm, dão ataque firme para solo, riff e baixo.",
+      "O catálogo tem cartelas e pacotes de 20 peças — palheta é item de consumo, sempre desaparece uma antes do show. Compre palheta na loja oficial Tonante, de marcas parceiras selecionadas pela curadoria da casa, com frete para todo o Brasil.",
     ],
   },
-  "Gabinetes": {
-    title: "Sobre Gabinetes Gamer PCYES",
+  "Correia": {
+    title: "Sobre Correias",
     paragraphs: [
-      "O gabinete gamer PCYES traz painel lateral em vidro temperado, airflow otimizado e suporte para water cooler de até 360 mm. A linha de gabinete gamer PCYES inclui formatos mid tower e full tower, com compatibilidade ATX, micro ATX e mini ITX.",
-      "Cada gabinete gamer PCYES tem espaço para placa de vídeo de até 400 mm, gerenciamento de cabos completo e fans ARGB inclusos em vários modelos. Compre gabinete gamer PCYES com garantia oficial e envio para todo o Brasil.",
+      "A correia sustenta o instrumento na altura em que a sua mão trabalha. O catálogo traz modelos em couro e em nylon acolchoado, com ajuste de comprimento para violão, guitarra e contrabaixo, e presilha para violão sem strap button.",
+      "Correia larga distribui o peso e é o que salva as costas em show longo, principalmente com contrabaixo. Compre correia na loja oficial Tonante, de marcas parceiras selecionadas pela casa, com nota fiscal e envio para todo o Brasil.",
     ],
   },
-  "Cadeiras": {
-    title: "Sobre Cadeiras Gamer PCYES",
+  "Afinador": {
+    title: "Sobre Afinadores",
     paragraphs: [
-      "A cadeira gamer PCYES tem encosto reclinável até 180 graus, apoio lombar ajustável e apoio de braço 4D para conforto em longas jornadas. A linha de cadeira gamer PCYES inclui modelos esportivos, cadeira office, cadeira ergonômica e versões com revestimento em couro sintético ou tecido respirável.",
-      "Estrutura em aço, pistão a gás classe 4 e base estrela em nylon reforçada fazem da cadeira gamer PCYES uma escolha durável para uso diário. Compre cadeira gamer PCYES com garantia oficial, montagem fácil e entrega em todo o Brasil.",
+      "O afinador cromático digital Tonante lê qualquer nota e serve para violão, viola, cavaco, ukulele, guitarra e contrabaixo. Prende na pala e trabalha por vibração, então afina no meio do barulho da passagem de som, quando afinar de ouvido não é opção.",
+      "Disponível em preto, branco, azul e vermelho, com bateria inclusa. Compre afinador na loja oficial Tonante, de marcas parceiras selecionadas pela curadoria da casa, com nota fiscal e frete para todo o Brasil.",
     ],
   },
 };
 
-function resolveContent(category: string, subcategory: string, featured: string): SeoEntry {
-  const keys = [subcategory, featured, category].filter(Boolean);
+/* Do mais específico para o mais genérico: busca ("viola caipira") vence
+   subcategoria, que vence tag em destaque, que vence a categoria. */
+function resolveContent(category: string, subcategory: string, featured: string, search = ""): SeoEntry {
+  const keys = [search, subcategory, featured, category].filter(Boolean);
   for (const raw of keys) {
-    const key = ALIASES[raw] ?? raw;
+    const key = ALIASES[raw] ?? ALIASES[titleCase(raw)] ?? raw;
     if (SEO[key]) return SEO[key];
+    const byTitle = SEO[titleCase(key)];
+    if (byTitle) return byTitle;
   }
   return SEO.default;
+}
+
+/** "viola caipira" chega em minúsculas pela URL; as chaves são capitalizadas. */
+function titleCase(raw: string) {
+  return raw
+    .trim()
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
 }
 
 /** Normaliza qualquer entry para a forma `nodes[]`. */
@@ -177,13 +208,16 @@ export function CategorySeoBlock({
   categoryLabel,
   subcategoryLabel,
   featuredLabel,
+  searchLabel = "",
 }: {
   categoryLabel: string;
   subcategoryLabel: string;
   featuredLabel: string;
+  /** termo de busca da URL — é o que a vitrine da home usa para viola, ukulele, cabo… */
+  searchLabel?: string;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const content = resolveContent(categoryLabel, subcategoryLabel, featuredLabel);
+  const content = resolveContent(categoryLabel, subcategoryLabel, featuredLabel, searchLabel);
   const nodes = normalizeNodes(content);
   const hasMore = nodes.length > 1;
 

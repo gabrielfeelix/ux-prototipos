@@ -137,7 +137,7 @@ export function LegalPageLayout({
       <section className="mx-auto max-w-[1434px] px-5 pb-24 md:px-12 md:pb-32">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
           {/* Section navigation */}
-          <nav className="lg:sticky lg:top-[140px] lg:h-fit" aria-label="Seções">
+          <nav className="lg:sticky lg:top-[176px] lg:h-fit" aria-label="Seções">
             <p
               className="mb-4 text-foreground/35"
               style={{

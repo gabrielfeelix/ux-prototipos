@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import { motion } from "motion/react";
-import { LifeBuoy, Search, MessageCircle, ArrowRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { Footer } from "../components/Footer";
 import {
   Accordion,
@@ -32,7 +32,7 @@ const faqCategories: FaqCategory[] = [
       },
       {
         q: "O produto acompanha Nota Fiscal?",
-        a: "Sim. Todos os produtos PCYES são enviados acompanhados da Nota Fiscal eletrônica, garantindo a procedência e a cobertura da garantia.",
+        a: "Sim. Todos os produtos Tonante são enviados acompanhados da Nota Fiscal eletrônica, garantindo a procedência e a cobertura da garantia.",
       },
       {
         q: "Por que não estou conseguindo rastrear meu pedido?",
@@ -92,7 +92,7 @@ const faqCategories: FaqCategory[] = [
       },
       {
         q: "Quem paga o frete de devolução?",
-        a: "A PCYES disponibiliza a postagem reversa via PAC dos Correios, sem nenhum custo de frete para o cliente.",
+        a: "A Tonante disponibiliza a postagem reversa via PAC dos Correios, sem nenhum custo de frete para o cliente.",
       },
       {
         q: "Em quanto tempo recebo o reembolso após a devolução?",
@@ -113,19 +113,19 @@ const faqCategories: FaqCategory[] = [
     label: "Garantia / RMA",
     items: [
       {
-        q: "Qual o prazo de garantia dos produtos PCYES?",
-        a: "Todos os produtos PCYES contam com garantia legal de 90 dias corridos contra defeitos de fabricação.",
+        q: "Qual o prazo de garantia dos produtos Tonante?",
+        a: "Todos os produtos Tonante contam com garantia legal de 90 dias corridos contra defeitos de fabricação.",
       },
       {
-        q: "Qual o prazo de garantia das placas de vídeo da marca PCYES?",
-        a: "As placas de vídeo da marca PCYES têm garantia de 1 ou 2 anos, conforme o modelo, válida exclusivamente contra defeitos de fabricação.",
+        q: "Qual o prazo de garantia dos instrumentos da marca Tonante?",
+        a: "Os instrumentos da marca Tonante têm garantia de 1 ou 2 anos, conforme a linha, válida exclusivamente contra defeitos de fabricação.",
       },
       {
         q: "Meu produto está com problema/defeito. Como proceder?",
         a: "Entre em contato com o nosso SAC com a descrição do defeito, o número da nota fiscal e fotos do produto. O retorno da nossa equipe acontece em até 2 dias úteis.",
       },
       {
-        q: "Quanto tempo a PCYES tem para analisar o meu produto?",
+        q: "Quanto tempo a Tonante tem para analisar o meu produto?",
         a: "Todo produto devolvido por alegação de defeito passa por uma análise técnica, que é concluída em até 30 dias corridos a partir do recebimento.",
       },
       {
@@ -134,11 +134,11 @@ const faqCategories: FaqCategory[] = [
       },
       {
         q: "O que a garantia cobre e o que ela não cobre?",
-        a: "A garantia cobre exclusivamente defeitos de fabricação do hardware. Não estão cobertos casos de mau uso, instalação inadequada, desgaste natural, contato com líquidos e perda de dados.",
+        a: "A garantia cobre exclusivamente defeitos de fabricação do instrumento. Não estão cobertos casos de mau uso, regulagem inadequada, desgaste natural de cordas e trastes, exposição a umidade ou calor excessivo.",
       },
       {
         q: "Como é o envio do produto para garantia?",
-        a: "Quando o defeito é confirmado, o envio e o retorno do produto são feitos via PAC dos Correios, sem custo de frete por conta da PCYES.",
+        a: "Quando o defeito é confirmado, o envio e o retorno do produto são feitos via PAC dos Correios, sem custo de frete por conta da Tonante.",
       },
       {
         q: "Comprei um kit e um dos itens apresentou defeito, preciso enviar o kit inteiro?",
@@ -184,314 +184,325 @@ export function FaqPage() {
     <>
       {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden border-b border-edge-subtle pt-[152px] md:pt-[182px]"
+        className="relative overflow-hidden border-b border-edge-subtle"
         style={{ background: "var(--surface-0)" }}
       >
         <div
           className="pointer-events-none absolute"
           style={{
-            top: "-25%",
-            right: "-18%",
-            width: "65%",
-            height: "120%",
+            top: "-40%",
+            right: "-10%",
+            width: "55%",
+            height: "140%",
             background:
-              "radial-gradient(circle, rgba(17, 17, 17, 0.08) 0%, rgba(200, 120, 0,0.025) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(200, 120, 0, 0.07) 0%, transparent 65%)",
             filter: "blur(90px)",
           }}
         />
-        <div
-          className="pointer-events-none absolute"
-          style={{
-            bottom: "-30%",
-            left: "-12%",
-            width: "45%",
-            height: "70%",
-            background:
-              "radial-gradient(circle, rgba(17, 17, 17, 0.04) 0%, transparent 65%)",
-            filter: "blur(100px)",
-          }}
-        />
 
-        <div className="relative mx-auto max-w-[1434px] px-5 pb-16 pt-12 text-center md:px-12 md:pb-20 md:pt-16">
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-5 flex justify-center"
-          >
-            <span
-              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-ink-strong"
-              style={{
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-caption)",
-                letterSpacing: "0.2em",
-                fontWeight: 700,
-                boxShadow: "0 6px 22px -4px rgba(200, 120, 0,0.55)",
-              }}
+        <div className="relative mx-auto max-w-[1180px] px-5 pb-12 pt-10 md:px-10 md:pb-16 md:pt-14">
+          <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-[560px]"
             >
-              <LifeBuoy size={11} /> CENTRAL DE AJUDA
-            </span>
-          </motion.div>
+              <span
+                className="text-primary"
+                style={{
+                  fontFamily: "var(--font-family-inter)",
+                  fontSize: "var(--text-caption)",
+                  letterSpacing: "0.24em",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                Central de ajuda
+              </span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="text-ink-strong"
-            style={{
-              fontFamily: "var(--font-family-figtree)",
-              fontSize: "clamp(38px, 6vw, 64px)",
-              fontWeight: 700,
-              letterSpacing: "-0.035em",
-              lineHeight: 1.02,
-            }}
-          >
-            Perguntas{" "}
-            <span
-              style={{
-                backgroundImage:
-                  "linear-gradient(120deg, #ffffff 0%, #a0a0a8 100%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                display: "inline-block",
-              }}
-            >
-              Frequentes
-            </span>
-          </motion.h1>
+              <h1
+                className="mt-4 text-ink-strong"
+                style={{
+                  fontFamily: "var(--font-family-figtree)",
+                  fontSize: "clamp(36px, 5vw, 56px)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.04,
+                }}
+              >
+                Perguntas frequentes
+              </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mx-auto mt-5 max-w-[560px] text-ink-muted"
-            style={{
-              fontFamily: "var(--font-family-inter)",
-              fontSize: "var(--text-base)",
-              lineHeight: 1.6,
-            }}
-          >
-            Encontre respostas rápidas sobre pedidos, pagamentos, devoluções e
-            garantia. Se ainda ficar com dúvida, é só falar com a gente.
-          </motion.p>
-
-          {/* ── Search ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.22 }}
-            className="mx-auto mt-8 w-full max-w-[520px]"
-          >
-            <div className="relative">
-              <Search
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-subtle"
-                size={18}
-              />
-              <input
-                type="text"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Buscar uma dúvida..."
-                aria-label="Buscar nas perguntas frequentes"
-                className="h-12 w-full rounded-full border border-edge bg-white/[0.03] pl-11 pr-4 text-ink-strong placeholder:text-ink-subtle outline-none transition-colors focus:border-primary/50"
+              <p
+                className="mt-4 text-ink-muted"
                 style={{
                   fontFamily: "var(--font-family-inter)",
                   fontSize: "var(--text-base)",
+                  lineHeight: 1.65,
                 }}
-              />
-            </div>
-          </motion.div>
+              >
+                Pedidos, pagamentos, devoluções e garantia — respondidos em um
+                lugar só. Se a sua dúvida não estiver aqui, a gente responde.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="w-full md:max-w-[340px]"
+            >
+              <div className="relative">
+                <Search
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ink-subtle"
+                  size={17}
+                />
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Buscar uma dúvida..."
+                  aria-label="Buscar nas perguntas frequentes"
+                  className="h-12 w-full border border-edge bg-surface-2 pl-11 pr-4 text-ink-strong placeholder:text-ink-subtle outline-none transition-colors focus:border-primary"
+                  style={{
+                    borderRadius: "var(--radius-pill)",
+                    fontFamily: "var(--font-family-inter)",
+                    fontSize: "var(--text-base)",
+                  }}
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── Categories + Q&A ── */}
+      {/* ── Tópicos (esquerda) + Respostas (direita) ── */}
       <section
-        className="relative pb-20 pt-12 md:pb-28 md:pt-16"
+        className="relative pb-20 pt-10 md:pb-28 md:pt-14"
         style={{ background: "var(--surface-0)" }}
       >
-        <div className="mx-auto max-w-3xl px-5 md:px-12">
-          {/* Category pill toggle — hidden while searching */}
-          {!isSearching && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-10 flex flex-wrap justify-center gap-2"
-            >
-              {faqCategories.map((category) => {
-                const isActive = category.id === activeCategory;
-                return (
-                  <button
-                    key={category.id}
-                    type="button"
-                    onClick={() => setActiveCategory(category.id)}
-                    className={
-                      "cursor-pointer rounded-full border px-4 py-2 transition-all " +
-                      (isActive
-                        ? "border-primary/60 bg-foreground/[0.06] text-ink-strong"
-                        : "border-edge bg-white/[0.03] text-foreground/60 hover:border-edge-strong hover:text-ink-strong")
-                    }
-                    style={{
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-sm)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {category.label}
-                  </button>
-                );
-              })}
-            </motion.div>
-          )}
+        <div className="mx-auto max-w-[1180px] px-5 md:px-10">
+          <div className="grid gap-10 md:grid-cols-[236px_1fr] md:gap-16">
+            {/* ── Rail de tópicos ── */}
+            <aside className="md:sticky md:top-[176px] md:self-start">
+              <p
+                className="text-ink-subtle"
+                style={{
+                  fontFamily: "var(--font-family-inter)",
+                  fontSize: "var(--text-caption)",
+                  letterSpacing: "0.24em",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                Tópicos
+              </p>
 
-          {/* Search results counter */}
-          {isSearching && (
-            <p
-              className="mb-8 text-center text-foreground/60"
-              style={{
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-              }}
-            >
-              {totalMatches === 0
-                ? `Nenhum resultado para "${query}".`
-                : `${totalMatches} ${
-                    totalMatches === 1
-                      ? "resultado encontrado"
-                      : "resultados encontrados"
-                  } para "${query}".`}
-            </p>
-          )}
-
-          {/* Q&A accordions */}
-          <motion.div
-            key={isSearching ? `search-${normalizedQuery}` : activeCategory}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-8"
-          >
-            {visibleCategories.map((category) => (
-              <div key={category.id}>
-                {isSearching && (
-                  <p
-                    className="mb-3 uppercase text-primary"
-                    style={{
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-caption)",
-                      letterSpacing: "0.22em",
-                      fontWeight: 700,
-                    }}
-                  >
-                    {category.label}
-                  </p>
-                )}
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="overflow-hidden rounded-2xl border border-foreground/10 bg-white/[0.03]"
-                >
-                  {category.items.map((item, index) => (
-                    <AccordionItem
-                      key={item.q}
-                      value={`${category.id}-${index}`}
-                      className="border-foreground/10 px-5"
+              <nav className="mt-4 border-t border-edge-subtle">
+                {faqCategories.map((category) => {
+                  const isActive = !isSearching && category.id === activeCategory;
+                  return (
+                    <button
+                      key={category.id}
+                      type="button"
+                      onClick={() => {
+                        setQuery("");
+                        setActiveCategory(category.id);
+                      }}
+                      aria-current={isActive ? "true" : undefined}
+                      className={
+                        "relative flex w-full cursor-pointer items-center justify-between border-b border-edge-subtle py-3.5 text-left transition-all " +
+                        (isActive
+                          ? "pl-4 text-ink-strong"
+                          : "pl-0 text-ink-muted hover:pl-2 hover:text-ink-strong")
+                      }
                     >
-                      <AccordionTrigger
-                        className="py-5 text-ink-strong hover:no-underline"
+                      <span
+                        aria-hidden
+                        className="absolute left-0 top-1/2 -translate-y-1/2 bg-primary transition-all"
                         style={{
-                          fontFamily: "var(--font-family-figtree)",
+                          width: isActive ? "2px" : "0px",
+                          height: isActive ? "18px" : "0px",
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontFamily: "var(--font-family-inter)",
                           fontSize: "var(--text-base)",
-                          fontWeight: 600,
-                          letterSpacing: "-0.01em",
+                          fontWeight: isActive ? 600 : 500,
                         }}
                       >
-                        {item.q}
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-5 text-foreground/60">
-                        <p
-                          style={{
-                            fontFamily: "var(--font-family-inter)",
-                            fontSize: "var(--text-base)",
-                            lineHeight: 1.65,
-                          }}
-                        >
-                          {item.a}
-                        </p>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-            ))}
-          </motion.div>
+                        {category.label}
+                      </span>
+                      <span
+                        className="text-ink-subtle"
+                        style={{
+                          fontFamily: "var(--font-family-inter)",
+                          fontSize: "var(--text-caption)",
+                          fontVariantNumeric: "tabular-nums",
+                        }}
+                      >
+                        {category.items.length}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
 
-          {/* ── Still need help card ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mt-14 overflow-hidden rounded-2xl border border-foreground/10 bg-white/[0.03] p-8 text-center md:p-10"
-          >
-            <div
-              className="pointer-events-none absolute"
-              style={{
-                top: "-60%",
-                left: "50%",
-                width: "60%",
-                height: "180%",
-                transform: "translateX(-50%)",
-                background:
-                  "radial-gradient(circle, rgba(17, 17, 17, 0.08) 0%, transparent 65%)",
-                filter: "blur(70px)",
-              }}
-            />
-            <div className="relative">
-              <div className="mb-5 flex justify-center">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-foreground/10 bg-foreground/[0.06] text-primary">
-                  <MessageCircle size={22} />
-                </span>
+              {/* ── Cartão de suporte ── */}
+              <div
+                className="mt-8 border border-edge p-6"
+                style={{ borderRadius: "var(--radius-card)" }}
+              >
+                <h2
+                  className="text-ink-strong"
+                  style={{
+                    fontFamily: "var(--font-family-figtree)",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    letterSpacing: "-0.01em",
+                    lineHeight: 1.15,
+                  }}
+                >
+                  Ainda com dúvida?
+                </h2>
+                <p
+                  className="mt-2 text-ink-muted"
+                  style={{
+                    fontFamily: "var(--font-family-inter)",
+                    fontSize: "var(--text-sm)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Fale com quem entende de instrumento. A gente responde em até 2
+                  dias úteis.
+                </p>
+                <Link
+                  to="/fale-conosco"
+                  className="mt-4 inline-flex items-center gap-1.5 text-primary transition-all hover:gap-2.5"
+                  style={{
+                    fontFamily: "var(--font-family-inter)",
+                    fontSize: "var(--text-sm)",
+                    fontWeight: 600,
+                  }}
+                >
+                  Falar com a gente
+                  <ArrowRight size={15} />
+                </Link>
               </div>
-              <h2
-                className="text-ink-strong"
-                style={{
-                  fontFamily: "var(--font-family-figtree)",
-                  fontSize: "clamp(24px, 3vw, 30px)",
-                  fontWeight: 700,
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1.1,
-                }}
+            </aside>
+
+            {/* ── Respostas ── */}
+            <div className="min-w-0">
+              {isSearching && (
+                <p
+                  className="mb-6 text-ink-muted"
+                  style={{
+                    fontFamily: "var(--font-family-inter)",
+                    fontSize: "var(--text-sm)",
+                  }}
+                >
+                  {totalMatches === 0
+                    ? `Nenhum resultado para "${query}".`
+                    : `${totalMatches} ${
+                        totalMatches === 1
+                          ? "resultado encontrado"
+                          : "resultados encontrados"
+                      } para "${query}".`}
+                </p>
+              )}
+
+              <motion.div
+                key={isSearching ? `search-${normalizedQuery}` : activeCategory}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="space-y-12"
               >
-                Ainda precisa de ajuda?
-              </h2>
-              <p
-                className="mx-auto mt-3 max-w-[440px] text-foreground/60"
-                style={{
-                  fontFamily: "var(--font-family-inter)",
-                  fontSize: "var(--text-base)",
-                  lineHeight: 1.6,
-                }}
-              >
-                Nossa equipe de atendimento está pronta para resolver qualquer
-                dúvida que não foi respondida por aqui.
-              </p>
-              <Link
-                to="/fale-conosco"
-                className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-full bg-primary px-6 text-ink-strong transition-all hover:brightness-110"
-                style={{
-                  fontFamily: "var(--font-family-inter)",
-                  fontSize: "var(--text-sm)",
-                  fontWeight: 600,
-                  boxShadow: "0 12px 30px -10px rgba(200, 120, 0,0.55)",
-                }}
-              >
-                Fale Conosco
-                <ArrowRight size={16} />
-              </Link>
+                {visibleCategories.map((category) => (
+                  <div key={category.id}>
+                    <div className="flex items-baseline justify-between gap-4 pb-4">
+                      <h2
+                        className="text-ink-strong"
+                        style={{
+                          fontFamily: "var(--font-family-figtree)",
+                          fontSize: "clamp(24px, 3vw, 30px)",
+                          fontWeight: 600,
+                          letterSpacing: "-0.02em",
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        {category.label}
+                      </h2>
+                      <span
+                        className="shrink-0 text-ink-subtle"
+                        style={{
+                          fontFamily: "var(--font-family-inter)",
+                          fontSize: "var(--text-caption)",
+                          letterSpacing: "0.18em",
+                          fontWeight: 600,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {category.items.length}{" "}
+                        {category.items.length === 1 ? "pergunta" : "perguntas"}
+                      </span>
+                    </div>
+
+                    <Accordion type="single" collapsible className="border-t border-edge">
+                      {category.items.map((item, index) => (
+                        <AccordionItem
+                          key={item.q}
+                          value={`${category.id}-${index}`}
+                          className="border-b border-edge-subtle last:border-b-0"
+                        >
+                          <AccordionTrigger
+                            className="group w-full py-5 text-ink-strong hover:no-underline [&>svg]:hidden"
+                            style={{
+                              fontFamily: "var(--font-family-figtree)",
+                              fontSize: "17px",
+                              fontWeight: 600,
+                              letterSpacing: "-0.01em",
+                              lineHeight: 1.35,
+                            }}
+                          >
+                            <span className="pr-6 transition-colors group-hover:text-primary">
+                              {item.q}
+                            </span>
+                            <span
+                              aria-hidden
+                              className="mt-0.5 shrink-0 text-ink-subtle transition-all duration-200 group-hover:text-primary group-data-[state=open]:rotate-45 group-data-[state=open]:text-primary"
+                              style={{
+                                fontFamily: "var(--font-family-inter)",
+                                fontSize: "20px",
+                                fontWeight: 400,
+                                lineHeight: 1,
+                              }}
+                            >
+                              +
+                            </span>
+                          </AccordionTrigger>
+                          <AccordionContent className="pb-6 pr-10">
+                            <p
+                              className="text-ink-muted"
+                              style={{
+                                fontFamily: "var(--font-family-inter)",
+                                fontSize: "var(--text-base)",
+                                lineHeight: 1.7,
+                              }}
+                            >
+                              {item.a}
+                            </p>
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
+                ))}
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 

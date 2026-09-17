@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
-import { Search, X, ArrowUpRight, ChevronDown } from "lucide-react";
+import { Search, X, ArrowUpRight, ChevronDown, Star } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { type Product } from "./productsData";
-import { getPrimaryProductImage, getProductSwatches, getVisibleCatalogProducts } from "./productPresentation";
+import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPresentation";
+import { getPixPrice, formatBRL, getInstallmentCount, getInstallmentValue } from "./productEnhancements";
 import { matchesSearchQuery } from "../lib/searchMatch";
 
 /* SearchBar — barra de busca + painel "mais buscados" do header.
@@ -19,6 +20,107 @@ const searchCategories = ["Todas as categorias", "Violões", "Guitarras", "Contr
 
 const visibleCatalogProducts = getVisibleCatalogProducts();
 
+/* CardBusca — card do painel de busca. Repete a anatomia da vitrine da home
+   (ProductCardV2): selo de desconto no verde de compra, estrelas com a
+   contagem de avaliações e o preço em três andares — de quanto era, quanto é
+   à vista no PIX, em quantas vezes no cartão. Sem as bolinhas de cor: no
+   painel não há espaço pra escolher acabamento, e o clique já leva pra PDP. */
+function CardBusca({ p, fundo, onNavigate }: { p: Product; fundo: string; onNavigate: () => void }) {
+  const img = getPrimaryProductImage(p);
+  const discount = p.oldPriceNum ? Math.round((1 - p.priceNum / p.oldPriceNum) * 100) : 0;
+  /* parcela sobre o preço de cartão, não sobre o do PIX — mesma regra do card
+     da vitrine, senão a parcela prometeria um total que o checkout não cobra. */
+  const parcelas = getInstallmentCount(p.priceNum);
+  const valorParcela = getInstallmentValue(p.priceNum);
+  return (
+    <Link to={`/produto/${p.id}`} onClick={onNavigate} className="group block">
+      <div
+        className="relative aspect-square overflow-hidden transition-all"
+        style={{
+          background: fundo,
+          borderRadius: "var(--radius-card-md)",
+          border: "1px solid var(--border)",
+        }}
+      >
+        {discount > 0 && (
+          <span
+            className="num absolute left-3 top-3 z-10 rounded-full px-2.5 py-1"
+            style={{
+              background: "var(--buy-green)",
+              color: "#fff",
+              fontFamily: "var(--font-family-inter)",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            -{discount}%
+          </span>
+        )}
+        <ImageWithFallback
+          src={img}
+          alt={p.name}
+          className="absolute inset-0 h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.06]"
+          style={{ mixBlendMode: "multiply" }}
+        />
+      </div>
+      <p
+        className="mt-4 line-clamp-2 text-ink transition-colors group-hover:text-ink-strong"
+        style={{
+          fontFamily: "var(--font-family-figtree)",
+          fontSize: "var(--text-sm)",
+          fontWeight: 600,
+          lineHeight: 1.3,
+          letterSpacing: "-0.005em",
+        }}
+      >
+        {p.name}
+      </p>
+      <span className="mt-2 flex items-center gap-1.5">
+        <span className="flex items-center gap-0.5">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Star key={i} size={12} strokeWidth={0} fill={i <= Math.round(p.rating) ? "#f0a020" : "rgba(51,51,51,.18)"} />
+          ))}
+        </span>
+        <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12px", color: "#8a8a8a" }}>
+          ({p.reviews})
+        </span>
+      </span>
+      {/* riscado ocupa altura mesmo sem promoção: numa fileira mista os cards
+          com desconto empurrariam o preço pra baixo e a linha desalinharia. */}
+      <div
+        className="num mt-1.5"
+        style={{
+          fontFamily: "var(--font-family-inter)",
+          fontSize: "12px",
+          color: "#8a8a8a",
+          textDecoration: discount > 0 && p.oldPriceNum ? "line-through" : "none",
+          lineHeight: 1.3,
+          minHeight: "16px",
+        }}
+      >
+        {discount > 0 && p.oldPriceNum ? formatBRL(p.oldPriceNum) : "\u00a0"}
+      </div>
+      <div className="flex flex-wrap items-baseline gap-x-1.5">
+        <span
+          className="num"
+          style={{ fontFamily: "var(--font-family-inter)", fontSize: "17px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+        >
+          {formatBRL(getPixPrice(p))}
+        </span>
+        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "11.5px", fontWeight: 600, color: "var(--buy-green)", whiteSpace: "nowrap" }}>
+          à vista no PIX
+        </span>
+      </div>
+      {/* coluna do painel é mais estreita que a da vitrine (5 cards em
+          1320px): 11px é o tamanho em que a linha inteira ainda cabe sem
+          truncar — "no cartão" cortado tirava justamente o que a linha diz. */}
+      <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "11px", color: "#6b6b6b", marginTop: "3px", lineHeight: 1.3, whiteSpace: "nowrap" }}>
+        {parcelas}x de {formatBRL(valorParcela)} sem juros no cartão
+      </div>
+    </Link>
+  );
+}
+
 export function SearchBar({
   className = "",
   /** "bar" centraliza o painel na própria barra (v1, barra centralizada);
@@ -28,6 +130,12 @@ export function SearchBar({
   size = "md",
 }: { className?: string; panelAnchor?: "bar" | "viewport"; size?: "md" | "lg" }) {
   const lg = size === "lg";
+  /* fundo da caixa de foto: no painel da v2 (ancorado na viewport) o mesmo
+     degradê claro da vitrine; na v1 o poço do tema. */
+  const fundoFoto =
+    panelAnchor === "viewport"
+      ? "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)"
+      : "var(--well)";
   const navigate = useNavigate();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
@@ -277,106 +385,14 @@ export function SearchBar({
                       Produtos mais buscados
                     </h4>
                     <div className="grid grid-cols-5 gap-6">
-                      {mostSearchedProducts.map((p) => {
-                        const img = getPrimaryProductImage(p);
-                        const swatches = getProductSwatches(p);
-                        const hasDiscount = p.oldPriceNum && p.oldPriceNum > p.priceNum;
-                        const discount = hasDiscount
-                          ? Math.round(((p.oldPriceNum! - p.priceNum) / p.oldPriceNum!) * 100)
-                          : 0;
-                        return (
-                          <Link
-                            key={p.id}
-                            to={`/produto/${p.id}`}
-                            onClick={() => setSearchPanelOpen(false)}
-                            className="group block"
-                          >
-                            <div
-                              className="relative aspect-square overflow-hidden transition-all"
-                              style={{
-                                background: panelAnchor === "viewport"
-                                  ? "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)"
-                                  : "var(--well)",
-                                borderRadius: "var(--radius-card-md)",
-                                border: "1px solid var(--border)",
-                              }}
-                            >
-                              {discount > 0 && (
-                                <span
-                                  className="absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-ink-strong"
-                                  style={{
-                                    background: "var(--primary)",
-                                    fontFamily: "var(--font-family-inter)",
-                                    fontSize: "var(--text-caption)",
-                                    fontWeight: 700,
-                                    letterSpacing: "0.02em",
-                                  }}
-                                >
-                                  -{discount}%
-                                </span>
-                              )}
-                              <ImageWithFallback
-                                src={img}
-                                alt={p.name}
-                                className="absolute inset-0 h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.06]"
-                                style={{ mixBlendMode: "multiply" }}
-                              />
-                            </div>
-                            <p
-                              className="mt-4 line-clamp-2 text-ink transition-colors group-hover:text-ink-strong"
-                              style={{
-                                fontFamily: "var(--font-family-figtree)",
-                                fontSize: "var(--text-sm)",
-                                fontWeight: 600,
-                                lineHeight: 1.3,
-                                letterSpacing: "-0.005em",
-                              }}
-                            >
-                              {p.name}
-                            </p>
-                            <div className="mt-2 flex items-baseline gap-1.5">
-                              <span
-                                className={hasDiscount ? "" : "text-ink-strong"}
-                                style={{
-                                  fontFamily: "var(--font-family-figtree)",
-                                  fontSize: "var(--text-base)",
-                                  fontWeight: 700,
-                                  letterSpacing: "-0.01em",
-                                  color: hasDiscount ? "var(--primary)" : undefined,
-                                }}
-                              >
-                                {p.price}
-                              </span>
-                              {hasDiscount && p.oldPrice && (
-                                <span
-                                  className="line-through text-ink-subtle"
-                                  style={{
-                                    fontFamily: "var(--font-family-inter)",
-                                    fontSize: "var(--text-caption)",
-                                  }}
-                                >
-                                  {p.oldPrice}
-                                </span>
-                              )}
-                            </div>
-                            {swatches.length > 0 && (
-                              <div className="mt-2.5 flex items-center gap-1.5">
-                                {swatches.slice(0, 4).map((s) => (
-                                  <span
-                                    key={s.productId}
-                                    className="inline-block h-3 w-3 rounded-full"
-                                    style={{
-                                      background: s.color,
-                                      border: "1px solid rgba(var(--foreground-rgb), 0.18)",
-                                    }}
-                                    aria-label={s.label}
-                                  />
-                                ))}
-                              </div>
-                            )}
-                          </Link>
-                        );
-                      })}
+                      {mostSearchedProducts.map((p) => (
+                        <CardBusca
+                          key={p.id}
+                          p={p}
+                          fundo={fundoFoto}
+                          onNavigate={() => setSearchPanelOpen(false)}
+                        />
+                      ))}
                     </div>
                   </div>
 
@@ -442,108 +458,17 @@ export function SearchBar({
                     </span>
                   </div>
                   <div className="grid grid-cols-5 gap-6 max-h-[520px] overflow-y-auto pr-1">
-                    {searchResults.map((p) => {
-                      const img = getPrimaryProductImage(p);
-                      const swatches = getProductSwatches(p);
-                      const hasDiscount = p.oldPriceNum && p.oldPriceNum > p.priceNum;
-                      const discount = hasDiscount
-                        ? Math.round(((p.oldPriceNum! - p.priceNum) / p.oldPriceNum!) * 100)
-                        : 0;
-                      return (
-                        <Link
-                          key={p.id}
-                          to={`/produto/${p.id}`}
-                          onClick={() => {
-                            setSearchQuery("");
-                            setSearchPanelOpen(false);
-                          }}
-                          className="group block"
-                        >
-                          <div
-                            className="relative aspect-square overflow-hidden transition-all"
-                              style={{
-                                background: panelAnchor === "viewport"
-                                  ? "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)"
-                                  : "var(--well)",
-                                borderRadius: "var(--radius-card-md)",
-                                border: "1px solid var(--border)",
-                              }}
-                          >
-                            {discount > 0 && (
-                              <span
-                                className="absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-ink-strong"
-                                style={{
-                                  background: "var(--primary)",
-                                  fontFamily: "var(--font-family-inter)",
-                                  fontSize: "var(--text-caption)",
-                                  fontWeight: 700,
-                                  letterSpacing: "0.02em",
-                                }}
-                              >
-                                -{discount}%
-                              </span>
-                            )}
-                            <ImageWithFallback
-                              src={img}
-                              alt={p.name}
-                              className="absolute inset-0 h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.06]"
-                              style={{ mixBlendMode: "multiply" }}
-                            />
-                          </div>
-                          <p
-                            className="mt-4 line-clamp-2 text-ink transition-colors group-hover:text-ink-strong"
-                            style={{
-                              fontFamily: "var(--font-family-figtree)",
-                              fontSize: "var(--text-sm)",
-                              fontWeight: 600,
-                              lineHeight: 1.3,
-                              letterSpacing: "-0.005em",
-                            }}
-                          >
-                            {p.name}
-                          </p>
-                          <div className="mt-2 flex items-baseline gap-1.5">
-                            <span
-                              style={{
-                                fontFamily: "var(--font-family-figtree)",
-                                fontSize: "var(--text-base)",
-                                fontWeight: 700,
-                                letterSpacing: "-0.01em",
-                                color: hasDiscount ? "var(--primary)" : "#fff",
-                              }}
-                            >
-                              {p.price}
-                            </span>
-                            {hasDiscount && p.oldPrice && (
-                              <span
-                                className="line-through text-ink-subtle"
-                                style={{
-                                  fontFamily: "var(--font-family-inter)",
-                                  fontSize: "var(--text-caption)",
-                                }}
-                              >
-                                {p.oldPrice}
-                              </span>
-                            )}
-                          </div>
-                          {swatches.length > 0 && (
-                            <div className="mt-2.5 flex items-center gap-1.5">
-                              {swatches.slice(0, 4).map((s) => (
-                                <span
-                                  key={s.productId}
-                                  className="inline-block h-3 w-3 rounded-full"
-                                  style={{
-                                    background: s.color,
-                                    border: "1px solid rgba(var(--foreground-rgb), 0.18)",
-                                  }}
-                                  aria-label={s.label}
-                                />
-                              ))}
-                            </div>
-                          )}
-                        </Link>
-                      );
-                    })}
+                    {searchResults.map((p) => (
+                      <CardBusca
+                        key={p.id}
+                        p={p}
+                        fundo={fundoFoto}
+                        onNavigate={() => {
+                          setSearchQuery("");
+                          setSearchPanelOpen(false);
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
               ) : (

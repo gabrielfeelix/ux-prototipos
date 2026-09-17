@@ -16,6 +16,7 @@ import { MonteSeuPcPage } from "./pages/MonteSeuPcPage";
 import { DriversManuaisPage } from "./pages/DriversManuaisPage";
 import { DriverDetailPage } from "./pages/DriverDetailPage";
 import { FaqPage } from "./pages/FaqPage";
+import { GuiaPage } from "./pages/GuiaPage";
 import { QuemSomosPage } from "./pages/QuemSomosPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
 import { WarrantyPage } from "./pages/WarrantyPage";
@@ -53,6 +54,7 @@ export const router = createBrowserRouter([
       { path: "drivers-e-manuais", Component: DriversManuaisPage },
       { path: "drivers-e-manuais/:slug", Component: DriverDetailPage },
       { path: "faq", Component: FaqPage },
+      { path: "guia", Component: GuiaPage },
       { path: "quem-somos", Component: QuemSomosPage },
       { path: "politica-de-privacidade", Component: PrivacyPage },
       { path: "politica-de-garantia", Component: WarrantyPage },

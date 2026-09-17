@@ -12,11 +12,11 @@ plan: empresas/pcyes/projetos/pcyes-v2/versoes/v3/docs/superpowers/plans/2026-06
 FINAL REVIEW (opus): Ready to merge. 6/6 spec itens ok, sem Critical/Important. Build verde HEAD=e4014d8c.
 
 == REFACTOR (perf/DRY) BASE=e4014d8c17c833d67a0c976ba97d7466417a5db5 ==
-- S1 lazy routes: pending
-- S1 dead code/files+deps: pending
-- S1 index.html perf (fonts/preconnect/preload/img defaults): pending
-- S1 images->webp: pending (precisa tool)
-- S2 utils/format: pending
+- S1 lazy routes: done (00e65ee7) 42 chunks
+- S1 dead files+deps: done (266d2136)
+- S1 index.html perf: done (61a7e6dc)
+- S1 images->webp: done (33.5MB->811KB)
+- S2 utils/format+commerce: done (972f9de5 via cherry-pick recovery; 4 formatBRL NBSP residual)
 - S3 shared components: pending
 - S4 catalog split: pending (decisão arquitetura - confirmar)
 - S5 fatiar páginas: pending

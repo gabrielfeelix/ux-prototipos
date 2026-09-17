@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import { Link, useSearchParams, useParams } from "react-router";
+import { Link, useSearchParams, useParams, useNavigate } from "react-router";
 import { getCategoryFromSlug } from "../lib/slug";
 import { matchesSearchTerm, searchTermVariants } from "../lib/searchMatch";
 import { motion, AnimatePresence } from "motion/react";
@@ -14,7 +14,9 @@ import { useFavorites } from "./FavoritesContext";
 import { useTheme } from "./ThemeProvider";
 import { Footer } from "./Footer";
 import { ProductCard } from "./ProductCard";
-import { getInstallmentCount, getInstallmentValue } from "./productEnhancements";
+import { CompareBar, CompareToggle, COMPARE_MAX, compareTypeOf } from "./CompareBar";
+import { getInstallmentCount, getInstallmentValue, getPixPrice, formatBRL } from "./productEnhancements";
+import { isFotoAmbientada } from "./photoBackdrop";
 import { allProducts, allTags as productTags, brands as productBrands, categories as productCategories, type Product } from "./productsData";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import {
@@ -123,6 +125,73 @@ const GLOBAL_MAX = 15000;
 function getDiscount(p: Product) {
   if (!p.oldPriceNum || p.oldPriceNum <= p.priceNum) return 0;
   return Math.round(((p.oldPriceNum - p.priceNum) / p.oldPriceNum) * 100);
+}
+
+/* O verde é do PIX e só dele — mesmo token do ProductCardV2 e do botão
+   Comprar. Ver --buy-green em styles/theme.css. */
+const BUY_GREEN = "var(--buy-green)";
+
+function ListStars({ rating, reviews }: { rating: number; reviews: number }) {
+  return (
+    <span className="flex items-center gap-1.5">
+      <span className="flex items-center gap-0.5">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <Star key={i} size={13} strokeWidth={0} fill={i <= Math.round(rating) ? "#f0a020" : "rgba(51,51,51,.18)"} />
+        ))}
+      </span>
+      <span className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "#8a8a8a" }}>
+        ({reviews})
+      </span>
+    </span>
+  );
+}
+
+/* Preço em três andares, na mesma ordem em que a decisão acontece e com os
+   mesmos tamanhos do card de grade: de quanto era → quanto é à vista no PIX
+   → como parcela. A lista mostrava só o preço de tabela e escondia o PIX
+   dentro de "No PIX ou 2x de…", que dizia as duas coisas e nenhuma direito:
+   o valor grande era o cheio e o do PIX não aparecia em lugar nenhum. */
+function ListPrice({ product, align = "left" }: { product: Product; align?: "left" | "right" }) {
+  const discount = getDiscount(product);
+  const parcelas = getInstallmentCount(product.priceNum);
+  const valorParcela = getInstallmentValue(product.priceNum);
+  return (
+    <div className={align === "right" ? "flex flex-col items-end" : ""}>
+      {/* a linha do riscado ocupa altura MESMO sem desconto: na lista, um
+          produto sem promoção subia o preço 17px e a coluna inteira saía em
+          serra. O traço só é desenhado quando existe preço antigo. */}
+      <div
+        className="num"
+        style={{
+          fontFamily: "var(--font-family-inter)",
+          fontSize: "13px",
+          color: "#8a8a8a",
+          textDecoration: discount > 0 && product.oldPriceNum ? "line-through" : "none",
+          lineHeight: 1.3,
+          minHeight: "17px",
+        }}
+      >
+        {discount > 0 && product.oldPriceNum ? formatBRL(product.oldPriceNum) : "\u00a0"}
+      </div>
+      <div className={`flex flex-wrap items-baseline gap-x-2 ${align === "right" ? "justify-end" : ""}`}>
+        <span
+          className="num"
+          style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: "var(--ink-strong)" }}
+        >
+          {formatBRL(getPixPrice(product))}
+        </span>
+        <span style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", fontWeight: 600, color: BUY_GREEN, whiteSpace: "nowrap" }}>
+          à vista no PIX
+        </span>
+      </div>
+      {/* sai em todo produto, inclusive quando o plano dá 1x (parcela mínima
+          de R$50, ver productEnhancements): "sem juros no cartão" é
+          informação de pagamento, não só de parcelamento. */}
+      <div className="num" style={{ fontFamily: "var(--font-family-inter)", fontSize: "12.5px", color: "#6b6b6b", marginTop: "3px", lineHeight: 1.3 }}>
+        {parcelas}x de {formatBRL(valorParcela)} sem juros no cartão
+      </div>
+    </div>
+  );
 }
 
 function getSwitchBadgeInfo(product: Product) {
@@ -350,6 +419,14 @@ export function ProductsPage() {
   const [activeImageIndex, setActiveImageIndex] = useState<Record<string, number>>({});
   const [selectedVariantIds, setSelectedVariantIds] = useState<Record<number, number>>({});
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  /* ── Comparador ─────────────────────────────────────────────────────
+     Até 3 produtos, todos do MESMO tipo (subcategoria, senão categoria):
+     comparar violão com capa devolveria uma tabela meio vazia. Ver
+     CompareBar.tsx. */
+  const compareNavigate = useNavigate();
+  const [compareItems, setCompareItems] = useState<Product[]>([]);
+  const [compareCollapsed, setCompareCollapsed] = useState(false);
+  const [compareNotice, setCompareNotice] = useState<string | null>(null);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     categories: true, brands: true, tags: true, price: true, color: true, rating: true, promo: true, attributes: true, sizes: true,
   });
@@ -731,6 +808,33 @@ export function ProductsPage() {
       return next.size === prev.size ? prev : next;
     });
   }, [availableColorFilters]);
+
+  const compareType = compareItems.length ? compareTypeOf(compareItems[0]) : null;
+
+  useEffect(() => {
+    if (!compareNotice) return;
+    const t = window.setTimeout(() => setCompareNotice(null), 5000);
+    return () => window.clearTimeout(t);
+  }, [compareNotice]);
+
+  const toggleCompare = useCallback((product: Product) => {
+    setCompareItems((current) => {
+      if (current.some((p) => p.id === product.id)) {
+        return current.filter((p) => p.id !== product.id);
+      }
+      if (current.length >= COMPARE_MAX) {
+        setCompareNotice(`A comparação cabe ${COMPARE_MAX} produtos. Remova um para entrar com outro.`);
+        return current;
+      }
+      if (current.length && compareTypeOf(current[0]) !== compareTypeOf(product)) {
+        setCompareNotice(`Só dá para comparar produtos do mesmo tipo. Escolha outro item de ${compareTypeOf(current[0])}.`);
+        return current;
+      }
+      setCompareNotice(null);
+      setCompareCollapsed(false);
+      return [...current, product];
+    });
+  }, []);
 
   /* ── Filtered + sorted products ── */
   const filtered = useMemo(() => {
@@ -1340,6 +1444,19 @@ export function ProductsPage() {
                           favorite
                           onAdd={handleAddToCart}
                         />
+                        {/* comparador: mora abaixo do card porque os quatro
+                            cantos da foto já têm dono (medalhão, desconto,
+                            favoritar, espiar/ouvir) */}
+                        <div className="mt-3">
+                          <CompareToggle
+                            selected={compareItems.some((p) => p.id === product.id)}
+                            disabled={
+                              (compareType !== null && compareType !== compareTypeOf(product)) ||
+                              compareItems.length >= COMPARE_MAX
+                            }
+                            onToggle={() => toggleCompare(product)}
+                          />
+                        </div>
                       </motion.div>
                     ))}
                   </AnimatePresence>
@@ -1357,42 +1474,78 @@ export function ProductsPage() {
                           className="group relative flex flex-row sm:items-center gap-4 sm:gap-5 border border-foreground/10 hover:border-foreground/20 p-3 sm:p-4 transition-all duration-300"
                           style={{ borderRadius: "var(--radius-card)" }}
                         >
-                          <Link to={`/produto/${displayProduct.id}`} className={`w-[104px] h-[104px] sm:w-[140px] sm:h-[140px] flex-shrink-0 overflow-hidden relative block transition-all ${displayProduct.inStock === false ? 'opacity-60 grayscale-[0.5]' : ''}`} style={{ borderRadius: "var(--radius-button)", background: "var(--surface-1)" }}>
-                            <div className="flex h-full w-full items-center justify-center p-2 sm:p-3">
-                              <ImageWithFallback src={getPrimaryProductImage(displayProduct)} alt={displayProduct.name} loading="lazy" decoding="async" className="h-full w-full object-contain group-hover:scale-[0.97] transition-transform duration-700" />
-                            </div>
+                          <Link to={`/produto/${displayProduct.id}`} className={`w-[104px] h-[104px] sm:w-[140px] sm:h-[140px] flex-shrink-0 overflow-hidden relative block transition-all ${displayProduct.inStock === false ? 'opacity-60 grayscale-[0.5]' : ''}`} style={{ borderRadius: "8px", background: "var(--gradient-photo)" }}>
+                            {/* a caixa é cinza (--gradient-photo, igual à da grade) e
+                               a foto de estúdio traz o próprio fundo branco: sem
+                               `multiply` o quadrado da foto aparece dentro do
+                               cinza. Foto ambientada tem cenário até a borda —
+                               essa preenche o quadro e não recebe blend, senão o
+                               cenário escurece. Mesma regra do ProductCardV2. */}
+                            {isFotoAmbientada(getPrimaryProductImage(displayProduct)) ? (
+                              <ImageWithFallback src={getPrimaryProductImage(displayProduct)} alt={displayProduct.name} loading="lazy" decoding="async" className="h-full w-full object-cover group-hover:scale-[1.04] transition-transform duration-700" />
+                            ) : (
+                              <div className="flex h-full w-full items-center justify-center p-2 sm:p-3">
+                                <ImageWithFallback src={getPrimaryProductImage(displayProduct)} alt={displayProduct.name} loading="lazy" decoding="async" className="h-full w-full object-contain group-hover:scale-[0.97] transition-transform duration-700" style={{ mixBlendMode: "multiply" }} />
+                              </div>
+                            )}
+                            {/* mesmo selo do card de grade: pill verde do PIX com
+                               "-8%". O anterior era um retângulo âmbar com "8% OFF",
+                               que não existe em nenhum outro lugar da loja. */}
                             {discount > 0 && (
-                              <span className="absolute top-2 left-2 px-2 py-1 bg-primary text-ink-strong" style={{ borderRadius: "var(--radius)", fontSize: "var(--text-caption)", fontWeight: "700" }}>{discount}% OFF</span>
+                              <span className="num absolute top-2 left-2 rounded-pill px-2.5 py-1" style={{ background: BUY_GREEN, color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "12px", fontWeight: 700 }}>
+                                -{discount}%
+                              </span>
                             )}
                           </Link>
+
+                          {/* miolo: o que o produto é. O preço saiu daqui e foi
+                             para a coluna da direita no desktop — a linha tinha
+                             1350px e amontoava tudo nos primeiros 500. */}
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1 sm:mb-2 pr-10 sm:pr-0">
                               <span className="text-foreground/40 uppercase font-semibold" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", letterSpacing: "0.05em" }}>{displayProduct.category}</span>
                               {displayProduct.brand && <span className="text-foreground/30 font-medium truncate" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>· {displayProduct.brand}</span>}
                             </div>
                             <Link to={`/produto/${displayProduct.id}`}>
-                              <p className="line-clamp-2 sm:line-clamp-1 text-foreground group-hover:text-foreground/70 transition-colors mb-1.5 sm:mb-2 text-base sm:text-lg pr-10 sm:pr-0" style={{ fontFamily: "var(--font-family-figtree)", fontWeight: "var(--font-weight-medium)", lineHeight: 1.3 }}>
+                              <p className="line-clamp-2 text-foreground group-hover:text-foreground/70 transition-colors mb-2 text-base sm:text-lg pr-10 sm:pr-0" style={{ fontFamily: "var(--font-family-figtree)", fontWeight: "var(--font-weight-medium)", lineHeight: 1.3 }}>
                                 {displayProduct.name}
                               </p>
                             </Link>
-                            <div className="flex items-baseline gap-2 sm:gap-4">
-                              <p className="text-foreground text-lg sm:text-xl leading-none" style={{ fontFamily: "var(--font-family-inter)", fontWeight: "700" }}>{displayProduct.price}</p>
-                              {displayProduct.oldPrice && <p className="text-foreground/40 line-through text-sm" style={{ fontFamily: "var(--font-family-inter)" }}>{displayProduct.oldPrice}</p>}
+                            {/* na grade a avaliação fica sob o nome; aqui a linha
+                               tem folga sobrando e ela cabe no mesmo lugar. */}
+                            <ListStars rating={displayProduct.rating} reviews={displayProduct.reviews} />
+
+                            {/* mobile: preço e CTA empilhados sob a informação */}
+                            <div className="sm:hidden mt-2.5">
+                              <ListPrice product={displayProduct} />
                             </div>
-                            <p className="mt-1 leading-tight" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", color: "rgba(var(--foreground-rgb), 0.6)" }}>
-                              No PIX ou {getInstallmentCount(displayProduct.priceNum)}x de R$ {getInstallmentValue(displayProduct.priceNum).toFixed(2).replace(".", ",")}
-                            </p>
-                            {/* Mobile buy button — full width below info */}
                             <button onClick={() => handleAddToCart(displayProduct)}
                               className="sm:hidden mt-2.5 flex w-full items-center justify-center gap-2 rounded-full py-2 cursor-pointer"
                               style={{ background: "var(--gradient-buy)", color: "white", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, letterSpacing: "0.04em", boxShadow: "var(--shadow-buy-cta-sm)" }}
                             ><ShoppingBag size={14} strokeWidth={2} /> Comprar</button>
+                            <CompareToggle
+                              selected={compareItems.some((p) => p.id === product.id)}
+                              disabled={
+                                (compareType !== null && compareType !== compareTypeOf(product)) ||
+                                compareItems.length >= COMPARE_MAX
+                              }
+                              onToggle={() => toggleCompare(product)}
+                            />
                           </div>
+
                           {/* Favorite — absolute top-right on mobile, inline column on desktop */}
                           <button onClick={() => toggleFavorite(displayProduct.id)}
                             className="absolute top-2.5 right-2.5 sm:hidden w-9 h-9 border border-foreground/15 rounded-full flex items-center justify-center text-foreground/40 hover:text-foreground transition-all bg-black/30 backdrop-blur-md cursor-pointer"
                             aria-label={isFavorite(displayProduct.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                           ><Heart size={15} className={isFavorite(displayProduct.id) ? "fill-red-500 text-red-500" : ""} strokeWidth={2} /></button>
+
+                          {/* desktop: preço encostado na coluna de ação, que é
+                             onde o olho para antes de decidir. Alinhado à direita
+                             para as linhas empilharem numa régua só. */}
+                          <div className="hidden sm:flex flex-shrink-0 items-center self-stretch sm:pl-2 sm:pr-1" style={{ minWidth: "232px" }}>
+                            <ListPrice product={displayProduct} align="right" />
+                          </div>
+
                           {/* Desktop actions column */}
                           <div className="hidden sm:flex sm:flex-col items-end justify-between gap-3 flex-shrink-0 self-stretch">
                             <button onClick={() => toggleFavorite(displayProduct.id)}
@@ -1495,10 +1648,14 @@ export function ProductsPage() {
           </div>
 
           {/* ── SEO content block (per category) ── */}
+          {/* a vitrine da home manda "viola caipira", "ukulele", "cabo" etc.
+             por ?search= dentro de Violões/Acessórios; sem passar o termo,
+             todas essas entradas caíam no texto genérico da categoria */}
           <CategorySeoBlock
             categoryLabel={activeCategoryLabel}
             subcategoryLabel={initialSubcategory}
             featuredLabel={[...selectedFeaturedCategories][0] ?? ""}
+            searchLabel={searchQuery}
           />
         </div>
       </div>
@@ -1743,6 +1900,21 @@ export function ProductsPage() {
           );
         })()}
       </AnimatePresence>
+
+      {/* ── Comparador (barra inferior) ── */}
+      <CompareBar
+        items={compareItems}
+        collapsed={compareCollapsed}
+        onToggleCollapsed={() => setCompareCollapsed((v) => !v)}
+        onRemove={(id) => setCompareItems((c) => c.filter((p) => p.id !== id))}
+        onClear={() => { setCompareItems([]); setCompareNotice(null); }}
+        onStart={() => compareNavigate(`/comparar?ids=${compareItems.map((p) => p.id).join(",")}`)}
+        notice={compareNotice}
+      />
+      {/* respiro pra barra não comer a paginação nem o rodapé */}
+      {compareItems.length > 0 && (
+        <div aria-hidden style={{ height: compareCollapsed ? 84 : 196 }} />
+      )}
 
       <Footer />
     </div>

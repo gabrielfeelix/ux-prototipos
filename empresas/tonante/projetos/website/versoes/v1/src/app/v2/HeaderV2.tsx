@@ -6,7 +6,7 @@ import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
   Instagram, Facebook, Youtube, Store, Headphones, Truck, CreditCard, Guitar,
   Heart, Package, LogOut, HelpCircle, Hand, MessageCircle,
-  type LucideIcon,
+  type LucideIcon, Compass,
 } from "lucide-react";
 import { MusicianStoryModal } from "../components/MusicianStoryModal";
 import { useCart } from "../components/CartContext";
@@ -122,7 +122,7 @@ function useHoverPanel(delay = 140) {
 
 export function HeaderV2() {
   const { totalItems, setIsOpen } = useCart();
-  const { isLoggedIn, user, setAuthModalOpen, logout } = useAuth();
+  const { isLoggedIn, user, setAuthModalOpen, setAuthModalTab, logout } = useAuth();
   const { count: favoritos } = useFavorites();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -316,7 +316,7 @@ export function HeaderV2() {
           {/* ── conta ───────────────────────────────────────────── */}
           <div className="relative hidden sm:block" onMouseEnter={conta.enter} onMouseLeave={conta.leave}>
             <button
-              onClick={() => (isLoggedIn ? navigate("/perfil") : setAuthModalOpen(true))}
+              onClick={() => { if (isLoggedIn) { navigate("/perfil"); return; } setAuthModalTab("login"); setAuthModalOpen(true); }}
               aria-expanded={conta.open}
               aria-haspopup="menu"
               className="inline-flex cursor-pointer items-center gap-2.5 px-7 transition-[background-color,border-color,box-shadow,transform] duration-200 hover:bg-[var(--surface-2)] hover:shadow-[var(--shadow-card)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/25"
@@ -367,14 +367,14 @@ export function HeaderV2() {
                   </div>
                   <div className="flex gap-2 px-3 pb-3">
                     <button
-                      onClick={() => { setAuthModalOpen(true); conta.setOpen(false); }}
+                      onClick={() => { setAuthModalTab("login"); setAuthModalOpen(true); conta.setOpen(false); }}
                       className="flex-1 cursor-pointer rounded-pill py-2.5 transition-transform duration-150 hover:opacity-90 active:scale-[0.97]"
                       style={{ background: "var(--ink-strong)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 600 }}
                     >
                       Entrar
                     </button>
                     <button
-                      onClick={() => { setAuthModalOpen(true); conta.setOpen(false); }}
+                      onClick={() => { setAuthModalTab("register"); setAuthModalOpen(true); conta.setOpen(false); }}
                       className="flex-1 cursor-pointer rounded-pill py-2.5 transition-colors duration-150 hover:bg-[var(--surface-2)] active:scale-[0.97]"
                       style={{ border: "1px solid var(--edge)", color: "var(--ink-strong)", fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 600 }}
                     >
@@ -472,7 +472,7 @@ export function HeaderV2() {
           {/* serviços — equivalente ao "picking up / delivery" do Local */}
           <div className="ml-auto hidden items-center gap-8 2xl:flex">
             <ServicoLink to="/onde-encontrar" icon={Store} eyebrow="Quer tocar antes?" label="Lojas para experimentar" />
-            <ServicoLink to="/fale-conosco" icon={Headphones} eyebrow="Na dúvida do modelo?" label="Fale com um músico" />
+            <ServicoLink to="/guia" icon={Compass} eyebrow="Na dúvida do modelo?" label="Nós te ajudamos a escolher" />
           </div>
         </div>
       </div>
