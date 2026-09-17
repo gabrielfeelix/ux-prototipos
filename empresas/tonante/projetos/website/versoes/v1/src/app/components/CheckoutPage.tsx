@@ -962,8 +962,8 @@ export function CheckoutPage() {
 
   return (
     <>
-      <div className="pt-2 md:pt-[88px] pb-8 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
-        <div className="mx-auto max-w-[1320px] px-5 py-4 md:px-8 md:py-6">
+      <div className="pt-0 md:pt-[88px] pb-8 lg:pb-0" style={{ background: "var(--surface-0)", minHeight: "100vh" }}>
+        <div className="mx-auto max-w-[1320px] px-5 pt-3 pb-4 md:px-8 md:py-6">
           <Link
             to="/carrinho"
             className="mb-4 inline-flex items-center gap-1.5 text-ink-muted transition-colors hover:text-ink"
@@ -1988,7 +1988,7 @@ export function CheckoutPage() {
       <div ref={mobileBarRef} className="fixed bottom-0 left-0 right-0 z-[95] lg:hidden">
         <div
           className="border-t border-edge"
-          style={{ background: "rgba(255,255,255,0.94)", backdropFilter: "blur(20px)" }}
+          style={{ background: "rgba(240,240,240,0.96)", backdropFilter: "blur(20px)" }}
         >
           <div className="flex items-stretch border-b border-edge-subtle">
             <button

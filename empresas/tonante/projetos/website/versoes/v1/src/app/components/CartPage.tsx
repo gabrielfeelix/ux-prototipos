@@ -1196,7 +1196,7 @@ export function CartPage() {
         <div
           className="flex items-center gap-3 border-t border-edge px-4 py-3"
           style={{
-            background: "rgba(255,255,255,0.96)",
+            background: "rgba(240,240,240,0.96)",
             backdropFilter: "blur(20px)",
             paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))",
             boxShadow: "0 -10px 30px -22px rgba(17,17,17,0.55)",

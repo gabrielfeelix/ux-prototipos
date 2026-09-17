@@ -165,14 +165,26 @@ export function HeaderV2() {
   }, []);
 
   useEffect(() => {
+    /* A guarda é o estado do header, não a rolagem. Era `window.scrollY > 0`,
+       e isso furava na troca de rota: quem saía do carrinho já rolado chegava
+       no checkout com o spacer preso na altura da rota anterior, abrindo um vão
+       de ~56px abaixo do header. O efeito do filho roda antes do
+       `scrollTo(0, 0)` do RootLayout, então nessa hora a rolagem ainda é a
+       antiga. O que não pode ser medido é o header colapsado. */
     const measure = () => {
-      if (window.scrollY > 0) return; // só mede no topo, com o header inteiro
+      if (colapsado.current) return;
       const h = headerRef.current?.getBoundingClientRect().height;
       if (h) setFullH(Math.round(h));
     };
     measure();
+    const el = headerRef.current;
+    const ro = el ? new ResizeObserver(measure) : null;
+    if (el && ro) ro.observe(el);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
     /* `pathname` na dependência porque o header muda de altura conforme a rota
        (no checkout ele não tem a linha da busca). Sem remedir, o spacer
        continuava reservando a altura da rota anterior e sobrava um vão de
