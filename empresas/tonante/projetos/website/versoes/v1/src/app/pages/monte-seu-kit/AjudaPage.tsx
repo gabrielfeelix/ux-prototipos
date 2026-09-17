@@ -396,7 +396,7 @@ function ehClaro(hex: string): boolean {
 function PassoNivel({ onPick }: { onPick: (id: Nivel) => void }) {
   return (
     <>
-      <Titulo>Há quanto tempo você toca?</Titulo>
+      <Titulo>Você já toca algum instrumento?</Titulo>
       <div className="mt-10 grid gap-4 sm:grid-cols-3">
         {NIVEIS.map((n) => (
           <Cartao key={n.id} titulo={n.label} sub={n.sub} icone={n.icone} onClick={() => onPick(n.id)} />
