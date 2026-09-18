@@ -123,11 +123,15 @@ const BENEFICIOS = [
         texto: "Plataforma de descontos do grupo, em lojas, cursos e serviços.",
         foto: "Celular com a plataforma de descontos aberta",
       },
+      /* O desconto de colaborador já foi uma dobra inteira desta página, com
+         quatro poços de produto, um por marca do grupo. Virou bullet: a dobra
+         inteira era um anúncio grande pra dizer uma frase, e quebrava a
+         leitura entre a lista de benefícios e o dia a dia. Aqui ele fica ao
+         lado dos outros, que é o que ele é. */
       {
-        nome: "Aula de música na fábrica",
-        texto: "Aulas depois do expediente, com instrumentos da própria casa.",
-        foto: "Aula de violão no fim do turno",
-        src: "/lp/aula-musica.webp",
+        nome: "Desconto de colaborador",
+        texto: "Preço de quem é de casa no catálogo do grupo, de violão a notebook, parcelado em folha.",
+        foto: "Produtos das marcas do grupo: violão, headset e notebook",
       },
       {
         nome: "Recrutamento interno",
@@ -139,22 +143,6 @@ const BENEFICIOS = [
   },
 ];
 
-/* O desconto de colaborador não é de violão: é de TUDO que o grupo vende. A
- * Oderço distribui tecnologia e informática, e as marcas da casa cobrem
- * coisas bem diferentes entre si. Quem entra na Tonante compra em todas elas
- * pelo preço de quem é de dentro — e esse é o benefício que nenhuma outra
- * empresa da cidade consegue oferecer igual.
- *
- * Por isso o bloco deixou de ser uma foto de violão: uma foto só conta um
- * quarto da história. Agora são quatro poços, um por marca, pra entrar
- * recorte de produto em fundo transparente (a mesma composição que a PCYES
- * usa na página dela: mouse, headset e action figure flutuando). */
-const MARCAS_GRUPO = [
-  { marca: "Tonante", oque: "Violão, guitarra, contrabaixo e acessório", foto: "Violão de aço flutuando, recorte sem fundo" },
-  { marca: "PCYES", oque: "Setup gamer, periférico e cadeira", foto: "Headset gamer flutuando, recorte sem fundo" },
-  { marca: "Vinik", oque: "Informática e acessório do dia a dia", foto: "Teclado ou hub USB flutuando, recorte sem fundo" },
-  { marca: "Odex", oque: "Tecnologia e eletrônico do grupo", foto: "Notebook ou monitor flutuando, recorte sem fundo" },
-];
 
 /* ─────────────────────────── página ─────────────────────────── */
 
@@ -393,7 +381,16 @@ function GrupoOderco() {
 
 type Alvo = { nome: string; foto: string; src?: string };
 
+const CARD_W = 296;
+
 function CardFlutuante({ alvo, x, y }: { alvo: Alvo | null; x: number; y: number }) {
+  /* A terceira coluna encosta na borda direita da tela: com o card sempre à
+     direita do cursor, ele saía cortado pela janela. Quando não cabe, ele
+     troca de lado e passa a nascer à esquerda do ponteiro. */
+  const larguraJanela = typeof window === "undefined" ? 1440 : window.innerWidth;
+  const cabeDireita = x + 26 + CARD_W + 24 <= larguraJanela;
+  const destinoX = cabeDireita ? x + 26 : x - CARD_W - 26;
+
   return (
     <AnimatePresence>
       {alvo && (
@@ -401,9 +398,9 @@ function CardFlutuante({ alvo, x, y }: { alvo: Alvo | null; x: number; y: number
           key="card"
           aria-hidden
           className="pointer-events-none fixed z-50 hidden lg:block"
-          style={{ left: 0, top: 0, width: 296 }}
+          style={{ left: 0, top: 0, width: CARD_W }}
           initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1, x: x + 26, y: y - 118 }}
+          animate={{ opacity: 1, scale: 1, x: destinoX, y: y - 118 }}
           exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.16 } }}
           transition={{
             opacity: { duration: 0.18 },
@@ -573,112 +570,8 @@ function Beneficios() {
             </div>
           ))}
         </div>
-
-        <DescontoGrupo />
       </div>
     </section>
-  );
-}
-
-/* ── 5. o desconto do grupo ───────────────────────────────────── */
-
-/* O benefício que só esta empresa tem fecha a dobra, e fecha no escuro: numa
- * seção inteira em cinza claro ele é o único bloco que muda de temperatura.
- *
- * Antes aqui tinha uma foto de violão de estúdio, e ela contava a história
- * errada: dava a entender que o desconto de colaborador é de instrumento. Não
- * é. O grupo vende tecnologia, informática, periférico e instrumento, e o
- * desconto vale no catálogo inteiro — é isso que faz o benefício ser grande.
- *
- * Então em vez de uma foto, quatro recortes de produto flutuando sobre o
- * preto, um por marca, cada um com a etiqueta do que aquela marca vende. É a
- * mesma composição da página da PCYES (mouse, headset e action figure com
- * sombra projetada), só que aqui ela serve pra mostrar a largura do grupo. */
-function DescontoGrupo() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
-
-  return (
-    <div
-      ref={ref}
-      className="relative mt-20 overflow-hidden px-8 py-12 md:px-12 lg:mt-28 lg:px-16 lg:py-20"
-      style={{ background: STAGE, borderRadius: "var(--radius-card-lg)" }}
-    >
-      {/* luz âmbar vindo de cima à direita: o preto chapado atrás de quatro
-          recortes vira um fundo de estúdio, e os produtos passam a ter de
-          onde receber luz */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(90% 70% at 82% -10%, rgba(214,146,46,0.26) 0%, rgba(214,146,46,0.07) 42%, transparent 72%)",
-        }}
-      />
-
-      <div className="relative grid items-center gap-y-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-x-16">
-        <div>
-          <Eyebrow style={{ color: "var(--amber-bright)" }}>Só pra quem é de casa</Eyebrow>
-          <h3
-            className="mt-5 max-w-[18rem] md:max-w-[24rem]"
-            style={{
-              fontFamily: FIGTREE,
-              fontSize: "clamp(1.75rem, 3vw, 2.75rem)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.02em",
-              fontWeight: 500,
-              color: "#fff",
-            }}
-          >
-            Desconto de colaborador no grupo inteiro.
-          </h3>
-          <p
-            className="mt-6 max-w-[42ch]"
-            style={{ fontFamily: INTER, fontSize: "1rem", lineHeight: 1.65, color: "rgba(255,255,255,0.68)" }}
-          >
-            O desconto não é só de instrumento. Vale no catálogo das quatro marcas da casa, de
-            violão a notebook, com parcelamento descontado em folha.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 lg:gap-5">
-          {MARCAS_GRUPO.map((m, i) => (
-            <motion.div
-              key={m.marca}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* fundo explícito: ver POÇO_ESCURO */}
-              <FotoSlot ratio="1/1" tone="dark" label={m.foto} style={{ background: POCO_ESCURO }} />
-              <p
-                className="mt-4"
-                style={{
-                  fontFamily: FIGTREE,
-                  fontSize: "1.0625rem",
-                  fontWeight: 500,
-                  letterSpacing: "-0.01em",
-                  color: "#fff",
-                }}
-              >
-                {m.marca}
-              </p>
-              <p
-                className="mt-1 max-w-[22ch]"
-                style={{
-                  fontFamily: INTER,
-                  fontSize: "0.8125rem",
-                  lineHeight: 1.45,
-                  color: "rgba(255,255,255,0.52)",
-                }}
-              >
-                {m.oque}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }
 
