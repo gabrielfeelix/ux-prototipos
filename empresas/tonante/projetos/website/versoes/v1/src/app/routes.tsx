@@ -7,8 +7,9 @@ import { CartPage } from "./components/CartPage";
 import { CheckoutPage } from "./components/CheckoutPage";
 import { PreOrderPage } from "./components/PreOrderPage";
 import { ProfilePage } from "./components/ProfilePage";
-import { InfluencersPage } from "./components/pages/InfluencersPage";
-import { ResellerPage } from "./components/pages/ResellerPage";
+import { ArtistasPage } from "./pages/ArtistasPage";
+import { RevendaPage } from "./pages/RevendaPage";
+import { TrabalheConoscoPage } from "./pages/TrabalheConoscoPage";
 import { ContactPage } from "./components/pages/ContactPage";
 import { StoreLocatorPage } from "./components/pages/StoreLocatorPage";
 import { MaringaFCCollabPage } from "./components/pages/MaringaFCCollabPage";
@@ -47,8 +48,9 @@ export const router = createBrowserRouter([
       { path: "checkout", Component: CheckoutPage },
       { path: "pre-venda", Component: PreOrderPage },
       { path: "perfil", Component: ProfilePage },
-      { path: "influenciadores", Component: InfluencersPage },
-      { path: "revendedor", Component: ResellerPage },
+      { path: "influenciadores", Component: ArtistasPage },
+      { path: "revendedor", Component: RevendaPage },
+      { path: "trabalhe-conosco", Component: TrabalheConoscoPage },
       { path: "fale-conosco", Component: ContactPage },
       { path: "onde-encontrar", Component: StoreLocatorPage },
       { path: "maringa-fc", Component: MaringaFCCollabPage },

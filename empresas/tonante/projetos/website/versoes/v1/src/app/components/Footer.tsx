@@ -42,6 +42,7 @@ const footerColumns = [
       { label: "Onde Encontrar", href: "/onde-encontrar" },
       { label: "Seja um Influenciador", href: "/influenciadores" },
       { label: "Seja um Revendedor", href: "/revendedor" },
+      { label: "Trabalhe Conosco", href: "/trabalhe-conosco" },
     ],
   },
 ] as const;
