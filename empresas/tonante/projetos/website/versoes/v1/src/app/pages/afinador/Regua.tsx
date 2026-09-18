@@ -53,7 +53,7 @@ export function Regua({ cents, nota, latino, ordinal, hz, estado }: Props) {
               fontSize: 52,
               lineHeight: 0.9,
               fontWeight: 500,
-              color: temSinal ? "#F2EAD9" : "rgba(242,234,217,0.22)",
+              color: temSinal ? "#F2EAD9" : "rgba(242,234,217,0.3)",
               transition: "color .2s linear",
             }}
           >

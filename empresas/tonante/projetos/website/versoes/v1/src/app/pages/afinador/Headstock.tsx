@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { freqDe, latinoDe, letraDe } from "../../lib/tuner";
 import { ordinalDaCorda, type Corda, type Instrumento } from "./afinacoes";
 
@@ -33,14 +33,14 @@ const Y_TOPO = 34;
 const Y_PESTANA = 272;
 const Y_BRACO_FIM = 596;
 const ESCALA = 900;   // comprimento de escala virtual, em unidades do viewBox
-const LEQUE = 1.22;   // o braço alarga descendo; mais que isso vira leque de mão
+const LEQUE = 1.32;   // o braço alarga descendo; mais que isso vira leque de mão
 
 type Geo = ReturnType<typeof calcularGeo>;
 
 function calcularGeo(inst: Instrumento, cordas: Corda[], a4: number) {
   const n = cordas.length;
   const temPar = cordas.some((c) => c.parceira !== undefined);
-  const passo = Math.min(30, 132 / Math.max(1, n - 1));
+  const passo = Math.min(34, 160 / Math.max(1, n - 1));
   const meioPar = temPar ? passo * 0.18 : 0;
 
   const ordens = cordas.map((corda, i) => {
@@ -67,21 +67,32 @@ function calcularGeo(inst: Instrumento, cordas: Corda[], a4: number) {
       latino: latinoDe(corda.midi),
       ordinal: ordinalDaCorda(i, n),
       banda: { x: centroFim - (passo * LEQUE) / 2, w: passo * LEQUE },
+      xRotulo: centroFim, // sobrescrito logo abaixo, na régua dos rótulos
     };
+  });
+
+  /* as letras não cabem no espaçamento das cordas: com seis ordens sobra 12px
+     entre elas e "EADGBE" lê como palavra. Elas ganham régua própria, aberta na
+     largura toda, e um filete liga cada uma à sua corda. */
+  const margemRegua = 40;
+  ordens.forEach((o, i) => {
+    o.xRotulo = n > 1 ? margemRegua + ((VB_W - margemRegua * 2) * i) / (n - 1) : CX;
   });
 
   const xsNut = ordens.flatMap((o) => o.fios.map((f) => f.xNut));
   const spanNut = Math.max(...xsNut) - Math.min(...xsNut);
-  const wPestana = spanNut + 40;
-  const wTopo = spanNut + 68;
+  /* a paleta é bem mais larga em cima do que na pestana. Com pouca diferença
+     ela lê como caixa; é o flare que dá a silhueta de cabeça de violão. */
+  const wPestana = spanNut + 32;
+  const wTopo = spanNut + 108;
   const wBracoTopo = spanNut + 22;
   const wBracoFim = spanNut * LEQUE + 30;
 
   /* rasgos: um de cada lado (ou só um, no baixo). O eixo mora no meio do rasgo. */
-  const larguraRasgo = 32;
-  const rasgoY: [number, number] = [Y_TOPO + 40, Y_PESTANA - 34];
-  const eixoEsq = CX - (wTopo / 2 - larguraRasgo / 2 - 16);
-  const eixoDir = CX + (wTopo / 2 - larguraRasgo / 2 - 16);
+  const larguraRasgo = 26;
+  const rasgoY: [number, number] = [Y_TOPO + 48, Y_PESTANA - 30];
+  const eixoEsq = CX - (wPestana / 2 - larguraRasgo / 2 - 2);
+  const eixoDir = CX + (wPestana / 2 - larguraRasgo / 2 - 2);
 
   /* uma tarraxa por FIO. Na cabeça fendada a metade grave fica no rasgo da
      esquerda, com a ordem mais grave em cima — que é como o instrumento é
@@ -137,6 +148,16 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
   const fiosRef = useRef<(SVGPathElement | null)[]>([]);
   const aurasRef = useRef<(SVGPathElement | null)[]>([]);
   const uid = useMemo(() => `hs-${Math.random().toString(36).slice(2, 8)}`, []);
+  const [focado, setFocado] = useState<number | null>(null);
+
+  /* trocar de instrumento troca a quantidade de fios: sem zerar, os índices
+     que sobram apontam pra <path> já desmontados e o laço de vibração escreve
+     em nó órfão */
+  useEffect(() => {
+    fiosRef.current = [];
+    aurasRef.current = [];
+    setFocado(null);
+  }, [geo]);
 
   /* ── vibração ─────────────────────────────────────────────────────────── */
   useEffect(() => {
@@ -174,7 +195,7 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
         const aura = auras[i];
         if (p) {
           const g = p.dataset;
-          p.setAttribute("d", `${g.cabeca} Q ${Number(g.meiox) + desl} ${g.meioy} ${g.fimx} ${Y_BRACO_FIM}`);
+          p.setAttribute("d", `M ${g.nutx} ${Y_PESTANA} Q ${Number(g.meiox) + desl} ${g.meioy} ${g.fimx} ${Y_BRACO_FIM}`);
         }
         if (aura) {
           const g = aura.dataset;
@@ -197,7 +218,7 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
   const destacada = foco !== null ? geo.ordens[foco] : tocando !== null ? geo.ordens[tocando] : null;
 
   return (
-    <div className="relative mx-auto w-full" style={{ maxWidth: 430, aspectRatio: `${VB_W} / ${VB_H}` }}>
+    <div className="relative mx-auto w-full" style={{ maxWidth: 480, aspectRatio: `${VB_W} / ${VB_H}` }}>
       <svg viewBox={`0 0 ${VB_W} ${VB_H}`} width="100%" height="100%" aria-hidden="true" style={{ display: "block" }}>
         <defs>
           <linearGradient id={`${uid}-madeira`} x1="0" y1="0" x2="1" y2="0.18">
@@ -207,9 +228,9 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
             <stop offset="100%" stopColor="#23170D" />
           </linearGradient>
           <linearGradient id={`${uid}-braco`} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#1E1409" />
-            <stop offset="34%" stopColor="#140D06" />
-            <stop offset="100%" stopColor="#0F0904" />
+            <stop offset="0%" stopColor="#2B1D0F" />
+            <stop offset="34%" stopColor="#1D1409" />
+            <stop offset="100%" stopColor="#150E06" />
           </linearGradient>
           <linearGradient id={`${uid}-fade`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={fundo} stopOpacity="0" />
@@ -219,6 +240,9 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
             <stop offset="0%" stopColor="#E08C12" stopOpacity="0.42" />
             <stop offset="100%" stopColor="#E08C12" stopOpacity="0" />
           </radialGradient>
+          <filter id={`${uid}-borrao`} x="-25%" y="-25%" width="150%" height="150%">
+            <feGaussianBlur stdDeviation="9" />
+          </filter>
           <marker id={`${uid}-ponta`} viewBox="0 0 8 8" refX="4" refY="4" markerWidth="4.5" markerHeight="4.5" orient="auto">
             <path d="M0 0 L8 4 L0 8 Z" fill="#F0B24A" />
           </marker>
@@ -244,6 +268,7 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
         })}
 
         {/* ── paleta ─────────────────────────────────────────────────── */}
+        <path d={paletaPath(geo.wTopo, geo.wPestana)} fill="#000" opacity="0.5" transform="translate(0 9)" filter={`url(#${uid}-borrao)`} />
         <path d={paletaPath(geo.wTopo, geo.wPestana)} fill={`url(#${uid}-madeira)`} />
         <path d={paletaPath(geo.wTopo, geo.wPestana)} fill="none" stroke="rgba(255,238,210,0.16)" strokeWidth="1" />
         {/* veio da madeira: três fios finos, o suficiente pra não parecer plástico */}
@@ -324,7 +349,7 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
             const cabeca = `M ${t.eixoX} ${t.y} L ${f.xNut} ${Y_PESTANA}`;
             const meiox = (f.xNut + f.xFim) / 2;
             const meioy = (Y_PESTANA + Y_BRACO_FIM) / 2;
-            const repouso = `${cabeca} Q ${meiox} ${meioy} ${f.xFim} ${Y_BRACO_FIM}`;
+            const vibrante = `M ${f.xNut} ${Y_PESTANA} Q ${meiox} ${meioy} ${f.xFim} ${Y_BRACO_FIM}`;
             const ativa = aceso(o.indice);
             return (
               <g key={`${o.indice}-${k}`}>
@@ -334,10 +359,21 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
                   fill={f.cor}
                   style={{ opacity: 0, transition: "opacity .18s linear" }}
                 />
+                {/* o trecho de dentro da paleta vai apagado: ele não vibra e,
+                    no brilho cheio, o emaranhado sobre os eixos come o desenho */}
+                <path
+                  d={cabeca}
+                  fill="none"
+                  stroke={ativa ? "#FFE3AE" : f.cor}
+                  strokeWidth={f.larg * 0.85}
+                  strokeLinecap="round"
+                  opacity={ativa ? 0.72 : 0.45}
+                  style={{ transition: "stroke .2s linear, opacity .2s linear" }}
+                />
                 <path
                   ref={(el) => { fiosRef.current[idx] = el; }}
-                  data-repouso={repouso} data-cabeca={cabeca} data-meiox={meiox} data-meioy={meioy} data-fimx={f.xFim}
-                  d={repouso}
+                  data-repouso={vibrante} data-nutx={f.xNut} data-meiox={meiox} data-meioy={meioy} data-fimx={f.xFim}
+                  d={vibrante}
                   fill="none"
                   stroke={ativa ? "#FFE3AE" : f.cor}
                   strokeWidth={f.larg}
@@ -350,18 +386,25 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
         )}
 
         {/* o braço não termina: dissolve no fundo da página */}
-        <rect x="0" y={Y_BRACO_FIM - 104} width={VB_W} height="108" fill={`url(#${uid}-fade)`} />
+        <rect x="0" y={Y_BRACO_FIM - 110} width={VB_W} height="80" fill={`url(#${uid}-fade)`} />
 
         {/* ── nomes das notas ────────────────────────────────────────── */}
         {geo.ordens.map((o) => {
           const ativa = aceso(o.indice);
           return (
             <g key={o.indice} opacity={foco === null || ativa ? 1 : 0.38} style={{ transition: "opacity .2s linear" }}>
+              <path
+                d={`M ${o.centroFim} ${Y_BRACO_FIM - 34} C ${o.centroFim} ${Y_BRACO_FIM + 2}, ${o.xRotulo} ${Y_BRACO_FIM - 2}, ${o.xRotulo} ${Y_BRACO_FIM + 26}`}
+                fill="none"
+                stroke={ativa ? "#F5C061" : "#F2EAD9"}
+                strokeWidth="0.9"
+                opacity={ativa ? 0.5 : 0.16}
+              />
               <text
-                x={o.centroFim} y={Y_BRACO_FIM + 56} textAnchor="middle"
+                x={o.xRotulo} y={Y_BRACO_FIM + 56} textAnchor="middle"
                 style={{
                   fontFamily: "var(--font-family-figtree)",
-                  fontSize: geo.n > 6 ? 28 : 34,
+                  fontSize: geo.n > 6 ? 30 : 36,
                   fontWeight: 500,
                   fill: ativa ? "#F5C061" : "#F2EAD9",
                   transition: "fill .2s linear",
@@ -370,7 +413,7 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
                 {o.letra}
               </text>
               <text
-                x={o.centroFim} y={Y_BRACO_FIM + 76} textAnchor="middle"
+                x={o.xRotulo} y={Y_BRACO_FIM + 76} textAnchor="middle"
                 style={{ fontFamily: "var(--font-family-inter)", fontSize: 11, fontWeight: 600, fill: "rgba(242,234,217,0.5)" }}
               >
                 {o.ordinal}
@@ -391,26 +434,53 @@ export function Headstock({ instrumento, cordas, a4, tocando, foco, cents, afina
         </text>
       </svg>
 
-      {/* alvos reais: um botão por ordem, cobrindo a coluna inteira */}
-      {geo.ordens.map((o) => (
-        <button
-          key={o.indice}
-          type="button"
-          onClick={() => onTocar(o.indice)}
-          aria-label={`${o.ordinal} corda, ${o.latino} ${o.letra}, ${o.hz.toFixed(2)} hertz`}
-          aria-pressed={tocando === o.indice}
-          className="absolute rounded-[14px]"
-          style={{
-            left: `${(o.banda.x / VB_W) * 100}%`,
-            width: `${(o.banda.w / VB_W) * 100}%`,
-            top: `${(Y_TOPO / VB_H) * 100}%`,
-            height: `${((Y_BRACO_FIM + 86 - Y_TOPO) / VB_H) * 100}%`,
-            background: "transparent",
-            cursor: "pointer",
-            outlineOffset: 2,
-          }}
-        />
-      ))}
+      {/* Alvos reais: um <button> por ordem. Botão de verdade ganha foco,
+          rótulo e tecla de espaço de graça; <rect role="button"> não ganha.
+
+          O recorte é um trapézio, não um retângulo: em cima ele acompanha a
+          corda (estreita, porque as cordas convergem pra pestana) e embaixo
+          acompanha a letra (larga, porque os rótulos têm régua própria). Com
+          retângulo o alvo ficava com a largura da corda — 37px no desktop e
+          35px no celular, abaixo dos 44px que um dedo pede. O `clip-path`
+          também vale pro hit-testing, então os alvos não se sobrepõem. */}
+      {geo.ordens.map((o) => {
+        const passoRegua = geo.n > 1 ? (VB_W - 80) / (geo.n - 1) : VB_W;
+        const reguaEsq = o.xRotulo - passoRegua / 2;
+        const reguaDir = o.xRotulo + passoRegua / 2;
+        const esq = Math.min(o.banda.x, reguaEsq);
+        const dir = Math.max(o.banda.x + o.banda.w, reguaDir);
+        const topo = Y_TOPO;
+        const fundo = Y_BRACO_FIM + 92;
+        const px = (x: number) => `${(((x - esq) / (dir - esq)) * 100).toFixed(2)}%`;
+        const py = (y: number) => `${(((y - topo) / (fundo - topo)) * 100).toFixed(2)}%`;
+        const yCorda = Y_BRACO_FIM - 24;
+        const yLetra = Y_BRACO_FIM + 14;
+        return (
+          <button
+            key={o.indice}
+            type="button"
+            onClick={() => onTocar(o.indice)}
+            aria-label={`${o.ordinal} corda, ${o.latino} ${o.letra}, ${o.hz.toFixed(2)} hertz`}
+            aria-pressed={tocando === o.indice}
+            className="absolute focus-visible:outline-none"
+            style={{
+              left: `${(esq / VB_W) * 100}%`,
+              width: `${((dir - esq) / VB_W) * 100}%`,
+              top: `${(topo / VB_H) * 100}%`,
+              height: `${((fundo - topo) / VB_H) * 100}%`,
+              cursor: "pointer",
+              /* o foco é pintado como fundo, e não como anel: o clip-path
+                 recorta outline e box-shadow, então o anel sairia cortado —
+                 o véu, além de aparecer, desenha a própria área clicável */
+              background: focado === o.indice ? "rgba(240,178,74,0.16)" : "transparent",
+              transition: "background-color .15s linear",
+              clipPath: `polygon(${px(o.banda.x)} 0%, ${px(o.banda.x + o.banda.w)} 0%, ${px(o.banda.x + o.banda.w)} ${py(yCorda)}, ${px(reguaDir)} ${py(yLetra)}, ${px(reguaDir)} 100%, ${px(reguaEsq)} 100%, ${px(reguaEsq)} ${py(yLetra)}, ${px(o.banda.x)} ${py(yCorda)})`,
+            }}
+            onFocus={(e) => { if (e.target.matches(":focus-visible")) setFocado(o.indice); }}
+            onBlur={() => setFocado((f) => (f === o.indice ? null : f))}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -428,14 +498,21 @@ function indiceGlobal(geo: Geo, ordem: number, fio: number): number {
 function paletaPath(wTopo: number, wPestana: number): string {
   const yT = Y_TOPO;
   const yN = Y_PESTANA;
-  const r = Math.min(30, wTopo / 4.5);
+  const r = Math.min(36, wTopo / 4);
+  const wp = wPestana / 2;
+  const wt = wTopo / 2;
+  /* dois cubics por lado em vez de um: o primeiro é a cintura, quase vertical
+     saindo da pestana; o segundo é o ombro, que abre. Com um cubic só a lateral
+     saía reta e a paleta lia como trapézio de régua. */
   return [
-    `M ${CX - wPestana / 2} ${yN}`,
-    `C ${CX - wPestana / 2 - 9} ${yN - 82}, ${CX - wTopo / 2 - 6} ${yT + 112}, ${CX - wTopo / 2} ${yT + r}`,
-    `Q ${CX - wTopo / 2} ${yT}, ${CX - wTopo / 2 + r} ${yT}`,
-    `L ${CX + wTopo / 2 - r} ${yT}`,
-    `Q ${CX + wTopo / 2} ${yT}, ${CX + wTopo / 2} ${yT + r}`,
-    `C ${CX + wTopo / 2 + 6} ${yT + 112}, ${CX + wPestana / 2 + 9} ${yN - 82}, ${CX + wPestana / 2} ${yN}`,
+    `M ${CX - wp} ${yN}`,
+    `C ${CX - wp - 4} ${yN - 44}, ${CX - wt + 24} ${yT + 158}, ${CX - wt + 14} ${yT + 116}`,
+    `C ${CX - wt + 4} ${yT + 74}, ${CX - wt} ${yT + 54}, ${CX - wt} ${yT + r}`,
+    `Q ${CX - wt} ${yT}, ${CX - wt + r} ${yT}`,
+    `L ${CX + wt - r} ${yT}`,
+    `Q ${CX + wt} ${yT}, ${CX + wt} ${yT + r}`,
+    `C ${CX + wt} ${yT + 54}, ${CX + wt - 4} ${yT + 74}, ${CX + wt - 14} ${yT + 116}`,
+    `C ${CX + wt - 24} ${yT + 158}, ${CX + wp + 4} ${yN - 44}, ${CX + wp} ${yN}`,
     "Z",
   ].join(" ");
 }

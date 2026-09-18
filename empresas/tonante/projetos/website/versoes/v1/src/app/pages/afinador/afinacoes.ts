@@ -30,6 +30,10 @@ export type Instrumento = {
   cabeca: "dividida" | "inline";
   /** 0 = nylon opaco, 1 = aço de guitarra. Afeta timbre e cor da corda. */
   brilho: number;
+  /** Onde a mão ataca a corda, em fração do comprimento. Dedilhado sobre a
+      boca fica em 0,12; palheta junto ao cavalete chega a 0,22. Apaga os
+      harmônicos múltiplos de 1/β — é o que separa redondo de nasal. */
+  palhetada: number;
   /** quantas ordens, contadas do bordão, são entorchadas (cor de bronze). */
   entorchadas: number;
   /** busca do encordoamento correspondente no catálogo. */
@@ -47,6 +51,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Violão",
     cabeca: "dividida",
     brilho: 0.34,
+    palhetada: 0.12,
     entorchadas: 3,
     buscaCorda: "corda violão",
     familiaCorda: "nylon-violao",
@@ -94,6 +99,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Guitarra",
     cabeca: "dividida",
     brilho: 0.92,
+    palhetada: 0.17,
     entorchadas: 3,
     buscaCorda: "corda guitarra",
     familiaCorda: "niquel-guitarra",
@@ -133,6 +139,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Baixo",
     cabeca: "inline",
     brilho: 0.4,
+    palhetada: 0.22,
     entorchadas: 6,
     buscaCorda: "corda baixo",
     familiaCorda: "niquel-baixo",
@@ -158,6 +165,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Viola caipira",
     cabeca: "dividida",
     brilho: 0.88,
+    palhetada: 0.14,
     entorchadas: 2,
     buscaCorda: "corda viola",
     familiaCorda: "aco-violao",
@@ -193,6 +201,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Cavaquinho",
     cabeca: "dividida",
     brilho: 0.95,
+    palhetada: 0.2,
     entorchadas: 1,
     buscaCorda: "corda cavaquinho",
     familiaCorda: "aco-violao",
@@ -216,6 +225,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Ukulele",
     cabeca: "dividida",
     brilho: 0.5,
+    palhetada: 0.13,
     entorchadas: 0,
     buscaCorda: "corda ukulele",
     familiaCorda: "nylon-violao",
@@ -240,6 +250,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     nome: "Bandolim",
     cabeca: "dividida",
     brilho: 0.96,
+    palhetada: 0.19,
     entorchadas: 2,
     buscaCorda: "corda bandolim",
     familiaCorda: "aco-violao",

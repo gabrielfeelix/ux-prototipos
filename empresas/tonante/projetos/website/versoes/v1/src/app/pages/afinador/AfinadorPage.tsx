@@ -72,13 +72,14 @@ export function AfinadorPage() {
       return;
     }
     let restantes = notas.length;
+    const corpo = { brilho: instrumento.brilho, palhetada: instrumento.palhetada };
     vozes.current = notas.map((m) =>
-      dedilhar(freqDe(m, a4), instrumento.brilho, () => {
+      dedilhar(freqDe(m, a4), corpo, () => {
         restantes -= 1;
         if (restantes <= 0) setTocando((atual) => (atual === i ? null : atual));
       }),
     );
-  }, [cordas, modo, a4, instrumento.brilho, silenciar]);
+  }, [cordas, modo, a4, instrumento.brilho, instrumento.palhetada, silenciar]);
 
   const aoClicarCorda = useCallback((i: number) => {
     if (modo === "ouvir") {
@@ -132,6 +133,9 @@ export function AfinadorPage() {
     let parar: ParadaDaEscuta | null = null;
     let vivo = true;
     setEscuta("pedindo");
+    /* uma oitava de folga pra cada lado: corda muito frouxa ainda cai dentro */
+    const alvos = cordas.map((c) => freqDe(c.midi, a4));
+    const faixa: [number, number] = [Math.min(...alvos) * 0.5, Math.max(...alvos) * 2];
     escutar((hz) => {
       const agora = performance.now();
       if (hz === null) {
@@ -146,11 +150,14 @@ export function AfinadorPage() {
         ? hz
         : antes + (hz - antes) * 0.4;
       setHzOuvido(suavizado.current);
-    })
+    }, faixa)
       .then((p) => { if (vivo) { parar = p; setEscuta("ouvindo"); } else p(); })
       .catch(() => { if (vivo) setEscuta("negado"); });
     return () => { vivo = false; parar?.(); };
-  }, [modo]);
+    // a faixa só depende do instrumento e do diapasão; religar o microfone a
+    // cada tecla digitada no campo de Hz pediria a permissão de novo
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modo, instrumentoId, afinacaoId]);
 
   /* qual corda o microfone ouviu, e quanto falta pra ela */
   const leitura = useMemo(() => {
@@ -379,24 +386,23 @@ export function AfinadorPage() {
                 </div>
               </Campo>
 
-              <div className="mt-7 flex gap-2.5">
-                <CTAButton variant="brand" size="md" onClick={avancar} className="flex-1">
+              <div className="mt-7">
+                <CTAButton variant="brand" size="md" onClick={avancar} block>
                   {rotuloSequencia}
                 </CTAButton>
                 <button
                   type="button"
                   onClick={parar}
-                  aria-label="Parar"
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill px-5 transition-colors duration-200 hover:bg-[rgba(255,238,210,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0B24A]/60"
+                  className="mt-2.5 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-pill py-3 transition-colors duration-200 hover:bg-[rgba(255,238,210,0.09)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0B24A]/60"
                   style={{
-                    border: "1px solid rgba(255,238,210,0.24)",
+                    border: "1px solid rgba(255,238,210,0.22)",
                     color: "#F2EAD9",
                     fontFamily: "var(--font-family-inter)",
                     fontSize: 13.5,
                     fontWeight: 700,
                   }}
                 >
-                  <Square size={12} strokeWidth={3} fill="currentColor" />
+                  <Square size={11} strokeWidth={3} fill="currentColor" />
                   Parar
                 </button>
               </div>
