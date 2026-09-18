@@ -311,6 +311,25 @@
   .scroll-fade, .scroll-fade::-webkit-scrollbar-thumb { transition: none; }
 }
 
+/* Scrollbar de superfície escura (afinador, e qualquer painel sobre palco).
+   A barra nativa do sistema vem branca e com as duas setinhas de Windows: num
+   fundo #1C1710 ela é a coisa mais clara da tela e rouba a atenção da lista.
+   Aqui ela é um filete creme translúcido, sem setas e sem trilho. */
+.scroll-palco {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(242, 234, 217, 0.22) transparent;
+}
+.scroll-palco::-webkit-scrollbar { width: 10px; height: 10px; }
+.scroll-palco::-webkit-scrollbar-track { background: transparent; }
+.scroll-palco::-webkit-scrollbar-button { display: none; height: 0; width: 0; }
+.scroll-palco::-webkit-scrollbar-thumb {
+  background-color: rgba(242, 234, 217, 0.2);
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 9999px;
+}
+.scroll-palco:hover::-webkit-scrollbar-thumb { background-color: rgba(242, 234, 217, 0.34); }
+
 /* Hover de cards — base âmbar suave (substitui o hover vermelho neon). */
 .essential-card { transition: border-color 300ms ease, box-shadow 300ms ease; }
 .essential-card:hover {

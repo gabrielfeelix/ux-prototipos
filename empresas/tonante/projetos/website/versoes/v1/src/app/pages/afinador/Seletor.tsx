@@ -105,7 +105,7 @@ export function Seletor({ valor, opcoes, onChange, rotulo }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-0 right-0 z-40 mt-2 max-h-[320px] overflow-y-auto rounded-[12px] p-1.5"
+            className="scroll-palco absolute left-0 right-0 z-40 mt-2 max-h-[min(380px,58vh)] overflow-y-auto rounded-[12px] p-1.5"
             style={{
               background: "#1C1710",
               border: "1px solid rgba(255,238,210,0.16)",

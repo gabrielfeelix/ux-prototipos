@@ -183,7 +183,7 @@ export function AfinadorPage() {
       <main style={{ background: FUNDO, color: "#F2EAD9" }}>
         <div className="mx-auto w-full px-5 pb-24 pt-14 md:px-12 md:pb-28 md:pt-20" style={{ maxWidth: 1280 }}>
           <div className="text-center">
-          <Eyebrow style={{ color: "#F0B24A" }}>Afinador</Eyebrow>
+          <Eyebrow style={{ color: "#F0B24A" }}>Afinador Tonante</Eyebrow>
           <h1
             className="mt-4"
             style={{
@@ -195,7 +195,7 @@ export function AfinadorPage() {
               color: "#F8F2E6",
             }}
           >
-            Comece afinado.
+            Afinador Digital
           </h1>
           <p
             className="mx-auto mt-5 max-w-[52ch]"
