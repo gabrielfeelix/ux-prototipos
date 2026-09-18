@@ -24,6 +24,7 @@ type Props = {
 
 export function Seletor({ valor, opcoes, onChange, rotulo }: Props) {
   const [aberto, setAberto] = useState(false);
+  const [vao, setVao] = useState<{ altura: number; acima: boolean }>({ altura: 380, acima: false });
   const [cursor, setCursor] = useState(() => Math.max(0, opcoes.findIndex((o) => o.id === valor)));
   const caixa = useRef<HTMLDivElement>(null);
   const gatilho = useRef<HTMLButtonElement>(null);
@@ -40,6 +41,31 @@ export function Seletor({ valor, opcoes, onChange, rotulo }: Props) {
     document.addEventListener("pointerdown", foraDaCaixa);
     return () => document.removeEventListener("pointerdown", foraDaCaixa);
   }, [aberto, opcoes, valor]);
+
+  /* Quanto cabe: a lista aberta sempre coube dentro do max-height, então nunca
+   * ganhava scroll — quem cortava os últimos itens era o fim da janela. A altura
+   * passa a ser o vão real entre o gatilho e a borda da viewport, e a lista vira
+   * pro lado que tem mais espaço. */
+  useEffect(() => {
+    if (!aberto) return;
+    const medir = () => {
+      const r = gatilho.current?.getBoundingClientRect();
+      if (!r) return;
+      const RESPIRO = 16; // margem até a borda da janela
+      const GAP = 8; // o mt-2 entre gatilho e lista
+      const abaixo = window.innerHeight - r.bottom - GAP - RESPIRO;
+      const acima = r.top - GAP - RESPIRO;
+      const viraPraCima = abaixo < 240 && acima > abaixo;
+      setVao({ altura: Math.max(160, Math.min(380, viraPraCima ? acima : abaixo)), acima: viraPraCima });
+    };
+    medir();
+    window.addEventListener("resize", medir);
+    window.addEventListener("scroll", medir, true);
+    return () => {
+      window.removeEventListener("resize", medir);
+      window.removeEventListener("scroll", medir, true);
+    };
+  }, [aberto]);
 
   // o item sob o cursor precisa estar visível: lista de afinação passa de 6 itens
   useEffect(() => {
@@ -101,12 +127,13 @@ export function Seletor({ valor, opcoes, onChange, rotulo }: Props) {
             id={idLista}
             role="listbox"
             aria-label={rotulo}
-            initial={{ opacity: 0, y: -6 }}
+            initial={{ opacity: 0, y: vao.acima ? 6 : -6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
+            exit={{ opacity: 0, y: vao.acima ? 6 : -6 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="scroll-palco absolute left-0 right-0 z-40 mt-2 max-h-[min(380px,58vh)] overflow-y-auto rounded-[12px] p-1.5"
+            className={`scroll-palco absolute left-0 right-0 z-40 overflow-y-auto rounded-[12px] p-1.5 ${vao.acima ? "bottom-full mb-2" : "top-full mt-2"}`}
             style={{
+              maxHeight: vao.altura,
               background: "#1C1710",
               border: "1px solid rgba(255,238,210,0.16)",
               boxShadow: "0 24px 48px -24px rgba(0,0,0,0.9)",
