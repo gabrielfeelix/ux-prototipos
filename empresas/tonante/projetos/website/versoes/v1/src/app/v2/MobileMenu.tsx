@@ -7,6 +7,7 @@ import {
   Store, Compass, Tag, Headphones, Instagram, Facebook, Youtube,
   type LucideIcon,
 } from "lucide-react";
+import { DiapasaoIcon } from "../components/section";
 import { useAuth } from "../components/AuthContext";
 import { useFavorites } from "../components/FavoritesContext";
 import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
@@ -234,6 +235,7 @@ export function MobileMenu({ open, onClose, categorias }: Props) {
 
               <Titulo>Ajuda</Titulo>
               <Linha to="/faq" onNavigate={onClose} icon={HelpCircle}>Dúvidas frequentes</Linha>
+              <Linha to="/afinador" onNavigate={onClose} icon={DiapasaoIcon}>Afinador</Linha>
               <Linha to="/fale-conosco" onNavigate={onClose} icon={Headphones}>Fale com a gente</Linha>
 
               {isLoggedIn && (
@@ -287,7 +289,10 @@ function Titulo({ children }: { children: React.ReactNode }) {
 function Linha({
   to, onNavigate, children, icon: Icon, destaque = false,
 }: {
-  to: string; onNavigate: () => void; children: React.ReactNode; icon?: LucideIcon; destaque?: boolean;
+  to: string; onNavigate: () => void; children: React.ReactNode;
+  /* aceita ícone nosso (DiapasaoIcon) além dos do lucide — mesma assinatura */
+  icon?: LucideIcon | React.ComponentType<{ size?: number; strokeWidth?: number }>;
+  destaque?: boolean;
 }) {
   return (
     <Link

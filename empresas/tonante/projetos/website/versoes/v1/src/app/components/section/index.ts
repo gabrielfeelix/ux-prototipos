@@ -13,6 +13,7 @@ export { QtyStepper } from "./QtyStepper";
 export { QuickAddButton } from "./QuickAddButton";
 export { CarouselNavButton } from "./CarouselNavButton";
 export { RosetaIcon } from "./RosetaIcon";
+export { DiapasaoIcon } from "./DiapasaoIcon";
 export { StringDivider } from "./StringDivider";
 export { SeloTonante } from "./SeloTonante";
 export { EqualizerWave } from "./EqualizerWave";

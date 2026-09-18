@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
@@ -16,6 +16,7 @@ import { allProducts, type Product } from "../components/productsData";
 import { getProductUrl } from "../lib/slug";
 import { SearchBar } from "../components/SearchBar";
 import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
+import { DiapasaoIcon } from "../components/section";
 import { MobileMenu } from "./MobileMenu";
 import { useIsMobile } from "../components/ui/use-mobile";
 
@@ -379,6 +380,10 @@ export function HeaderV2() {
           {/* ── utilitários: ajuda · acessibilidade · favoritos ──── */}
           <div className="hidden items-center gap-0.5 md:flex">
             <IconeHeader to="/faq" label="Ajuda" icon={HelpCircle} />
+            {/* Afinador: diapasão, não nota musical. O garfo é o objeto que dá
+                o lá; nota musical seria "música" genérica e já tem uma na
+                vitrine de timbres. */}
+            <IconeHeader to="/afinador" label="Afinador" icon={DiapasaoIcon} />
             {/* Mão aberta, não o boneco em cadeira de rodas: é o símbolo que
                 os plugins de acessibilidade em português usam e cobre mais
                 gente do que o ícone de mobilidade.
@@ -712,7 +717,9 @@ function IconeHeader({
   onClick,
   badge = 0,
 }: {
-  icon: LucideIcon;
+  /* não é só LucideIcon: o diapasão do afinador é desenho nosso, com a mesma
+     assinatura (size + strokeWidth) pra cair na fileira sem destoar */
+  icon: LucideIcon | ComponentType<{ size?: number; strokeWidth?: number }>;
   label: string;
   to?: string;
   onClick?: () => void;

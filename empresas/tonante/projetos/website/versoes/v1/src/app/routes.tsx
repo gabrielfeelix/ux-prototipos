@@ -19,6 +19,7 @@ import { MontarPage } from "./pages/monte-seu-kit/MontarPage";
 import { DriversManuaisPage } from "./pages/DriversManuaisPage";
 import { DriverDetailPage } from "./pages/DriverDetailPage";
 import { FaqPage } from "./pages/FaqPage";
+import { AfinadorPage } from "./pages/afinador/AfinadorPage";
 import { ComparePage } from "./pages/ComparePage";
 import { QuemSomosPage } from "./pages/QuemSomosPage";
 import { PrivacyPage } from "./pages/PrivacyPage";
@@ -61,6 +62,7 @@ export const router = createBrowserRouter([
       { path: "drivers-e-manuais/:slug", Component: DriverDetailPage },
       { path: "comparar", Component: ComparePage },
       { path: "faq", Component: FaqPage },
+      { path: "afinador", Component: AfinadorPage },
       /* O guia antigo virou o passo do quiz novo. A rota fica de pé porque
          ela foi divulgada e existe link pra ela na home. */
       { path: "guia", loader: () => redirect("/monte-seu-kit/ajuda") },
