@@ -70,11 +70,55 @@ function includesAny(value: string, keywords: string[]) {
   return keywords.some((keyword) => value.includes(keyword));
 }
 
+/* Tipo real do produto, lido do nome — o que decide se dois itens são
+ * comparáveis entre si. A categoria não serve pra isso: em "Violões" moram
+ * violão, cavaco e ukulele, e comparar os três lado a lado devolve uma tabela
+ * que não responde pergunta nenhuma. Acessório vem primeiro porque o nome dele
+ * cita o instrumento ("Cabo de Guitarra", "Capa para Violão") e cairia na
+ * família errada se a ordem fosse outra. */
+const TIPOS_TONANTE: [string[], string][] = [
+  /* Primeiro o que É acessório de outra coisa: o nome desses cita o produto
+     que eles servem ("Cabo de Microfone", "Suporte Para Guitarra"), então se a
+     família do instrumento viesse antes, o acessório entraria nela. */
+  [["cabo "], "Cabos"],
+  [["plug ", "adaptador "], "Conectores"],
+  [["capa ", "bag ", "case "], "Capas e Bags"],
+  [["pedestal"], "Pedestais"],
+  [["estante para partitura"], "Estantes de Partitura"],
+  [["banqueta"], "Banquetas"],
+  [["suporte"], "Suportes"],
+  [["apoio de pe"], "Apoios"],
+  [["abafador", "anti-feedback", "damper"], "Abafadores"],
+  [["encordoamento", "corda "], "Cordas"],
+  [["polidor", "cera ", "condicionador", "oleo de", "limpador", "lubrificante"], "Limpeza e Manutenção"],
+  [["palheta"], "Palhetas"],
+  [["capotraste"], "Capotrastes"],
+  [["correia"], "Correias"],
+  [["afinador", "diapasao"], "Afinadores"],
+  [["pedal"], "Pedais"],
+  [["caixa amplificada", "caixa de som"], "Caixas de Som"],
+  [["amplificador", "cubo "], "Amplificadores"],
+  [["microfone"], "Microfones"],
+  [["flauta"], "Flautas"],
+  [["cavaco", "cavaquinho"], "Cavacos"],
+  [["ukulele"], "Ukuleles"],
+  [["guitarra"], "Guitarras"],
+  /* "viola " com espaço: sem ele a regra comeria "violao", que começa igual. */
+  [["viola ", "viola-"], "Violas"],
+  [["violao"], "Violões"],
+  [["contrabaixo"], "Contrabaixos"],
+  [["bateria"], "Baterias"],
+];
+
 export function getProductSubcategory(product: Pick<Product, "name" | "category" | "subcategory">) {
   const name = normalizeText(product.name);
   const category = normalizeText(product.category);
   const rawSubcategory = product.subcategory ? normalizeText(product.subcategory) : "";
   const searchable = `${name} ${rawSubcategory}`;
+
+  for (const [chaves, tipo] of TIPOS_TONANTE) {
+    if (includesAny(`${searchable} `, chaves)) return tipo;
+  }
 
   if (includesAny(searchable, ["teclado", "keyboard"])) return "Teclados";
   if (includesAny(searchable, ["mousepad", "mouse pad", "desk mat"])) return "Mousepads";

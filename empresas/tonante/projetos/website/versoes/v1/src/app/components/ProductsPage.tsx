@@ -731,6 +731,29 @@ export function ProductsPage() {
       .slice(0, 24);
   }, [selectedCategories, selectedFeaturedCategories, selectedSubcategories]);
 
+  /* Tags em destaque que EXISTEM no recorte aberto: a lista era fixa, então a
+     vitrine de Guitarras oferecia "Nylon" e "Palheta" — chips que só levavam a
+     zero resultado. */
+  const availableTags = useMemo(() => {
+    const scope = validProducts.filter((p) => {
+      if (selectedCategories.size > 0 && !selectedCategories.has(p.category)) return false;
+      if (selectedFeaturedCategories.size > 0 && !featuredCategoryFilters.some((f) => selectedFeaturedCategories.has(f.label) && f.matches(p))) return false;
+      if (selectedSubcategories.size > 0 && !selectedSubcategories.has(getProductSubcategory(p))) return false;
+      return true;
+    });
+    const presentes = new Set(scope.flatMap((p) => (p.tags ?? []).map((t) => t.trim())));
+    return allTags.filter((tag) => presentes.has(tag));
+  }, [selectedCategories, selectedFeaturedCategories, selectedSubcategories]);
+
+  // tag escolhida numa categoria não pode continuar marcada em outra que não a tem
+  useEffect(() => {
+    const disponiveis = new Set(availableTags);
+    setSelectedTags((prev) => {
+      const next = new Set([...prev].filter((t) => disponiveis.has(t)));
+      return next.size === prev.size ? prev : next;
+    });
+  }, [availableTags]);
+
   const availableBrands = useMemo(() => {
     const counts = new Map<string, number>();
     productsBeforeColorFilter.forEach((p) => {
@@ -1132,9 +1155,10 @@ export function ProductsPage() {
       </FilterSection>
 
       {/* Tags */}
+      {availableTags.length > 0 && (
       <FilterSection title="Tags" expanded={expandedSections.tags} onToggle={() => toggleSection("tags")}>
         <div className="flex flex-wrap gap-2">
-          {allTags.map((tag) => {
+          {availableTags.map((tag) => {
             const active = selectedTags.has(tag);
             return (
               <button key={tag} onClick={() => toggleSet(setSelectedTags, tag)}
@@ -1146,6 +1170,7 @@ export function ProductsPage() {
           })}
         </div>
       </FilterSection>
+      )}
 
       {/* Avaliação */}
       <FilterSection title="Avaliação" expanded={expandedSections.rating} onToggle={() => toggleSection("rating")}>
@@ -1404,9 +1429,14 @@ export function ProductsPage() {
                                 setItemsPerPageDropdownOpen(false);
                               }}
                               className={`flex w-full items-center justify-between rounded-[var(--radius-card-sm)] px-3 py-2.5 text-left transition-colors cursor-pointer ${
+                                /* text-[var(--surface-0)] e não text-white: o reskin claro
+                                   reescreve .text-white pra tinta preta (theme.css, regra
+                                   [data-page-light-scope]), e o número sumia dentro da
+                                   faixa preta do item marcado. O hover também era branco
+                                   sobre branco — virou tinta translúcida. */
                                 active
-                                  ? "bg-[var(--ink-strong)] text-white"
-                                  : "text-ink hover:bg-white/[0.06] hover:text-ink-strong"
+                                  ? "bg-[var(--ink-strong)] text-[var(--surface-0)]"
+                                  : "text-ink hover:bg-foreground/[0.05] hover:text-ink-strong"
                               }`}
                               style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
                               role="option"

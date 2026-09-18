@@ -3,21 +3,27 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronDown, Plus, Scale, X } from "lucide-react";
 import { type Product } from "./productsData";
-import { getPrimaryProductImage } from "./productPresentation";
+import { CATEGORIA_KIT } from "../lib/kits";
+import { getPrimaryProductImage, getProductSubcategory } from "./productPresentation";
 import { isFotoAmbientada } from "./photoBackdrop";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 /* Comparador do catálogo (ref: Gibson/Epiphone, layout nosso).
    Só compara produtos do MESMO tipo — comparar um violão com uma capa não
    responde pergunta nenhuma, e a tabela de specs sairia com metade das linhas
-   vazia. O tipo é a CATEGORIA: só 14 produtos do catálogo têm subcategoria
-   preenchida, então usá-la barraria duas guitarras irmãs só porque uma tem
-   "Les Paul" e a outra não. */
+   vazia. O tipo vem de getProductSubcategory, que lê a família no nome: a
+   categoria era grossa demais, porque em "Violões" moram violão, cavaco e
+   ukulele, e dentro de "Acessórios" cabe de palheta a suporte. */
 
 export const COMPARE_MAX = 3;
 
 export function compareTypeOf(product: Product): string {
-  return product.category;
+  const familia = getProductSubcategory(product);
+  /* Kit é outro tipo de compra: o nome dele cita o instrumento ("Kit Primeiro
+     Acorde", violão), então sem esta linha um kit fechado entraria na mesma
+     comparação de um violão avulso, com preço e specs de coisas diferentes. */
+  if (product.category === CATEGORIA_KIT) return `Kits de ${familia}`;
+  return familia;
 }
 
 export type CompareCardState = {

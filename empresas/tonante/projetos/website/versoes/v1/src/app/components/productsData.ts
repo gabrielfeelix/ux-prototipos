@@ -1922,9 +1922,10 @@ const rawProducts: Product[] = [
     "priceNum": 48.90,
     "rating": 4.6,
     "reviews": 120,
-    "category": "Guitarras",
+    "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
-      "Guitarras",
+      "Acessórios",
       "Cabo"
     ],
     "brand": "Santo Angelo",
@@ -1948,7 +1949,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Guitarras"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -1978,6 +1979,7 @@ const rawProducts: Product[] = [
     "rating": 4.4,
     "reviews": 178,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -2030,6 +2032,7 @@ const rawProducts: Product[] = [
     "rating": 4.9,
     "reviews": 207,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -2082,6 +2085,7 @@ const rawProducts: Product[] = [
     "rating": 4.4,
     "reviews": 474,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -4207,9 +4211,10 @@ const rawProducts: Product[] = [
     "priceNum": 52.25,
     "rating": 4.9,
     "reviews": 399,
-    "category": "Guitarras",
+    "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
-      "Guitarras",
+      "Acessórios",
       "Cabo"
     ],
     "brand": "Santo Angelo",
@@ -4233,7 +4238,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Guitarras"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -4262,9 +4267,10 @@ const rawProducts: Product[] = [
     "priceNum": 74.90,
     "rating": 4.8,
     "reviews": 428,
-    "category": "Guitarras",
+    "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
-      "Guitarras",
+      "Acessórios",
       "Cabo"
     ],
     "brand": "Santo Angelo",
@@ -4288,7 +4294,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Guitarras"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -4315,6 +4321,7 @@ const rawProducts: Product[] = [
     "rating": 4.5,
     "reviews": 45,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -4477,9 +4484,10 @@ const rawProducts: Product[] = [
     "priceNum": 50.90,
     "rating": 4.4,
     "reviews": 402,
-    "category": "Guitarras",
+    "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
-      "Guitarras",
+      "Acessórios",
       "Cabo"
     ],
     "brand": "Santo Angelo",
@@ -4503,7 +4511,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Guitarras"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -4532,9 +4540,10 @@ const rawProducts: Product[] = [
     "priceNum": 84.90,
     "rating": 4.5,
     "reviews": 329,
-    "category": "Guitarras",
+    "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
-      "Guitarras",
+      "Acessórios",
       "Cabo"
     ],
     "brand": "Santo Angelo",
@@ -4558,7 +4567,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Guitarras"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -5675,6 +5684,7 @@ const rawProducts: Product[] = [
     "rating": 4.8,
     "reviews": 320,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -5728,6 +5738,7 @@ const rawProducts: Product[] = [
     "rating": 4.6,
     "reviews": 422,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -5780,6 +5791,7 @@ const rawProducts: Product[] = [
     "rating": 4.7,
     "reviews": 97,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -5939,6 +5951,7 @@ const rawProducts: Product[] = [
     "rating": 4.7,
     "reviews": 321,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -5994,6 +6007,7 @@ const rawProducts: Product[] = [
     "rating": 4.8,
     "reviews": 292,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -6046,6 +6060,7 @@ const rawProducts: Product[] = [
     "rating": 4.8,
     "reviews": 170,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -6101,6 +6116,7 @@ const rawProducts: Product[] = [
     "rating": 4.4,
     "reviews": 278,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -6153,6 +6169,7 @@ const rawProducts: Product[] = [
     "rating": 4.5,
     "reviews": 249,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Cabo"
@@ -6205,6 +6222,7 @@ const rawProducts: Product[] = [
     "rating": 4.5,
     "reviews": 447,
     "category": "Acessórios",
+    "subcategory": "Cabos",
     "tags": [
       "Acessórios",
       "Microfone",
@@ -12808,9 +12826,11 @@ const rawProducts: Product[] = [
     "priceNum": 21.90,
     "rating": 4.6,
     "reviews": 108,
-    "category": "Violões",
+    "category": "Acessórios",
+    "subcategory": "Abafadores",
     "tags": [
-      "Violões"
+      "Acessórios",
+      "Abafador"
     ],
     "brand": "Tonante",
     "image": "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32515-17459237286197861.jpeg",
@@ -12821,7 +12841,7 @@ const rawProducts: Product[] = [
     "description": "Anti-feedback Abafador Violao Folk Boca Redonda Affk. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Anti-feedback Abafador Violao Folk Boca Redonda Affk</h2><p>Parte da linha Tonante de violões, o Anti-feedback Abafador Violao Folk Boca Redonda Affk carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
-      "Violões",
+      "Abafador",
       "Acabamento Tonante de fábrica",
       "Garantia de 2 anos",
       "Tradição brasileira desde 1954"
@@ -12833,7 +12853,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Violões"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -12862,9 +12882,11 @@ const rawProducts: Product[] = [
     "priceNum": 20.90,
     "rating": 4.9,
     "reviews": 195,
-    "category": "Violões",
+    "category": "Acessórios",
+    "subcategory": "Abafadores",
     "tags": [
-      "Violões"
+      "Acessórios",
+      "Abafador"
     ],
     "brand": "Tonante",
     "image": "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32516-17460171746788185.jpeg",
@@ -12875,7 +12897,7 @@ const rawProducts: Product[] = [
     "description": "Anti-feedback Abafador Violao Classsico Boca Redonda Afcl. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Anti-feedback Abafador Violao Classsico Boca Redonda Afcl</h2><p>Parte da linha Tonante de violões, o Anti-feedback Abafador Violao Classsico Boca Redonda Afcl carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
-      "Violões",
+      "Abafador",
       "Acabamento Tonante de fábrica",
       "Garantia de 2 anos",
       "Tradição brasileira desde 1954"
@@ -12887,7 +12909,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Violões"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",
@@ -12913,9 +12935,11 @@ const rawProducts: Product[] = [
     "priceNum": 21.90,
     "rating": 4.4,
     "reviews": 166,
-    "category": "Violões",
+    "category": "Acessórios",
+    "subcategory": "Abafadores",
     "tags": [
-      "Violões"
+      "Acessórios",
+      "Abafador"
     ],
     "brand": "Tonante",
     "image": "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/3/2/32517-17459001808633468.jpeg",
@@ -12926,7 +12950,7 @@ const rawProducts: Product[] = [
     "description": "Anti-feedback Abafador Violao de Boca Oval Afov. Tradição Tonante desde 1954.",
     "htmlDescription": "<section class=\"produto-descricao\"><h2>Anti-feedback Abafador Violao de Boca Oval Afov</h2><p>Parte da linha Tonante de violões, o Anti-feedback Abafador Violao de Boca Oval Afov carrega a tradição de quem faz instrumento desde 1954. Qualidade de fábrica, pronto pra fazer parte da sua história musical.</p><h3>Cuidado de quem entende</h3><p>Mais de meio século de experiência em cada detalhe. Materiais selecionados e controle de qualidade rigoroso, do galpão ao palco.</p><h3>Pronto para tocar</h3><p>Sai da caixa ajustado e conferido. É só começar a tocar a sua próxima música.</p>",
     "features": [
-      "Violões",
+      "Abafador",
       "Acabamento Tonante de fábrica",
       "Garantia de 2 anos",
       "Tradição brasileira desde 1954"
@@ -12938,7 +12962,7 @@ const rawProducts: Product[] = [
       },
       {
         "label": "Categoria",
-        "value": "Violões"
+        "value": "Acessórios"
       },
       {
         "label": "Marca",

@@ -69,9 +69,12 @@ function cleanName(raw) {
 
 // categoria inferida do nome. Ordem importa: encordoamento/suporte ANTES dos
 // instrumentos (cujo nome traz "X cordas" e não deve cair em "Cordas").
+// `acc` é a lista do que É acessório mesmo citando o instrumento no nome:
+// "Cabo de Guitarra" caía em Guitarras e ficava na vitrine junto das guitarras,
+// onde o comparador o colocava lado a lado com um instrumento.
 function classify(name) {
   const n = name.toUpperCase();
-  const acc = /SUPORTE|PAREDE|\bCAPA\b|\bBAG\b|\bCASE\b|CAPOTRASTE/;
+  const acc = /SUPORTE|PAREDE|\bCAPA\b|\bBAG\b|\bCASE\b|CAPOTRASTE|\bCABO\b|\bPLUG\b|ADAPTADOR|ABAFADOR|ANTI-?FEEDBACK|DAMPER|MICROFONE|PALHETA|CORREIA|AFINADOR|POLIDOR|LIMPADOR|LUBRIFICANTE|CONDICIONADOR|APOIO/;
   if (/ENCORD|JOGO\s+DE\s+CORDAS|CORDA\s+(AVULSA|SOLTA)|CORDAS?\s+(PARA|P\/|DE)\b/.test(n)) return 'Cordas & Encordoamentos';
   if (/SUPORTE|PEDESTAL|ESTANTE|BANQUETA|TRIP[EÉ]|PARTITURA|CAVALETE|\bRACK\b/.test(n)) return 'Suportes';
   if (/VIOL[AÃ]O|UKULELE|CAVAQUINHO|VIOLA\s+CAIPIRA/.test(n) && !acc.test(n)) return 'Violões';
