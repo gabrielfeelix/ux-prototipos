@@ -12,7 +12,7 @@ import { getPrimaryProductImage, getCatalogHref } from "../components/productPre
 const findByName = (...kw: string[]) =>
   allProducts.find((p) => kw.every((k) => p.name.toLowerCase().includes(k.toLowerCase())));
 
-type Familia = {
+export type Familia = {
   key: string;
   eyebrow: string;
   title: string;
@@ -24,7 +24,7 @@ type Familia = {
   fallbackImg: string;
 };
 
-const FAMILIAS: Familia[] = [
+export const FAMILIAS: Familia[] = [
   {
     key: "nylon-violao",
     eyebrow: "Macia para os dedos",
@@ -63,7 +63,7 @@ const FAMILIAS: Familia[] = [
   },
 ];
 
-function FamiliaCard({ f }: { f: Familia }) {
+export function FamiliaCard({ f }: { f: Familia }) {
   const [src, setSrc] = useState(f.art);
   const isFallback = src === f.fallbackImg;
 

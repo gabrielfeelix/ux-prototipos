@@ -34,6 +34,8 @@ export type Instrumento = {
   entorchadas: number;
   /** busca do encordoamento correspondente no catálogo. */
   buscaCorda: string;
+  /** chave da família de corda (EncordoamentosV2) que serve neste instrumento. */
+  familiaCorda: string;
   afinacoes: Afinacao[];
 };
 
@@ -47,6 +49,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.34,
     entorchadas: 3,
     buscaCorda: "corda violão",
+    familiaCorda: "nylon-violao",
     afinacoes: [
       {
         id: "padrao",
@@ -93,6 +96,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.92,
     entorchadas: 3,
     buscaCorda: "corda guitarra",
+    familiaCorda: "niquel-guitarra",
     afinacoes: [
       {
         id: "padrao",
@@ -131,6 +135,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.4,
     entorchadas: 6,
     buscaCorda: "corda baixo",
+    familiaCorda: "niquel-baixo",
     afinacoes: [
       {
         id: "quatro",
@@ -155,6 +160,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.88,
     entorchadas: 2,
     buscaCorda: "corda viola",
+    familiaCorda: "aco-violao",
     afinacoes: [
       {
         id: "cebolao-mi",
@@ -189,6 +195,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.95,
     entorchadas: 1,
     buscaCorda: "corda cavaquinho",
+    familiaCorda: "aco-violao",
     afinacoes: [
       {
         id: "padrao",
@@ -211,6 +218,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.5,
     entorchadas: 0,
     buscaCorda: "corda ukulele",
+    familiaCorda: "nylon-violao",
     afinacoes: [
       {
         id: "sol-agudo",
@@ -234,6 +242,7 @@ export const INSTRUMENTOS: Instrumento[] = [
     brilho: 0.96,
     entorchadas: 2,
     buscaCorda: "corda bandolim",
+    familiaCorda: "aco-violao",
     afinacoes: [
       {
         id: "padrao",

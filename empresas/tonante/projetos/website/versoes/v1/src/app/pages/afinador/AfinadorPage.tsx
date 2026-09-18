@@ -9,6 +9,7 @@ import {
 } from "../../lib/tuner";
 import { INSTRUMENTOS, acharInstrumento, ordinalDaCorda } from "./afinacoes";
 import { Headstock } from "./Headstock";
+import { FAMILIAS, FamiliaCard } from "../../v2/EncordoamentosV2";
 import { Regua } from "./Regua";
 import { Seletor } from "./Seletor";
 
@@ -183,7 +184,7 @@ export function AfinadorPage() {
       <main style={{ background: FUNDO, color: "#F2EAD9" }}>
         <div className="mx-auto w-full px-5 pb-24 pt-14 md:px-12 md:pb-28 md:pt-20" style={{ maxWidth: 1280 }}>
           <div className="text-center">
-          <Eyebrow style={{ color: "#F0B24A" }}>Afinador Tonante</Eyebrow>
+          <Eyebrow style={{ color: "#F0B24A" }}>Tonante</Eyebrow>
           <h1
             className="mt-4"
             style={{
@@ -251,6 +252,7 @@ export function AfinadorPage() {
                 tocando={tocando}
                 foco={foco}
                 cents={modo === "ouvir" ? leitura?.cents ?? null : null}
+                afinacao={afinacao.nome}
                 onTocar={aoClicarCorda}
                 fundo={FUNDO}
               />
@@ -419,7 +421,7 @@ export function AfinadorPage() {
       {/* ── corda nova ───────────────────────────────────────────────── */}
       <section style={{ background: "var(--background)" }}>
         <div className="mx-auto w-full px-5 py-16 md:px-12 md:py-20" style={{ maxWidth: 1280 }}>
-          <div className="flex flex-col items-start gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="max-w-[46ch]">
               <h2
                 style={{
@@ -438,18 +440,69 @@ export function AfinadorPage() {
                 não é a tarraxa. É o jogo de cordas pedindo troca.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-5">
-              <CTAButton as="link" to={`/produtos?search=${encodeURIComponent(instrumento.buscaCorda)}`} variant="ink" size="lg">
+            <div className="flex flex-wrap items-center gap-6">
+              <Link
+                to={`/produtos?search=${encodeURIComponent(instrumento.buscaCorda)}`}
+                className="underline-offset-4 hover:underline"
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: 14.5, fontWeight: 600, color: "var(--ink-strong)" }}
+              >
                 Ver cordas de {instrumento.nome.toLowerCase()}
-              </CTAButton>
+              </Link>
               <Link
                 to="/monte-seu-kit/ajuda"
                 className="underline-offset-4 hover:underline"
-                style={{ fontFamily: "var(--font-family-inter)", fontSize: 14.5, fontWeight: 600, color: "var(--ink-strong)" }}
+                style={{ fontFamily: "var(--font-family-inter)", fontSize: 14.5, fontWeight: 600, color: "var(--ink-muted)" }}
               >
                 Não sei qual jogo comprar
               </Link>
             </div>
+          </div>
+
+          {/* As quatro famílias são as mesmas da home — mesma arte, mesma cor.
+              O que muda aqui é que uma delas responde ao afinador: quem estava
+              afinando um baixo vê o jogo de baixo à frente, com o selo. As
+              outras três continuam à mão, só recuadas. */}
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {FAMILIAS.map((f) => {
+              const combina = f.key === instrumento.familiaCorda;
+              return (
+                <div
+                  key={f.key}
+                  className="relative"
+                  style={{
+                    transform: combina ? "translateY(-10px)" : "none",
+                    transition: "transform .45s var(--ease), opacity .3s ease",
+                    opacity: combina ? 1 : 0.74,
+                  }}
+                >
+                  {combina && (
+                    <span
+                      className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-pill px-3.5 py-1.5"
+                      style={{
+                        background: "var(--ink-strong)",
+                        color: "#fff",
+                        fontFamily: "var(--font-family-inter)",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      Combina com {instrumento.nome.toLowerCase()}
+                    </span>
+                  )}
+                  <div
+                    className="overflow-hidden rounded-[10px]"
+                    style={{
+                      boxShadow: combina ? "0 0 0 2px var(--amber)" : "none",
+                      borderRadius: 10,
+                      transition: "box-shadow .3s ease",
+                    }}
+                  >
+                    <FamiliaCard f={f} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
