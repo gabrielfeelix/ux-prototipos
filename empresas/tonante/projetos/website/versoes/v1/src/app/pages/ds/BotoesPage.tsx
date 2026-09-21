@@ -173,14 +173,14 @@ export function BotoesPage() {
 
       <Secao
         titulo="Tamanhos"
-        legenda="Três alturas, e nada fora delas. Se um botão sair com altura diferente, é className sobrando por cima do primitivo: o tailwind-merge deixa o h-* do consumidor vencer sem avisar."
+        legenda="Três alturas, e o rótulo anda junto com elas. Se um botão sair com altura diferente, é className sobrando por cima do primitivo: o tailwind-merge deixa o h-* do consumidor vencer sem avisar."
       >
         <div className="flex flex-wrap items-end gap-8">
           {(["sm", "md", "lg"] as const).map((size, i) => (
             <div key={size} className="flex flex-col gap-3">
               <Button size={size}>Continuar</Button>
               <Nota>
-                {size} · {[36, 44, 52][i]}px
+                {size} · {[36, 44, 52][i]}px · rótulo {[13, 15, 16][i]}px
               </Nota>
             </div>
           ))}
@@ -297,6 +297,56 @@ export function BotoesPage() {
             </div>
             <Nota>as=&quot;link&quot; · vira &lt;Link&gt; e mantém o foco</Nota>
           </div>
+        </div>
+      </Secao>
+
+      <Secao
+        titulo="Comprar no celular: qual altura"
+        legenda="Decidido em 21/09: comprar em card é lg, 52px com rótulo de 16px. O que estava lá antes era 14px dentro de 44px, logo abaixo de um preço em 20px e de um nome de produto em 16px — a ação era o texto mais fraco do card, e a altura encostava no piso de acessibilidade (44pt da Apple, 48dp do Material), que é a medida de um botão de fechar. A comparação fica registrada aqui."
+      >
+        <div className="flex flex-wrap gap-6">
+          {[
+            { altura: 44, fonte: 14, nome: "antes", nota: "piso de acessibilidade" },
+            { altura: 48, fonte: 15, nome: "48 · 15px", nota: "mínimo do Material" },
+            { altura: 52, fonte: 16, nome: "lg · escolhido", nota: "bloco de compra do spec" },
+          ].map((op) => (
+            <div key={op.altura} className="w-[172px]">
+              <div className="rounded-card-md border border-[var(--edge-subtle)] p-3">
+                <div className="mb-3 h-[86px] rounded-card-sm [background-color:var(--surface-glass)]" />
+                <p
+                  className="leading-[1.4] [color:#333]"
+                  style={{ fontSize: "16px", fontWeight: 500 }}
+                >
+                  Violão Elétrico Misti 40&quot;
+                </p>
+                <p
+                  className="mt-2 [color:#333]"
+                  style={{ fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em" }}
+                >
+                  R$ 518,85
+                </p>
+                <p className="mt-[3px] [color:#6b6b6b]" style={{ fontSize: "12.5px" }}>
+                  10x de R$ 57,65 sem juros
+                </p>
+                <button
+                  type="button"
+                  className="mt-3 flex w-full cursor-pointer items-center justify-center rounded-pill [background-color:var(--buy-green)] [color:#fff] transition-colors hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)]"
+                  style={{
+                    height: `${op.altura}px`,
+                    fontSize: `${op.fonte}px`,
+                    fontWeight: 600,
+                    fontFamily: "var(--font-family-inter)",
+                  }}
+                >
+                  Comprar agora
+                </button>
+              </div>
+              <div className="mt-3 flex flex-col gap-1">
+                <Nota>{op.nome}</Nota>
+                <span className="text-[12px] [color:var(--ink-muted)]">{op.nota}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </Secao>
 

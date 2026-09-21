@@ -49,10 +49,14 @@ const buttonVariants = cva(
         ghost: "border-0 bg-transparent",
       },
       intent: { neutral: "", buy: "", danger: "", brand: "" },
+      /* Altura e rótulo andam juntos. O rótulo em 14px ficava menor que o
+         nome do produto (16px) e muito abaixo do preço (20px): a ação era o
+         texto mais fraco do card. Subiu um degrau. As alturas seguem o piso de
+         toque (44pt da Apple, 48dp do Material) e o lg é o bloco de compra. */
       size: {
         sm: "h-9 px-5 text-[13px]",
-        md: "h-11 px-7 text-[14px]",
-        lg: "h-[52px] px-9 text-[15px]",
+        md: "h-11 px-7 text-[15px]",
+        lg: "h-[52px] px-9 text-[16px]",
       },
       block: { true: "w-full", false: "" },
       iconOnly: { true: "px-0 gap-0", false: "" },

@@ -307,11 +307,11 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
             fica em group-hover e a cor em hover próprio. */}
         <button
           onClick={add}
-          className="absolute inset-x-3 bottom-3 z-[2] hidden h-12 translate-y-2.5 cursor-pointer items-center justify-center rounded-pill opacity-0 md:flex transition-[opacity,translate,background-color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:translate-y-0 group-hover/card:opacity-100 [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] active:scale-[0.98]"
+          className="absolute inset-x-3 bottom-3 z-[2] hidden h-[52px] translate-y-2.5 cursor-pointer items-center justify-center rounded-pill opacity-0 md:flex transition-[opacity,translate,background-color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:translate-y-0 group-hover/card:opacity-100 [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] active:scale-[0.98]"
           style={{
             color: "#ffffff",
             padding: "6px 10px",
-            fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 600,
+            fontFamily: "var(--font-family-inter)", fontSize: "16px", fontWeight: 600,
           }}
         >
           Comprar agora
@@ -421,11 +421,11 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
           preço — a ordem da decisão termina no botão. */}
       <button
         onClick={add}
-        className="mt-3 flex min-h-[44px] w-full cursor-pointer items-center justify-center rounded-pill transition-colors [background-color:var(--buy-green)] active:scale-[0.98] active:[background-color:var(--buy-green-press)] md:hidden"
+        className="mt-3 flex h-[52px] w-full cursor-pointer items-center justify-center rounded-pill transition-colors [background-color:var(--buy-green)] active:scale-[0.98] active:[background-color:var(--buy-green-press)] md:hidden"
         style={{
           color: "#ffffff",
           fontFamily: "var(--font-family-inter)",
-          fontSize: "14px",
+          fontSize: "16px",
           fontWeight: 600,
         }}
       >

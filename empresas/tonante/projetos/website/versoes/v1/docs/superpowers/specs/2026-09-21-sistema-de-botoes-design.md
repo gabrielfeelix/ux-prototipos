@@ -172,11 +172,18 @@ nenhum ao clique.
 
 ## 7. Forma e tamanho
 
-| size | altura | uso |
-|---|---|---|
-| `sm` | 36px | card denso, linha de tabela. Nunca em mobile |
-| `md` | 44px | **padrão.** Mínimo de alvo de toque |
-| `lg` | 52px | bloco de compra, CTA de landing |
+| size | altura | rótulo | uso |
+|---|---|---|---|
+| `sm` | 36px | 13px | card denso, linha de tabela. Nunca em mobile |
+| `md` | 44px | 15px | **padrão.** Mínimo de alvo de toque |
+| `lg` | 52px | 16px | bloco de compra, CTA de landing |
+
+O rótulo subiu um degrau depois da conferência no card do celular (21/09).
+Em 14px ele ficava menor que o nome do produto (16px) e muito abaixo do preço
+(20px): a ação era o texto mais fraco do card, e 44px de altura é o piso de
+acessibilidade (44pt da Apple, 48dp do Material), que é a medida de um botão
+de fechar, não da ação que a tela existe para provocar. **"Comprar" em card é
+`lg`**, não `md`.
 
 Ícone puro: quadrados de 36 / 44 / 52. Em viewport `<768px` todo botão é no
 mínimo 44px, independente do `size` pedido.
@@ -261,17 +268,17 @@ mobile com componentes e comportamentos diferentes. Convergem no mesmo alvo.
 | `ProductPage.tsx:1959` "Enviar Avaliação" | raw `bg-primary`, hover `/90` | `primary/neutral md block` |
 | `ProductPage.tsx:1577` "Escrever uma avaliação" | raw contorno | `secondary/neutral md block` |
 | `ProductPage.tsx:2188` "Ver descrição completa" | raw, **hover NADA** | `tertiary/neutral md block` |
-| `ProductCard.tsx:459` "Adicionar à sacola" | raw `--primary`, **hover NADA** | `primary/buy md block` |
+| `ProductCard.tsx:459` "Adicionar à sacola" | raw `--primary`, **hover NADA** | `primary/buy lg block` |
 | `ProductCard.tsx:471` "Ver página completa" | raw transparente, **hover NADA** | `ghost/neutral md block` |
 | `ProductCardV2.tsx:308` "Comprar agora" desktop | raw `--buy-green`, 3 estados ok | `primary/buy lg block` |
-| `ProductCardV2.tsx:422` "Comprar agora" mobile | raw `--buy-green`, **hover NADA** | `primary/buy md block` |
-| `ProductsPage.tsx:1601` "Comprar" lista mobile | raw `--gradient-buy`, **hover NADA** | `primary/buy sm block` |
+| `ProductCardV2.tsx:422` "Comprar agora" mobile | raw `--buy-green`, **hover NADA** | `primary/buy lg block` |
+| `ProductsPage.tsx:1601` "Comprar" lista mobile | raw `--gradient-buy`, **hover NADA** | `primary/buy lg block` |
 | `ProductsPage.tsx:1637` "Comprar" lista desktop | raw `--gradient-buy`, hover scale | `primary/buy md` |
 | `ProductsPage.tsx:1968` "Comprar" quick view | raw `--gradient-buy`, hover scale | `primary/buy lg block` |
 | `ProductsPage.tsx:1772` "Mostrar N resultados" | raw `bg-foreground`, hover opacidade | `primary/neutral md block` |
 | `ProductsPage.tsx:1509` "Limpar filtros" | raw contorno | `secondary/neutral md` |
 | `ProductsPage.tsx:1720` "Carregar mais" | raw, **hover NADA** | `secondary/neutral lg block` |
-| `QuickAddButton.tsx` (PopularGrid, ProductCarousel) | `--gradient-buy`, hover scale | `primary/buy sm block` |
+| `QuickAddButton.tsx` (PopularGrid, ProductCarousel) | `--gradient-buy`, hover scale | `primary/buy lg block` |
 | `ComparePage.tsx:263` "Comprar agora" | raw `--buy-green`, **hover NADA** | `primary/buy lg block` |
 | `ComparePage.tsx:131` "Ver o catálogo" | raw `--primary`, **hover NADA** | `primary/neutral md` |
 | `CompareBar.tsx:284` "Comparar agora" | raw `--primary`, **hover NADA** | `primary/neutral md` |
@@ -373,5 +380,6 @@ ou perde o `outline-none`.
   retorna 0.
 - `.btn-tonante`, `primaryButtonClass`, `CTAButton`, `GhostButton`,
   `QuickAddButton` sem consumidores.
-- Alturas de botão de ação: só 36/44/52. Raio de botão de ação: só pílula.
+- Alturas de botão de ação: só 36/44/52, com rótulo 13/15/16. Raio de botão
+  de ação: só pílula. Nenhum "Comprar" abaixo de `lg`.
 - `npm run typecheck` e `npm run build` limpos.

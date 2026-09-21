@@ -166,8 +166,8 @@ const buttonVariants = cva(
       intent: { neutral: "", buy: "", danger: "", brand: "" },
       size: {
         sm: "h-9 px-5 text-[13px]",
-        md: "h-11 px-7 text-[14px]",
-        lg: "h-[52px] px-9 text-[15px]",
+        md: "h-11 px-7 text-[15px]",
+        lg: "h-[52px] px-9 text-[16px]",
       },
       block: { true: "w-full", false: "" },
       iconOnly: { true: "px-0 gap-0", false: "" },
@@ -596,12 +596,15 @@ rótulo muda e a cor não (spec §4.2). O laranja da campanha vive no
 `ProductCard.tsx:459` "Adicionar à sacola" → `primary/buy md block`;
 `:471` "Ver página completa" → `ghost/neutral md block`.
 `ProductCardV2.tsx:308` desktop → `primary/buy lg block`; `:422` mobile →
-`primary/buy md block`.
+`primary/buy lg block`. **Comprar em card é sempre `lg`**: em `md` o rótulo
+fica mais fraco que o nome do produto e a altura encosta no piso de toque.
+As duas medidas do card já foram subidas para 52/16 na conferência de 21/09;
+aqui é só trocar o `<button>` cru pelo primitivo, sem mexer no tamanho.
 
 - [ ] **Step 3: `ProductsPage.tsx`**
 
 `:1509` "Limpar filtros" → `secondary/neutral md`;
-`:1601` "Comprar" lista mobile → `primary/buy sm block`;
+`:1601` "Comprar" lista mobile → `primary/buy lg block`;
 `:1637` "Comprar" lista desktop → `primary/buy md`;
 `:1720` "Carregar mais" → `secondary/neutral lg block`;
 `:1772` "Mostrar N resultados" → `primary/neutral md block`;
@@ -625,7 +628,7 @@ vira `primary/buy md` de verdade; `:1065` "Limpar filtros" →
 - [ ] **Step 5: `QuickAddButton` vira wrapper**
 
 Manter a assinatura pública e trocar o corpo por `Button hierarchy="primary"
-intent="buy" size="sm" block`. Some o `--gradient-buy` e o hover de escala
+intent="buy" size="lg" block`. Some o `--gradient-buy` e o hover de escala
 sozinho. Comentário no topo dizendo que o arquivo é ponte e sai na Task 9.
 
 - [ ] **Step 6: Verificar**
