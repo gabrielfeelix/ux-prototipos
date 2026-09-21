@@ -63,6 +63,11 @@ export const router = createBrowserRouter([
       { path: "comparar", element: carregar(() => import("./pages/ComparePage"), "ComparePage") },
       { path: "faq", element: carregar(() => import("./pages/FaqPage"), "FaqPage") },
       { path: "afinador", element: carregar(() => import("./pages/afinador/AfinadorPage"), "AfinadorPage") },
+
+      /* Showcase do sistema de botões. Rota de desenvolvimento: não é linkada
+         em lugar nenhum e não entra no sitemap. Precisa ficar acima do bloco
+         de ":category/:subcategory", que engoliria /ds/botoes. */
+      { path: "ds/botoes", element: carregar(() => import("./pages/ds/BotoesPage"), "BotoesPage") },
       /* O guia antigo virou o passo do quiz novo. A rota fica de pé porque
          ela foi divulgada e existe link pra ela na home. */
       { path: "guia", loader: () => redirect("/monte-seu-kit/ajuda") },
