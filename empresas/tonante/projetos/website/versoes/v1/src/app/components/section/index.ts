@@ -1,6 +1,8 @@
 export { Eyebrow } from "./Eyebrow";
 export { SectionHeader } from "./SectionHeader";
 export { SectionContainer } from "./SectionContainer";
+export { Button, buttonVariants } from "./Button";
+export type { ButtonProps } from "./Button";
 export { CTAButton, ctaVariants } from "./CTAButton";
 export { GhostButton, ghostVariants } from "./GhostButton";
 export { DiscountBadge } from "./DiscountBadge";
