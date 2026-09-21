@@ -192,6 +192,16 @@ const buttonVariants = cva(
           "group-hover:[border-color:#ffffff] group-hover:[background-color:rgba(255,255,255,0.22)] group-active:[background-color:rgba(255,255,255,0.32)] group-hover:scale-[1.02] group-active:scale-[0.97] motion-reduce:group-hover:scale-100",
       },
       {
+        hierarchy: "primary", intent: "buy", spanHover: true,
+        class:
+          "group-hover:[background-color:var(--buy-green-hover)] group-active:[background-color:var(--buy-green-press)] group-hover:scale-[1.02] group-active:scale-[0.97] motion-reduce:group-hover:scale-100",
+      },
+      {
+        hierarchy: "primary", intent: "neutral", onDark: false, spanHover: true,
+        class:
+          "group-hover:[background-color:var(--btn-neutral-hover)] group-active:[background-color:var(--btn-neutral-press)] group-hover:scale-[1.02] group-active:scale-[0.97] motion-reduce:group-hover:scale-100",
+      },
+      {
         hierarchy: "secondary", onDark: false, spanHover: true,
         class:
           "group-hover:[border-color:var(--ink-strong)] group-hover:[background-color:var(--surface-glass)] group-active:[background-color:rgba(17,17,17,0.10)] group-hover:scale-[1.02] group-active:scale-[0.97] motion-reduce:group-hover:scale-100",

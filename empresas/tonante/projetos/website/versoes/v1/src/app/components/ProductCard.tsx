@@ -11,7 +11,7 @@ import { getProductAttributes } from "./productAttributes";
 import { getInstallmentCount, getInstallmentValue, getLuthier } from "./productEnhancements";
 import { TimbrePlayer } from "./TimbrePlayer";
 import { getCardSpecs } from "./productAttributes";
-import { DiscountBadge } from "./section";
+import { Button, DiscountBadge } from "./section";
 import { useFavorites } from "./FavoritesContext";
 import { useCardVariant } from "./CardVariantContext";
 import { type CompareCardState } from "./CompareBar";
@@ -456,29 +456,32 @@ function ProductCardClassic({
               </div>
               <div className="mt-3 flex flex-col gap-2.5">
                 {onAdd && (
-                  <button
-                    type="button"
+                  <Button
+                    hierarchy="primary"
+                    intent="buy"
+                    size="lg"
+                    block
                     onClick={() => {
                       onAdd(product);
                       setQuickOpen(false);
                     }}
-                    className="flex h-[52px] items-center justify-center gap-2 rounded-pill cursor-pointer"
-                    style={{ background: "var(--primary)", color: "#fff", padding: "0 22px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "16px", boxShadow: "var(--shadow-buy-cta-sm)" }}
                   >
-                    <ShoppingBag size={17} strokeWidth={2} /> Adicionar à sacola
-                  </button>
+                    <ShoppingBag size={17} strokeWidth={2} />
+                    Adicionar à sacola
+                  </Button>
                 )}
-                <button
-                  type="button"
+                <Button
+                  hierarchy="ghost"
+                  intent="neutral"
+                  size="md"
+                  block
                   onClick={() => {
                     setQuickOpen(false);
                     navigate(href);
                   }}
-                  className="rounded-pill cursor-pointer"
-                  style={{ background: "transparent", color: "var(--ink-strong)", padding: "12px 22px", border: "1.5px solid #d6d6d6", fontFamily: "var(--font-family-inter)", fontWeight: 600, fontSize: "14.5px" }}
                 >
                   Ver página completa
-                </button>
+                </Button>
               </div>
             </div>
           </div>

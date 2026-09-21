@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router";
 import { motion } from "motion/react";
-import { ArrowLeft, Star, X } from "lucide-react";
+import { ArrowLeft, Check, Star, X } from "lucide-react";
+import { Button } from "../components/section";
 import { Footer } from "../components/Footer";
 import { SEO } from "../components/SEO";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
@@ -120,13 +121,9 @@ export function ComparePage() {
           <p className="mx-auto mt-3 max-w-[420px] text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)", lineHeight: 1.65 }}>
             Escolha até três produtos do mesmo tipo no catálogo e volte aqui.
           </p>
-          <Link
-            to="/produtos"
-            className="mt-7 inline-flex h-11 items-center gap-2 px-6"
-            style={{ borderRadius: "var(--radius-pill)", background: "var(--primary)", color: "#fff", fontFamily: "var(--font-family-inter)", fontSize: "14px", fontWeight: 600 }}
-          >
+          <Button as="link" to="/produtos" hierarchy="primary" intent="neutral" size="md" className="mt-7">
             Ver o catálogo
-          </Link>
+          </Button>
         </div>
         <Footer />
       </>
@@ -251,22 +248,27 @@ export function ComparePage() {
                       ou {getInstallmentCount(product.priceNum)}x de {formatBRL(getInstallmentValue(product.priceNum))}
                     </p>
 
-                    {/* uma ação só: "Comprar agora" põe no carrinho, igual ao card */}
-                    <button
-                      type="button"
+                    {/* uma ação só: "Comprar agora" põe no carrinho, igual ao
+                        card. Mesmo primitivo do resto do site: era um <button>
+                        cru com cor inline, e por isso o único botão de compra
+                        da loja que não respondia ao mouse. */}
+                    <Button
+                      hierarchy="primary"
+                      intent={added === product.id ? "neutral" : "buy"}
+                      size="lg"
+                      block
                       onClick={() => buy(product)}
-                      className="mt-5 flex h-[52px] w-full shrink-0 cursor-pointer items-center justify-center transition-[background-color,transform] active:scale-[0.98]"
-                      style={{
-                        borderRadius: "var(--radius-pill)",
-                        background: added === product.id ? "var(--ink-strong)" : "var(--buy-green)",
-                        color: "#ffffff",
-                        fontFamily: "var(--font-family-inter)",
-                        fontSize: "16px",
-                        fontWeight: 600,
-                      }}
+                      className="mt-5 shrink-0"
                     >
-                      {added === product.id ? "No carrinho ✓" : "Comprar agora"}
-                    </button>
+                      {added === product.id ? (
+                        <>
+                          <Check size={16} strokeWidth={2.6} />
+                          No carrinho
+                        </>
+                      ) : (
+                        "Comprar agora"
+                      )}
+                    </Button>
                   </motion.div>
                 ))}
               </div>

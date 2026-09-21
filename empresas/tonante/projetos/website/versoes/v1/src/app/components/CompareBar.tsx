@@ -7,6 +7,7 @@ import { CATEGORIA_KIT } from "../lib/kits";
 import { getPrimaryProductImage, getProductSubcategory } from "./productPresentation";
 import { isFotoAmbientada } from "./photoBackdrop";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Button } from "./section";
 
 /* Comparador do catálogo (ref: Gibson/Epiphone, layout nosso).
    Só compara produtos do MESMO tipo — comparar um violão com uma capa não
@@ -265,30 +266,18 @@ export function CompareBar({
               </button>
 
               <div className="flex items-center gap-5">
-                <button
-                  type="button"
-                  onClick={onClear}
-                  className="cursor-pointer text-ink-muted underline underline-offset-4 transition-colors hover:text-ink-strong"
-                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "13.5px" }}
-                >
+                <Button hierarchy="ghost" intent="neutral" size="sm" onClick={onClear}>
                   Limpar
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  hierarchy="primary"
+                  intent="neutral"
+                  size="md"
                   onClick={onStart}
                   disabled={!ready}
-                  className="h-11 cursor-pointer px-6 transition-all disabled:cursor-not-allowed"
-                  style={{
-                    borderRadius: "var(--radius-pill)",
-                    background: ready ? "var(--primary)" : "var(--surface-3)",
-                    color: ready ? "#ffffff" : "var(--ink-subtle)",
-                    fontFamily: "var(--font-family-inter)",
-                    fontSize: "14px",
-                    fontWeight: 600,
-                  }}
                 >
                   Comparar agora
-                </button>
+                </Button>
               </div>
             </div>
 

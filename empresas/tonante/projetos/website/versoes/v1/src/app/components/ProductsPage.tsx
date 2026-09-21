@@ -30,7 +30,7 @@ import {
   getVisibleCatalogProducts,
 } from "./productPresentation";
 import { getPreOrderInfo } from "./PreOrderData";
-import { DiscountBadge, PreOrderPill } from "./section";
+import { Button, DiscountBadge, PreOrderPill } from "./section";
 import { SEO } from "./SEO";
 import { getCategoryUrl } from "../lib/slug";
 import { CategorySeoBlock } from "./CategorySeoBlock";
@@ -1508,10 +1508,9 @@ export function ProductsPage() {
                   </div>
                   <p className="text-foreground mb-3" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: "var(--font-weight-medium)" }}>Nenhum produto encontrado</p>
                   <p className="text-foreground/50 mb-8" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-base)" }}>Tente ajustar os filtros ou mudar os termos de busca.</p>
-                  <button onClick={clearAll}
-                    className="px-6 py-3 border border-foreground/15 text-foreground/70 hover:text-foreground hover:border-foreground/30 transition-all font-medium"
-                    style={{ borderRadius: "var(--radius-button)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
-                  >Limpar filtros</button>
+                  <Button hierarchy="secondary" intent="neutral" size="md" onClick={clearAll}>
+                    Limpar filtros
+                  </Button>
                 </motion.div>
               ) : (
                 <div className={`relative transition-opacity duration-300 ${isLoading ? "opacity-50 pointer-events-none" : "opacity-100"}`}>
@@ -1601,10 +1600,17 @@ export function ProductsPage() {
                             <div className="sm:hidden mt-2.5">
                               <ListPrice product={displayProduct} />
                             </div>
-                            <button onClick={() => handleAddToCart(displayProduct)}
-                              className="sm:hidden mt-2.5 flex h-[52px] w-full items-center justify-center gap-2 rounded-full cursor-pointer"
-                              style={{ background: "var(--gradient-buy)", color: "white", fontFamily: "var(--font-family-inter)", fontSize: "16px", fontWeight: 700, letterSpacing: "0.04em", boxShadow: "var(--shadow-buy-cta-sm)" }}
-                            ><ShoppingBag size={14} strokeWidth={2} /> Comprar</button>
+                            <Button
+                              hierarchy="primary"
+                              intent="buy"
+                              size="lg"
+                              block
+                              onClick={() => handleAddToCart(displayProduct)}
+                              className="sm:hidden mt-2.5 flex"
+                            >
+                              <ShoppingBag size={14} strokeWidth={2} />
+                              Comprar
+                            </Button>
                             {compareMode && (
                             <CompareToggle
                               selected={compareItems.some((p) => p.id === product.id)}
@@ -1635,18 +1641,17 @@ export function ProductsPage() {
                             ><Heart size={16} className={isFavorite(displayProduct.id) ? "fill-red-500 text-red-500" : ""} strokeWidth={2} /></button>
                             <div className="flex w-full flex-col items-end gap-2.5">
                             <ListPrice product={displayProduct} align="right" />
-                            <button onClick={() => handleAddToCart(displayProduct)}
-                              className="flex h-[52px] w-full min-w-[212px] items-center justify-center gap-2 px-7 rounded-full transition-transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
-                              style={{
-                                background: "var(--gradient-buy)",
-                                color: "white",
-                                fontFamily: "var(--font-family-inter)",
-                                fontSize: "16px",
-                                fontWeight: 700,
-                                letterSpacing: "0.04em",
-                                boxShadow: "var(--shadow-buy-cta-sm)",
-                              }}
-                            ><ShoppingBag size={14} strokeWidth={2} /> Comprar</button>
+                            <Button
+                              hierarchy="primary"
+                              intent="buy"
+                              size="lg"
+                              block
+                              onClick={() => handleAddToCart(displayProduct)}
+                              className="min-w-[212px]"
+                            >
+                              <ShoppingBag size={14} strokeWidth={2} />
+                              Comprar
+                            </Button>
                             </div>
                           </div>
                         </motion.div>
@@ -1717,19 +1722,15 @@ export function ProductsPage() {
                     >
                       {paginatedProducts.length} de {filtered.length} produtos
                     </span>
-                    <button
+                    <Button
+                      hierarchy="secondary"
+                      intent="neutral"
+                      size="lg"
+                      block
                       onClick={() => setItemsPerPage((n) => (n + 16) as typeof itemsPerPage)}
-                      className="h-12 w-full cursor-pointer rounded-full font-semibold transition-opacity active:opacity-80"
-                      style={{
-                        border: "1px solid var(--edge)",
-                        background: "var(--surface-1)",
-                        fontFamily: "var(--font-family-inter)",
-                        fontSize: "15px",
-                        color: "var(--ink-strong)",
-                      }}
                     >
                       Carregar mais
-                    </button>
+                    </Button>
                   </div>
                 </>
               )}
@@ -1769,12 +1770,16 @@ export function ProductsPage() {
               </div>
               {filterSidebar}
               <div className="sticky bottom-0 pt-4 mt-8 bg-inherit">
-                <button onClick={() => { applyFilters(); setMobileFiltersOpen(false); }}
-                  className="w-full py-3.5 bg-foreground text-background font-bold flex items-center justify-center gap-2 transition-opacity hover:opacity-90 shadow-lg"
-                  style={{ borderRadius: "var(--radius-button)", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", letterSpacing: "0.04em", textTransform: "uppercase" }}
+                <Button
+                  hierarchy="primary"
+                  intent="neutral"
+                  size="md"
+                  block
+                  onClick={() => { applyFilters(); setMobileFiltersOpen(false); }}
                 >
-                  <Check size={16} /> Mostrar {filtered.length} resultado{filtered.length !== 1 ? "s" : ""}
-                </button>
+                  <Check size={16} />
+                  Mostrar {filtered.length} resultado{filtered.length !== 1 ? "s" : ""}
+                </Button>
               </div>
             </motion.div>
           </>
@@ -1967,23 +1972,17 @@ export function ProductsPage() {
                     </div>
                   )}
 
-                  <button
+                  <Button
+                    hierarchy="primary"
+                    intent="buy"
+                    size="lg"
+                    block
                     onClick={() => { handleAddToCart(quickViewProduct); setQuickViewProduct(null); }}
-                    className="w-full h-[52px] flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer mt-auto"
-                    style={{
-                      background: "var(--gradient-buy)",
-                      color: "white",
-                      borderRadius: "var(--radius-pill)",
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "16px",
-                      fontWeight: 700,
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                      boxShadow: "var(--shadow-buy-cta)",
-                    }}
+                    className="mt-auto"
                   >
-                    <ShoppingBag size={16} strokeWidth={2} /> Comprar
-                  </button>
+                    <ShoppingBag size={16} strokeWidth={2} />
+                    Comprar
+                  </Button>
                 </div>
               </div>
             </motion.div>

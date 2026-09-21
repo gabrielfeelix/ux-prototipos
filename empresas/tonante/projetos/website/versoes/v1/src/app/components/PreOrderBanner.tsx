@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Rocket, Lock, CalendarDays, Sparkles, ShieldCheck } from "lucide-react";
 import type { PreOrderInfo } from "./PreOrderData";
+import { Button } from "./section";
 
 type Props = {
   info: PreOrderInfo;
@@ -310,22 +311,20 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
         </div>
 
         {/* CTA */}
-        <button
+        {/* pré-venda deixou de ter cor própria: o laranja competia com o âmbar
+            da marca e prometia uma ação diferente da que é. O rótulo e o
+            foguete dizem que é reserva; o verde diz que é compra. */}
+        <Button
+          hierarchy="primary"
+          intent="buy"
+          size="lg"
+          block
           onClick={onReserve}
           disabled={remaining <= 0}
-          className="w-full h-[52px] flex items-center justify-center gap-2 [color:#fff] [&_svg]:text-[#fff] rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-          style={{
-            background: "var(--gradient-preorder-orange)",
-            fontFamily: "var(--font-family-inter)",
-            fontSize: "16px",
-            fontWeight: 700,
-            letterSpacing: "0.04em",
-            boxShadow: "var(--shadow-preorder-cta)",
-          }}
         >
           <Rocket size={15} strokeWidth={2.4} />
           {remaining > 0 ? "Comprar agora" : "Esgotado"}
-        </button>
+        </Button>
 
         {/* guarantees */}
         <div className="mt-4 flex items-start gap-2">

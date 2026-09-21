@@ -24,7 +24,7 @@ import { getInstallmentCount, getInstallmentValue } from "./productEnhancements"
 import { getPreOrderInfo } from "./PreOrderData";
 import type { PreOrderInfo } from "./PreOrderData";
 import { PreOrderBanner, useCountdown } from "./PreOrderBanner";
-import { CTAButton, DiscountBadge, QtyStepper } from "./section";
+import { Button, DiscountBadge, QtyStepper } from "./section";
 import { SEO } from "./SEO";
 import { getProductSlug, getProductUrl } from "../lib/slug";
 import { isFotoAmbientada } from "./photoBackdrop";
@@ -918,17 +918,17 @@ function StickyPriceCard({
 
         {/* CTAs */}
         <div className="relative flex flex-col gap-2 mb-5">
-          <CTAButton
-            variant="buy"
+          <Button
+            hierarchy="primary"
+            intent="buy"
             size="lg"
             block
             onClick={onBuyNow}
             disabled={!inStock}
-            className="cursor-pointer disabled:cursor-not-allowed"
           >
             <ShoppingBag size={16} strokeWidth={2.2} />
             Comprar agora
-          </CTAButton>
+          </Button>
         </div>
 
         <div className="h-px bg-foreground/6 mb-5" />
@@ -1268,20 +1268,20 @@ function MobilePurchaseFlow({
           />
         </div>
 
-        <CTAButton
-          variant={isPreOrder ? "preorder" : "buy"}
+        <Button
+          hierarchy="primary"
+          intent="buy"
           size="lg"
           block
           onClick={onBuyNow}
           disabled={buyDisabled}
-          className="cursor-pointer disabled:cursor-not-allowed"
         >
           {isPreOrder ? (
             <><Rocket size={15} strokeWidth={2.4} className="flex-shrink-0" /> {preOrderSoldOut ? "Esgotado" : "Comprar agora"}</>
           ) : (
             <><Zap size={15} strokeWidth={2.4} fill="currentColor" className="flex-shrink-0" /> Comprar agora</>
           )}
-        </CTAButton>
+        </Button>
 
         {isPreOrder && (
           <div className="mt-4 flex items-start gap-2">
@@ -1576,9 +1576,16 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
               })}
             </div>
 
-            <button onClick={() => setReviewModalOpen(true)} className="w-full mt-10 py-3.5 border border-foreground/10 hover:border-foreground/25 text-foreground transition-all font-semibold cursor-pointer" style={{ borderRadius: "var(--radius-button)", fontSize: "var(--text-sm)" }}>
+            <Button
+              hierarchy="secondary"
+              intent="neutral"
+              size="md"
+              block
+              onClick={() => setReviewModalOpen(true)}
+              className="mt-10"
+            >
               Escrever uma avaliação
-            </button>
+            </Button>
           </div>
 
           {/* List */}
@@ -1958,7 +1965,11 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
                       style={{ borderRadius: "var(--radius-card)", fontSize: "var(--text-sm)" }}
                     />
                   </div>
-                  <button
+                  <Button
+                    hierarchy="primary"
+                    intent="neutral"
+                    size="md"
+                    block
                     onClick={() => {
                       if (newReviewRating === 0) {
                         toast.error("Por favor, selecione uma nota.");
@@ -1973,11 +1984,10 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
                       setNewReviewRating(0);
                       setNewReviewText("");
                     }}
-                    className="w-full mt-4 py-3 bg-primary text-primary-foreground font-semibold transition-all hover:bg-primary/90 cursor-pointer"
-                    style={{ borderRadius: "var(--radius-button)", fontSize: "var(--text-sm)" }}
+                    className="mt-4"
                   >
                     Enviar Avaliação
-                  </button>
+                  </Button>
                 </div>
               </motion.div>
             </div>
@@ -2191,20 +2201,16 @@ function ProductStandardDescription({ product, images }: { product: any; images:
         </div>
 
         {!descAberta && (
-          <button
+          <Button
+            hierarchy="tertiary"
+            intent="neutral"
+            size="md"
             onClick={() => setDescAberta(true)}
-            className="mx-auto mt-4 flex h-12 w-[calc(100%-2.5rem)] cursor-pointer items-center justify-center gap-1.5 rounded-pill lg:hidden"
-            style={{
-              border: "1px solid var(--edge)",
-              background: "var(--surface-1)",
-              fontFamily: "var(--font-family-inter)",
-              fontSize: "15px",
-              fontWeight: 600,
-              color: "var(--ink-strong)",
-            }}
+            className="mx-auto mt-4 flex w-[calc(100%-2.5rem)] lg:hidden"
           >
-            Ver descrição completa <ChevronDown size={16} strokeWidth={2.2} />
-          </button>
+            Ver descrição completa
+            <ChevronDown size={16} strokeWidth={2.2} />
+          </Button>
         )}
       </div>
     </section>
@@ -2864,12 +2870,13 @@ export function ProductPage() {
           {/* mesmo componente do botão grande da página: verde chapado
               --buy-green e texto branco. Antes era um <button> à parte com
               var(--gradient-buy), que é outro verde. */}
-          <CTAButton
-            variant={preOrderInfo ? "preorder" : "buy"}
+          <Button
+            hierarchy="primary"
+            intent="buy"
             size="lg"
             onClick={handleBuyNow}
             disabled={preOrderInfo ? (preOrderInfo.reservedUnits >= preOrderInfo.totalUnits) : (product.inStock === false)}
-            className="flex-shrink-0 cursor-pointer px-5 disabled:cursor-not-allowed"
+            className="flex-shrink-0 px-5"
           >
             {preOrderInfo ? (
               preOrderInfo.reservedUnits >= preOrderInfo.totalUnits ? (
@@ -2880,7 +2887,7 @@ export function ProductPage() {
             ) : (
               <><Zap size={15} strokeWidth={2.4} fill="currentColor" /> Comprar agora</>
             )}
-          </CTAButton>
+          </Button>
         </div>
       </div>
 

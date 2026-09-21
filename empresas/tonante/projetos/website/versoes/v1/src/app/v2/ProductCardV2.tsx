@@ -14,7 +14,7 @@ import { isFotoAmbientada, isFotoDesproporcional } from "../components/photoBack
 import { getPixPrice, formatBRL, getInstallmentCount, getInstallmentValue } from "../components/productEnhancements";
 import { getProductUrl } from "../lib/slug";
 import { getPreOrderInfo } from "../components/PreOrderData";
-import { PreOrderPill } from "../components/section";
+import { Button, PreOrderPill } from "../components/section";
 import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
 import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
 import { tomarFoco, largarFoco } from "../lib/audioFoco";
@@ -305,17 +305,15 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
             --buy-green*). O hover do CARD revela o botão; o hover do BOTÃO
             escurece — dois gestos diferentes, e por isso o `translate/opacity`
             fica em group-hover e a cor em hover próprio. */}
-        <button
+        <Button
+          hierarchy="primary"
+          intent="buy"
+          size="lg"
           onClick={add}
-          className="absolute inset-x-3 bottom-3 z-[2] hidden h-[52px] translate-y-2.5 cursor-pointer items-center justify-center rounded-pill opacity-0 md:flex transition-[opacity,translate,background-color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:translate-y-0 group-hover/card:opacity-100 [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] active:scale-[0.98]"
-          style={{
-            color: "#ffffff",
-            padding: "6px 10px",
-            fontFamily: "var(--font-family-inter)", fontSize: "16px", fontWeight: 600,
-          }}
+          className="absolute inset-x-3 bottom-3 z-[2] hidden translate-y-2.5 px-3 opacity-0 md:flex transition-[opacity,translate,background-color,transform] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:translate-y-0 group-hover/card:opacity-100 hover:scale-100"
         >
           Comprar agora
-        </button>
+        </Button>
       </div>
 
       {/* variantes de acabamento — cada miniatura é outro produto. A fileira
@@ -419,18 +417,16 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
           foto simplesmente nunca aparecia: o card ficava sem ação nenhuma e
           comprar exigia entrar na PDP. Aqui ele é linha própria, embaixo do
           preço — a ordem da decisão termina no botão. */}
-      <button
+      <Button
+        hierarchy="primary"
+        intent="buy"
+        size="lg"
+        block
         onClick={add}
-        className="mt-3 flex h-[52px] w-full cursor-pointer items-center justify-center rounded-pill transition-colors [background-color:var(--buy-green)] active:scale-[0.98] active:[background-color:var(--buy-green-press)] md:hidden"
-        style={{
-          color: "#ffffff",
-          fontFamily: "var(--font-family-inter)",
-          fontSize: "16px",
-          fontWeight: 600,
-        }}
+        className="mt-3 flex px-3 md:hidden"
       >
         Comprar agora
-      </button>
+      </Button>
     </article>
   );
 }

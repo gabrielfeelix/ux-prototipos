@@ -17,6 +17,7 @@ import {
   ArrowDownUp,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Button } from "./section";
 import { Footer } from "./Footer";
 import { allProducts } from "./productsData";
 import { getPrimaryProductImage } from "./productPresentation";
@@ -297,20 +298,18 @@ function PreOrderCard({ info }: { info: PreOrderInfo }) {
                 {info.preOrderPrice ?? product.price}
               </p>
             </div>
-            <span
-              className="inline-flex items-center justify-center gap-1.5 h-[52px] px-6 rounded-full text-ink-strong transition-all duration-300 group-hover:translate-x-0.5 w-full md:w-auto md:justify-start"
-              style={{
-                background: "#e08c12",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "16px",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                boxShadow: "0 8px 22px -10px rgba(200, 120, 0,0.35)",
-              }}
+            {/* <a> dentro de <a> é inválido: o card inteiro já é o Link, então
+                aqui o botão é span e os estados vêm do group do pai. */}
+            <Button
+              as="span"
+              hierarchy="primary"
+              intent="buy"
+              size="lg"
+              className="w-full px-6 transition-all duration-300 group-hover:translate-x-0.5 md:w-auto"
             >
               Reservar
               <ChevronRight size={14} strokeWidth={2.4} />
-            </span>
+            </Button>
           </div>
         </div>
       </div>
