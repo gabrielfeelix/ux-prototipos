@@ -8,12 +8,13 @@ import { useIsMobile } from "../components/ui/use-mobile";
 
 /* HeroBannersV2 — mesmos banners da v1, porém full-bleed (sem margem,
    sem raio, sem sombra) e mais altos, como no tema Local. */
-type Slide = { img: string; href: string; alt: string };
+/** `imgEstreita` é a mesma arte em 960px, para telas de celular. */
+type Slide = { img: string; imgEstreita: string; href: string; alt: string };
 
 const SLIDES: Slide[] = [
-  { img: "/assets/banner-1-home.png", href: getCatalogHref({ category: "Guitarras" }), alt: "Edição 70 anos Tonante: guitarras" },
-  { img: "/assets/banner-2-home.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), alt: "Novidades e reposições: encordoamentos Tonante" },
-  { img: "/assets/banner-3-home.png", href: "/produtos", alt: "Lançamento linha HAKA: ukulele Tonante" },
+  { img: "/assets/banner-1-home.webp", imgEstreita: "/assets/banner-1-home-960.webp", href: getCatalogHref({ category: "Guitarras" }), alt: "Edição 70 anos Tonante: guitarras" },
+  { img: "/assets/banner-2-home.webp", imgEstreita: "/assets/banner-2-home-960.webp", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), alt: "Novidades e reposições: encordoamentos Tonante" },
+  { img: "/assets/banner-3-home.webp", imgEstreita: "/assets/banner-3-home-960.webp", href: "/produtos", alt: "Lançamento linha HAKA: ukulele Tonante" },
 ];
 
 export function HeroBannersV2() {
@@ -76,15 +77,14 @@ export function HeroBannersV2() {
                   abertura. Em WebP são 588 KB no desktop e 196 KB no celular,
                   com a versão estreita servida por `media` pra tela pequena
                   não pagar por pixel que ela não mostra.
+                  O PNG deixou de ser o `src` de reserva e saiu do repositório:
+                  todo navegador que o site atende lê WebP desde 2020, e
+                  manter os três originais só para um fallback que ninguém
+                  alcança custava 9,1 MB de repositório e de deploy.
                   O primeiro banner é o LCP da home: carrega com prioridade.
                   Os outros dois só entram quando o carrossel pedir. */}
               <picture>
-                <source
-                  media="(max-width: 767px)"
-                  srcSet={s.img.replace(/\.png$/, "-960.webp")}
-                  type="image/webp"
-                />
-                <source srcSet={s.img.replace(/\.png$/, ".webp")} type="image/webp" />
+                <source media="(max-width: 767px)" srcSet={s.imgEstreita} type="image/webp" />
                 <img
                   src={s.img}
                   alt={s.alt}

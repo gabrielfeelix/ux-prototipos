@@ -10,9 +10,9 @@ import { getCatalogHref } from "./productPresentation";
 type Slide = { img: string; href: string; alt: string };
 
 const slides: Slide[] = [
-  { img: "/assets/banner-1-home.png", href: getCatalogHref({ category: "Guitarras" }), alt: "Edição 70 anos Tonante: guitarras" },
-  { img: "/assets/banner-2-home.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), alt: "Novidades e reposições: encordoamentos Tonante" },
-  { img: "/assets/banner-3-home.png", href: "/produtos", alt: "Lançamento linha HAKA: ukulele Tonante" },
+  { img: "/assets/banner-1-home.webp", href: getCatalogHref({ category: "Guitarras" }), alt: "Edição 70 anos Tonante: guitarras" },
+  { img: "/assets/banner-2-home.webp", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), alt: "Novidades e reposições: encordoamentos Tonante" },
+  { img: "/assets/banner-3-home.webp", href: "/produtos", alt: "Lançamento linha HAKA: ukulele Tonante" },
 ];
 
 export function HeroSection() {
