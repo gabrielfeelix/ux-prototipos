@@ -321,6 +321,8 @@ function StickyBanner({ banner }: { banner: ShelfStickyBanner }) {
           alt=""
           aria-hidden="true"
           onError={() => setSrc(banner.img)}
+          loading="lazy"
+          decoding="async"
           style={{ objectPosition: banner.focus ?? "center" }}
           className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/banner:scale-[1.05]"
         />

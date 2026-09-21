@@ -44,6 +44,25 @@ export default defineConfig({
   build: {
     outDir: prototypeOutDir,
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        /* O catálogo (productsData e companhia) são ~640 KB de fonte que a
+           home precisa ter em mãos, mas que mudam quando entra produto novo,
+           não quando mexemos em tela. Separá-los de `vendor` e do código da
+           aplicação faz cada um envelhecer no seu ritmo: uma mudança de
+           layout não invalida o catálogo no cache de quem já visitou, e um
+           produto novo não obriga a rebaixar o React inteiro. */
+        manualChunks(id) {
+          if (!id.includes("node_modules")) {
+            return /components\/(productsData|productGalleries|productsSiteOficial|photoRoles|photoBackdrop)\./.test(id)
+              ? "catalogo"
+              : undefined
+          }
+          if (/node_modules\/(react|react-dom|scheduler|react-router)\//.test(id)) return "vendor-react"
+          return "vendor"
+        },
+      },
+    },
   },
   plugins: [
     // The React and Tailwind plugins are both required for Make, even if

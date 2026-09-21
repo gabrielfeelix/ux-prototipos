@@ -51,19 +51,19 @@ export interface Familia {
 }
 
 export const FAMILIAS: Familia[] = [
-  { id: "violao", label: "Violão", hint: "O mais comum, e o que mais perdoa erro", foto: "/categorias/violao.png", audio: "violao-nylon" },
-  { id: "guitarra", label: "Guitarra", hint: "Precisa de amplificador pra existir", foto: "/categorias/guitarra.png", audio: "guitarra" },
-  { id: "baixo", label: "Contrabaixo", hint: "Quatro cordas graves, o chão da banda", foto: "/categorias/contrabaixo.png", audio: "baixo" },
-  { id: "viola", label: "Viola caipira", hint: "Dez cordas, afinação própria, som de raiz", foto: "/categorias/viola.png", audio: "viola" },
-  { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", foto: "/categorias/ukulele.png", audio: "ukulele" },
-  { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", foto: "/categorias/bateria.png", audio: "bateria" },
-  { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", foto: "/categorias/teclado.png", audio: "teclado" },
+  { id: "violao", label: "Violão", hint: "O mais comum, e o que mais perdoa erro", foto: "/categorias/violao.webp", audio: "violao-nylon" },
+  { id: "guitarra", label: "Guitarra", hint: "Precisa de amplificador pra existir", foto: "/categorias/guitarra.webp", audio: "guitarra" },
+  { id: "baixo", label: "Contrabaixo", hint: "Quatro cordas graves, o chão da banda", foto: "/categorias/contrabaixo.webp", audio: "baixo" },
+  { id: "viola", label: "Viola caipira", hint: "Dez cordas, afinação própria, som de raiz", foto: "/categorias/viola.webp", audio: "viola" },
+  { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", foto: "/categorias/ukulele.webp", audio: "ukulele" },
+  { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", foto: "/categorias/bateria.webp", audio: "bateria" },
+  { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", foto: "/categorias/teclado.webp", audio: "teclado" },
   /* Quem canta é o caso que faltava: o quiz perguntava "que instrumento você
      quer tocar?" e não tinha resposta pra quem já toca com a voz. O montador
      já resolveu isso (família "voz", trilho Microfone › Cabo XLR › Pedestal),
      e aqui a escolha vira microfone em vez de instrumento. Sem amostra de
      áudio: timbre de voz é a do cliente, não a de um arquivo nosso. */
-  { id: "voz", label: "Voz", hint: "Canta, com ou sem instrumento na mão", foto: "/categorias/microfone.png" },
+  { id: "voz", label: "Voz", hint: "Canta, com ou sem instrumento na mão", foto: "/categorias/microfone.webp" },
   /* Sopro saiu do quiz: um produto só (a flauta) não sustenta uma família
      inteira de pergunta. Continua existindo como instrumento e em
      bandLibrary, só não abre mais caminho aqui. */

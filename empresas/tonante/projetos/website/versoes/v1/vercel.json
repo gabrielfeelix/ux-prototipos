@@ -4,5 +4,28 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
+  ],
+  "headers": [
+    {
+      "//": "Arquivos gerados pelo build levam hash no nome. Quando o conteudo muda, o nome muda, entao a copia antiga nunca precisa ser revalidada: um ano e imutavel.",
+      "source": "/assets/(.*)-(.{8})\\.(js|css)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "//": "Fotos e videos da pasta public nao levam hash, entao vale um cache curto no browser com revalidacao longa na borda: a segunda visita nao volta a baixar 9 MB de banner, e uma troca de arte sai do ar em ate um dia.",
+      "source": "/(assets|categorias|produtos|kits|setups|musicos|home|cordas|bandas|monte-seu-kit|cenas|lp|switches|audio)/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "//": "O index.html e o mapa para os arquivos com hash. Se ele ficar em cache, um deploy novo continua apontando para arquivos que ja sairam.",
+      "source": "/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
   ]
 }

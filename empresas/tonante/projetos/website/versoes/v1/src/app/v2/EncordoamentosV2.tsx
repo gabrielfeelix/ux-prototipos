@@ -31,7 +31,7 @@ export const FAMILIAS: Familia[] = [
     title: "Nylon para violão",
     href: getCatalogHref({ category: "Cordas & Encordoamentos", search: "nylon" }),
     bg: "linear-gradient(90deg, #e3c19a 0.0%, #e2bd95 12.5%, #dfba91 25.0%, #dcb88f 37.5%, #dab58a 50.0%, #d9b388 62.5%, #d5af84 75.0%, #d2ab81 87.5%, #cfaa80 100.0%)",
-    art: "/cordas/nylon-violao.png",
+    art: "/cordas/nylon-violao.webp",
     fallbackImg: getPrimaryProductImage(findByName("nylon") ?? allProducts[0]),
   },
   {
@@ -40,7 +40,7 @@ export const FAMILIAS: Familia[] = [
     title: "Aço para violão",
     href: getCatalogHref({ category: "Cordas & Encordoamentos", search: "aço" }),
     bg: "linear-gradient(90deg, #aec0aa 0.0%, #aabda3 12.5%, #a4b99f 25.0%, #a0b49a 37.5%, #9eb298 50.0%, #9aaf95 62.5%, #97ac92 75.0%, #94a98f 87.5%, #8fa58b 100.0%)",
-    art: "/cordas/aco-violao.png",
+    art: "/cordas/aco-violao.webp",
     fallbackImg: getPrimaryProductImage(findByName("aço", "violão") ?? allProducts[0]),
   },
   {
@@ -49,7 +49,7 @@ export const FAMILIAS: Familia[] = [
     title: "Níquel para guitarra",
     href: getCatalogHref({ category: "Cordas & Encordoamentos", search: "guitarra" }),
     bg: "linear-gradient(90deg, #8dbce8 0.0%, #89bbe6 12.5%, #84b7e4 25.0%, #82b5e2 37.5%, #7cb1e0 50.0%, #79afde 62.5%, #75abdc 75.0%, #76acdc 87.5%, #6fa6d8 100.0%)",
-    art: "/cordas/niquel-guitarra.png",
+    art: "/cordas/niquel-guitarra.webp",
     fallbackImg: getPrimaryProductImage(findByName("guitarra", "encordoamento") ?? allProducts[0]),
   },
   {
@@ -58,7 +58,7 @@ export const FAMILIAS: Familia[] = [
     title: "Níquel para baixo",
     href: getCatalogHref({ category: "Cordas & Encordoamentos", search: "baixo" }),
     bg: "linear-gradient(90deg, #baa2c6 0.0%, #b89ec3 12.5%, #b69cc1 25.0%, #b298bc 37.5%, #af94b9 50.0%, #a990b5 62.5%, #a98eb3 75.0%, #a68bb1 87.5%, #a187ab 100.0%)",
-    art: "/cordas/niquel-baixo.png",
+    art: "/cordas/niquel-baixo.webp",
     fallbackImg: getPrimaryProductImage(findByName("baixo", "encordoamento") ?? allProducts[0]),
   },
 ];
@@ -66,6 +66,9 @@ export const FAMILIAS: Familia[] = [
 export function FamiliaCard({ f }: { f: Familia }) {
   const [src, setSrc] = useState(f.art);
   const isFallback = src === f.fallbackImg;
+  /* A arte cobre o quadrado inteiro do tile; sem ela sobra um bloco da cor de
+     fundo da família, que lê como card vazio e não como card chegando. */
+  const [arte, setArte] = useState(false);
 
   return (
     <Link
@@ -73,12 +76,15 @@ export function FamiliaCard({ f }: { f: Familia }) {
       className="group/fam flex flex-col overflow-hidden"
       style={{ background: f.bg, borderRadius: "10px" }}
     >
-      <div className="relative w-full" style={{ aspectRatio: "1 / 1" }}>
+      <div className={`relative w-full ${arte ? "" : "tn-skel"}`} style={{ aspectRatio: "1 / 1" }}>
         <img
           src={src}
           alt=""
           aria-hidden="true"
           onError={() => setSrc(f.fallbackImg)}
+          onLoad={() => setArte(true)}
+          loading="lazy"
+          decoding="async"
           className={`absolute inset-0 h-full w-full transition-transform duration-[600ms] ease-out group-hover/fam:scale-[1.04] ${
             isFallback ? "object-contain p-12" : "object-cover"
           }`}

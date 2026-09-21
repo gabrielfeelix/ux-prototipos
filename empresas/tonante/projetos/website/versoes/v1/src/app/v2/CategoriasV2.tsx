@@ -7,7 +7,7 @@ import { getPrimaryProductImage, getCatalogHref } from "../components/productPre
 
 /* CategoriasV2 — "Compre por categoria".
    Grade de 6 por linha com a arte dentro de um tile e o nome embaixo.
-   `art` aponta para /categorias/<slug>.png; enquanto a arte final não
+   `art` aponta para /categorias/<slug>.webp; enquanto a arte final não
    existe, cai no produto mais bem avaliado da categoria.
 
    Três variantes, trocáveis por `?cat=`:
@@ -53,23 +53,23 @@ type Cat = {
 
 const CATS: Cat[] = [
   /* 1ª linha — instrumentos, na ordem de tamanho do catálogo */
-  { label: "Violões", art: "/categorias/violao.png", href: getCatalogHref({ category: "Violões" }), fallbackImg: fallback("Violões") },
-  { label: "Guitarras", art: "/categorias/guitarra-eletrica.png", href: getCatalogHref({ category: "Guitarras" }), fallbackImg: fallback("Guitarras", "star light") },
-  { label: "Contrabaixos", art: "/categorias/contrabaixo.png", href: getCatalogHref({ category: "Contrabaixos" }), fallbackImg: fallback("Contrabaixos") },
+  { label: "Violões", art: "/categorias/violao.webp", href: getCatalogHref({ category: "Violões" }), fallbackImg: fallback("Violões") },
+  { label: "Guitarras", art: "/categorias/guitarra-eletrica.webp", href: getCatalogHref({ category: "Guitarras" }), fallbackImg: fallback("Guitarras", "star light") },
+  { label: "Contrabaixos", art: "/categorias/contrabaixo.webp", href: getCatalogHref({ category: "Contrabaixos" }), fallbackImg: fallback("Contrabaixos") },
   /* Baterias é linha própria da Tonante (Sonora) e não aparecia na home */
-  { label: "Baterias", art: "/categorias/bateria.png", href: getCatalogHref({ category: "Baterias" }), fallbackImg: fallback("Baterias") },
+  { label: "Baterias", art: "/categorias/bateria.webp", href: getCatalogHref({ category: "Baterias" }), fallbackImg: fallback("Baterias") },
   /* Violas e ukuleles moram dentro de "Violões": sem vitrine aqui ninguém acha */
-  { label: "Violas", art: "/categorias/viola.png", href: getCatalogHref({ category: "Violões", search: "viola caipira" }), fallbackImg: fallback("Violões", "viola ") },
-  { label: "Ukuleles", art: "/categorias/ukulele.png", href: getCatalogHref({ category: "Violões", search: "ukulele" }), fallbackImg: fallback("Violões", "ukulele") },
+  { label: "Violas", art: "/categorias/viola.webp", href: getCatalogHref({ category: "Violões", search: "viola caipira" }), fallbackImg: fallback("Violões", "viola ") },
+  { label: "Ukuleles", art: "/categorias/ukulele.webp", href: getCatalogHref({ category: "Violões", search: "ukulele" }), fallbackImg: fallback("Violões", "ukulele") },
 
   /* 2ª linha — o que se compra junto do instrumento */
-  { label: "Cordas & Encordoamentos", art: "/categorias/encordoamento.png", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), fallbackImg: fallback("Cordas & Encordoamentos") },
-  { label: "Suportes & Pedestais", art: "/categorias/suporte.png", href: getCatalogHref({ category: "Suportes" }), fallbackImg: fallback("Suportes") },
-  { label: "Correias", art: "/categorias/correias.png", href: getCatalogHref({ category: "Acessórios", search: "correia" }), fallbackImg: fallback("Acessórios", "correia") },
-  { label: "Cabos", art: "/categorias/cabos.png", href: getCatalogHref({ category: "Acessórios", search: "cabo" }), fallbackImg: fallback("Acessórios", "shogun") },
+  { label: "Cordas & Encordoamentos", art: "/categorias/encordoamento.webp", href: getCatalogHref({ category: "Cordas & Encordoamentos" }), fallbackImg: fallback("Cordas & Encordoamentos") },
+  { label: "Suportes & Pedestais", art: "/categorias/suporte.webp", href: getCatalogHref({ category: "Suportes" }), fallbackImg: fallback("Suportes") },
+  { label: "Correias", art: "/categorias/correias.webp", href: getCatalogHref({ category: "Acessórios", search: "correia" }), fallbackImg: fallback("Acessórios", "correia") },
+  { label: "Cabos", art: "/categorias/cabos.webp", href: getCatalogHref({ category: "Acessórios", search: "cabo" }), fallbackImg: fallback("Acessórios", "shogun") },
   /* a arte de microfone estava no card genérico "Acessórios"; é aqui que ela conta uma história */
-  { label: "Microfones", art: "/categorias/microfone.png", href: getCatalogHref({ category: "Acessórios", search: "microfone" }), fallbackImg: fallback("Acessórios", "microfone") },
-  { label: "Palhetas", art: "/categorias/palhetas.png", href: getCatalogHref({ category: "Acessórios", search: "palheta" }), fallbackImg: fallback("Acessórios", "palheta") },
+  { label: "Microfones", art: "/categorias/microfone.webp", href: getCatalogHref({ category: "Acessórios", search: "microfone" }), fallbackImg: fallback("Acessórios", "microfone") },
+  { label: "Palhetas", art: "/categorias/palhetas.webp", href: getCatalogHref({ category: "Acessórios", search: "palheta" }), fallbackImg: fallback("Acessórios", "palheta") },
 ];
 
 type Variant = "soft" | "circle" | "card";
@@ -77,6 +77,11 @@ type Variant = "soft" | "circle" | "card";
 function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
   const [src, setSrc] = useState(cat.art);
   const [hover, setHover] = useState(false);
+  /* A arte é o tile inteiro: sem ela, sobra o nome flutuando sobre branco e a
+     grade parece quebrada, não carregando. O esqueleto vai na moldura, que já
+     tem o tamanho final, e sai quando a arte pinta. */
+  const [arte, setArte] = useState(false);
+  const marcarArte = () => setArte(true);
 
   const soft = variant === "soft";
   const circle = variant === "circle";
@@ -102,11 +107,11 @@ function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
       {/* artes alinhadas pela base: todas apoiam na mesma linha logo acima do
          nome; a sobra fica em cima */}
       <div
-        className={
+        className={`${
           bare
             ? `flex aspect-square w-full ${cat.crop ? "items-end" : "items-center"} justify-center overflow-hidden ${circle ? "rounded-full" : ""}`
             : "flex min-h-0 w-full flex-1 items-end justify-center overflow-hidden"
-        }
+        }${arte ? "" : " tn-skel"}`}
         style={
           soft
             /* em repouso o tile não tem contorno nem sombra: a grade é só
@@ -114,7 +119,9 @@ function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
                cresce do nada e o tile sobe 2px, então o cartão "levanta"
                em vez de piscar. */
             ? {
-                background: "#ffffff",
+                /* branco só depois da arte: antes dela o branco apagaria o
+                   esqueleto, que é justamente o que marca o lugar */
+                background: arte ? "#ffffff" : undefined,
                 borderRadius: "8px",
                 boxShadow: hover ? "var(--shadow-tile-hover)" : "none",
                 transform: hover ? "translateY(-2px)" : "none",
@@ -123,7 +130,7 @@ function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
             : circle
               /* a arte de estúdio já traz o próprio fundo; o círculo só precisa
                  de um contorno pra não sumir na página branca */
-              ? { background: "#ffffff", border: "1px solid var(--edge)", transition: "border-color .35s var(--ease)" }
+              ? { background: arte ? "#ffffff" : undefined, border: "1px solid var(--edge)", transition: "border-color .35s var(--ease)" }
               : undefined
         }
       >
@@ -134,6 +141,9 @@ function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
               alt=""
               aria-hidden="true"
               onError={() => setSrc(cat.fallbackImg)}
+              onLoad={marcarArte}
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 h-full w-full object-contain"
               style={{
                 mixBlendMode: "multiply",
@@ -150,6 +160,9 @@ function CatCard({ cat, variant }: { cat: Cat; variant: Variant }) {
             alt=""
             aria-hidden="true"
             onError={() => setSrc(cat.fallbackImg)}
+            onLoad={marcarArte}
+            loading="lazy"
+            decoding="async"
             /* na moldura a foto preenche tudo (object-cover): com `contain` o
                quadrado branco da arte aparecia recortado contra o fundo do
                card, e lia como imagem cortada do lado direito. */

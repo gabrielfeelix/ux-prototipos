@@ -21,6 +21,12 @@ export function HeroBannersV2() {
   // altura = tudo o que sobra da 1ª dobra abaixo do header, medido de verdade
   // (o header tem 3 faixas e muda de altura em breakpoint).
   const [headerH, setHeaderH] = useState(178);
+  /* O banner é a primeira coisa da página e ocupa a dobra inteira. Enquanto
+     ele não pinta, o que a pessoa vê é um retângulo branco do tamanho da
+     tela, que é exatamente a cara de uma página travada. O esqueleto ocupa
+     esse espaço até a arte chegar; como o banner fica por cima, ele some
+     sozinho e a animação para junto. */
+  const [heroPronto, setHeroPronto] = useState(false);
   const isMobile = useIsMobile();
   const n = SLIDES.length;
 
@@ -48,8 +54,11 @@ export function HeroBannersV2() {
           à esquerda, que é onde mora o texto da peça. A saída definitiva é
           arte vertical própria — isto é o melhor possível com a que existe. */}
       <div
-        className="relative w-full"
-        style={{ height: isMobile ? "max(340px, 46svh)" : `max(420px, calc(100svh - ${headerH}px))` }}
+        className={`relative w-full ${heroPronto ? "" : "tn-skel tn-skel-escuro"}`}
+        style={{
+          height: isMobile ? "max(340px, 46svh)" : `max(420px, calc(100svh - ${headerH}px))`,
+          backgroundColor: heroPronto ? undefined : "#1c1710",
+        }}
       >
         {SLIDES.map((s, i) => {
           const on = i === idx;
@@ -62,7 +71,31 @@ export function HeroBannersV2() {
               aria-hidden={!on}
               tabIndex={on ? 0 : -1}
             >
-              <img src={s.img} alt={s.alt} className="h-full w-full object-cover object-[16%_center] md:object-center" />
+              {/* A arte era PNG de ~3 MB cada, três delas baixando juntas
+                  antes de qualquer outra coisa da página: 9,1 MB só na
+                  abertura. Em WebP são 588 KB no desktop e 196 KB no celular,
+                  com a versão estreita servida por `media` pra tela pequena
+                  não pagar por pixel que ela não mostra.
+                  O primeiro banner é o LCP da home: carrega com prioridade.
+                  Os outros dois só entram quando o carrossel pedir. */}
+              <picture>
+                <source
+                  media="(max-width: 767px)"
+                  srcSet={s.img.replace(/\.png$/, "-960.webp")}
+                  type="image/webp"
+                />
+                <source srcSet={s.img.replace(/\.png$/, ".webp")} type="image/webp" />
+                <img
+                  src={s.img}
+                  alt={s.alt}
+                  className="h-full w-full object-cover object-[16%_center] md:object-center"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "low"}
+                  decoding={i === 0 ? "sync" : "async"}
+                  onLoad={i === 0 ? () => setHeroPronto(true) : undefined}
+                  onError={i === 0 ? () => setHeroPronto(true) : undefined}
+                />
+              </picture>
             </Link>
           );
         })}

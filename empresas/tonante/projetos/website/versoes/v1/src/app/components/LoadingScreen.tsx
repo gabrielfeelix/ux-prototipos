@@ -92,24 +92,59 @@ export function LoadingScreen({
 
 const FADE_MS = 480;
 
-/** Overlay de boot: fica até o app + assets carregarem, com piso de tempo pra
-    não piscar em conexão rápida, e um teto pra nunca prender o site se algum
-    asset travar. Desmonta depois do fade. */
+/* A marca aparece uma vez por aba, no primeiro carregamento. */
+const JA_VIU = "tonante:boot-visto";
+
+function jaViuNestaAba() {
+  try {
+    return sessionStorage.getItem(JA_VIU) === "1";
+  } catch {
+    return false; // aba anônima com storage bloqueado: mostra, não quebra
+  }
+}
+
+/**
+ * Overlay de boot: a marca cobrindo a tela enquanto o site monta.
+ *
+ * Ele saía no evento `window.load`, que é o mais tarde possível: o `load` só
+ * dispara quando a última imagem da página termina. A home pedia ~190 fotos,
+ * então o `load` não chegava nunca dentro do teto, o teto de 6 s estourava, e
+ * o que a pessoa via eram seis segundos de "CARREGANDO…" com o scroll travado.
+ * Era esse o travamento — e a ironia é que a página por baixo já estava
+ * pronta e utilizável quase o tempo todo.
+ *
+ * Agora ele não espera imagem nenhuma. Cada imagem tem o seu próprio
+ * esqueleto (ver components/Esqueletos e figma/ImageWithFallback), então a
+ * página pode aparecer com buracos preenchidos e ir completando à vista.
+ * O overlay serve só ao instante de marca: um piso curto pra não piscar, um
+ * teto baixo pra nunca ser ele o gargalo, e uma vez só por aba — voltar pra
+ * home depois de navegar não merece outra tela de abertura.
+ */
 export function BootLoader({
   minDurationMs = 900,
-  maxDurationMs = 6000,
+  maxDurationMs = 2200,
 }: {
   minDurationMs?: number;
   maxDurationMs?: number;
 }) {
-  const [phase, setPhase] = useState<"visible" | "fading" | "done">("visible");
+  const [phase, setPhase] = useState<"visible" | "fading" | "done">(() =>
+    jaViuNestaAba() ? "done" : "visible",
+  );
 
   useEffect(() => {
+    if (phase === "done") return;
     const start = performance.now();
     const timers: number[] = [];
+    let encerrado = false;
 
     const finish = () => {
-      if (timers.length > 1) return; // já agendado (load correu antes do teto)
+      if (encerrado) return;
+      encerrado = true;
+      try {
+        sessionStorage.setItem(JA_VIU, "1");
+      } catch {
+        /* storage bloqueado: só não lembra entre páginas */
+      }
       const elapsed = performance.now() - start;
       timers.push(
         window.setTimeout(() => {
@@ -119,17 +154,17 @@ export function BootLoader({
       );
     };
 
-    // teto de segurança: imagem pendurada não pode segurar a loja
-    timers.push(window.setTimeout(finish, maxDurationMs));
+    /* Assim que o React chegou até aqui, o primeiro quadro já foi pintado por
+       baixo do overlay. Daí em diante o piso é o único motivo de continuar. */
+    finish();
 
-    if (document.readyState === "complete") finish();
-    else window.addEventListener("load", finish, { once: true });
+    // teto de segurança, caso o piso mude e algo o segure
+    timers.push(window.setTimeout(finish, maxDurationMs));
 
     return () => {
       timers.forEach(window.clearTimeout);
-      window.removeEventListener("load", finish);
     };
-  }, [minDurationMs, maxDurationMs]);
+  }, [minDurationMs, maxDurationMs, phase]);
 
   // enquanto a tela cobre tudo, trava o scroll do body
   useEffect(() => {

@@ -6,7 +6,7 @@ import { Eye, Star, Play, Square } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useCart } from "../components/CartContext";
 import { type Product } from "../components/productsData";
-import { getPrimaryProductImage, getProductImagesRanked, getProductSwatches, getSwatchImage, upgradeProductImage } from "../components/productPresentation";
+import { getPrimaryProductImage, getProductImagesRanked, getProductSwatches, getSwatchImage } from "../components/productPresentation";
 import { allProducts } from "../components/productsData";
 import { FRAMING_POR_FOTO, INSTRUMENT_FRAMING, FRAMING_PADRAO } from "./instrumentFraming";
 import { tipoDoProduto } from "./curadoria";
@@ -19,6 +19,7 @@ import { playStrum, stopStrum, presetForProduct } from "../lib/strum";
 import { sampleForProduct, playSample, stopSample } from "../lib/timbre";
 import { tomarFoco, largarFoco } from "../lib/audioFoco";
 import { ComparePill, type CompareCardState } from "../components/CompareBar";
+import { usePertoDaTela } from "../lib/usePertoDaTela";
 
 /* ProductCardV2 — card do teste /v2 (referência: tema Helix).
    Foto numa caixa cinza-clara sem borda, badges no topo, ações que só
@@ -87,20 +88,28 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
 
   const to = href ?? getProductUrl(p);
   const primary = getPrimaryProductImage(p);
-  /* Mede a URL em tamanho cheio porque é essa que o ImageWithFallback acaba
-     exibindo — medir a thumb daria uma proporção que não é a de tela. */
-  const candidates = [...new Set(getProductImagesRanked(p).map(upgradeProductImage))].slice(0, 4);
+  /* Mede exatamente as URLs que vão ser exibidas. Medir a versão cheia era
+     baixar uma segunda cópia de cada foto: 1200x1200 nas duas, só que 111 KB
+     contra 60 KB. Agora a medição e a exibição pedem o mesmo arquivo, e a
+     segunda pega vem do cache do browser. */
+  const candidates = [...new Set(getProductImagesRanked(p))].slice(0, 4);
   /* Só packshot entra: fotos contextuais (banner de campanha, foto de cena)
      vêm em formato panorâmico e estouram a caixa quadrada do card. Mede a
      proporção real no load e descarta o que não for ~quadrado. */
   // guarda a proporção junto: é ela que decide o enquadramento na hora de exibir
   const [thumbs, setThumbs] = useState<{ src: string; ratio: number }[]>([{ src: primary, ratio: 1 }]);
 
+  /* A medição abaixo baixa até quatro fotos por card. Em seis vitrines de
+     oito cards isso eram ~190 downloads disparados no mount, todos brigando
+     pela mesma banda do banner e do primeiro card. Agora cada card só mede
+     quando chega perto da dobra. */
+  const [refCard, pertoDaTela] = usePertoDaTela<HTMLElement>();
+
   useEffect(() => {
+    if (!pertoDaTela) return;
     let alive = true;
     /* Mede cada candidata: descarta o que não couber na caixa e, entre as
-       que couberem, prioriza a de maior resolução — a thumb 300x300 do
-       Magento só entra se não houver original. Instrumento aceita retrato
+       que couberem, prioriza a de maior resolução. Instrumento aceita retrato
        (o enquadramento é por corte); acessório precisa ser ~quadrado. */
     const [min, max] = isInstrument ? [0.3, 1.5] : [0.7, 1.4];
     Promise.all(
@@ -131,7 +140,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
     return () => {
       alive = false;
     };
-  }, [p.id]);
+  }, [p.id, pertoDaTela]);
   const discount = p.oldPriceNum ? Math.round((1 - p.priceNum / p.oldPriceNum) * 100) : 0;
   /* parcelamento sobre o preço de cartão (priceNum), não sobre o do PIX: PIX é
      à vista, e mostrar a parcela do valor com desconto de PIX prometeria um
@@ -172,7 +181,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
   };
 
   return (
-    <article className={`group/card flex flex-col ${className}`} style={style}>
+    <article ref={refCard} className={`group/card flex flex-col ${className}`} style={style}>
       {/* caixa da foto */}
       <div
         className="relative overflow-hidden"
@@ -262,6 +271,8 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
                 src={foto.src}
                 alt=""
                 aria-hidden="true"
+                loading="lazy"
+                semEsqueleto
                 className="absolute inset-0 h-full w-full scale-125 object-cover"
                 style={{ filter: "blur(28px) saturate(1.1)", opacity: 0.85 }}
               />
@@ -269,6 +280,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
             <ImageWithFallback
               src={foto.src}
               alt={p.name}
+              loading="lazy"
               className={`absolute inset-0 h-full w-full transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 desproporcional
                   ? "object-contain group-hover/card:scale-[1.05]"
@@ -335,7 +347,7 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
                 outlineOffset: "-1.35px",
               }}
             >
-              <ImageWithFallback src={v.image} alt="" className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />
+              <ImageWithFallback src={v.image} alt="" loading="lazy" semEsqueleto className="absolute inset-0 h-full w-full object-contain p-1" style={{ mixBlendMode: "multiply" }} />
             </button>
           );
         })}

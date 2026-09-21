@@ -1,32 +1,32 @@
+import { Suspense, lazy, type ComponentType } from "react";
 import { createBrowserRouter, redirect } from "react-router";
 import { RootLayout } from "./components/RootLayout";
-import { HomePage } from "./components/HomePage";
-import { ProductsPage } from "./components/ProductsPage";
-import { ProductPage } from "./components/ProductPage";
-import { CartPage } from "./components/CartPage";
-import { CheckoutPage } from "./components/CheckoutPage";
-import { PreOrderPage } from "./components/PreOrderPage";
-import { ProfilePage } from "./components/ProfilePage";
-import { ArtistasPage } from "./pages/ArtistasPage";
-import { RevendaPage } from "./pages/RevendaPage";
-import { TrabalheConoscoPage } from "./pages/TrabalheConoscoPage";
-import { ContactPage } from "./components/pages/ContactPage";
-import { StoreLocatorPage } from "./components/pages/StoreLocatorPage";
-import { MaringaFCCollabPage } from "./components/pages/MaringaFCCollabPage";
-import { MonteSeuKitPage } from "./pages/monte-seu-kit/MonteSeuKitPage";
-import { AjudaPage } from "./pages/monte-seu-kit/AjudaPage";
-import { MontarPage } from "./pages/monte-seu-kit/MontarPage";
-import { DriversManuaisPage } from "./pages/DriversManuaisPage";
-import { DriverDetailPage } from "./pages/DriverDetailPage";
-import { FaqPage } from "./pages/FaqPage";
-import { AfinadorPage } from "./pages/afinador/AfinadorPage";
-import { ComparePage } from "./pages/ComparePage";
-import { QuemSomosPage } from "./pages/QuemSomosPage";
-import { PrivacyPage } from "./pages/PrivacyPage";
-import { WarrantyPage } from "./pages/WarrantyPage";
-import { TermsPage } from "./pages/TermsPage";
 import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
+import { EsqueletoPagina } from "./components/Esqueletos";
 import { HomeV2 } from "./v2/HomeV2";
+
+/* Todas as rotas eram importadas aqui em cima, o que punha as ~30 páginas do
+   site num arquivo só: 2,37 MB (518 KB comprimidos) que a pessoa precisava
+   baixar e interpretar antes de ver qualquer pixel da home. Quem entrava só
+   pra olhar um violão pagava pelo checkout, pelo afinador e pelo monte-seu-kit.
+   Agora cada página é um pedaço à parte, buscado quando alguém vai até ela.
+
+   A home fica de fora: é o destino mais comum e o primeiro a pintar, então
+   um segundo pedido só pra ela seria uma viagem de ida e volta antes do
+   banner. Ela continua junto do bundle inicial, de propósito. */
+
+/** Envolve a página preguiçosa no esqueleto. */
+function carregar(importar: () => Promise<{ [k: string]: unknown }>, nome: string) {
+  const Pagina = lazy(async () => {
+    const mod = await importar();
+    return { default: mod[nome] as ComponentType };
+  });
+  return (
+    <Suspense fallback={<EsqueletoPagina />}>
+      <Pagina />
+    </Suspense>
+  );
+}
 
 const basename =
   import.meta.env.BASE_URL === "/"
@@ -42,34 +42,34 @@ export const router = createBrowserRouter([
       { index: true, Component: HomeV2 },
 
       /* Home anterior (v1) preservada em /legado — mantém Navbar/AnnouncementBar. */
-      { path: "legado", Component: HomePage },
-      { path: "produtos", Component: ProductsPage },
-      { path: "produto/:id", Component: ProductPage },
-      { path: "carrinho", Component: CartPage },
-      { path: "checkout", Component: CheckoutPage },
-      { path: "pre-venda", Component: PreOrderPage },
-      { path: "perfil", Component: ProfilePage },
-      { path: "influenciadores", Component: ArtistasPage },
-      { path: "revendedor", Component: RevendaPage },
-      { path: "trabalhe-conosco", Component: TrabalheConoscoPage },
-      { path: "fale-conosco", Component: ContactPage },
-      { path: "onde-encontrar", Component: StoreLocatorPage },
-      { path: "maringa-fc", Component: MaringaFCCollabPage },
-      { path: "monte-seu-kit", Component: MonteSeuKitPage },
-      { path: "monte-seu-kit/ajuda", Component: AjudaPage },
-      { path: "monte-seu-kit/montar", Component: MontarPage },
-      { path: "drivers-e-manuais", Component: DriversManuaisPage },
-      { path: "drivers-e-manuais/:slug", Component: DriverDetailPage },
-      { path: "comparar", Component: ComparePage },
-      { path: "faq", Component: FaqPage },
-      { path: "afinador", Component: AfinadorPage },
+      { path: "legado", element: carregar(() => import("./components/HomePage"), "HomePage") },
+      { path: "produtos", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
+      { path: "produto/:id", element: carregar(() => import("./components/ProductPage"), "ProductPage") },
+      { path: "carrinho", element: carregar(() => import("./components/CartPage"), "CartPage") },
+      { path: "checkout", element: carregar(() => import("./components/CheckoutPage"), "CheckoutPage") },
+      { path: "pre-venda", element: carregar(() => import("./components/PreOrderPage"), "PreOrderPage") },
+      { path: "perfil", element: carregar(() => import("./components/ProfilePage"), "ProfilePage") },
+      { path: "influenciadores", element: carregar(() => import("./pages/ArtistasPage"), "ArtistasPage") },
+      { path: "revendedor", element: carregar(() => import("./pages/RevendaPage"), "RevendaPage") },
+      { path: "trabalhe-conosco", element: carregar(() => import("./pages/TrabalheConoscoPage"), "TrabalheConoscoPage") },
+      { path: "fale-conosco", element: carregar(() => import("./components/pages/ContactPage"), "ContactPage") },
+      { path: "onde-encontrar", element: carregar(() => import("./components/pages/StoreLocatorPage"), "StoreLocatorPage") },
+      { path: "maringa-fc", element: carregar(() => import("./components/pages/MaringaFCCollabPage"), "MaringaFCCollabPage") },
+      { path: "monte-seu-kit", element: carregar(() => import("./pages/monte-seu-kit/MonteSeuKitPage"), "MonteSeuKitPage") },
+      { path: "monte-seu-kit/ajuda", element: carregar(() => import("./pages/monte-seu-kit/AjudaPage"), "AjudaPage") },
+      { path: "monte-seu-kit/montar", element: carregar(() => import("./pages/monte-seu-kit/MontarPage"), "MontarPage") },
+      { path: "drivers-e-manuais", element: carregar(() => import("./pages/DriversManuaisPage"), "DriversManuaisPage") },
+      { path: "drivers-e-manuais/:slug", element: carregar(() => import("./pages/DriverDetailPage"), "DriverDetailPage") },
+      { path: "comparar", element: carregar(() => import("./pages/ComparePage"), "ComparePage") },
+      { path: "faq", element: carregar(() => import("./pages/FaqPage"), "FaqPage") },
+      { path: "afinador", element: carregar(() => import("./pages/afinador/AfinadorPage"), "AfinadorPage") },
       /* O guia antigo virou o passo do quiz novo. A rota fica de pé porque
          ela foi divulgada e existe link pra ela na home. */
       { path: "guia", loader: () => redirect("/monte-seu-kit/ajuda") },
-      { path: "quem-somos", Component: QuemSomosPage },
-      { path: "politica-de-privacidade", Component: PrivacyPage },
-      { path: "politica-de-garantia", Component: WarrantyPage },
-      { path: "termos-de-uso", Component: TermsPage },
+      { path: "quem-somos", element: carregar(() => import("./pages/QuemSomosPage"), "QuemSomosPage") },
+      { path: "politica-de-privacidade", element: carregar(() => import("./pages/PrivacyPage"), "PrivacyPage") },
+      { path: "politica-de-garantia", element: carregar(() => import("./pages/WarrantyPage"), "WarrantyPage") },
+      { path: "termos-de-uso", element: carregar(() => import("./pages/TermsPage"), "TermsPage") },
 
       /* ── Semantic URL routes (A1) ──
          Order matters: static paths above are matched first by react-router.
@@ -80,10 +80,10 @@ export const router = createBrowserRouter([
            /perifericos/mouses             -> ProductsPage (Periféricos / Mouses)
            /perifericos/pcyes/mouse-vert   -> ProductPage  (no subcategory)
            /perifericos/mouses/pcyes/mv01  -> ProductPage  (full slug path)  */
-      { path: ":category", Component: ProductsPage },
-      { path: ":category/:subcategory", Component: ProductsPage },
-      { path: ":category/:brand/:slug", Component: ProductPage },
-      { path: ":category/:subcategory/:brand/:slug", Component: ProductPage },
+      { path: ":category", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
+      { path: ":category/:subcategory", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
+      { path: ":category/:brand/:slug", element: carregar(() => import("./components/ProductPage"), "ProductPage") },
+      { path: ":category/:subcategory/:brand/:slug", element: carregar(() => import("./components/ProductPage"), "ProductPage") },
     ],
   },
 ], { basename });

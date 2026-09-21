@@ -378,16 +378,16 @@ export const FAMILIAS_OFERECIDAS: {
   hint: string;
   arte?: string;
 }[] = [
-  { id: "violao-nylon", label: "Violão de nylon", hint: "Corda macia, o que perdoa mais no começo", arte: "/categorias/violao.png" },
-  { id: "violao-aco", label: "Violão de aço", hint: "Som mais brilhante, pra quem já tem calo", arte: "/categorias/violao-alt-1.png" },
-  { id: "guitarra", label: "Guitarra", hint: "Precisa de amplificador pra existir", arte: "/categorias/guitarra.png" },
-  { id: "baixo", label: "Contrabaixo", hint: "Quatro cordas graves, o chão da banda", arte: "/categorias/contrabaixo.png" },
-  { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", arte: "/categorias/teclado.png" },
-  { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", arte: "/categorias/ukulele.png" },
-  { id: "viola", label: "Viola caipira", hint: "Dez cordas, afinação própria, som de raiz", arte: "/categorias/viola.png" },
+  { id: "violao-nylon", label: "Violão de nylon", hint: "Corda macia, o que perdoa mais no começo", arte: "/categorias/violao.webp" },
+  { id: "violao-aco", label: "Violão de aço", hint: "Som mais brilhante, pra quem já tem calo", arte: "/categorias/violao-alt-1.webp" },
+  { id: "guitarra", label: "Guitarra", hint: "Precisa de amplificador pra existir", arte: "/categorias/guitarra.webp" },
+  { id: "baixo", label: "Contrabaixo", hint: "Quatro cordas graves, o chão da banda", arte: "/categorias/contrabaixo.webp" },
+  { id: "teclado", label: "Teclado", hint: "A porta de entrada mais fácil pra harmonia", arte: "/categorias/teclado.webp" },
+  { id: "ukulele", label: "Ukulele", hint: "Pequeno, quatro cordas, aprende rápido", arte: "/categorias/ukulele.webp" },
+  { id: "viola", label: "Viola caipira", hint: "Dez cordas, afinação própria, som de raiz", arte: "/categorias/viola.webp" },
   { id: "cavaco", label: "Cavaquinho", hint: "O agudo que puxa a roda de samba" },
-  { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", arte: "/categorias/bateria.png" },
-  { id: "voz", label: "Voz", hint: "Canta, com ou sem instrumento na mão", arte: "/categorias/microfone.png" },
+  { id: "bateria", label: "Bateria", hint: "Ocupa espaço e faz barulho. Vale a pena", arte: "/categorias/bateria.webp" },
+  { id: "voz", label: "Voz", hint: "Canta, com ou sem instrumento na mão", arte: "/categorias/microfone.webp" },
 ];
 
 /** O que conta como instrumento no montador.
