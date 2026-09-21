@@ -1312,8 +1312,17 @@ export function ProductsPage() {
               filtro e ordenação são o controle da página e sumiam depois da
               primeira fileira de produtos. Comparar, "mostrar N" e o botão de
               grade/lista ficam só no desktop — são controles de mesa. */}
+          {/* A sombra sólida pra cima (sem desfoque, cor do fundo) é um
+              pedaço de fundo que sobe 48px além da barra. Ela existe por
+              causa da fresta: `--header-h` é escrito por um ResizeObserver,
+              que roda depois do layout, então enquanto o header encolhe a
+              barra fica sempre um quadro atrás dele e abria até 21px de vão —
+              por onde passavam pedaços de foto de produto, que era o vulto.
+              Como o header é z-40 e a barra z-30, esse pedaço vive escondido
+              sob o header e só aparece exatamente no tamanho da fresta.
+              No desktop a barra não é sticky e não há o que cobrir. */}
           <div
-            className="sticky z-30 -mx-5 mb-6 flex flex-row flex-wrap items-center justify-between gap-3 border-b border-foreground/10 bg-[var(--background)] px-5 py-3 md:px-8 lg:static lg:mx-0 lg:gap-4 lg:px-0 lg:pb-4 lg:pt-0 xl:flex-nowrap"
+            className="sticky z-30 -mx-5 mb-6 flex flex-row flex-wrap items-center justify-between gap-3 border-b border-foreground/10 bg-[var(--background)] px-5 py-3 shadow-[0_-48px_0_var(--background)] md:px-8 lg:static lg:mx-0 lg:gap-4 lg:px-0 lg:pb-4 lg:pt-0 lg:shadow-none xl:flex-nowrap"
             style={{ top: "var(--header-h, 120px)" }}
           >
             <div className="flex min-w-0 flex-wrap items-center gap-3 lg:gap-4">
