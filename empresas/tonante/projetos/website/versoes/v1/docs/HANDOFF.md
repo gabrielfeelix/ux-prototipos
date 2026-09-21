@@ -1,141 +1,174 @@
 # Handoff — Tonante, frente SISTEMA DE BOTÕES
 
-Estado em 2026-09-21. Branch `tonante/website-v1`, projeto em
+Estado em 2026-09-21, fim do dia. Branch `tonante/website-v1`, projeto em
 `~/dev/ux-prototipos/empresas/tonante/projetos/website/versoes/v1`.
 
-**Este handoff é só sobre botões.** O handoff anterior (17/09, frente mobile)
-está em `git show 2ad5d96e:./docs/HANDOFF.md` (o repo é um monorepo: o `./`
-importa) e continua valendo para tudo que não estiver aqui. `docs/STATE.md`
-complementa.
+**Este handoff é só sobre botões.** A frente de performance e layout mobile
+tem o handoff dela em `docs/HANDOFF-pdp-mobile.md`. O handoff de 17/09 está em
+`git show 2ad5d96e:./docs/HANDOFF.md` (o repo é um monorepo: o `./` importa).
+`docs/STATE.md` complementa.
 
 **O site é protótipo e não vai ao ar.** Placeholder (WhatsApp, depoimento de
 músico, flag de estoque, arte de banco de imagem) não é pendência e não deve
 ser listado como risco. Decisão do Gabriel, 15/09.
 
-**Atenção: outra sessão está commitando nesta mesma branch.** Durante a
-sessão de 21/09 entraram `21285b6f`, `e946767f` e `1e4691cc` vindos de fora.
-Rode `git log --oneline -5` e `git status` antes de encostar em qualquer
-arquivo.
+**Atenção: outra sessão commita nesta mesma branch, ao vivo.** Em 21/09
+entraram dela `21285b6f`, `e946767f`, `1e4691cc`, `71d16662`, `35ce14a6`,
+`bab9c2f1`, `f6f95eb3`, `93c6243b`, `6856bd42`, `7c47e022` e `923f0f99` — uma
+delas carregou junto uma alteração minha em `ProductPage.tsx`. Rode
+`git log --oneline -8` e `git status` antes de encostar em qualquer arquivo, e
+commite em lotes pequenos.
 
 ---
 
-## 1. De onde veio este trabalho
+## 1. Onde a frente está
 
-Gabriel pediu, em 21/09, uma varredura de todos os botões do site. A pergunta
-que abriu tudo: *"pq o botão de drivers e manuais é um marrom, e nao preto? e
-pq n tem hover ali? e onde usariamos esse botão que parece ser um de
-marketing/branding?"*
+**Tasks 1, 2 e 3 do plano estão feitas e commitadas.** A Task 4 é a próxima.
 
-A varredura cobriu home, PDP, catálogo, carrinho, checkout, perfil, auth,
-institucionais, ferramentas e as páginas HTML injetadas. Achados:
+| commit | o que entrou |
+|---|---|
+| `3f9090c9` | Task 1 — 16 tokens de rampa de cor no `theme.css:149-180`, mais 4 republicados no `@theme` (`:424-429`) |
+| `b10a77dd` | Task 2 — `src/app/components/section/Button.tsx`, o primitivo |
+| `79c31718` | dois defeitos do `Button` achados na conferência (ver §3) |
+| `d8a27b51` | Task 3 — showcase em `/ds/botoes` |
+| `0714a343` | escala de rótulo um degrau acima + card mobile para `lg` |
+| `0764586c` | todos os outros botões de compra do site em 52/16 |
 
-- **445 `<button>` crus.** O DS existe e quase ninguém chama: `CTAButton` em 9
-  arquivos, `GhostButton` em 3, `ui/button` do shadcn em 2.
-- **4 sistemas paralelos** pintando a ação principal com a mesma tinta
-  `--ink-strong` e animando o hover de três jeitos diferentes: cor `#2b2b2b`
-  (`CTAButton`, `.btn-tonante`), `opacity-90` (`auth/styles.ts`), e escala.
-- **6 alturas** (h-8 38×, h-9 76×, h-10 55×, h-11 106×, h-12 45×, h-14 18×) e
-  **13 raios**.
-- **7 tintas de ação.** Só o verde sólido `--buy-green` tem os três estados.
-- **34 `outline-none`** sem foco substituto, matando o anel global do
-  `theme.css:557`.
-
-Gabriel aprovou a proposta de refazer o sistema em dois eixos e pediu plano e
-mapa antes de executar. É o que está escrito.
+Nenhum consumidor usa o `Button` novo ainda, fora o showcase. A migração de
+verdade começa na Task 4.
 
 ## 2. O que ler, nesta ordem
 
 1. `docs/superpowers/specs/2026-09-21-sistema-de-botoes-design.md` — o spec.
-   Taxonomia, matriz do que é permitido, rampas de cor com contraste medido, e
-   o **mapeamento arquivo a arquivo** de cada botão para o alvo novo (§11).
+   Taxonomia, matriz do que é permitido, contraste medido, e o mapeamento
+   arquivo a arquivo de cada botão para o alvo novo (§11).
 2. `docs/superpowers/plans/2026-09-21-sistema-de-botoes.md` — o plano, com as
-   **9 tasks escritas**. Task 1 tokens, Task 2 o `Button.tsx` com código
-   completo, Task 3 showcase, Tasks 4 a 7 as quatro ondas de migração em ordem
-   de prioridade, Task 8 foco de teclado, Task 9 limpeza e `DECISIONS.md`.
+   9 tasks escritas. **Comece pela Task 4.**
+3. `http://localhost:5174/ds/botoes` (`npm run dev`) — o showcase. É a
+   superfície de conferência de tudo que vem depois.
 
-O plano está pronto para executar. Comece pela Task 1 e siga em ordem: cada
-task depende da anterior.
+## 3. Decisões tomadas. Não reabrir sem falar com o Gabriel
 
-## 3. As decisões de design que já estão tomadas
+As do spec continuam valendo todas (dois eixos, âmbar nunca preenche, verde só
+é primário, `preorder` morto como intent, `buy` mantido em 2.60:1, cor sólida
+nunca gradiente, controles fora). O que **mudou ou nasceu depois** que o spec
+foi escrito:
 
-Não reabrir sem falar com o Gabriel:
+- **Escala de rótulo um degrau acima: 13 / 15 / 16px** para `sm` / `md` / `lg`.
+  As alturas ficam em 36 / 44 / 52. Motivo medido: o rótulo estava em 14px,
+  menor que o nome do produto (16px) e muito abaixo do preço (20px) — a ação
+  era o texto mais fraco do card. 44px é o piso de toque da Apple e fica abaixo
+  dos 48dp do Material: é a medida de um botão de fechar. Spec §7 atualizado.
+- **Comprar em card é `lg`, nunca `md`.** Vale para `ProductCard`,
+  `ProductCardV2`, lista do catálogo e `QuickAddButton`. O critério de pronto
+  do spec (§13) agora exige isso.
+- **A comparação 44 / 48 / 52 está registrada no showcase**, com o porquê da
+  escolha, para não se reabrir daqui a três meses.
+- **Carregando não é desabilitado.** O rótulo continua ocupando o lugar,
+  invisível, e o spinner entra por cima (largura não pula); e as cores de
+  `disabled` só valem quando `loading` é falso, senão o spinner some no cinza.
+- **Sobre fundo escuro, a intenção deixa de pintar** da segunda linha para
+  baixo: `secondary`, `tertiary` e `ghost` com `onDark` são sempre translúcidos
+  brancos, seja qual for o `intent`. Só `primary` continua dizendo a intenção
+  no escuro. Não estava no spec; é consequência dos compounds e o Gabriel viu
+  no print e aprovou.
 
-- **Dois eixos:** `hierarchy` (primary/secondary/tertiary/ghost) × `intent`
-  (neutral/buy/danger/brand). O `variant` antigo misturava os dois, e é por
-  isso que tudo que não era o CTA principal virava `<button>` cru.
-- **Âmbar nunca preenche botão.** `#C87800` chapado lê marrom em área grande.
-  `brand` só existe como `secondary`: borda âmbar `#C87800`, texto `#965a00`
-  (o âmbar puro dá 3.42:1 e reprova como texto). Já havia dois comentários no
-  repo com esse mesmo diagnóstico, em `CTAButton.tsx:48` e `theme.css:906`,
-  aplicados só em duas telas.
-- **Verde só é primário.** Mata os cinco desenhos de "Comprar" que existem.
-- **`preorder` sai como intent.** `#e08c12` dá 2.65:1 com texto branco;
-  escurecer até passar em 3:1 dá exatamente o âmbar da marca. Pré-venda vira
-  estado do produto: botão é `primary/buy` com rótulo "Reservar" e a cor da
-  campanha fica no `PreOrderPill` ao lado.
-- **`buy` fica como está**, com 2.60:1 no repouso. É decisão registrada do
-  Gabriel em `theme.css:140`. Não reabrir.
-- **Cor sólida, nunca gradiente.** Gradiente não transiciona: é a causa raiz
-  de todo hover morto do site.
-- **Controles ficam fora.** `CarouselNavButton`, `QtyStepper`, chips de
-  filtro, abas, swatches, dots e steps de checkout são seleção, não ação.
-  Merecem um `Chip`/`Toggle` próprio numa rodada futura.
+## 4. O que já foi ajustado fora do plano (e por quê)
 
-## 4. Ordem de execução
+Na conferência de tamanho, os botões de compra foram redimensionados **antes**
+da migração, porque o Gabriel pediu o ajuste ao ver o print do celular. Todos
+em 52px / 16px: `ProductCard`, `ProductCardV2` (mobile e o que flutua no
+hover), lista do catálogo em mobile e desktop, quick view, `ComparePage`,
+`CartDrawer`, `CartPage` desktop, `QuickAddButton`, `MontarPage`,
+`MonteSeuKit`, `MusicosTonante`, `PreOrderBanner`, `PreOrderPage` e o sticky
+mobile da PDP.
 
-Cada task termina com `npm run typecheck`, `npm run build`, conferência visual
-e commit — não existe framework de teste neste repo, e essa é a convenção dos
-planos anteriores.
+Duas consequências para quem migrar:
 
-A ordem das ondas de migração (Tasks 4 a 7) é por impacto, não por facilidade:
-carrinho e checkout primeiro porque é onde a inconsistência custa conversão;
-drivers, que foi a pergunta que abriu a frente, só na Task 7 porque depende do
-primitivo estar rodado nas telas de maior tráfego antes.
+- **O `CTAButton` velho também foi alinhado** à escala nova (36/13, 44/15,
+  52/16). Ele ainda pinta a PDP e os 11 botões do checkout até a migração
+  chegar lá.
+- **Nas Tasks 4 e 5, o tamanho desses botões já está certo.** Trocar o
+  `<button>` cru pelo primitivo, sem mexer em altura nem em fonte.
 
-Os números de linha no plano e no spec são do estado de 21/09 e **vão andar**
-conforme a edição avança. Conferir pelo rótulo do botão, nunca pela linha.
+O `QuickAddButton` vinha com `--radius-button` (raio reto), que no sistema novo
+é forma de controle e não de ação; virou pílula.
 
-**Um detalhe que atrapalha se passar batido:** ao trocar um botão, apagar
-também o `className` de altura, raio, sombra e hover que sobrava. Se ficar
-`h-12` ou `rounded-[10px]` no `className`, o `tailwind-merge` deixa vencer e o
-tamanho do primitivo é ignorado silenciosamente.
-
-## 5. Armadilhas técnicas descobertas nesta rodada
+## 5. Armadilhas técnicas
 
 - **Tailwind v4 e o foco.** `outline-none` emite `outline-style: none` na
   camada `utilities`, que vence `@layer base` por **ordem de cascata**, não por
   especificidade. O anel global do `theme.css:557-571` morre sob qualquer um
-  deles. Por isso o `Button` novo declara o foco na própria classe.
-- **`as="span"` não dispara `:hover`.** Quem passa o mouse é o `<Link>` pai.
-  O `GhostButton` atual tem esse bug: o botão fica inerte dentro de um banner
-  que reage. O `Button` do plano resolve com uma variante `spanHover` que
-  reemite os estados como `group-hover:`/`group-active:` — o consumidor
-  precisa ter `group` no `<Link>` que envolve.
-- **`tailwind-merge` não distingue `text-*` de cor e de tamanho.** Já está
-  documentado no `CTAButton.tsx:24`: usar `[color:#fff]`, nunca `text-[#fff]`,
-  ou o `text-[var(--text-sm)]` do size engole a cor.
-- **Tema travado em claro.** `ThemeProvider.tsx:35` sempre remove `dark` e
-  adiciona `light`. Não existe token set escuro; `html.light
-  [data-page-light-scope]` no `theme.css:681` é só para as páginas HTML
-  injetadas. Contexto sobre foto/stage é a prop `onDark`.
+  deles. Por isso o `Button` declara o foco na própria classe.
+- **`tailwind-merge` não distingue `text-*` de cor e de tamanho.** Usar
+  `[color:#fff]`, nunca `text-[#fff]`. Verificado na mão: `twMerge` preserva
+  `[color:#fff]` ao lado de `text-[15px]`, e um `h-12` sobrando no `className`
+  **vence** o `h-11` do primitivo silenciosamente. Ao trocar um botão, apagar
+  também o `className` de altura, raio, sombra e hover que sobrava.
+- **`as="span"` não dispara `:hover`.** Quem passa o mouse é o `<Link>` pai. O
+  `Button` resolve com `group-hover:`/`group-active:`, e **o consumidor precisa
+  ter `group` no `<Link>` que envolve** — sem isso o botão fica inerte. Os dois
+  cartões no fim do showcase demonstram com e sem.
+- **Tema travado em claro** (`ThemeProvider.tsx:35`). Contexto sobre foto ou
+  palco é a prop `onDark`.
+- **`npm run typecheck` NÃO está limpo, e não é desta frente.** 6 erros em
+  `vite.config.ts:29-33` (`item.code` e `item.source` sobre `unknown`), vindos
+  do commit `21285b6f` da outra sessão. O critério "typecheck limpo" das tasks
+  deve ser lido como "zero erros fora do `vite.config.ts`":
+  `npm run typecheck 2>&1 | grep 'error TS' | grep -v vite.config`.
 
-## 6. O que não migrar
+## 6. Como conferir em tela (não existe framework de teste)
+
+`npm run dev` sobe em `localhost:5174` (a 5173 costuma estar ocupada pela outra
+sessão). Não há Playwright instalado nem Chrome headless de Linux no WSL; o que
+funciona é o Chrome do Windows em headless:
+
+```bash
+CH="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+"$CH" --headless=new --disable-gpu --hide-scrollbars \
+  --virtual-time-budget=9000 --window-size=390,1600 \
+  --screenshot="C:\\Users\\Public\\tela.png" "http://localhost:5174/produtos"
+cp /mnt/c/Users/Public/tela.png "$SCRATCHPAD/tela.png"
+```
+
+O `--virtual-time-budget` é obrigatório: sem ele a captura pega a tela de
+abertura do site. Para recortar um pedaço, PIL está disponível no `python3`.
+
+## 7. O que falta: Tasks 4 a 9
+
+Em ordem, cada uma terminando em typecheck, build, conferência visual e commit:
+
+- **Task 4 — carrinho e checkout.** O carrinho tem 4 botões no
+  `--gradient-brand` e dois "Finalizar compra" diferentes (`:1003` e `:1221`).
+- **Task 5 — PDP e catálogo.** Os cinco "Comprar" e o "Adicionar à sacola".
+- **Task 6 — perfil, auth e modais.** Mata `.btn-tonante` e
+  `primaryButtonClass`.
+- **Task 7 — institucional e ferramentas.** Aqui entra drivers, que foi a
+  pergunta que abriu a frente, e morrem `CTAButton` e `GhostButton`.
+- **Task 8 — foco de teclado.** A varredura dá **39** hoje (eram 34 quando o
+  spec foi escrito; a outra sessão subiu o número). Rodar de novo antes de
+  começar: `grep -rn "outline-none" --include=*.tsx src/app | grep -v focus-visible`.
+- **Task 9 — limpeza**, `DECISIONS.md` (ainda não existe) e `STATE.md`.
+
+Hoje 15 arquivos ainda importam `CTAButton`, `GhostButton` ou
+`QuickAddButton`. O número tem que chegar a zero na Task 9.
+
+## 8. O que não migrar
 
 - **`/legado`** — `Navbar`, `AnnouncementBar`, `HomePage`, `HeroSection`,
-  `CategoryShowcase`, `OfertasDaSemana`. A home viva é `HomeV2`
-  (`routes.tsx:42`); `RootLayout.tsx:48` só monta `Navbar` em `/legado`.
+  `CategoryShowcase`, `OfertasDaSemana`. A home viva é `HomeV2`.
 - **Código morto** — `GuiaPage`, `BannerSection`, `PopularGrid`,
-  `RealMusicians` não são importados por ninguém. `Navbar.tsx:1051` idem.
-- **`public/pages/*.html`** — ainda usam o vermelho pcyes (`#ff2b2e`,
-  `#dc1414`, `#ff0004`) e não referenciam os tokens de `shared-tokens.css`.
-  Cascata própria, com o `unified-overrides.css` por cima. Rodada separada.
-- **`SearchModal.tsx`** — dados mock de periféricos gamer, sobra do clone
-  pcyes.
+  `RealMusicians`, `Navbar.tsx:1051` e **`MonteSeuPcPage`** (ninguém importa;
+  tem 3 botões de compra e 6 `bg-primary`, e por isso aparece no spec — a Task
+  7 decide entre migrar ou deletar).
+- **`public/pages/*.html`** — vermelho pcyes, cascata própria, rodada separada.
+- **`SearchModal.tsx`** — mock de periféricos gamer, sobra do clone pcyes.
 
-## 7. Como o Gabriel trabalha
+## 9. Como o Gabriel trabalha
 
 - Ele pede, você faz e mostra print. Não peça spec pra aprovar.
 - Terso por padrão. Sem travessão em copy de interface.
-- Opus na thread principal para qualquer coisa de julgamento visual. Sonnet
-  só para varredura mecânica.
+- Quando ele diz "pode ser impressão, não sei a boa prática", ele quer o número
+  medido e uma recomendação, não um menu de opções.
+- Opus na thread principal para qualquer coisa de julgamento visual.
 - Deploy da Tonante sai só pelo CLI da Vercel; push no GitHub não publica.
