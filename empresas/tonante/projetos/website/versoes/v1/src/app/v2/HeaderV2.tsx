@@ -14,6 +14,7 @@ import { useFavorites } from "../components/FavoritesContext";
 import { getCatalogHref, getPrimaryProductImage, getVisibleCatalogProducts } from "../components/productPresentation";
 import { allProducts, type Product } from "../components/productsData";
 import { getProductUrl } from "../lib/slug";
+import { abrirVLibras } from "../lib/vlibras";
 import { SearchBar } from "../components/SearchBar";
 import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
 import { DiapasaoIcon } from "../components/section";
@@ -414,8 +415,8 @@ export function HeaderV2() {
             {/* Mão aberta, não o boneco em cadeira de rodas: é o símbolo que
                 os plugins de acessibilidade em português usam e cobre mais
                 gente do que o ícone de mobilidade.
-                placeholder: o painel de acessibilidade ainda não existe */}
-            <IconeHeader label="Acessibilidade" icon={Hand} onClick={() => {}} />
+                Abre o VLibras do gov.br (lib/vlibras), carregado no clique. */}
+            <IconeHeader label="Acessibilidade em Libras" icon={Hand} onClick={() => { abrirVLibras().catch((e) => console.error(e)); }} />
             <IconeHeader to="/perfil?tab=favoritos" label="Favoritos" icon={Heart} badge={favoritos} />
           </div>
 

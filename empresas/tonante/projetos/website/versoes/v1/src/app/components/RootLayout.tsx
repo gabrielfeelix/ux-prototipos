@@ -14,6 +14,7 @@ import { HeaderV2 } from "../v2/HeaderV2";
 import { WhatsAppFab } from "./WhatsAppFab";
 import { ThemeProvider } from "./ThemeProvider";
 import { BootLoader } from "./LoadingScreen";
+import { restaurarVLibras } from "../lib/vlibras";
 
 export function RootLayout() {
   const { pathname } = useLocation();
@@ -27,6 +28,15 @@ export function RootLayout() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  /* Quem já pediu Libras uma vez recebe o widget de volta sozinho — sem isso
+     o botão flutuante do plugin sumia a cada recarga. Fica para o fim da fila
+     do boot: o plugin é de terceiro e não pode atrasar a primeira pintura. */
+  useEffect(() => {
+    const ocioso = window.requestIdleCallback?.bind(window) ?? ((fn: () => void) => window.setTimeout(fn, 1200));
+    const id = ocioso(() => restaurarVLibras());
+    return () => { window.cancelIdleCallback?.(id as number); };
+  }, []);
 
   return (
     <ThemeProvider>

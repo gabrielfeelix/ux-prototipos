@@ -29,7 +29,11 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com o atendimento no WhatsApp"
-      className={`group/wa fixed bottom-5 right-5 ${carrinhoAberto ? "z-[40]" : "z-[90]"} flex h-14 w-14 items-center justify-center rounded-full transition-[transform,box-shadow,opacity,margin]  duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 md:bottom-7 md:right-7`}
+      /* right-3/4 em vez do 5/7 de um FAB solto: o botão do VLibras também
+         flutua na direita, num eixo próprio (lib/vlibras alinha o dele aqui).
+         Com as medidas de fábrica os dois ficavam a distâncias diferentes da
+         borda e a coluna saía torta. Os dois cederam metade. */
+      className={`group/wa fixed bottom-5 right-3 ${carrinhoAberto ? "z-[40]" : "z-[90]"} flex h-14 w-14 items-center justify-center rounded-full transition-[transform,box-shadow,opacity,margin]  duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 md:bottom-7 md:right-4`}
       style={{
         /* a PDP levanta o botão quando a barra de compra do celular sobe, pela
            variável --fab-lift: os dois moram em cantos diferentes da árvore. */
