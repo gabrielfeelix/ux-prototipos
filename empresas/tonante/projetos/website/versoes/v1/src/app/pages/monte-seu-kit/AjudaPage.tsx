@@ -22,9 +22,12 @@ import {
   Headphones,
   House,
   Mic,
+  Music,
   RotateCcw,
   Speaker,
   Sprout,
+  Tag,
+  TrendingUp,
   Volume2,
 } from "lucide-react";
 import { ProductCardV2 } from "../../v2/ProductCardV2";
@@ -37,15 +40,15 @@ import {
   type Band,
   type Genero,
 } from "../../lib/bandLibrary";
-import type { Faixa } from "../guia/motor";
 import {
-  FAIXAS_LABEL,
   FAMILIAS,
   NIVEIS,
   ONDES,
+  faixasDaFamilia,
   kitSugerido,
   montarPerfilKit,
   recomendarKit,
+  type FaixaPreco,
   type Nivel,
   type Onde,
   type RespostasKit,
@@ -76,26 +79,35 @@ export function AjudaPage() {
   }, [passo]);
 
   const indice = ORDEM.indexOf(passo);
+  const sair = () => (pilha.length > 1 ? voltar() : navigate("/monte-seu-kit"));
+
+  /* O avanço é do passo, mas o botão é da página. Antes cada tela desenhava o
+     seu: sobrava um "Voltar" sozinho em cima e um "Continuar" sozinho embaixo,
+     em cantos trocados, e a pessoa tinha que caçar qual dos dois existia ali.
+     Agora o par nasce junto, na mesma barra, repetida em cima e embaixo — quem
+     decidiu no primeiro card não rola até o fim, e quem rolou não volta ao topo.
+     Instrumento e nível não entram: ali o clique no card já avança, e um
+     "Continuar" apagado ao lado só promete uma etapa que não existe. */
+  const acao =
+    passo === "gosto"
+      ? { label: "Continuar", ativo: true, onClick: () => avancar("nivel") }
+      : passo === "contexto"
+        ? {
+            label: "Ver o resultado",
+            ativo: !!r.onde,
+            onClick: () => avancar("resultado"),
+          }
+        : undefined;
 
   return (
     <>
     <main className="min-h-[70vh] bg-white">
       <div className="mx-auto max-w-[1180px] px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-6">
-          <button
-            type="button"
-            onClick={() => (pilha.length > 1 ? voltar() : navigate("/monte-seu-kit"))}
-            className="inline-flex items-center gap-2 text-[0.9375rem] text-foreground/60 transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar
-          </button>
-          {indice >= 0 && (
-            <span className="text-[0.8125rem] text-foreground/50">
-              {indice + 1} de {TOTAL}
-            </span>
-          )}
-        </div>
+        <BarraNav
+          onVoltar={sair}
+          contador={indice >= 0 ? `${indice + 1} de ${TOTAL}` : undefined}
+          acao={acao}
+        />
 
         {indice >= 0 && <Progresso indice={indice} />}
 
@@ -108,16 +120,23 @@ export function AjudaPage() {
               instrumento={r.instrumento!}
               escolhidas={r.bands ?? []}
               onChange={(bands) => setR((a) => ({ ...a, bands }))}
-              onNext={() => avancar("nivel")}
             />
           )}
           {passo === "nivel" && <PassoNivel onPick={(id) => avancar("contexto", { nivel: id })} />}
           {passo === "contexto" && (
             <PassoContexto
-              onDone={(onde, faixa) => avancar("resultado", { onde, faixa })}
+              instrumento={r.instrumento!}
+              onde={r.onde ?? null}
+              faixas={r.faixas ?? []}
+              onOnde={(onde) => setR((a) => ({ ...a, onde }))}
+              onFaixas={(faixas) => setR((a) => ({ ...a, faixas }))}
             />
           )}
           {passo === "resultado" && <Resultado r={r} />}
+        </div>
+
+        <div className="mt-16 border-t border-foreground/10 pt-6">
+          <BarraNav onVoltar={sair} acao={acao} />
         </div>
       </div>
 
@@ -129,6 +148,45 @@ export function AjudaPage() {
     </main>
     <Footer />
     </>
+  );
+}
+
+/* Grade de três colunas, não flex: com justify-between o contador escorrega
+   pro lado que estiver vazio, e o "3 de 4" some do meio quando o passo não tem
+   botão. A ação fica sempre na direita, que é onde a mão volta a cada passo. */
+function BarraNav({
+  onVoltar,
+  contador,
+  acao,
+}: {
+  onVoltar: () => void;
+  contador?: string;
+  acao?: { label: string; ativo: boolean; onClick: () => void };
+}) {
+  return (
+    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+      <button
+        type="button"
+        onClick={onVoltar}
+        className="inline-flex w-fit items-center gap-2 text-[0.9375rem] text-foreground/60 transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Voltar
+      </button>
+      <span className="text-[0.8125rem] text-foreground/50">{contador}</span>
+      {acao ? (
+        <button
+          type="button"
+          disabled={!acao.ativo}
+          onClick={acao.onClick}
+          className="h-12 justify-self-end rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
+        >
+          {acao.label}
+        </button>
+      ) : (
+        <span aria-hidden />
+      )}
+    </div>
   );
 }
 
@@ -231,12 +289,10 @@ function PassoGosto({
   instrumento,
   escolhidas,
   onChange,
-  onNext,
 }: {
   instrumento: (typeof FAMILIAS)[number]["id"];
   escolhidas: string[];
   onChange: (ids: string[]) => void;
-  onNext: () => void;
 }) {
   const [genero, setGenero] = useState<Genero | null>(null);
   const [termo, setTermo] = useState("");
@@ -296,20 +352,11 @@ function PassoGosto({
         </div>
       )}
 
-      <div className="mt-12 flex flex-wrap items-center gap-5">
-        <button
-          type="button"
-          onClick={onNext}
-          className="h-12 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90"
-        >
-          {escolhidas.length ? `Continuar com ${escolhidas.length}` : "Continuar"}
-        </button>
-        {!escolhidas.length && (
-          <span className="text-[0.875rem] text-foreground/55">
-            Pode seguir sem marcar ninguém.
-          </span>
-        )}
-      </div>
+      {!escolhidas.length && (
+        <p className="mt-10 text-[0.875rem] text-foreground/55">
+          Pode seguir sem marcar ninguém.
+        </p>
+      )}
     </>
   );
 }
@@ -438,6 +485,8 @@ const ICONES: Record<string, React.ReactNode> = {
   palco: <Speaker className="h-5 w-5" />,
   microfone: <Mic className="h-5 w-5" />,
   fone: <Headphones className="h-5 w-5" />,
+  preco: <Tag className="h-5 w-5" />,
+  curva: <TrendingUp className="h-5 w-5" />,
 };
 
 function Cartao({
@@ -487,39 +536,150 @@ function Cartao({
 
 /* ——— 4 · onde e quanto ——————————————————————————————————————————————— */
 
-function PassoContexto({ onDone }: { onDone: (onde: Onde, faixa: Faixa) => void }) {
-  const [onde, setOnde] = useState<Onde | null>(null);
-  const [faixa, setFaixa] = useState<Faixa | null>(null);
+/* As faixas saem do catálogo da família escolhida (motorKit.faixasDaFamilia),
+   não de uma lista fixa. Três consequências na tela:
+     · quem escolheu contrabaixo não vê "até R$ 400", porque não existe;
+     · quem escolheu bateria não vê a pergunta, e a tela fica só com o lugar;
+     · a faixa vira caixa de seleção, não pílula única: "de 400 a 600, ou
+       de 900 a 1300" é uma resposta legítima e antes não cabia.
+   Marcar deixou de ser obrigatório: não marcar nada é "tanto faz", que é o
+   que "me mostra o melhor" tentava dizer e dizia errado. */
+function PassoContexto({
+  instrumento,
+  onde,
+  faixas: escolhidas,
+  onOnde,
+  onFaixas,
+}: {
+  instrumento: (typeof FAMILIAS)[number]["id"];
+  onde: Onde | null;
+  faixas: FaixaPreco[];
+  onOnde: (onde: Onde) => void;
+  onFaixas: (faixas: FaixaPreco[]) => void;
+}) {
+  const faixas = useMemo(() => faixasDaFamilia(instrumento), [instrumento]);
+
+  const marcadas = escolhidas.map((f) => f.id);
+  const alternar = (id: string) =>
+    onFaixas(
+      marcadas.includes(id)
+        ? escolhidas.filter((f) => f.id !== id)
+        : faixas.filter((f) => marcadas.includes(f.id) || f.id === id),
+    );
 
   return (
     <>
-      <Titulo sub="As duas últimas. Depois disso a gente mostra o que faz sentido pra você.">
-        Onde você vai tocar, e quanto quer investir?
+      <Titulo sub="Depois disso a gente mostra o que faz sentido pra você.">
+        {faixas.length ? "Onde você vai tocar, e quanto quer investir?" : "Onde você vai tocar?"}
       </Titulo>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {ONDES.map((o) => (
-          <Cartao key={o.id} titulo={o.label} sub={o.sub} icone={o.icone} ativo={onde === o.id} onClick={() => setOnde(o.id)} />
+          <Cartao key={o.id} titulo={o.label} sub={o.sub} icone={o.icone} ativo={onde === o.id} onClick={() => onOnde(o.id)} />
         ))}
       </div>
 
-      <div className="mt-10 flex flex-wrap gap-2">
-        {FAIXAS_LABEL.map((f) => (
-          <Chip key={f.id} ativo={faixa === f.id} onClick={() => setFaixa(f.id)}>
-            {f.label}
-          </Chip>
-        ))}
-      </div>
-
-      <button
-        type="button"
-        disabled={!onde || !faixa}
-        onClick={() => onde && faixa && onDone(onde, faixa)}
-        className="mt-12 h-12 rounded-[var(--radius-pill)] bg-foreground px-8 text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-30"
-      >
-        Ver o resultado
-      </button>
+      {faixas.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-[1.0625rem] font-semibold text-foreground">Quanto você quer investir?</h2>
+          <p className="mt-1 text-[0.875rem] text-foreground/60">
+            Marque quantas faixas quiser. Sem marcar nenhuma, a gente mostra a linha inteira.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            {faixas.map((f) => (
+              <ChipFaixa
+                key={f.id}
+                faixa={f}
+                marcada={marcadas.includes(f.id)}
+                onClick={() => alternar(f.id)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </>
+  );
+}
+
+/* Quadrado, não redondo: o círculo já é o "marcada" do card de banda, que é
+   escolha de gosto. Aqui é caixa de seleção e precisa parecer uma — o cliente
+   tem que ver de relance que pode marcar mais de uma. A contagem ao lado é o
+   que impede a faixa vazia: o número está impresso antes do clique. */
+function ChipFaixa({
+  faixa,
+  marcada,
+  onClick,
+}: {
+  faixa: FaixaPreco;
+  marcada: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      role="checkbox"
+      aria-checked={marcada}
+      className={`inline-flex h-11 items-center gap-2.5 rounded-[var(--radius-pill)] px-4 text-[0.875rem] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--amber)] focus-visible:ring-offset-2 ${
+        marcada
+          ? "bg-foreground [color:#fff]"
+          : "border border-foreground/12 text-foreground/75 hover:border-foreground/35 hover:text-foreground"
+      }`}
+    >
+      <span
+        aria-hidden
+        className={`grid h-[1.125rem] w-[1.125rem] shrink-0 place-items-center rounded-[5px] border transition-colors ${
+          marcada ? "border-white bg-white" : "border-foreground/25"
+        }`}
+      >
+        {marcada && <Check className="h-3 w-3 text-foreground" strokeWidth={3.5} />}
+      </span>
+      <span className="font-semibold">{faixa.label}</span>
+      <span className={marcada ? "[color:rgba(255,255,255,0.55)]" : "text-foreground/45"}>
+        {faixa.modelos} {faixa.modelos === 1 ? "modelo" : "modelos"}
+      </span>
+    </button>
+  );
+}
+
+/* As capas empilhadas do lado do "você marcou": em miniatura o nome não cabe,
+   mas a arte a pessoa reconhece de longe. Sem capa, sobra o degradê da banda
+   com a inicial, que é o mesmo fallback do card grande. */
+function Capinhas({ bands }: { bands: Band[] }) {
+  const mostra = bands.slice(0, 3);
+  return (
+    <span className="flex shrink-0 -space-x-3.5">
+      {mostra.map((b) => (
+        <span
+          key={b.id}
+          title={b.name}
+          className="grid h-11 w-11 shrink-0 place-items-center overflow-hidden rounded-[12px] ring-2 ring-white"
+          style={{ background: `linear-gradient(155deg, ${b.bg1} 0%, ${b.bg2} 100%)` }}
+        >
+          {b.cover ? (
+            <img
+              src={b.cover}
+              alt=""
+              loading="lazy"
+              className="h-full w-full object-cover"
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+            />
+          ) : (
+            <span
+              className="text-[0.8125rem] font-semibold [color:#fff]"
+              style={{ fontFamily: "var(--font-family-figtree)" }}
+            >
+              {b.name.slice(0, 2).toUpperCase()}
+            </span>
+          )}
+        </span>
+      ))}
+      {bands.length > mostra.length && (
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[12px] bg-foreground text-[0.75rem] font-semibold [color:#fff] ring-2 ring-white">
+          +{bands.length - mostra.length}
+        </span>
+      )}
+    </span>
   );
 }
 
@@ -542,11 +702,26 @@ function Resultado({ r }: { r: RespostasKit }) {
         {perfil.titulo}
       </h1>
 
-      <ul className="mt-8 max-w-[62ch] space-y-3">
+      {/* Cada motivo vira um cartão com cara própria: as capas que a pessoa
+          marcou, o ícone do lugar onde ela toca, a etiqueta do preço. Bolinha
+          e texto corrido diziam o mesmo, mas ninguém lia. */}
+      <ul className="mt-9 grid gap-4 sm:grid-cols-2">
         {perfil.porques.map((p, i) => (
-          <li key={i} className="flex gap-3 text-[0.9375rem] leading-relaxed text-foreground/75">
-            <span aria-hidden className="mt-[0.6em] h-1 w-1 shrink-0 rounded-full bg-[var(--amber)]" />
-            {p}
+          <li
+            key={i}
+            className="flex items-start gap-4 rounded-[var(--radius-card-lg)] border border-foreground/10 bg-white p-5"
+          >
+            {p.bands?.length ? (
+              <Capinhas bands={p.bands} />
+            ) : (
+              <span
+                aria-hidden
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[var(--amber)]/12 text-amber-text"
+              >
+                {ICONES[p.icone] ?? <Music className="h-5 w-5" />}
+              </span>
+            )}
+            <p className="text-[0.9375rem] leading-relaxed text-foreground/75">{p.texto}</p>
           </li>
         ))}
       </ul>

@@ -17,7 +17,7 @@
 import { allProducts, type Product } from "../../components/productsData";
 import { getVisibleCatalogProducts } from "../../components/productPresentation";
 import { getProductAttributes } from "../../components/productAttributes";
-import { cordaDoProduto, FAIXAS, type Faixa } from "../guia/motor";
+import { cordaDoProduto } from "../guia/motor";
 import { tipoDoProduto } from "../../v2/curadoria";
 import {
   somMedio,
@@ -36,7 +36,8 @@ export interface RespostasKit {
   bands?: string[];
   nivel?: Nivel;
   onde?: Onde;
-  faixa?: Faixa;
+  /** Faixas de preço marcadas. Vazio, ou ausente, é "tanto faz". */
+  faixas?: FaixaPreco[];
 }
 
 export interface Familia {
@@ -81,16 +82,112 @@ export const ONDES: { id: Onde; label: string; sub: string; icone: string }[] = 
   { id: "estudio", label: "Gravando", sub: "Quarto, estúdio, internet", icone: "microfone" },
 ];
 
-export const FAIXAS_LABEL: { id: Faixa; label: string }[] = [
-  { id: "ate-400", label: "Até R$ 400" },
-  { id: "400-600", label: "R$ 400 a 600" },
-  { id: "600-900", label: "R$ 600 a 900" },
-  { id: "sem-limite", label: "Me mostra o melhor" },
-];
+/* ——— faixa de preço, tirada do catálogo ——————————————————————————————
+ *
+ * Faixa escrita à mão mente. "Até R$ 400" num quiz de contrabaixo é pergunta
+ * sem resposta: o mais barato da loja custa R$ 609. Bateria é pior — as seis
+ * saem pelo mesmo preço, e quatro pílulas fingem uma escolha que não existe.
+ * E "me mostra o melhor" não é faixa de preço, é outra pergunta enfiada na
+ * mesma linha.
+ *
+ * Então a faixa nasce do catálogo da família escolhida: corta nos vãos reais
+ * de preço (que é onde as linhas de produto trocam de patamar), arredonda o
+ * corte pra um número que se fala em voz alta, e mostra quantos modelos caem
+ * em cada uma. Onde não há vão, não há pergunta. */
+
+export interface FaixaPreco {
+  id: string;
+  min: number;
+  /** Infinity na última faixa. */
+  max: number;
+  label: string;
+  /** Quantos modelos em estoque caem aqui. Vai impresso na pílula. */
+  modelos: number;
+}
+
+const emReais = (v: number) => Math.round(v).toLocaleString("pt-BR");
+const precoCurto = (v: number) => `R$ ${emReais(v)}`;
+
+/* O primeiro número redondo dentro do vão (a, b]. Mais graúdo primeiro: entre
+   699,90 e 1499,90 o corte é 1000, não 700. */
+function corteRedondo(a: number, b: number): number {
+  for (const passo of [1000, 500, 250, 200, 100, 50, 25, 10, 5]) {
+    const v = Math.ceil((a + 0.01) / passo) * passo;
+    if (v > a && v <= b) return v;
+  }
+  return Math.ceil(b);
+}
+
+function precosDaFamilia(f: Instrumento): number[] {
+  return produtosDaFamilia(f)
+    .filter((p) => p.inStock !== false && (p.priceNum ?? 0) > 0)
+    .map((p) => p.priceNum)
+    .sort((a, b) => a - b);
+}
+
+export function faixasDaFamilia(f: Instrumento): FaixaPreco[] {
+  const precos = precosDaFamilia(f);
+  const n = precos.length;
+  /* Pouca coisa, ou tudo custando quase a mesma coisa: perguntar preço aqui só
+     inventa uma escolha. A tela mostra a régua e segue. */
+  if (n < 6 || precos[n - 1] / precos[0] < 1.8) return [];
+
+  const quantosCortes = n >= 24 ? 3 : n >= 10 ? 2 : 1;
+  /* Faixa com um ou dois modelos é armadilha: a pessoa marca e recebe uma
+     vitrine que cabe numa linha. Toda faixa precisa sustentar uma lista. */
+  const minimoPorFaixa = Math.max(3, Math.floor(n * 0.12));
+
+  const vaos: { i: number; razao: number }[] = [];
+  for (let i = 0; i < n - 1; i++) {
+    if (precos[i + 1] > precos[i]) vaos.push({ i, razao: precos[i + 1] / precos[i] });
+  }
+  vaos.sort((a, b) => b.razao - a.razao);
+
+  const cortesEm: number[] = [];
+  for (const vao of vaos) {
+    if (cortesEm.length === quantosCortes) break;
+    const proposta = [...cortesEm, vao.i].sort((a, b) => a - b);
+    const tamanhos = proposta.map((idx, k) => idx - (k ? proposta[k - 1] : -1));
+    tamanhos.push(n - 1 - proposta[proposta.length - 1]);
+    if (tamanhos.every((t) => t >= minimoPorFaixa)) cortesEm.push(vao.i);
+    cortesEm.sort((a, b) => a - b);
+  }
+  if (!cortesEm.length) return [];
+
+  const faixas: FaixaPreco[] = [];
+  let inicio = 0;
+  for (const i of cortesEm) {
+    const corte = corteRedondo(precos[i], precos[i + 1]);
+    if (corte <= inicio) continue;
+    faixas.push({
+      id: `ate-${corte}`,
+      min: inicio,
+      max: corte,
+      label: inicio === 0 ? `Até ${precoCurto(corte)}` : `${precoCurto(inicio)} a ${emReais(corte)}`,
+      modelos: precos.filter((v) => v >= inicio && v < corte).length,
+    });
+    inicio = corte;
+  }
+  faixas.push({
+    id: `de-${inicio}`,
+    min: inicio,
+    max: Infinity,
+    label: `${precoCurto(inicio)} ou mais`,
+    modelos: precos.filter((v) => v >= inicio).length,
+  });
+  return faixas;
+}
 
 /* Qual fatia do catálogo é cada família. Viola e ukulele moram dentro de
    "Violões" e só se distinguem por tag — herança do ERP, não decisão nossa. */
 export function produtosDaFamilia(f: Instrumento): Product[] {
+  /* Acessório não é resposta pra "qual instrumento é o meu". Sem esse corte, o
+     abafador de R$ 21 e o cabo de R$ 48 entram na conta e sujam as duas coisas
+     que saem daqui: a recomendação e a faixa de preço. */
+  return universoDaFamilia(f).filter((p) => f === "voz" || tipoDoProduto(p) === "instrumento");
+}
+
+function universoDaFamilia(f: Instrumento): Product[] {
   const visiveis = getVisibleCatalogProducts(allProducts);
   const semTag = (p: Product, t: string) => !p.tags.includes(t);
 
@@ -129,13 +226,26 @@ export function produtosDaFamilia(f: Instrumento): Product[] {
   }
 }
 
+/* O porquê deixou de ser string solta. Uma lista de frases é um bloco de
+   texto que ninguém lê depois de responder quatro telas; cada motivo tem uma
+   cara (as capas que a pessoa marcou, o ícone do lugar onde ela toca, a
+   etiqueta de preço) e é isso que faz o resultado parecer resposta, não
+   relatório. `bands` preenchido manda a página desenhar as capas no lugar do
+   ícone. */
+export interface Porque {
+  /** Chave do mapa de ícones da página. */
+  icone: string;
+  texto: string;
+  bands?: Band[];
+}
+
 export interface PerfilKit {
   instrumento: Instrumento;
   som: Som;
   precisaCaptacao: boolean;
-  faixa: { min: number; max: number };
+  faixas: FaixaPreco[];
   titulo: string;
-  porques: string[];
+  porques: Porque[];
   /** As bandas que o cliente marcou, na ordem de clique. */
   bands: Band[];
 }
@@ -167,8 +277,8 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
   const instrumento = r.instrumento ?? "violao";
   const nivel = r.nivel ?? "primeiro";
   const onde = r.onde ?? "casa";
-  const faixa = FAIXAS[r.faixa ?? "sem-limite"];
-  const porques: string[] = [];
+  const faixas = r.faixas ?? [];
+  const porques: Porque[] = [];
 
   const som = somMedio(bandsSelecionadas) ?? somPadrao(instrumento, nivel, onde);
 
@@ -177,25 +287,30 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
   if (bandsSelecionadas.length) {
     const nomes = bandsSelecionadas.slice(0, 3).map((b) => b.name);
     const lista = nomes.length > 1 ? `${nomes.slice(0, -1).join(", ")} e ${nomes.at(-1)}` : nomes[0];
-    porques.push(
-      canta
+    porques.push({
+      icone: "bandas",
+      bands: bandsSelecionadas,
+      texto: canta
         ? `Você marcou ${lista}. O microfone abaixo aguenta esse repertório sem devolver sopro nem chiado.`
         : som.corda === "nylon"
         ? `Você marcou ${lista}. É repertório de dedilhado, onde o nylon dá o corpo quente e a mão não sofre.`
         : som.corda === "aco"
           ? `Você marcou ${lista}. É repertório de palhetada, que pede o brilho e a projeção da corda de aço.`
           : `Você marcou ${lista}. É repertório que vai bem nos dois tipos de corda.`,
-    );
+    });
     if (som.nivel === "dificil" && nivel === "primeiro") {
-      porques.push(
-        "Esse repertório é difícil de verdade. O instrumento abaixo dá conta: a curva está na mão, e ela vem com o tempo.",
-      );
+      porques.push({
+        icone: "curva",
+        texto:
+          "Esse repertório é difícil de verdade. O instrumento abaixo dá conta: a curva está na mão, e ela vem com o tempo.",
+      });
     }
   }
 
   const precisaCaptacao = onde !== "casa";
-  porques.push(
-    canta
+  porques.push({
+    icone: onde === "igreja" ? "igreja" : onde === "palco" ? "palco" : onde === "estudio" ? "microfone" : "casa",
+    texto: canta
       ? onde === "casa"
         ? "Cantando em casa, o microfone é pra ensaiar e gravar. Um modelo de mão já resolve, e o cabo entra no kit."
         : "Cantando fora de casa, o microfone é o seu instrumento: ele precisa chegar na mesa de som, por cabo XLR ou por receptor."
@@ -206,10 +321,24 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
         : onde === "estudio"
           ? "Gravando, a captação dá a segunda via do som: o microfone e a linha juntos."
           : "Pra tocar em casa, captação é peso e preço que você não usa. Acústico puro soa melhor pelo mesmo dinheiro.",
-  );
+  });
 
   if (nivel === "toco") {
-    porques.push("Você já toca: a seleção começa pelas linhas de tampo melhor, não pelo mais barato.");
+    porques.push({
+      icone: "flame",
+      texto: "Você já toca: a seleção começa pelas linhas de tampo melhor, não pelo mais barato.",
+    });
+  }
+
+  if (faixas.length) {
+    /* O rótulo entra como está escrito na pílula, com o "R$" maiúsculo. */
+    const rotulos = faixas.map((f) => f.label);
+    const marcadas =
+      rotulos.length > 1 ? `${rotulos.slice(0, -1).join(", ")} e ${rotulos.at(-1)}` : rotulos[0];
+    porques.push({
+      icone: "preco",
+      texto: `Você marcou ${marcadas}. A lista começa por aí, e quando o instrumento certo está um degrau acima ele aparece junto, com o porquê.`,
+    });
   }
 
   const titulo =
@@ -219,7 +348,7 @@ export function montarPerfilKit(r: RespostasKit, bandsSelecionadas: Band[]): Per
       ? `Violão de ${som.corda === "nylon" ? "nylon" : "aço"}${precisaCaptacao ? " com captação" : ""}`
       : LABEL[instrumento];
 
-  return { instrumento, som, precisaCaptacao, faixa, titulo, porques, bands: bandsSelecionadas };
+  return { instrumento, som, precisaCaptacao, faixas, titulo, porques, bands: bandsSelecionadas };
 }
 
 function temCaptacao(p: Product): boolean {
@@ -262,11 +391,17 @@ export function recomendarKit(perfil: PerfilKit, limite = 6): Product[] {
        premiava o que tivesse "eletro" no nome, que ali não quer dizer nada. */
     if (perfil.instrumento !== "voz" && temCaptacao(p) === perfil.precisaCaptacao) pontos += 3;
 
+    /* Sem faixa marcada, preço não pontua: quem não disse quanto quer gastar
+       não deve ser empurrado nem pro mais barato nem pro mais caro. */
     const preco = p.priceNum ?? 0;
-    if (preco >= perfil.faixa.min && preco <= perfil.faixa.max) pontos += 3;
-    else {
-      const distancia = preco > perfil.faixa.max ? preco - perfil.faixa.max : perfil.faixa.min - preco;
-      pontos -= Math.min(4, distancia / 150);
+    if (perfil.faixas.length) {
+      if (perfil.faixas.some((f) => preco >= f.min && preco < f.max)) pontos += 3;
+      else {
+        const distancia = Math.min(
+          ...perfil.faixas.map((f) => (preco >= f.max ? preco - f.max : f.min - preco)),
+        );
+        pontos -= Math.min(4, distancia / 150);
+      }
     }
 
     if (p.inStock !== false) pontos += 1;
@@ -288,12 +423,23 @@ export function recomendarKit(perfil: PerfilKit, limite = 6): Product[] {
 export function kitSugerido(perfil: PerfilKit, r: RespostasKit): { seed: KitSeed; id: number } | null {
   if (!r.onde || r.onde === "casa") return null;
 
+  /* O teto do que a pessoa marcou decide o kit. Sem marcação, quem decide é o
+     nível: começar do zero não pede kit avançado. */
+  const teto = r.faixas?.length
+    ? Math.max(...r.faixas.map((f) => (f.max === Infinity ? f.min * 2 : f.max)))
+    : null;
   const faixaAlvo =
-    r.faixa === "ate-400" || r.faixa === "400-600"
-      ? "Entrada"
-      : r.faixa === "600-900"
-        ? "Intermediário"
-        : "Avançado";
+    teto === null
+      ? r.nivel === "primeiro"
+        ? "Entrada"
+        : r.nivel === "retomando"
+          ? "Intermediário"
+          : "Avançado"
+      : teto <= 600
+        ? "Entrada"
+        : teto <= 1000
+          ? "Intermediário"
+          : "Avançado";
 
   const perfilAlvo =
     r.onde === "igreja" ? "igreja" : r.nivel === "primeiro" ? "comecando" : "fora-de-casa";
