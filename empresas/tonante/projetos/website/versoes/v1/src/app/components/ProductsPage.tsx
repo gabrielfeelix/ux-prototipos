@@ -512,6 +512,7 @@ export function ProductsPage() {
   /* ── Scroll to top on category change ── */
   const mainRef = useRef<HTMLDivElement>(null);
   const itemsPerPageDropdownRef = useRef<HTMLDivElement>(null);
+  const sortDropdownRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     mainRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [initialCategory, initialSubcategory]);
@@ -879,17 +880,26 @@ export function ProductsPage() {
     let result = [...productsBeforeColorFilter];
     if (selectedColors.size > 0) result = result.filter((p) => [...selectedColors].some((color) => productMatchesColor(p, color)));
 
+    /* Ordena pelo produto que o card mostra (a variante de cor escolhida), não
+       pelo item base: na vitrine de uma cor só, os dois divergem e a ordem saía
+       diferente dos preços visíveis. E todo critério cai no nome como desempate
+       — dentro de uma categoria vários itens têm o mesmo preço, e sem desempate
+       a lista voltava na mesma ordem, parecendo que o seletor não fez nada. */
+    const pelaCor = new Map(result.map((p) => [p.id, getColorMatchedProduct(p)]));
+    const visivel = (p: Product) => pelaCor.get(p.id) ?? p;
+    const porNome = (a: Product, b: Product) => visivel(a).name.localeCompare(visivel(b).name, "pt-BR");
+
     switch (sortBy) {
-      case "price-asc": result.sort((a, b) => a.priceNum - b.priceNum); break;
-      case "price-desc": result.sort((a, b) => b.priceNum - a.priceNum); break;
-      case "rating": result.sort((a, b) => b.rating - a.rating || b.reviews - a.reviews); break;
-      case "discount": result.sort((a, b) => getDiscount(b) - getDiscount(a)); break;
-      case "bestselling": result.sort((a, b) => b.reviews - a.reviews); break;
-      case "az": result.sort((a, b) => a.name.localeCompare(b.name)); break;
-      case "za": result.sort((a, b) => b.name.localeCompare(a.name)); break;
+      case "price-asc": result.sort((a, b) => visivel(a).priceNum - visivel(b).priceNum || porNome(a, b)); break;
+      case "price-desc": result.sort((a, b) => visivel(b).priceNum - visivel(a).priceNum || porNome(a, b)); break;
+      case "rating": result.sort((a, b) => visivel(b).rating - visivel(a).rating || visivel(b).reviews - visivel(a).reviews || porNome(a, b)); break;
+      case "discount": result.sort((a, b) => getDiscount(visivel(b)) - getDiscount(visivel(a)) || porNome(a, b)); break;
+      case "bestselling": result.sort((a, b) => visivel(b).reviews - visivel(a).reviews || porNome(a, b)); break;
+      case "az": result.sort((a, b) => porNome(a, b)); break;
+      case "za": result.sort((a, b) => porNome(b, a)); break;
     }
     return result;
-  }, [productsBeforeColorFilter, selectedColors, sortBy]);
+  }, [productsBeforeColorFilter, selectedColors, sortBy, selectedVariantIds]);
 
   /* ── Reset page when filters change ── */
   useEffect(() => { setCurrentPage(1); }, [filtered, itemsPerPage]);
@@ -906,6 +916,29 @@ export function ProductsPage() {
     window.addEventListener("mousedown", handlePointerDown);
     return () => window.removeEventListener("mousedown", handlePointerDown);
   }, [itemsPerPageDropdownOpen]);
+
+  /* O seletor de ordem só fechava clicando de novo no próprio botão: clicar em
+     qualquer outro canto da página deixava o menu aberto por cima da vitrine.
+     Esc fecha junto, mesma regra do "Mostrar:". */
+  useEffect(() => {
+    if (!sortDropdownOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!sortDropdownRef.current?.contains(event.target as Node)) {
+        setSortDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSortDropdownOpen(false);
+    };
+
+    window.addEventListener("mousedown", handlePointerDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("mousedown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [sortDropdownOpen]);
 
   useEffect(() => {
     if (!mobileFiltersOpen) return;
@@ -1375,7 +1408,7 @@ export function ProductsPage() {
               </button>
 
               {/* Sort */}
-              <div className="relative">
+              <div ref={sortDropdownRef} className="relative">
                 <button onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
                   className="flex min-h-[44px] cursor-pointer items-center gap-2 text-foreground/50 transition-colors hover:text-foreground/80 lg:min-h-0"
                   style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}
@@ -1470,13 +1503,18 @@ export function ProductsPage() {
 
               {/* Grid / List */}
               <div className="hidden overflow-hidden border border-foreground/10 lg:flex" style={{ borderRadius: "var(--radius-button)" }}>
+                {/* O hover era só de cor do ícone (40% -> 60% de opacidade) e não
+                   dava pra perceber qual dos dois o mouse estava pegando. Agora
+                   o fundo também reage, inclusive no lado já ativo. */}
                 <button onClick={() => setGridMode("grid")}
-                  className={`cursor-pointer p-2 transition-colors ${gridMode === "grid" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
+                  className={`cursor-pointer p-2 transition-colors ${gridMode === "grid" ? "bg-foreground/[0.08] text-foreground hover:bg-foreground/10" : "text-foreground/40 hover:bg-foreground/5 hover:text-foreground/70"}`}
                   aria-label="Visualização em grade"
+                  aria-pressed={gridMode === "grid"}
                 ><Grid3X3 size={16} /></button>
                 <button onClick={() => setGridMode("list")}
-                  className={`cursor-pointer p-2 transition-colors ${gridMode === "list" ? "bg-foreground/[0.08] text-foreground" : "text-foreground/40 hover:text-foreground/60"}`}
+                  className={`cursor-pointer p-2 transition-colors ${gridMode === "list" ? "bg-foreground/[0.08] text-foreground hover:bg-foreground/10" : "text-foreground/40 hover:bg-foreground/5 hover:text-foreground/70"}`}
                   aria-label="Visualização em lista"
+                  aria-pressed={gridMode === "list"}
                 ><LayoutList size={16} /></button>
               </div>
             </div>
