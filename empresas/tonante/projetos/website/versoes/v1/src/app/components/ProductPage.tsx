@@ -2537,10 +2537,6 @@ export function ProductPage() {
             preOrderInfo={preOrderInfo}
           />
 
-          {/* timbre do celular: depois do preço, não antes */}
-          <div className="order-5 w-full lg:hidden">
-            <TimbrePlayer product={product} className="mb-6" />
-          </div>
 
           {/* Middle column: title, rating, share/like, description */}
           <motion.div
@@ -2651,6 +2647,21 @@ export function ProductPage() {
                   </span>
                 </>
               )}
+            </div>
+
+            {/* Ouvir o instrumento, no celular, logo antes do preço.
+                Ele morava depois de tudo — depois do preço, da quantidade, do
+                "Comprar agora" e do frete —, a 1586px do topo: quem chegava
+                ali já tinha decidido, e quem não tinha já havia saído. Num
+                violão o timbre é o argumento, não um detalhe, então ele entra
+                na ordem em que a decisão acontece: o que é, como é avaliado,
+                como soa, quanto custa.
+                Ele saiu daqui uma vez porque empurrava a compra para fora da
+                primeira tela. O problema não era o lugar, era o tamanho: em
+                versão densa são 66px em vez de 110, e o preço continua acima
+                da dobra. */}
+            <div className="mb-4 lg:hidden">
+              <TimbrePlayer product={product} denso />
             </div>
 
             {/* Color swatches */}

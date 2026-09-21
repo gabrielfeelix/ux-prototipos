@@ -42,10 +42,18 @@ type Props = {
   product: Product;
   /** compact: só o botão + rótulo curto (quick-view) */
   variant?: "full" | "compact";
+  /**
+   * Mesma peça, mais baixa. Existe para o celular, onde o player entra no
+   * meio da decisão — entre as avaliações e o preço — e cada pixel que ele
+   * ocupa empurra o "Comprar agora" para fora da primeira tela. Corta o
+   * respiro interno e encosta o botão no mínimo tocável de 44px, sem tirar
+   * nada do que o player diz.
+   */
+  denso?: boolean;
   className?: string;
 };
 
-export function TimbrePlayer({ product, variant = "full", className = "" }: Props) {
+export function TimbrePlayer({ product, variant = "full", denso = false, className = "" }: Props) {
   const preset = presetForProduct(product);
   const ownRecording = product.audioSample ?? null;   // gravação do modelo
   const reference = ownRecording ? null : sampleForProduct(product); // amostra CC0
@@ -98,14 +106,14 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
 
   return (
     <div
-      className={`flex items-center gap-4 ${className}`}
-      style={{ border: "1px solid var(--border)", borderRadius: "var(--radius-card-lg)", background: "var(--surface-1)", padding: "14px 18px" }}
+      className={`flex items-center ${denso ? "gap-3" : "gap-4"} ${className}`}
+      style={{ border: "1px solid var(--border)", borderRadius: "var(--radius-card-lg)", background: "var(--surface-1)", padding: denso ? "9px 12px" : "14px 18px" }}
     >
       <button
         type="button"
         onClick={play}
         aria-label={playing ? "Parar demonstração" : `Ouvir demonstração de ${product.name}`}
-        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full cursor-pointer transition-transform hover:scale-105"
+        className={`flex ${denso ? "h-11 w-11" : "h-12 w-12"} flex-shrink-0 items-center justify-center rounded-full cursor-pointer transition-transform hover:scale-105`}
         style={{ background: "var(--gradient-buy)", color: "#fff", boxShadow: "var(--shadow-buy-cta-sm)" }}
       >
         {playing ? <Square size={16} fill="currentColor" strokeWidth={0} /> : <Play size={18} fill="currentColor" strokeWidth={0} style={{ marginLeft: 2 }} />}
@@ -118,7 +126,7 @@ export function TimbrePlayer({ product, variant = "full", className = "" }: Prop
             exemplar)" avisava, na hora de ouvir, que o que se ouve não é o
             produto — plantava dúvida no lugar de vender o timbre. A ressalva,
             quando precisar, é assunto da descrição, não do player. */}
-        <div className="mt-1.5"><Waveform active={playing} color="var(--amber)" /></div>
+        <div className={denso ? "mt-1" : "mt-1.5"}><Waveform active={playing} color="var(--amber)" /></div>
       </div>
     </div>
   );
