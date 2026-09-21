@@ -71,7 +71,7 @@ export function LegalPageLayout({
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden pt-[152px] md:pt-[182px]">
+      <section className="relative overflow-hidden pt-10 md:pt-14">
         {/* Subtle red radial glow */}
         <div
           aria-hidden

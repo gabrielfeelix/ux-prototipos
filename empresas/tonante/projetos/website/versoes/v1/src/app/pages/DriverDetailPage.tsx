@@ -124,7 +124,7 @@ function DownloadCard({
 function DriverNotFound() {
   return (
     <>
-      <section className="pt-[152px] md:pt-[182px]" style={{ background: "var(--surface-0)" }}>
+      <section className="pt-10 md:pt-14" style={{ background: "var(--surface-0)" }}>
         <div className="mx-auto flex min-h-[52vh] max-w-[1434px] flex-col items-center justify-center px-5 py-24 text-center md:px-12">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-foreground/[0.05] text-foreground/40">
             <FileBox size={26} />
@@ -184,7 +184,7 @@ export function DriverDetailPage() {
   return (
     <>
       {/* ── Breadcrumb ── */}
-      <section className="pt-[152px] md:pt-[182px]" style={{ background: "var(--surface-0)" }}>
+      <section className="pt-10 md:pt-14" style={{ background: "var(--surface-0)" }}>
         <div className="mx-auto max-w-[1434px] px-5 md:px-12">
           <nav aria-label="breadcrumb">
             <ol

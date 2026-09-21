@@ -144,7 +144,7 @@ export function DriversManuaisPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="pt-[152px] md:pt-[182px]" style={{ background: "var(--surface-0)" }}>
+      <section className="pt-10 md:pt-14" style={{ background: "var(--surface-0)" }}>
         <div className="mx-auto max-w-[1434px] px-5 pb-12 md:px-12 md:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
