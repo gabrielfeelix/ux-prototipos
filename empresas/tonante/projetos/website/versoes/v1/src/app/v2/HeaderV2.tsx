@@ -369,7 +369,7 @@ export function HeaderV2() {
       </div>
 
       {/* faixa principal */}
-      <div className="mx-auto flex w-full items-center gap-3 px-4 py-2.5 md:gap-16 md:px-12 md:py-4" style={{ maxWidth: "1680px" }}>
+      <div className="relative mx-auto flex w-full items-center gap-3 px-4 py-2.5 md:static md:gap-16 md:px-12 md:py-4" style={{ maxWidth: "1680px" }}>
         {/* hambúrguer — só existe no celular, onde categorias, conta, ajuda e
             favoritos não cabem na barra */}
         <button
@@ -383,10 +383,18 @@ export function HeaderV2() {
           <Menu size={24} strokeWidth={1.9} />
         </button>
 
-        {/* No celular a logo fica no centro: hambúrguer e carrinho têm 44px
-            cada, então o espaço que sobra é simétrico e ela cai no meio de
-            verdade. No desktop volta a ser o primeiro item da linha. */}
-        <Link to="/" aria-label="Tonante, início" className="flex min-h-11 flex-1 flex-shrink-0 items-center justify-center transition-opacity duration-200 hover:opacity-70 md:flex-none md:justify-start">
+        {/* No celular a logo fica no centro da linha, e fora do fluxo de
+            propósito: ela já esteve centrada por divisão de espaço, com
+            hambúrguer e carrinho valendo 44px cada de cada lado. Só que a
+            lupa entra e sai desse lado direito conforme a pessoa rola, e a
+            logo ia junto, deslizando a cada troca de direção. Centrada na
+            linha, nada do que entra nas laterais a move. No desktop volta a
+            ser o primeiro item da linha, no fluxo. */}
+        <Link
+          to="/"
+          aria-label="Tonante, início"
+          className="absolute left-1/2 top-1/2 flex min-h-11 -translate-x-1/2 -translate-y-1/2 flex-shrink-0 items-center justify-center transition-opacity duration-200 hover:opacity-70 md:static md:flex-none md:translate-x-0 md:translate-y-0 md:justify-start"
+        >
           <img src="/brand/tonante-wordmark-dark.png" alt="Tonante" className="h-8 md:h-11" style={{ width: "auto" }} />
         </Link>
 
