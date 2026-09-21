@@ -4,11 +4,11 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
 import { Search, X, ArrowUpRight, ChevronDown, Star } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { QuadroFoto } from "./QuadroFoto";
 import { type Product } from "./productsData";
 import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPresentation";
 import { getPixPrice, formatBRL, getInstallmentCount, getInstallmentValue } from "./productEnhancements";
-import { matchesSearchQuery } from "../lib/searchMatch";
+import { searchProducts } from "../lib/productSearch";
 
 /* SearchBar — barra de busca + painel "mais buscados" do header.
    Extraída do Navbar (v1) para poder ser reusada pelo HeaderV2 sem
@@ -56,11 +56,13 @@ function CardBusca({ p, fundo, onNavigate }: { p: Product; fundo: string; onNavi
             -{discount}%
           </span>
         )}
-        <ImageWithFallback
+        {/* arte de kit vem enquadrada de estúdio e preenche o quadro; packshot
+            entra por dentro com respiro. QuadroFoto decide pelos dois. */}
+        <QuadroFoto
           src={img}
           alt={p.name}
-          className="absolute inset-0 h-full w-full object-contain p-6 transition-transform duration-500 group-hover:scale-[1.06]"
-          style={{ mixBlendMode: "multiply" }}
+          padding="p-6"
+          className="transition-transform duration-500 group-hover:scale-[1.06]"
         />
       </div>
       <p
@@ -230,11 +232,14 @@ export function SearchBar({
 
   const displayedKeywords = mostSearchedKeywords;
 
-  const searchResults = searchQuery.trim().length > 0
-    ? visibleCatalogProducts
-      .filter((p) => matchesSearchQuery([p.name, p.category, p.subcategory, p.brand], searchQuery))
-      .slice(0, 8)
-    : [];
+  /* Busca inteligente: relevância por contexto e tolerância a erro de
+     digitação vivem em lib/productSearch. */
+  const searchOutcome = useMemo(
+    () => searchProducts(visibleCatalogProducts, searchQuery, { limit: 8 }),
+    [searchQuery],
+  );
+  const searchResults = searchOutcome.items;
+  const searchCorrection = searchOutcome.correctedQuery;
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -390,7 +395,7 @@ export function SearchBar({
                 ...(panelAnchor === "viewport" ? { top: panelTop } : null),
               }}
             >
-              {searchQuery.trim().length === 0 ? (
+              {searchQuery.trim().length === 0 || searchResults.length === 0 ? (
                 <div className="grid grid-cols-1 gap-0 md:grid-cols-[1fr_260px]">
                   {/* Left: produtos */}
                   <div className="border-b border-edge-subtle px-5 py-6 md:border-b-0 md:border-r md:px-10 md:py-9">
@@ -403,7 +408,9 @@ export function SearchBar({
                         letterSpacing: "-0.015em",
                       }}
                     >
-                      Produtos mais buscados
+                      {searchQuery.trim().length > 0
+                        ? "Não achamos esse termo. O que mais sai da loja:"
+                        : "Produtos mais buscados"}
                     </h4>
                     <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 md:gap-6">
                       {mostSearchedProducts.map((p) => (
@@ -457,7 +464,7 @@ export function SearchBar({
                     </div>
                   </div>
                 </div>
-              ) : searchResults.length > 0 ? (
+              ) : (
                 <div className="px-5 py-6 md:px-10 md:py-9">
                   <div className="mb-5 flex items-baseline justify-between md:mb-7">
                     <h4
@@ -478,6 +485,11 @@ export function SearchBar({
                       {searchResults.length} {searchResults.length === 1 ? "PRODUTO" : "PRODUTOS"}
                     </span>
                   </div>
+                  {searchCorrection && (
+                    <p className="-mt-3 mb-4 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
+                      Mostrando resultados para <span className="text-ink-strong" style={{ fontWeight: 600 }}>{searchCorrection}</span>
+                    </p>
+                  )}
                   <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5 md:gap-6 max-h-none md:max-h-[520px] md:overflow-y-auto md:pr-1">
                     {searchResults.map((p) => (
                       <CardBusca
@@ -491,15 +503,6 @@ export function SearchBar({
                       />
                     ))}
                   </div>
-                </div>
-              ) : (
-                <div className="px-6 py-12 text-center md:px-10 md:py-16">
-                  <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 600 }}>
-                    Nenhum produto encontrado
-                  </p>
-                  <p className="mt-2 text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                    Tente outro termo ou veja os produtos mais buscados
-                  </p>
                 </div>
               )}
             </motion.div>

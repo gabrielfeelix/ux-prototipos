@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Link, useSearchParams, useParams, useNavigate } from "react-router";
 import { getCategoryFromSlug } from "../lib/slug";
-import { matchesSearchTerm, searchTermVariants } from "../lib/searchMatch";
+import { searchProducts } from "../lib/productSearch";
 import { motion, AnimatePresence } from "motion/react";
 import {
   SlidersHorizontal, ArrowUpDown, ChevronDown, Grid3X3, LayoutList,
@@ -17,7 +17,7 @@ import { Footer } from "./Footer";
 import { ProductCard } from "./ProductCard";
 import { CompareBar, CompareToggle, COMPARE_MAX, compareTypeOf } from "./CompareBar";
 import { getInstallmentCount, getInstallmentValue, getPixPrice, formatBRL } from "./productEnhancements";
-import { isFotoAmbientada } from "./photoBackdrop";
+import { fotoFit, isFotoAmbientada } from "./photoBackdrop";
 import { allProducts, allTags as productTags, brands as productBrands, categories as productCategories, type Product } from "./productsData";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import {
@@ -571,18 +571,19 @@ export function ProductsPage() {
     const sp = new URLSearchParams(searchParams); sp.delete("category"); sp.delete("subcategory"); sp.delete("search"); setSearchParams(sp, { replace: true });
   };
 
+  /* Quando a busca corrige um erro de digitação, a página diz o que foi
+     entendido em vez de fingir que o usuário digitou certo. */
+  const searchCorrection = useMemo(
+    () => (searchQuery ? searchProducts(validProducts, searchQuery, { limit: 1 }).correctedQuery : undefined),
+    [searchQuery],
+  );
+
   const productsWithoutPriceFilter = useMemo(() => {
     let result = [...validProducts];
     if (searchQuery) {
-      const terms = searchTermVariants(searchQuery);
-      const matchTerm = (text: string | undefined) => matchesSearchTerm(text, terms);
-      result = result.filter((p) =>
-        matchTerm(p.name) ||
-        matchTerm(p.category) ||
-        matchTerm(getProductSubcategory(p)) ||
-        matchTerm(p.brand) ||
-        (p.tags ?? []).some((tag) => matchTerm(tag))
-      );
+      /* O motor já devolve em ordem de relevância; os filtros abaixo só
+         removem itens, então a ordem sobrevive até a ordenação final. */
+      result = searchProducts(result, searchQuery, { vocabularySource: validProducts }).items;
     }
     if (selectedCategories.size > 0) result = result.filter((p) => selectedCategories.has(p.category));
     if (selectedFeaturedCategories.size > 0) {
@@ -1342,6 +1343,9 @@ export function ProductsPage() {
                   Ela reaparece logo acima da grade. */}
               <span className="hidden text-foreground/60 lg:inline" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
                 Mostrando <span className="text-foreground font-semibold">{filtered.length}</span> {filtered.length === 1 ? "produto" : "produtos"}
+                {searchCorrection && (
+                  <> para <span className="text-foreground font-semibold">{searchCorrection}</span></>
+                )}
               </span>
             </div>
 
@@ -1832,7 +1836,7 @@ export function ProductsPage() {
                           }}
                           aria-label={`Imagem ${idx + 1}`}
                         >
-                          <ImageWithFallback src={img} alt={`thumb ${idx + 1}`} className="h-full w-full object-contain p-2" />
+                          <ImageWithFallback src={img} alt={`thumb ${idx + 1}`} {...fotoFit(img, { padding: "p-2", semMultiply: true })} />
                         </button>
                       ))}
                     </div>

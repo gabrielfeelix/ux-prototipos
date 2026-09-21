@@ -13,7 +13,7 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/t
 import { allProducts, type Product } from "./productsData";
 import { ThemeToggle } from "./ThemeToggle";
 import { getCatalogHref, getPrimaryProductImage, getProductSubcategory, getProductSwatches, getVisibleCatalogProducts } from "./productPresentation";
-import { matchesSearchQuery } from "../lib/searchMatch";
+import { searchProducts } from "../lib/productSearch";
 
 // Header ainda usa surface escura (reskin p/ creme = Fase 3) → wordmark branco.
 const TONANTE_LOGO = "/brand/tonante-wordmark-dark.png";
@@ -437,11 +437,14 @@ export function Navbar() {
   const promoTop = (promoDismissed || !showExpanded || !showPromoBanner) ? 0 : 36;
   const isDark = resolvedTheme === "dark" || resolvedTheme === undefined;
 
-  const searchResults = searchQuery.trim().length > 0
-    ? visibleCatalogProducts
-      .filter((p) => matchesSearchQuery([p.name, p.category, p.subcategory, p.brand], searchQuery))
-      .slice(0, 8)
-    : [];
+  /* Busca inteligente: relevância por contexto e tolerância a erro de
+     digitação vivem em lib/productSearch. */
+  const searchOutcome = useMemo(
+    () => searchProducts(visibleCatalogProducts, searchQuery, { limit: 8 }),
+    [searchQuery],
+  );
+  const searchResults = searchOutcome.items;
+  const searchCorrection = searchOutcome.correctedQuery;
 
   const handleMegaEnter = (mega: string) => {
     if (megaTimeout.current) clearTimeout(megaTimeout.current);
@@ -1123,6 +1126,7 @@ export function Navbar() {
 		                          <>
 		                            <p className="px-2 pb-2 pt-1 text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700 }}>
 		                              {searchResults.length} resultado{searchResults.length !== 1 ? "s" : ""}
+		                              {searchCorrection ? ` para “${searchCorrection}”` : ""}
 		                            </p>
 		                            {searchResults.map((product) => (
 		                              <Link
@@ -1151,7 +1155,7 @@ export function Navbar() {
 		                        ) : (
 		                          <div className="px-4 py-5 text-center">
 		                            <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
-		                              Nenhum produto encontrado
+		                              Nada com “{searchQuery.trim()}”. Tente outro termo.
 		                            </p>
 		                          </div>
 		                        )}
@@ -1355,7 +1359,7 @@ export function Navbar() {
                         border: "1px solid rgba(var(--foreground-rgb), 0.08)",
                       }}
                     >
-                      {searchQuery.trim().length === 0 ? (
+                      {searchQuery.trim().length === 0 || searchResults.length === 0 ? (
                         <div className="grid grid-cols-[1fr_260px] gap-0">
                           {/* Left: produtos */}
                           <div className="border-r border-edge-subtle px-10 py-9">
@@ -1368,7 +1372,9 @@ export function Navbar() {
                                 letterSpacing: "-0.015em",
                               }}
                             >
-                              Produtos mais buscados
+                              {searchQuery.trim().length > 0
+                                ? "Não achamos esse termo. O que mais sai da loja:"
+                                : "Produtos mais buscados"}
                             </h4>
                             <div className="grid grid-cols-5 gap-6">
                               {mostSearchedProducts.map((p) => {
@@ -1512,7 +1518,7 @@ export function Navbar() {
                             </div>
                           </div>
                         </div>
-                      ) : searchResults.length > 0 ? (
+                      ) : (
                         <div className="px-10 py-9">
                           <div className="mb-7 flex items-baseline justify-between">
                             <h4
@@ -1533,6 +1539,11 @@ export function Navbar() {
                               {searchResults.length} {searchResults.length === 1 ? "PRODUTO" : "PRODUTOS"}
                             </span>
                           </div>
+                          {searchCorrection && (
+                            <p className="-mt-3 mb-4 text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
+                              Mostrando resultados para <span className="text-ink-strong" style={{ fontWeight: 600 }}>{searchCorrection}</span>
+                            </p>
+                          )}
                           <div className="grid grid-cols-5 gap-6 max-h-[520px] overflow-y-auto pr-1">
                             {searchResults.map((p) => {
                               const img = getPrimaryProductImage(p);
@@ -1635,15 +1646,6 @@ export function Navbar() {
                               );
                             })}
                           </div>
-                        </div>
-                      ) : (
-                        <div className="px-10 py-16 text-center">
-                          <p className="text-ink-muted" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-lg)", fontWeight: 600 }}>
-                            Nenhum produto encontrado
-                          </p>
-                          <p className="mt-2 text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                            Tente outro termo ou veja os produtos mais buscados
-                          </p>
                         </div>
                       )}
                     </motion.div>
@@ -1960,7 +1962,7 @@ export function Navbar() {
               </form>
 
               <div className="mx-auto mt-8 w-full max-w-[920px] pb-20 md:mt-11">
-                {searchQuery.trim().length === 0 ? (
+                {searchQuery.trim().length === 0 || searchResults.length === 0 ? (
                   <div className="grid gap-8 md:grid-cols-[1.15fr_0.85fr] md:gap-12">
                     <section>
                       <div className="mb-4 flex items-center gap-2">
@@ -2020,10 +2022,11 @@ export function Navbar() {
                       </div>
                     </section>
                   </div>
-                ) : searchResults.length > 0 ? (
+                ) : (
                   <div>
                     <p className="mb-5 tracking-[0.16em] text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 800 }}>
                       {searchResults.length} RESULTADO{searchResults.length !== 1 ? "S" : ""}
+                      {searchCorrection ? ` · ${searchCorrection.toUpperCase()}` : ""}
                     </p>
                     <div className="grid gap-2">
                       {searchResults.map((product, i) => (
@@ -2057,11 +2060,6 @@ export function Navbar() {
                         </motion.div>
                       ))}
                     </div>
-                  </div>
-                ) : (
-                  <div className="border-t border-edge pt-9 text-left">
-                    <p className="text-ink-strong/76" style={{ fontFamily: "var(--font-family-figtree)", fontSize: "var(--text-xl)", fontWeight: 650 }}>Nenhum resultado</p>
-                    <p className="mt-2 max-w-[420px] text-ink-strong/38" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", lineHeight: 1.6 }}>Tente buscar por categoria, produto ou linha PCYES.</p>
                   </div>
                 )}
               </div>
