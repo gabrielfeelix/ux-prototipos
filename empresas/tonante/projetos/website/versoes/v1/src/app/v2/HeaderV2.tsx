@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import {
   User, ShoppingCart, ChevronDown, ChevronLeft, ChevronRight, ChevronRight as Arrow,
   Instagram, Facebook, Youtube, Store, Headphones, Truck, CreditCard, Guitar,
-  Heart, Package, LogOut, HelpCircle, Hand, Menu,
+  Heart, Package, LogOut, HelpCircle, Hand, Menu, Search,
   type LucideIcon, Compass,
 } from "lucide-react";
 import { useCart } from "../components/CartContext";
@@ -145,6 +145,14 @@ export function HeaderV2() {
      menu —, e obrigar a subir a página inteira pra recuperá-lo é pedágio. */
   const [scrolled, setScrolled] = useState(false);
   const ultimoY = useRef(0);
+  /* No celular a busca entra no headroom junto com o resto, mas ela é a rota
+     principal de descoberta numa loja: não pode simplesmente sumir. Some
+     deixando uma lupa na linha que fica, e esta chave reabre a faixa com o
+     cursor já dentro do campo. Quem rolar pra cima recupera do mesmo jeito,
+     sem tocar em nada, e descer de novo fecha. */
+  const [buscaReaberta, setBuscaReaberta] = useState(false);
+  const campoBusca = useRef<HTMLInputElement | null>(null);
+  const buscaEscondida = isMobile && scrolled && !buscaReaberta;
   /* A faixa volta deslizando por baixo do cursor parado e o browser dispara
      mouseover sozinho: o mega-menu abria na cara de quem só estava rolando
      pra cima. O hover só reabre depois que o mouse se mexer de verdade. */
@@ -155,10 +163,11 @@ export function HeaderV2() {
   // (era isso que fazia o scroll "pular" ao voltar pro topo)
   const [fullH, setFullH] = useState(194);
   const headerRef = useRef<HTMLElement>(null);
-  /* As duas faixas que colapsam por `max-height`. O spacer precisa saber a
-     altura que elas têm ABERTAS, não a que têm no meio da transição. */
+  /* As faixas que colapsam por `max-height`. O spacer precisa saber a altura
+     que elas têm ABERTAS, não a que têm no meio da transição. */
   const avisoRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const buscaRef = useRef<HTMLDivElement>(null);
 
   const AvisoIcon = AVISOS[aviso].icon;
   const mega = MEGA.find((m) => m.label === catAtiva) ?? MEGA[0];
@@ -195,7 +204,14 @@ export function HeaderV2() {
     const measure = () => {
       const h = headerRef.current?.getBoundingClientRect().height;
       if (!h) return;
-      setFullH(Math.round(h + alturaAberta(avisoRef.current) + alturaAberta(navRef.current)));
+      setFullH(
+        Math.round(
+          h +
+            alturaAberta(avisoRef.current) +
+            alturaAberta(navRef.current) +
+            alturaAberta(buscaRef.current),
+        ),
+      );
     };
     measure();
     const el = headerRef.current;
@@ -242,6 +258,9 @@ export function HeaderV2() {
       if (colapsado.current && !colapsa) hoverArmado.current = false;
       colapsado.current = colapsa;
       setScrolled(colapsa);
+      /* A busca reaberta pela lupa vale até a pessoa voltar a descer: aí ela
+         escolheu rolar, não buscar, e a faixa devolve a altura da tela. */
+      if (colapsa) setBuscaReaberta(false);
     };
     const rearma = () => { hoverArmado.current = true; };
     colapsado.current = window.scrollY > 80;
@@ -465,6 +484,38 @@ export function HeaderV2() {
             </Painel>
           </div>
 
+          {/* ── lupa do celular ─────────────────────────────────── */}
+          {/* Só existe enquanto a faixa de busca está recolhida, e some assim
+             que ela volta: duas buscas na tela ao mesmo tempo seriam dois
+             alvos para a mesma coisa. Reabre a faixa e já põe o cursor no
+             campo, senão o atalho custaria dois toques em vez de um. */}
+          {pathname !== "/checkout" && (
+            <button
+              onClick={() => {
+                setBuscaReaberta(true);
+                /* depois da transição de altura: focar um campo dentro de um
+                   pai com max-height 0 rola a página sozinha no iOS */
+                window.setTimeout(() => campoBusca.current?.focus(), 300);
+              }}
+              aria-label="Buscar"
+              aria-expanded={!buscaEscondida}
+              className="grid h-11 w-11 cursor-pointer place-items-center rounded-full transition-[background-color,opacity,transform] duration-200 hover:bg-[var(--surface-2)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ink-strong)]/30 md:hidden"
+              style={{
+                color: "var(--ink-strong)",
+                /* sai do fluxo quando não serve, senão a linha do logo muda
+                   de largura toda vez que a pessoa troca de direção */
+                width: buscaEscondida ? 44 : 0,
+                opacity: buscaEscondida ? 1 : 0,
+                overflow: "hidden",
+                pointerEvents: buscaEscondida ? "auto" : "none",
+                transition: "width .24s ease, opacity .18s ease",
+              }}
+              tabIndex={buscaEscondida ? 0 : -1}
+            >
+              <Search size={20} strokeWidth={2} />
+            </button>
+          )}
+
           {/* ── carrinho ────────────────────────────────────────── */}
           {/* Sem preço e sem prévia no hover: a intenção é levar pra sidebar,
              que é onde o carrinho tem frete, brinde e cupom. */}
@@ -501,10 +552,31 @@ export function HeaderV2() {
       {/* busca do celular — campo aberto, não ícone: em loja a busca é o
           caminho principal e esconder atrás de um toque derruba o uso. No
           checkout ela sai: quem está pagando não está procurando produto, e a
-          linha a menos devolve altura de tela para a etapa. */}
+          linha a menos devolve altura de tela para a etapa.
+
+          Ela entra no headroom, mas nunca fica inalcançável: descendo, some e
+          deixa a lupa na linha do logo; subindo, volta sozinha. Esconder
+          atrás de um ícone custa um toque mais achar o alvo; isto custa um
+          gesto que a pessoa já está fazendo. */}
       {pathname !== "/checkout" && (
-        <div className="px-4 pb-2.5 md:hidden">
-          <SearchBar panelAnchor="viewport" compact />
+        <div
+          ref={buscaRef}
+          className="md:hidden"
+          style={{
+            maxHeight: buscaEscondida ? 0 : 64,
+            opacity: buscaEscondida ? 0 : 1,
+            overflow: "hidden",
+            transition: "max-height .28s ease, opacity .2s ease",
+          }}
+          aria-hidden={buscaEscondida}
+        >
+          {/* O respiro mora aqui dentro, não na faixa: a faixa anima
+              `max-height` e o spacer mede o filho pra saber a altura aberta,
+              então padding animando junto falsearia a conta e devolveria a
+              página pulando ao trocar de direção. */}
+          <div className="px-4 pb-2.5">
+            <SearchBar panelAnchor="viewport" compact refCampo={campoBusca} />
+          </div>
         </div>
       )}
 

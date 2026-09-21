@@ -134,7 +134,17 @@ export function SearchBar({
       dos 390 disponíveis) e com fonte de 16px, abaixo disso o iOS dá zoom
       sozinho ao focar o campo. */
   compact = false,
-}: { className?: string; panelAnchor?: "bar" | "viewport"; size?: "md" | "lg"; compact?: boolean }) {
+  /** Recebe o campo, pra quem está de fora conseguir dar foco nele. O header
+      do celular usa isso: a lupa que sobra no header encolhido reabre esta
+      barra e já põe o cursor dentro, senão seriam dois toques. */
+  refCampo,
+}: {
+  className?: string;
+  panelAnchor?: "bar" | "viewport";
+  size?: "md" | "lg";
+  compact?: boolean;
+  refCampo?: React.MutableRefObject<HTMLInputElement | null>;
+}) {
   const lg = size === "lg";
   /* fundo da caixa de foto: no painel da v2 (ancorado na viewport) o mesmo
      degradê claro da vitrine; na v1 o poço do tema. */
@@ -270,7 +280,10 @@ export function SearchBar({
           )}
 
           <input
-            ref={searchInputRef}
+            ref={(node) => {
+              searchInputRef.current = node;
+              if (refCampo) refCampo.current = node;
+            }}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setSearchPanelOpen(true)}
