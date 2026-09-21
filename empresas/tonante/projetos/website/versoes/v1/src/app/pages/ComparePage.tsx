@@ -255,13 +255,13 @@ export function ComparePage() {
                     <button
                       type="button"
                       onClick={() => buy(product)}
-                      className="mt-5 flex h-12 w-full shrink-0 cursor-pointer items-center justify-center transition-[background-color,transform] active:scale-[0.98]"
+                      className="mt-5 flex h-[52px] w-full shrink-0 cursor-pointer items-center justify-center transition-[background-color,transform] active:scale-[0.98]"
                       style={{
                         borderRadius: "var(--radius-pill)",
                         background: added === product.id ? "var(--ink-strong)" : "var(--buy-green)",
                         color: "#ffffff",
                         fontFamily: "var(--font-family-inter)",
-                        fontSize: "14.5px",
+                        fontSize: "16px",
                         fontWeight: 600,
                       }}
                     >

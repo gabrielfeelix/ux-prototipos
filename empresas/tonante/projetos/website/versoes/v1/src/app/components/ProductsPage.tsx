@@ -1602,8 +1602,8 @@ export function ProductsPage() {
                               <ListPrice product={displayProduct} />
                             </div>
                             <button onClick={() => handleAddToCart(displayProduct)}
-                              className="sm:hidden mt-2.5 flex w-full items-center justify-center gap-2 rounded-full py-2 cursor-pointer"
-                              style={{ background: "var(--gradient-buy)", color: "white", fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 700, letterSpacing: "0.04em", boxShadow: "var(--shadow-buy-cta-sm)" }}
+                              className="sm:hidden mt-2.5 flex h-[52px] w-full items-center justify-center gap-2 rounded-full cursor-pointer"
+                              style={{ background: "var(--gradient-buy)", color: "white", fontFamily: "var(--font-family-inter)", fontSize: "16px", fontWeight: 700, letterSpacing: "0.04em", boxShadow: "var(--shadow-buy-cta-sm)" }}
                             ><ShoppingBag size={14} strokeWidth={2} /> Comprar</button>
                             {compareMode && (
                             <CompareToggle
@@ -1636,12 +1636,12 @@ export function ProductsPage() {
                             <div className="flex w-full flex-col items-end gap-2.5">
                             <ListPrice product={displayProduct} align="right" />
                             <button onClick={() => handleAddToCart(displayProduct)}
-                              className="flex w-full min-w-[212px] items-center justify-center gap-2 px-7 py-3 rounded-full transition-transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
+                              className="flex h-[52px] w-full min-w-[212px] items-center justify-center gap-2 px-7 rounded-full transition-transform hover:scale-[1.03] active:scale-[0.97] cursor-pointer"
                               style={{
                                 background: "var(--gradient-buy)",
                                 color: "white",
                                 fontFamily: "var(--font-family-inter)",
-                                fontSize: "var(--text-sm)",
+                                fontSize: "16px",
                                 fontWeight: 700,
                                 letterSpacing: "0.04em",
                                 boxShadow: "var(--shadow-buy-cta-sm)",
@@ -1969,15 +1969,15 @@ export function ProductsPage() {
 
                   <button
                     onClick={() => { handleAddToCart(quickViewProduct); setQuickViewProduct(null); }}
-                    className="w-full py-4 flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer mt-auto"
+                    className="w-full h-[52px] flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer mt-auto"
                     style={{
                       background: "var(--gradient-buy)",
                       color: "white",
                       borderRadius: "var(--radius-pill)",
                       fontFamily: "var(--font-family-inter)",
-                      fontSize: "var(--text-sm)",
+                      fontSize: "16px",
                       fontWeight: 700,
-                      letterSpacing: "0.08em",
+                      letterSpacing: "0.06em",
                       textTransform: "uppercase",
                       boxShadow: "var(--shadow-buy-cta)",
                     }}

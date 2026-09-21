@@ -274,14 +274,14 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
             onClick={comprar}
             onMouseEnter={() => setCtaHover(true)}
             onMouseLeave={() => setCtaHover(false)}
-            className="absolute inset-x-4 bottom-4 z-[4] flex h-12 translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-pill opacity-0 transition-[translate,opacity,background-color,color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:translate-y-0 group-hover/post:opacity-100 touch-visivel"
+            className="absolute inset-x-4 bottom-4 z-[4] flex h-[52px] translate-y-3 cursor-pointer items-center justify-center gap-2 rounded-pill opacity-0 transition-[translate,opacity,background-color,color] duration-[420ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:translate-y-0 group-hover/post:opacity-100 touch-visivel"
             style={{
               background: ctaHover ? "var(--ink-strong)" : "#ffffff",
               color: ctaHover ? "#ffffff" : "var(--ink-strong)",
               border: "none",
-              padding: "6px 16px",
+              padding: "0 16px",
               boxShadow: "0 10px 28px rgba(0,0,0,0.30)",
-              fontFamily: "var(--font-family-inter)", fontSize: 14, fontWeight: 600,
+              fontFamily: "var(--font-family-inter)", fontSize: 16, fontWeight: 600,
             }}
           >
             <ShoppingBag size={16} strokeWidth={2.1} />

@@ -462,8 +462,8 @@ function ProductCardClassic({
                       onAdd(product);
                       setQuickOpen(false);
                     }}
-                    className="flex items-center justify-center gap-2 rounded-pill cursor-pointer"
-                    style={{ background: "var(--primary)", color: "#fff", padding: "14px 22px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "15px", boxShadow: "var(--shadow-buy-cta-sm)" }}
+                    className="flex h-[52px] items-center justify-center gap-2 rounded-pill cursor-pointer"
+                    style={{ background: "var(--primary)", color: "#fff", padding: "0 22px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "16px", boxShadow: "var(--shadow-buy-cta-sm)" }}
                   >
                     <ShoppingBag size={17} strokeWidth={2} /> Adicionar à sacola
                   </button>

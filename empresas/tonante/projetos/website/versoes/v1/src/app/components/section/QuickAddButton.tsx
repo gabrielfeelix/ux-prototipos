@@ -4,10 +4,12 @@ import type { ComponentProps, CSSProperties, ReactNode } from "react";
 type QuickAddButtonProps = ComponentProps<"button"> & { label?: ReactNode };
 
 const BASE_STYLE: CSSProperties = {
-  borderRadius: "var(--radius-button)",
+  /* pílula e não --radius-button: raio reto é de controle que encosta em
+     input; botão de ação é redondo. */
+  borderRadius: "var(--radius-pill)",
   fontFamily: "var(--font-family-inter)",
-  fontSize: "var(--text-caption)",
-  fontWeight: "var(--font-weight-medium)",
+  fontSize: "16px",
+  fontWeight: 600,
   background: "var(--gradient-buy)",
   boxShadow: "var(--shadow-buy-cta-sm)",
 };
@@ -16,10 +18,10 @@ export function QuickAddButton({ label = "Adicionar", className = "", style, ...
   return (
     <button
       {...props}
-      className={`w-full py-2.5 text-white flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer hover:scale-[1.02] ${className}`}
+      className={`h-[52px] w-full text-white flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer hover:scale-[1.02] ${className}`}
       style={{ ...BASE_STYLE, ...style }}
     >
-      <ShoppingBag size={13} strokeWidth={1.5} />
+      <ShoppingBag size={17} strokeWidth={2} />
       {label}
     </button>
   );

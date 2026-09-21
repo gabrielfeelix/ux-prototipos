@@ -453,7 +453,7 @@ export function CartDrawer() {
                     style={{
                       color: "#fff",
                       fontFamily: "var(--font-family-inter)",
-                      fontSize: "15px",
+                      fontSize: "16px",
                       fontWeight: 700,
                       boxShadow: "var(--shadow-buy-cta-sm)",
                     }}

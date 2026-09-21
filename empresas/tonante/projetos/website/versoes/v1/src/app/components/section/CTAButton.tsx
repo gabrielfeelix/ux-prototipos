@@ -39,10 +39,13 @@ const ctaVariants = cva(
         preorder: "[background-image:var(--gradient-preorder-orange)] tracking-[0.04em]",
         brand: "[background-image:var(--gradient-brand)] tracking-[0.05em] uppercase",
       },
+      /* Mesma escala do Button novo: 36/44/52 de altura com rótulo 13/15/16.
+         O rótulo antigo (12px no sm e no md, 14px no lg) ficava menor que o
+         nome do produto e que o preço em toda tela de compra. */
       size: {
-        sm: "h-10 px-6 text-[var(--text-caption)]",
-        md: "h-11 px-8 text-[var(--text-caption)]",
-        lg: "h-12 px-10 text-[var(--text-sm)]",
+        sm: "h-9 px-6 text-[13px]",
+        md: "h-11 px-8 text-[15px]",
+        lg: "h-[52px] px-10 text-[16px]",
       },
       block: {
         true: "w-full",

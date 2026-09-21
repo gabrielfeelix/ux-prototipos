@@ -254,8 +254,8 @@ export function MonteSeuKit() {
               </div>
               <button
                 onClick={addKit}
-                className="inline-flex items-center gap-2 rounded-pill cursor-pointer"
-                style={{ background: "var(--primary)", color: "#fff", padding: "13px 24px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "14.5px", boxShadow: "var(--shadow-buy-cta-sm)" }}
+                className="inline-flex h-[52px] items-center gap-2 rounded-pill cursor-pointer"
+                style={{ background: "var(--primary)", color: "#fff", padding: "0 24px", fontFamily: "var(--font-family-inter)", fontWeight: 700, fontSize: "16px", boxShadow: "var(--shadow-buy-cta-sm)" }}
               >
                 <ShoppingBag size={16} strokeWidth={2.2} /> Adicionar kit
               </button>

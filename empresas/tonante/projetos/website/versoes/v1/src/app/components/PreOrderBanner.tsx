@@ -313,11 +313,11 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
         <button
           onClick={onReserve}
           disabled={remaining <= 0}
-          className="w-full h-12 flex items-center justify-center gap-2 [color:#fff] [&_svg]:text-[#fff] rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full h-[52px] flex items-center justify-center gap-2 [color:#fff] [&_svg]:text-[#fff] rounded-full transition-transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           style={{
             background: "var(--gradient-preorder-orange)",
             fontFamily: "var(--font-family-inter)",
-            fontSize: "var(--text-sm)",
+            fontSize: "16px",
             fontWeight: 700,
             letterSpacing: "0.04em",
             boxShadow: "var(--shadow-preorder-cta)",

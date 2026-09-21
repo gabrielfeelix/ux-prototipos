@@ -1014,7 +1014,7 @@ function Revisao({
             type="button"
             disabled={temErro || totais.itens.length === 0}
             onClick={onFechar}
-            className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] text-[0.9375rem] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+            className="mt-5 inline-flex h-[52px] w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] text-[16px] font-semibold [color:#fff] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             style={{ background: "var(--buy-green)", boxShadow: "var(--shadow-buy-cta-sm)" }}
           >
             <ShoppingBag className="h-4 w-4" />

@@ -1002,11 +1002,11 @@ export function CartPage() {
                 {/* CTA */}
                 <button
                   onClick={() => navigate("/checkout")}
-                  className="mb-3 hidden w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3.5 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.98] lg:inline-flex"
+                  className="mb-3 hidden h-[52px] w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.98] lg:inline-flex"
                   style={{
                     background: "var(--gradient-buy)",
                     fontFamily: "var(--font-family-inter)",
-                    fontSize: "var(--text-sm)",
+                    fontSize: "16px",
                     fontWeight: 800,
                     letterSpacing: "0.06em",
                     textTransform: "uppercase",

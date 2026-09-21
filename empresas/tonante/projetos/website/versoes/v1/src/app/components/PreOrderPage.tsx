@@ -298,11 +298,11 @@ function PreOrderCard({ info }: { info: PreOrderInfo }) {
               </p>
             </div>
             <span
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-full text-ink-strong transition-all duration-300 group-hover:translate-x-0.5 w-full md:w-auto md:justify-start"
+              className="inline-flex items-center justify-center gap-1.5 h-[52px] px-6 rounded-full text-ink-strong transition-all duration-300 group-hover:translate-x-0.5 w-full md:w-auto md:justify-start"
               style={{
                 background: "#e08c12",
                 fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
+                fontSize: "16px",
                 fontWeight: 600,
                 letterSpacing: "0.02em",
                 boxShadow: "0 8px 22px -10px rgba(200, 120, 0,0.35)",
