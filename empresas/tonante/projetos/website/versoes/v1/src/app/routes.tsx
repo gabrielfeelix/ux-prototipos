@@ -2,7 +2,14 @@ import { Suspense, lazy, type ComponentType } from "react";
 import { createBrowserRouter, redirect } from "react-router";
 import { RootLayout } from "./components/RootLayout";
 import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
-import { EsqueletoPagina, EsqueletoPDP } from "./components/Esqueletos";
+import {
+  EsqueletoAfinador,
+  EsqueletoCarrinho,
+  EsqueletoCheckout,
+  EsqueletoPDP,
+  EsqueletoPagina,
+  EsqueletoPerfil,
+} from "./components/Esqueletos";
 import { HomeV2 } from "./v2/HomeV2";
 
 /* Todas as rotas eram importadas aqui em cima, o que punha as ~30 páginas do
@@ -55,10 +62,10 @@ export const router = createBrowserRouter([
       { path: "legado", element: carregar(() => import("./components/HomePage"), "HomePage") },
       { path: "produtos", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
       { path: "produto/:id", element: carregar(() => import("./components/ProductPage"), "ProductPage", EsqueletoPDP) },
-      { path: "carrinho", element: carregar(() => import("./components/CartPage"), "CartPage") },
-      { path: "checkout", element: carregar(() => import("./components/CheckoutPage"), "CheckoutPage") },
+      { path: "carrinho", element: carregar(() => import("./components/CartPage"), "CartPage", EsqueletoCarrinho) },
+      { path: "checkout", element: carregar(() => import("./components/CheckoutPage"), "CheckoutPage", EsqueletoCheckout) },
       { path: "pre-venda", element: carregar(() => import("./components/PreOrderPage"), "PreOrderPage") },
-      { path: "perfil", element: carregar(() => import("./components/ProfilePage"), "ProfilePage") },
+      { path: "perfil", element: carregar(() => import("./components/ProfilePage"), "ProfilePage", EsqueletoPerfil) },
       { path: "influenciadores", element: carregar(() => import("./pages/ArtistasPage"), "ArtistasPage") },
       { path: "revendedor", element: carregar(() => import("./pages/RevendaPage"), "RevendaPage") },
       { path: "trabalhe-conosco", element: carregar(() => import("./pages/TrabalheConoscoPage"), "TrabalheConoscoPage") },
@@ -72,7 +79,7 @@ export const router = createBrowserRouter([
       { path: "drivers-e-manuais/:slug", element: carregar(() => import("./pages/DriverDetailPage"), "DriverDetailPage") },
       { path: "comparar", element: carregar(() => import("./pages/ComparePage"), "ComparePage") },
       { path: "faq", element: carregar(() => import("./pages/FaqPage"), "FaqPage") },
-      { path: "afinador", element: carregar(() => import("./pages/afinador/AfinadorPage"), "AfinadorPage") },
+      { path: "afinador", element: carregar(() => import("./pages/afinador/AfinadorPage"), "AfinadorPage", EsqueletoAfinador) },
 
       /* Showcase do sistema de botões. Rota de desenvolvimento: não é linkada
          em lugar nenhum e não entra no sitemap. Precisa ficar acima do bloco
