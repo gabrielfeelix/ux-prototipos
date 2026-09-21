@@ -2,7 +2,7 @@ import { Suspense, lazy, type ComponentType } from "react";
 import { createBrowserRouter, redirect } from "react-router";
 import { RootLayout } from "./components/RootLayout";
 import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
-import { EsqueletoPagina } from "./components/Esqueletos";
+import { EsqueletoPagina, EsqueletoPDP } from "./components/Esqueletos";
 import { HomeV2 } from "./v2/HomeV2";
 
 /* Todas as rotas eram importadas aqui em cima, o que punha as ~30 páginas do
@@ -15,14 +15,24 @@ import { HomeV2 } from "./v2/HomeV2";
    um segundo pedido só pra ela seria uma viagem de ida e volta antes do
    banner. Ela continua junto do bundle inicial, de propósito. */
 
-/** Envolve a página preguiçosa no esqueleto. */
-function carregar(importar: () => Promise<{ [k: string]: unknown }>, nome: string) {
+/** Envolve a página preguiçosa no esqueleto.
+ *
+ * O terceiro argumento é o esqueleto da rota. O padrão desenha título e uma
+ * grade de cards, que é o formato do catálogo e da maioria das páginas; a PDP
+ * não tem grade nenhuma e passa o seu (`EsqueletoPDP`). Um esqueleto que
+ * promete a página errada é pior que nenhum: a pessoa vê uma vitrine piscando
+ * e recebe uma foto única. */
+function carregar(
+  importar: () => Promise<{ [k: string]: unknown }>,
+  nome: string,
+  Esqueleto: ComponentType = EsqueletoPagina,
+) {
   const Pagina = lazy(async () => {
     const mod = await importar();
     return { default: mod[nome] as ComponentType };
   });
   return (
-    <Suspense fallback={<EsqueletoPagina />}>
+    <Suspense fallback={<Esqueleto />}>
       <Pagina />
     </Suspense>
   );
@@ -44,7 +54,7 @@ export const router = createBrowserRouter([
       /* Home anterior (v1) preservada em /legado — mantém Navbar/AnnouncementBar. */
       { path: "legado", element: carregar(() => import("./components/HomePage"), "HomePage") },
       { path: "produtos", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
-      { path: "produto/:id", element: carregar(() => import("./components/ProductPage"), "ProductPage") },
+      { path: "produto/:id", element: carregar(() => import("./components/ProductPage"), "ProductPage", EsqueletoPDP) },
       { path: "carrinho", element: carregar(() => import("./components/CartPage"), "CartPage") },
       { path: "checkout", element: carregar(() => import("./components/CheckoutPage"), "CheckoutPage") },
       { path: "pre-venda", element: carregar(() => import("./components/PreOrderPage"), "PreOrderPage") },
@@ -87,8 +97,8 @@ export const router = createBrowserRouter([
            /perifericos/mouses/pcyes/mv01  -> ProductPage  (full slug path)  */
       { path: ":category", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
       { path: ":category/:subcategory", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
-      { path: ":category/:brand/:slug", element: carregar(() => import("./components/ProductPage"), "ProductPage") },
-      { path: ":category/:subcategory/:brand/:slug", element: carregar(() => import("./components/ProductPage"), "ProductPage") },
+      { path: ":category/:brand/:slug", element: carregar(() => import("./components/ProductPage"), "ProductPage", EsqueletoPDP) },
+      { path: ":category/:subcategory/:brand/:slug", element: carregar(() => import("./components/ProductPage"), "ProductPage", EsqueletoPDP) },
     ],
   },
 ], { basename });
