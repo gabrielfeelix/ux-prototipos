@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router";
 import { Heart, Eye, ShoppingBag, Star, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { QuadroFoto } from "./QuadroFoto";
 import { allProducts, type Product } from "./productsData";
 import { getProductSwatches, getPrimaryProductImage } from "./productPresentation";
 import { getProductAttributes } from "./productAttributes";
@@ -140,11 +141,11 @@ function ProductCardClassic({
               background: "linear-gradient(180deg, #f7f7f7 0%, #efefef 100%)",
             }}
           >
-            <ImageWithFallback
+            <QuadroFoto
               src={image}
               alt={product.name}
-              className="absolute inset-0 h-full w-full object-contain p-[5%] transition-transform duration-500 group-hover:scale-[1.04]"
-              style={{ mixBlendMode: "multiply" }}
+              padding="p-[5%]"
+              className="transition-transform duration-500 group-hover:scale-[1.04]"
             />
             {/* hover-swap: 2ª foto entra em crossfade (só na foto base, não
                 durante navegação por chevron) — well opaco cobre a base */}
@@ -154,12 +155,7 @@ function ProductCardClassic({
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 style={{ background: "linear-gradient(180deg, #f7f7f7 0%, #efefef 100%)" }}
               >
-                <ImageWithFallback
-                  src={gallery[1]}
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-contain p-[5%]"
-                  style={{ mixBlendMode: "multiply" }}
-                />
+                <QuadroFoto src={gallery[1]} alt="" padding="p-[5%]" />
               </div>
             )}
             {hoverMedia}
@@ -389,7 +385,7 @@ function ProductCardClassic({
 
             {/* imagem */}
             <div className="relative aspect-square md:aspect-auto" style={{ background: "linear-gradient(160deg, #f7f7f7, #ececec)" }}>
-              <ImageWithFallback src={image} alt={product.name} className="absolute inset-0 h-full w-full object-contain p-8" style={{ mixBlendMode: "multiply" }} />
+              <QuadroFoto src={image} alt={product.name} padding="p-8" />
               {discount > 0 && (
                 <span className="absolute left-5 top-5">
                   <DiscountBadge percent={discount} />

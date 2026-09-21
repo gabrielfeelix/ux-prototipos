@@ -20,6 +20,8 @@
  * sobre BRANCO antes de medir. Sem isso o transparente virava preto e 37 fotos
  * entravam aqui como ambientadas — era o que cortava a guitarra no card.
  */
+
+import type { CSSProperties } from "react";
 const AMBIENTADAS = new Set<string>([
   "/produtos/oficial/106936/106936_8.webp",
   "/produtos/oficial/106942/106942-1.webp",
@@ -823,4 +825,24 @@ export function isFotoAmbientada(src?: string): boolean {
 export function isFotoDesproporcional(src?: string): boolean {
   if (!src) return false;
   return DESPROPORCIONAIS.has(src);
+}
+
+/* fotoFit — a mesma decisão de QuadroFoto, para o thumb que NÃO fica num
+   container posicionado (item de carrinho, linha de pedido, favorito). Ali
+   QuadroFoto não serve: ele se ancora em `absolute inset-0`. Uso:
+
+     <ImageWithFallback src={item.image} alt={item.name}
+       {...fotoFit(item.image, { padding: "p-1.5" })} />
+
+   Sem isto, arte de kit (cenário até a borda) aparecia encolhida no meio do
+   quadro, com o cinza da própria foto virando uma moldura dentro do card. */
+export function fotoFit(
+  src: string | undefined,
+  { padding = "", extra = "", semMultiply = false }: { padding?: string; extra?: string; semMultiply?: boolean } = {},
+): { className: string; style?: CSSProperties } {
+  const ambientada = isFotoAmbientada(src);
+  return {
+    className: `h-full w-full ${ambientada ? "object-cover" : `object-contain ${padding}`} ${extra}`.trim(),
+    style: ambientada || semMultiply ? undefined : { mixBlendMode: "multiply" },
+  };
 }

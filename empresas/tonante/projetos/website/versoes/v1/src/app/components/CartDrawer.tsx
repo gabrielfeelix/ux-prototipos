@@ -6,6 +6,7 @@ import { X, ShoppingBag, Trash2, Truck, Tag, Check, ChevronDown, Gift } from "lu
 import { useFadingScrollbar, useLockBodyScroll } from "./useFadingScrollbar";
 import { useCart } from "./CartContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { fotoFit } from "./photoBackdrop";
 import { allProducts } from "./productsData";
 import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPresentation";
 import { PcyesCoin } from "./PcyesCoin";
@@ -292,7 +293,7 @@ export function CartDrawer() {
                             lisa do drawer fazia o mesmo instrumento parecer
                             outro recorte. Ver ProductCardV2. */}
                         <div className="w-[84px] flex-shrink-0 self-stretch overflow-hidden relative min-h-[84px]" style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}>
-                          <ImageWithFallback src={item.image} alt={item.name} className="absolute inset-0 h-full w-full object-contain p-2.5" style={{ mixBlendMode: "multiply" }} />
+                          <ImageWithFallback src={item.image} alt={item.name} {...fotoFit(item.image, { padding: "p-2.5", extra: "absolute inset-0" })} />
                           {item.isGift && (
                             <div className="absolute left-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
                               <Gift size={13} />
@@ -566,7 +567,7 @@ export function CartDrawer() {
                             className="relative h-14 w-14 flex-shrink-0 overflow-hidden"
                             style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                           >
-                            <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} className="absolute inset-0 h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                            <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} {...fotoFit(getPrimaryProductImage(product), { padding: "p-1.5", extra: "absolute inset-0" })} />
                           </div>
                           <div className="min-w-0 flex-1">
                             <p className="truncate text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "13.5px", fontWeight: 500, lineHeight: 1.35 }}>

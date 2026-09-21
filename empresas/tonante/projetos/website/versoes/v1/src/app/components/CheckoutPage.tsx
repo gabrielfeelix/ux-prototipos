@@ -25,6 +25,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { fotoFit } from "./photoBackdrop";
 import { Button, Eyebrow } from "./section";
 import { PcyesCoin } from "./PcyesCoin";
 import { useCart } from "./CartContext";
@@ -901,7 +902,7 @@ export function CheckoutPage() {
                           className="h-full w-full overflow-hidden"
                           style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                         >
-                          <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                          <ImageWithFallback src={item.image} alt={item.name} {...fotoFit(item.image, { padding: "p-1.5" })} />
                         </div>
                         {item.quantity > 1 && (
                           <span
@@ -1675,7 +1676,7 @@ export function CheckoutPage() {
                                   className="h-12 w-12 flex-shrink-0 overflow-hidden"
                                   style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                                 >
-                                  <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                                  <ImageWithFallback src={item.image} alt={item.name} {...fotoFit(item.image, { padding: "p-1.5" })} />
                                 </div>
                                 <div className="min-w-0 flex-1">
                                   <p className="line-clamp-1 text-ink-strong" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
@@ -1749,7 +1750,7 @@ export function CheckoutPage() {
                           className="h-full w-full overflow-hidden"
                           style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                         >
-                          <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                          <ImageWithFallback src={item.image} alt={item.name} {...fotoFit(item.image, { padding: "p-1.5" })} />
                         </div>
                         {item.quantity > 1 && (
                           <span
@@ -2141,7 +2142,7 @@ export function CheckoutPage() {
                             className="h-full w-full overflow-hidden"
                             style={{ borderRadius: "8px", background: "linear-gradient(158deg, #fbfbfc 0%, #f4f5f6 45%, #eaecee 100%)" }}
                           >
-                            <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                            <ImageWithFallback src={item.image} alt={item.name} {...fotoFit(item.image, { padding: "p-1.5" })} />
                           </div>
                           {item.quantity > 1 && (
                             <span

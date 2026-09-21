@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { fotoFit } from "./photoBackdrop";
 import {
   Package, Heart, MapPin, User, CreditCard, HelpCircle, Shield, LogOut,
   ChevronRight, Truck, Check, Clock, X as XIcon, Star, ShoppingBag, Trash2,
@@ -1001,7 +1002,7 @@ export function ProfilePage() {
                                             style={{ background: "var(--gradient-photo, var(--well))", borderRadius: "var(--radius-card-md)" }}
                                             aria-label={`Ver ${item.name}`}
                                           >
-                                            <ImageWithFallback src={item.image} alt={item.name} className="h-full w-full object-contain p-1.5" style={{ mixBlendMode: "multiply" }} />
+                                            <ImageWithFallback src={item.image} alt={item.name} {...fotoFit(item.image, { padding: "p-1.5" })} />
                                           </Link>
                                           <div className="min-w-0 flex-1">
                                             <Link
@@ -1492,7 +1493,7 @@ export function ProfilePage() {
                                 {b.items.slice(0, 5).map((item, idx) => (
                                   <div key={idx} className="flex items-center gap-2.5 rounded-md p-1.5">
                                     <div className="h-8 w-8 shrink-0 overflow-hidden rounded-md bg-foreground/[0.04]">
-                                      {item.image && <img src={item.image} alt="" className="h-full w-full object-contain p-0.5" />}
+                                      {item.image && <img src={item.image} alt="" {...fotoFit(item.image, { padding: "p-0.5" })} />}
                                     </div>
                                     <div className="min-w-0 flex-1">
                                       <p className="uppercase text-foreground/40" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", letterSpacing: "0.16em", fontWeight: 700 }}>{item.category}</p>
@@ -1542,7 +1543,7 @@ export function ProfilePage() {
                         return (
                           <div key={product.id} className="group overflow-hidden transition-all" style={{ borderRadius: "var(--radius-card-xl)", background: "var(--surface)", border: "1px solid var(--edge-subtle)" }}>
                             <Link to={`/produto/${product.id}`} className="deal-card-img block relative aspect-square overflow-hidden transition-all duration-300" style={{ background: "var(--gradient-photo)" }}>
-                              <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} className={`w-full h-full object-contain p-5 group-hover:scale-[1.05] transition-transform duration-500 relative z-[1] ${!inStock ? "opacity-50" : ""}`} />
+                              <ImageWithFallback src={getPrimaryProductImage(product)} alt={product.name} {...fotoFit(getPrimaryProductImage(product), { padding: "p-5", extra: `group-hover:scale-[1.05] transition-transform duration-500 relative z-[1] ${!inStock ? "opacity-50" : ""}` })} />
                               {/* Badges sobre imagem */}
                               <div className="absolute top-2 left-2 flex flex-col gap-1">
                                 {hasDiscount && (

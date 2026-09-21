@@ -3,6 +3,7 @@ import { CarouselDots } from "./CarouselDots";
 import { motion, useInView } from "motion/react";
 import { useTheme } from "./ThemeProvider";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { QuadroFoto } from "./QuadroFoto";
 import { Heart, Star } from "lucide-react";
 import { useCart } from "./CartContext";
 import { useFavorites } from "./FavoritesContext";
@@ -253,10 +254,12 @@ export function ProductCarousel({
                   onMouseEnter={() => setHoveredProductId(displayProduct.id)}
                   onMouseLeave={() => setHoveredProductId((current) => (current === displayProduct.id ? null : current))}
                 >
-                  <ImageWithFallback
+                  <QuadroFoto
                     src={getPrimaryProductImage(displayProduct)}
                     alt={displayProduct.name}
-                    className={`absolute inset-0 w-full h-full object-contain p-7 transition-all duration-[900ms] ease-out ${
+                    padding="p-7"
+                    semMultiply
+                    className={`transition-all duration-[900ms] ease-out ${
                       hoverMedia ? "group-hover:scale-[1.02] group-hover:opacity-0" : "group-hover:scale-105"
                     }`}
                   />
