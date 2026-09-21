@@ -702,11 +702,12 @@ export function CheckoutPage() {
                 boxShadow: "var(--shadow-card)",
               }}
             >
+              <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-3">
               {/* Status pill */}
               <div
                 aria-live="polite"
                 role="status"
-                className="mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5"
+                className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5"
                 style={{
                   background: "rgba(200,120,0,0.1)",
                   border: "1px solid rgba(200,120,0,0.3)",
@@ -726,7 +727,7 @@ export function CheckoutPage() {
               </div>
 
               {/* Timer */}
-              <div className="mb-6 inline-flex items-center gap-2 text-ink">
+              <div className="inline-flex items-center gap-2 text-ink">
                 <Clock size={15} strokeWidth={2.2} />
                 <span
                   className="tabular-nums"
@@ -737,6 +738,7 @@ export function CheckoutPage() {
                 <span className="text-ink-muted" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)" }}>
                   para expirar
                 </span>
+              </div>
               </div>
 
               <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
