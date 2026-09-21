@@ -787,6 +787,24 @@ const ESTUDIO_CONFIRMADO = new Set<string>([
   "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157089_1-17573495851921192.jpeg",
   "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157090_1-17573495266677054.jpeg",
   "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/5/157093_1-17573495532412015.jpeg",
+
+  /* Encordoamento de terceiro (D'Addario, Giannini, Tonante Linha Sonora): a
+     cartela é a arte do produto — fundo azul, verde ou preto de borda a borda
+     — e o classificador lê isso como cenário. Preenchendo por corte, o
+     envelope ocupava o card inteiro e ficava maior que o violão do card ao
+     lado; a EJ11, que veio com margem branca na foto, saía no tamanho certo e
+     denunciava a diferença. As 10 foram vistas uma a uma: packshot, sem
+     cenário. */
+  "/produtos/oficial/36764/36764_4.webp",
+  "/produtos/oficial/36766/36766_4.webp",
+  "/produtos/oficial/36767/36767_4.webp",
+  "/produtos/oficial/36768/36768_4.webp",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18566.jpg-17458371989119780.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18568.jpg-17458843227533971.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18569.jpg-17460175467907563.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18571.jpg-17460175416358217.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18572.jpg-17460175364713837.jpeg",
+  "https://www.oderco.com.br/media/catalog/product/cache/c5b0e6136a6dd7f7d91d8b889ed40f35/1/8/18574_1.jpg-17458989310906177.jpeg",
 ]);
 
 /** true quando a foto tem cenário e o quadro deve ser preenchido. */
