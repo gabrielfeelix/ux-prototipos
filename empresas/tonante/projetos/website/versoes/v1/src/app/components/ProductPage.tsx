@@ -976,8 +976,10 @@ function MobilePurchaseFlow({
   const preOrderSoldOut = isPreOrder && remaining <= 0;
   const buyDisabled = isPreOrder ? preOrderSoldOut : !inStock;
 
+  /* Sem `mt-2` na section: o pai já é um flex-col com `gap-6`, então os 8px
+     extras só se somavam ao vão que separa a ficha do preço. */
   return (
-    <section className="order-4 lg:hidden w-full mt-2 mb-10" data-purchase-card="mobile-product-flow">
+    <section className="order-4 lg:hidden w-full mb-10" data-purchase-card="mobile-product-flow">
       <div className="py-5 border-y border-foreground/8">
         {isPreOrder && (
           <div className="flex items-center gap-2 mb-4">
@@ -2606,7 +2608,10 @@ export function ProductPage() {
             </h1>
 
             {/* Rating */}
-            <div className="flex items-center gap-2.5 mb-6 flex-wrap">
+            {/* No celular esta é a última linha da ficha antes do preço, e o
+                respiro de 24px era herdado do desktop, onde ainda vêm cores,
+                timbre e "Sobre o produto" embaixo. */}
+            <div className="flex items-center gap-2.5 mb-4 lg:mb-6 flex-wrap">
               <div
                 className="inline-flex items-center gap-0.5 cursor-pointer group min-h-[44px] md:min-h-0"
                 onClick={scrollToReviews}
@@ -2689,7 +2694,11 @@ export function ProductPage() {
               <TimbrePlayer product={product} />
             </div>
 
-            <div className="h-px bg-foreground/6 mb-6" />
+            {/* Este traço separa o topo da ficha da seção "Sobre o produto",
+                que só existe no desktop. No celular ele não separava nada:
+                logo abaixo vem o card de compra, que já traz a própria borda,
+                e sobravam dois filetes a 81px um do outro com vazio no meio. */}
+            <div className="hidden lg:block h-px bg-foreground/6 mb-6" />
 
             {/* About / bullets */}
             <div className="hidden lg:block">
