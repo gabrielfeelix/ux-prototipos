@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Rocket, Lock, CalendarDays, Sparkles, ShieldCheck } from "lucide-react";
 import type { PreOrderInfo } from "./PreOrderData";
 import { Button } from "./section";
+import { formatBRL, getInstallmentCount, getInstallmentValue } from "./productEnhancements";
 
 type Props = {
   info: PreOrderInfo;
@@ -31,6 +32,12 @@ export function useCountdown(targetIso: string) {
   return { days, hours, minutes, seconds, isLive: delta === 0 };
 }
 
+/** "R$ 1.234,56" de volta para número: o banner recebe preço já formatado. */
+function paraNumero(brl: string) {
+  const n = Number(brl.replace(/[^\d,.-]/g, "").replace(/\./g, "").replace(",", "."));
+  return Number.isFinite(n) ? n : 0;
+}
+
 function formatReleaseDate(iso: string) {
   const d = new Date(iso);
   return d.toLocaleDateString("pt-BR", {
@@ -42,6 +49,11 @@ function formatReleaseDate(iso: string) {
 
 export function PreOrderBanner({ info, productPrice, onReserve, variant = "card" }: Props) {
   const { days, hours, minutes, seconds, isLive } = useCountdown(info.releaseDate);
+  /* o preço que vale é o de pré-venda quando existe; o cheio fica riscado */
+  const precoPreVenda = paraNumero(info.preOrderPrice ?? productPrice);
+  const precoPix = Math.round(precoPreVenda * 0.9 * 100) / 100;
+  const parcelas = getInstallmentCount(precoPreVenda);
+  const valorParcela = getInstallmentValue(precoPreVenda);
   const reservedPct = Math.min(100, Math.round((info.reservedUnits / info.totalUnits) * 100));
   const remaining = Math.max(0, info.totalUnits - info.reservedUnits);
 
@@ -275,38 +287,54 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
           >
             Preço de pré-venda
           </p>
+          {/* mesma leitura de preço do card e da PDP: o número grande é o do
+              PIX, em verde, e a parcela vem logo abaixo. Antes era só o valor
+              de pré-venda e uma linha dizendo "pagamento parcelado", que não
+              informava nem o desconto nem em quantas vezes cabia. */}
           <div className="flex items-baseline gap-2">
             <span
-              className="text-ink-strong leading-none num"
+              className="leading-none num"
               style={{
+                color: "var(--buy-green)",
                 fontFamily: "var(--font-family-inter)",
                 fontSize: "clamp(26px, 3vw, 30px)",
                 fontWeight: 700,
                 letterSpacing: "-0.01em",
               }}
             >
-              {info.preOrderPrice ?? productPrice}
+              {formatBRL(precoPix)}
             </span>
-            {info.preOrderPrice && (
-              <span
-                className="line-through text-ink-subtle"
-                style={{
-                  fontFamily: "var(--font-family-inter)",
-                  fontSize: "var(--text-caption)",
-                }}
-              >
-                {productPrice}
-              </span>
-            )}
+            <span
+              style={{
+                color: "var(--buy-green)",
+                fontFamily: "var(--font-family-inter)",
+                fontSize: "var(--text-caption)",
+                fontWeight: 600,
+              }}
+            >
+              no PIX
+            </span>
+            {/* riscado é sempre o preço cheio: é dele que o desconto de
+                pré-venda e o do PIX se medem. O valor no cartão aparece na
+                linha de parcelas logo abaixo. */}
+            <span
+              className="line-through text-ink-subtle"
+              style={{
+                fontFamily: "var(--font-family-inter)",
+                fontSize: "var(--text-caption)",
+              }}
+            >
+              {productPrice}
+            </span>
           </div>
           <p
-            className="text-ink-muted mt-1"
+            className="text-ink-muted mt-1 num"
             style={{
               fontFamily: "var(--font-family-inter)",
               fontSize: "var(--text-caption)",
             }}
           >
-            Pagamento parcelado · sem cobrança até o envio
+            ou {parcelas}x de {formatBRL(valorParcela)} sem juros
           </p>
         </div>
 
@@ -338,7 +366,6 @@ export function PreOrderBanner({ info, productPrice, onReserve, variant = "card"
             }}
           >
             Você pode cancelar a reserva a qualquer momento antes do envio.
-            Cobrança só acontece no despacho do produto.
           </p>
         </div>
       </div>

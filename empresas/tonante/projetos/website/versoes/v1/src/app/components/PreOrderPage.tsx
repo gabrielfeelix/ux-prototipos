@@ -590,7 +590,7 @@ function HeroSection({
           }}
         >
           Lançamentos exclusivos, edições limitadas e tecnologia de ponta em
-          primeira mão. Reserve sem custo, pague apenas no despacho.
+          primeira mão. Reserve a sua antes de chegar às lojas.
         </motion.p>
 
         {/* feature pills */}

@@ -394,9 +394,14 @@ export function ProductCardV2({ product: base, href, rank, onAdd, className = ""
           {discount > 0 && p.oldPriceNum ? formatBRL(p.oldPriceNum) : "\u00a0"}
         </div>
         <div className="flex flex-wrap items-baseline gap-x-2">
+          {/* em promoção o valor grande vem verde: o card já tem o selo de
+              desconto e o preço antigo riscado, e o número que a pessoa vai
+              pagar era o único dos três que não dizia que ali tem oferta.
+              Fora da promoção ele fica escuro, senão o verde perde o sentido
+              de sinal e vira cor de preço. */}
           <span
             className="num"
-            style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: "#333333" }}
+            style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: discount > 0 ? GREEN : "#333333" }}
           >
             {formatBRL(getPixPrice(p))}
           </span>

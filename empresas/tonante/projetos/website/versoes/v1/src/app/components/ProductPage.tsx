@@ -1291,7 +1291,6 @@ function MobilePurchaseFlow({
               style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", lineHeight: 1.5 }}
             >
               Você pode cancelar a reserva a qualquer momento antes do envio.
-              Cobrança só acontece no despacho do produto.
             </p>
           </div>
         )}

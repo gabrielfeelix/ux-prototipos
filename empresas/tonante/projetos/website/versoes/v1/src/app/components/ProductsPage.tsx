@@ -175,9 +175,11 @@ function ListPrice({ product, align = "left" }: { product: Product; align?: "lef
         {discount > 0 && product.oldPriceNum ? formatBRL(product.oldPriceNum) : "\u00a0"}
       </div>
       <div className={`flex flex-wrap items-baseline gap-x-2 ${align === "right" ? "justify-end" : ""}`}>
+        {/* mesma regra do card da grade: em promoção o valor grande vem
+            verde, fora dela fica escuro. Ver ProductCardV2. */}
         <span
           className="num"
-          style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: "var(--ink-strong)" }}
+          style={{ fontFamily: "var(--font-family-inter)", fontSize: "20px", fontWeight: 700, letterSpacing: "-0.01em", color: discount > 0 ? BUY_GREEN : "var(--ink-strong)" }}
         >
           {formatBRL(getPixPrice(product))}
         </span>
