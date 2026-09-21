@@ -27,7 +27,7 @@ import { cn } from "../ui/utils";
  */
 const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-2 rounded-pill whitespace-nowrap",
+    "relative inline-flex items-center justify-center gap-2 rounded-pill whitespace-nowrap",
     "font-semibold [font-family:var(--font-family-inter)] tracking-[0.01em]",
     "cursor-pointer select-none",
     "transition-[background-color,border-color,color,transform,box-shadow] duration-200 ease-[var(--ease)]",
@@ -63,6 +63,11 @@ const buttonVariants = cva(
          Aqui os estados são reemitidos como group-hover/group-active, e o
          consumidor só precisa ter `group` no <Link> que envolve. */
       spanHover: { true: "", false: "" },
+      /* Carregando não é desabilitado. O botão trava o clique, mas mantém a
+         cor da intenção: pintado de cinza, o spinner some no fundo e a pessoa
+         fica sem saber se o envio começou. Por isso as classes de disabled
+         entram só quando loading é falso. */
+      loading: { true: "", false: "" },
     },
     compoundVariants: [
       /* ---- iconOnly: quadrado, largura casa com a altura ---- */
@@ -74,17 +79,17 @@ const buttonVariants = cva(
       {
         hierarchy: "primary", intent: "neutral", onDark: false,
         class:
-          "[background-color:var(--btn-neutral)] hover:[background-color:var(--btn-neutral-hover)] active:[background-color:var(--btn-neutral-press)] shadow-[var(--shadow-brand-pill)] disabled:[background-color:var(--btn-disabled-bg)] disabled:[color:var(--btn-disabled-ink)]",
+          "[background-color:var(--btn-neutral)] hover:[background-color:var(--btn-neutral-hover)] active:[background-color:var(--btn-neutral-press)] shadow-[var(--shadow-brand-pill)]",
       },
       {
         hierarchy: "primary", intent: "buy", onDark: false,
         class:
-          "[background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] shadow-[var(--shadow-buy-cta-sm)] disabled:[background-color:var(--btn-disabled-bg)] disabled:[color:var(--btn-disabled-ink)]",
+          "[background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)] shadow-[var(--shadow-buy-cta-sm)]",
       },
       {
         hierarchy: "primary", intent: "danger", onDark: false,
         class:
-          "[background-color:var(--btn-danger)] hover:[background-color:var(--btn-danger-hover)] active:[background-color:var(--btn-danger-press)] shadow-[var(--shadow-brand-pill)] disabled:[background-color:var(--btn-disabled-bg)] disabled:[color:var(--btn-disabled-ink)]",
+          "[background-color:var(--btn-danger)] hover:[background-color:var(--btn-danger-hover)] active:[background-color:var(--btn-danger-press)] shadow-[var(--shadow-brand-pill)]",
       },
       // primary sobre escuro: neutral inverte (branco com tinta), buy e danger
       // seguram sozinhos sobre stage/foto e não mudam
@@ -108,7 +113,7 @@ const buttonVariants = cva(
       {
         hierarchy: "secondary", intent: "neutral", onDark: false,
         class:
-          "[border-color:var(--edge-strong)] [color:var(--ink-strong)] hover:[border-color:var(--ink-strong)] hover:[background-color:var(--surface-glass)] active:[background-color:rgba(17,17,17,0.10)] disabled:[border-color:var(--edge-subtle)] disabled:[color:var(--btn-disabled-ink)]",
+          "[border-color:var(--edge-strong)] [color:var(--ink-strong)] hover:[border-color:var(--ink-strong)] hover:[background-color:var(--surface-glass)] active:[background-color:rgba(17,17,17,0.10)]",
       },
       {
         hierarchy: "secondary", intent: "danger", onDark: false,
@@ -133,7 +138,7 @@ const buttonVariants = cva(
       {
         hierarchy: "tertiary", intent: "neutral", onDark: false,
         class:
-          "[background-color:var(--surface-glass)] [color:var(--ink-strong)] hover:[background-color:rgba(17,17,17,0.08)] active:[background-color:rgba(17,17,17,0.12)] disabled:[color:var(--btn-disabled-ink)]",
+          "[background-color:var(--surface-glass)] [color:var(--ink-strong)] hover:[background-color:rgba(17,17,17,0.08)] active:[background-color:rgba(17,17,17,0.12)]",
       },
       {
         hierarchy: "tertiary", intent: "danger", onDark: false,
@@ -150,7 +155,7 @@ const buttonVariants = cva(
       {
         hierarchy: "ghost", intent: "neutral", onDark: false,
         class:
-          "[color:var(--ink-muted)] hover:[color:var(--ink-strong)] hover:[background-color:var(--surface-glass)] active:[background-color:rgba(17,17,17,0.10)] disabled:[color:var(--btn-disabled-ink)]",
+          "[color:var(--ink-muted)] hover:[color:var(--ink-strong)] hover:[background-color:var(--surface-glass)] active:[background-color:rgba(17,17,17,0.10)]",
       },
       {
         hierarchy: "ghost", intent: "danger", onDark: false,
@@ -162,6 +167,19 @@ const buttonVariants = cva(
         class:
           "[color:rgba(255,255,255,0.82)] hover:[color:#fff] hover:[background-color:rgba(255,255,255,0.12)] active:[background-color:rgba(255,255,255,0.20)] focus-visible:outline-white/70",
       },
+
+      /* ---- desabilitado: só quando não está carregando ---- */
+      {
+        hierarchy: "primary", loading: false,
+        class:
+          "disabled:[background-color:var(--btn-disabled-bg)] disabled:[color:var(--btn-disabled-ink)] disabled:[&_svg]:text-[var(--btn-disabled-ink)] disabled:shadow-none",
+      },
+      {
+        hierarchy: "secondary", loading: false,
+        class: "disabled:[border-color:var(--edge-subtle)] disabled:[color:var(--btn-disabled-ink)]",
+      },
+      { hierarchy: "tertiary", loading: false, class: "disabled:[color:var(--btn-disabled-ink)]" },
+      { hierarchy: "ghost", loading: false, class: "disabled:[color:var(--btn-disabled-ink)]" },
 
       /* ---- as="span": os estados vêm do <Link> pai ---- */
       {
@@ -185,11 +203,12 @@ const buttonVariants = cva(
       iconOnly: false,
       onDark: false,
       spanHover: false,
+      loading: false,
     },
   }
 );
 
-type ButtonVariantProps = Omit<VariantProps<typeof buttonVariants>, "spanHover">;
+type ButtonVariantProps = Omit<VariantProps<typeof buttonVariants>, "spanHover" | "loading">;
 
 type Shared = ButtonVariantProps & {
   /** troca o conteúdo por um spinner, trava a largura e marca aria-busy */
@@ -209,8 +228,21 @@ export type ButtonProps = AsButton | AsLink | AsSpan;
 const FOCUS_CLASSES =
   "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]";
 
-function Spinner() {
-  return <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden />;
+/**
+ * No carregando, o rótulo continua ocupando o lugar dele, invisível, e o
+ * spinner entra por cima. Trocar o conteúdo pelo spinner encolhia o botão no
+ * meio do envio, e um botão que muda de tamanho enquanto a pessoa espera
+ * parece que trocou de função.
+ */
+function conteudoCarregando(children: ReactNode) {
+  return (
+    <>
+      <span className="invisible inline-flex items-center gap-2">{children}</span>
+      <span className="absolute inset-0 flex items-center justify-center">
+        <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden />
+      </span>
+    </>
+  );
 }
 
 export function Button(props: ButtonProps) {
@@ -222,8 +254,9 @@ export function Button(props: ButtonProps) {
     iconOnly: props.iconOnly,
     onDark: props.onDark,
     spanHover: props.as === "span",
+    loading: Boolean(props.loading),
   });
-  const body = props.loading ? <Spinner /> : props.children;
+  const body = props.loading ? conteudoCarregando(props.children) : props.children;
 
   if (props.as === "link") {
     const {
