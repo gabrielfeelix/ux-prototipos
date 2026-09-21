@@ -121,7 +121,7 @@ export function OfertasDaSemana() {
               <Countdown target={weekEnd} />
             </div>
             <Link
-              to="/produtos?promo=1"
+              to="/ofertas"
               className="group inline-flex items-center gap-1.5 rounded-pill"
               style={{ fontFamily: "var(--font-family-inter)", fontSize: "14.5px", fontWeight: 600, color: "var(--ink-strong)" }}
             >

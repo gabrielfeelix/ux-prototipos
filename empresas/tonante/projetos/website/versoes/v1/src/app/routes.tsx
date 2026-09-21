@@ -61,6 +61,8 @@ export const router = createBrowserRouter([
       /* Home anterior (v1) preservada em /legado — mantém Navbar/AnnouncementBar. */
       { path: "legado", element: carregar(() => import("./components/HomePage"), "HomePage") },
       { path: "produtos", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
+      /* mesma vitrine, filtro de promoção ligado pela rota (ver ehOfertas) */
+      { path: "ofertas", element: carregar(() => import("./components/ProductsPage"), "ProductsPage") },
       { path: "produto/:id", element: carregar(() => import("./components/ProductPage"), "ProductPage", EsqueletoPDP) },
       { path: "carrinho", element: carregar(() => import("./components/CartPage"), "CartPage", EsqueletoCarrinho) },
       { path: "checkout", element: carregar(() => import("./components/CheckoutPage"), "CheckoutPage", EsqueletoCheckout) },

@@ -48,7 +48,7 @@ export const CAMPANHAS: Campanha[] = [
     title: `Até ${pctPromo}% off em ${oQueTem}`,
     subtitle: "Desconto à vista e em até 10x sem juros. Enquanto durar o estoque.",
     ctaLabel: "Ver todas as promoções",
-    href: "/produtos?promo=1",
+    href: "/ofertas",
     produtos: idsDe(emPromocao),
   },
   {

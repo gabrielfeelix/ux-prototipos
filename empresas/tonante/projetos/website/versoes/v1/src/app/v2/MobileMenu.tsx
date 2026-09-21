@@ -11,6 +11,8 @@ import { DiapasaoIcon } from "../components/section";
 import { useAuth } from "../components/AuthContext";
 import { useFavorites } from "../components/FavoritesContext";
 import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
+import { getCatalogHref } from "../components/productPresentation";
+import { CATEGORIA_KIT } from "../lib/kits";
 
 const ICONE_SOCIAL: Record<SocialLabel, LucideIcon> = { Instagram, Facebook, YouTube: Youtube };
 
@@ -218,7 +220,8 @@ export function MobileMenu({ open, onClose, categorias }: Props) {
               ))}
 
               <Titulo>Descobrir</Titulo>
-              <Linha to="/produtos?promo=1" onNavigate={onClose} icon={Tag}>Ofertas</Linha>
+              <Linha to={getCatalogHref({ category: CATEGORIA_KIT })} onNavigate={onClose} icon={Package}>Kits</Linha>
+              <Linha to="/ofertas" onNavigate={onClose} icon={Tag}>Ofertas</Linha>
               <Linha to="/monte-seu-kit" onNavigate={onClose} icon={Compass}>Nós te ajudamos a escolher</Linha>
               <Linha to="/onde-encontrar" onNavigate={onClose} icon={Store}>Lojas para experimentar</Linha>
 

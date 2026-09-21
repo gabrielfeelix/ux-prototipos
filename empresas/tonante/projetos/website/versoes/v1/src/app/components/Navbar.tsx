@@ -11,6 +11,7 @@ import { useFavorites } from "./FavoritesContext";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/tooltip";
 import { allProducts, type Product } from "./productsData";
+import { CATEGORIA_KIT } from "../lib/kits";
 import { ThemeToggle } from "./ThemeToggle";
 import { getCatalogHref, getPrimaryProductImage, getProductSubcategory, getProductSwatches, getVisibleCatalogProducts } from "./productPresentation";
 import { searchProducts } from "../lib/productSearch";
@@ -231,6 +232,7 @@ const navItems: NavItem[] = [
   { label: "Acessórios", mega: "acessorios", href: getCatalogHref({ category: "Acessórios" }) },
   { label: "Cordas & Encordoamentos", mega: "cordas", href: getCatalogHref({ category: "Cordas & Encordoamentos" }) },
   { label: "Suportes", href: getCatalogHref({ category: "Suportes" }) },
+  { label: "Kits", href: getCatalogHref({ category: CATEGORIA_KIT }) },
 ];
 
 const trending = ["Violão Coral", "Guitarra Cecille", "Capotraste", "Afinador"];

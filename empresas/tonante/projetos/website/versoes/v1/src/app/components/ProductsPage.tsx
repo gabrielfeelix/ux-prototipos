@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import { Link, useSearchParams, useParams, useNavigate } from "react-router";
+import { Link, useSearchParams, useParams, useNavigate, useLocation } from "react-router";
 import { getCategoryFromSlug } from "../lib/slug";
 import { searchProducts } from "../lib/productSearch";
 import { motion, AnimatePresence } from "motion/react";
@@ -127,6 +127,10 @@ function getDiscount(p: Product) {
   if (!p.oldPriceNum || p.oldPriceNum <= p.priceNum) return 0;
   return Math.round(((p.oldPriceNum - p.priceNum) / p.oldPriceNum) * 100);
 }
+
+/* maior desconto vivo no catálogo — a mesma conta da pill de Ofertas no
+   header, pra os dois números nunca divergirem. */
+const MAIOR_DESCONTO = allProducts.reduce((maior, p) => Math.max(maior, getDiscount(p)), 0);
 
 /* O verde é do PIX e só dele — mesmo token do ProductCardV2 e do botão
    Comprar. Ver --buy-green em styles/theme.css. */
@@ -380,6 +384,11 @@ export function ProductsPage() {
    * to the title-cased slug when no explicit mapping exists.
    */
   const routeParams = useParams();
+  /* /ofertas é a mesma vitrine com o filtro de promoção ligado de saída: o
+     visitante que clica em "Ofertas" chega numa página que se chama Ofertas,
+     não em "Todos os produtos" com um pill de filtro aceso. O filtro continua
+     removível — tirar a promoção aqui devolve o catálogo inteiro. */
+  const ehOfertas = useLocation().pathname.replace(/\/+$/, "") === "/ofertas";
   const slugCategory = routeParams.category
     ? getCategoryFromSlug(routeParams.category) ?? routeParams.category
     : "";
@@ -407,7 +416,7 @@ export function ProductsPage() {
   const [selectedColors, setSelectedColors] = useState<Set<string>>(new Set());
   const [priceMin, setPriceMin] = useState(GLOBAL_MIN);
   const [priceMax, setPriceMax] = useState(GLOBAL_MAX);
-  const [onlyDiscount, setOnlyDiscount] = useState(false);
+  const [onlyDiscount, setOnlyDiscount] = useState(ehOfertas);
   const [selectedDiscounts, setSelectedDiscounts] = useState<Set<number>>(new Set());
   const [selectedRatings, setSelectedRatings] = useState<Set<number>>(new Set());
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -465,7 +474,7 @@ export function ProductsPage() {
     setPriceMin(Number.isFinite(pMin) && pMin > 0 ? pMin : GLOBAL_MIN);
     setPriceMax(Number.isFinite(pMax) && pMax > 0 ? pMax : GLOBAL_MAX);
 
-    setOnlyDiscount(searchParams.get("promo") === "1");
+    setOnlyDiscount(ehOfertas || searchParams.get("promo") === "1");
 
     const tag = searchParams.get("tag");
     setSelectedTags(tag ? new Set(tag.split(",").filter(Boolean)) : new Set());
@@ -475,7 +484,7 @@ export function ProductsPage() {
 
     const atributos = searchParams.get("atributos");
     setSelectedAttributes(atributos ? new Set(atributos.split(",").filter(Boolean)) : new Set());
-  }, [searchParams, slugCategory, slugSubcategory]);
+  }, [searchParams, slugCategory, slugSubcategory, ehOfertas]);
 
   /* ── Sync filter state -> URL querystring (B4) ──
      Writes precoMin/precoMax/promo/marcas/atributos when active so URLs
@@ -490,7 +499,9 @@ export function ProductsPage() {
     if (priceMax < GLOBAL_MAX) sp.set("precoMax", String(priceMax));
     else sp.delete("precoMax");
 
-    if (onlyDiscount) sp.set("promo", "1");
+    /* em /ofertas a promoção é a própria rota: escrever ?promo=1 só sujaria a
+       URL com o que o caminho já diz. */
+    if (onlyDiscount && !ehOfertas) sp.set("promo", "1");
     else sp.delete("promo");
 
     if (selectedBrands.size > 0) sp.set("marcas", [...selectedBrands].join(","));
@@ -507,7 +518,7 @@ export function ProductsPage() {
       lastWrittenSearchRef.current = next;
       setSearchParams(sp, { replace: true });
     }
-  }, [priceMin, priceMax, onlyDiscount, selectedBrands, selectedAttributes, searchParams, setSearchParams]);
+  }, [priceMin, priceMax, onlyDiscount, ehOfertas, selectedBrands, selectedAttributes, searchParams, setSearchParams]);
 
   /* ── Scroll to top on category change ── */
   const mainRef = useRef<HTMLDivElement>(null);
@@ -1273,7 +1284,9 @@ export function ProductsPage() {
             { "@type": "ListItem", position: 1, name: "Home", item: "https://pcyes.com.br/" },
             ...(activeCategoryLabel
               ? [{ "@type": "ListItem", position: 2, name: activeCategoryLabel, item: `https://pcyes.com.br${getCategoryUrl(activeCategoryLabel)}` }]
-              : [{ "@type": "ListItem", position: 2, name: "Produtos", item: "https://pcyes.com.br/produtos" }]),
+              : ehOfertas
+                ? [{ "@type": "ListItem", position: 2, name: "Ofertas", item: "https://pcyes.com.br/ofertas" }]
+                : [{ "@type": "ListItem", position: 2, name: "Produtos", item: "https://pcyes.com.br/produtos" }]),
             ...(initialSubcategory
               ? [{ "@type": "ListItem", position: 3, name: initialSubcategory }]
               : []),
@@ -1294,7 +1307,7 @@ export function ProductsPage() {
               </Link>
             ) : (
               <span aria-current={initialSubcategory ? undefined : "page"} className="text-foreground/70" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)" }}>
-                Produtos
+                {ehOfertas ? "Ofertas" : "Produtos"}
               </span>
             )}
           </li>
@@ -1326,7 +1339,7 @@ export function ProductsPage() {
             >
               {initialSubcategory
                 ? `${initialSubcategory} ${activeCategoryLabel}`
-                : activeCategoryLabel || "Todos os produtos"}
+                : activeCategoryLabel || (ehOfertas ? "Produtos em oferta" : "Todos os produtos")}
             </h1>
             <p
               className="mt-2 text-foreground/55"
@@ -1339,7 +1352,9 @@ export function ProductsPage() {
             >
               {activeCategoryLabel
                 ? `Confira a linha completa de ${initialSubcategory ? `${initialSubcategory.toLowerCase()} ${activeCategoryLabel.toLowerCase()}` : activeCategoryLabel.toLowerCase()} Tonante. Garantia oficial, frete grátis acima de R$ 299, até 10x sem juros.`
-                : "Tudo que conecta gente à música, num só lugar, com garantia oficial e frete grátis acima de R$ 299."}
+                : ehOfertas
+                  ? `Tudo que está com preço abaixo do normal agora${MAIOR_DESCONTO > 0 ? `, até ${MAIOR_DESCONTO}% OFF` : ""}. Mesma garantia oficial e frete grátis acima de R$ 299.`
+                  : "Tudo que conecta gente à música, num só lugar, com garantia oficial e frete grátis acima de R$ 299."}
             </p>
           </header>
 

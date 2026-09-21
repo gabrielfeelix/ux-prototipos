@@ -51,7 +51,7 @@ const PERFIL_URL = "https://instagram.com/tonanteinstrumentos";
    invisível por cima. Assim cada alvo tem hover próprio — a miniatura mostra o
    nome e leva pra PDP, o botão compra e abre o carrinho, o balão abre a
    história do músico (MusicianStoryModal). */
-function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: boolean; onHistoria: () => void }) {
+function MusicianCard({ m, autoPlay, precarregar, onHistoria }: { m: Musician; autoPlay: boolean; precarregar: boolean; onHistoria: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hover, setHover] = useState(false);
   const [comSom, setComSom] = useState(false);
@@ -122,17 +122,20 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
 
   return (
     <div
-      className="group/post flex-shrink-0"
-      /* 4 cards inteiros + um pedaço do 5º sempre cabem no trilho; 434px (a
-         medida da referência) é o teto, atingido só em telas muito largas.
-         128 = 3 vãos internos + o vão do 5º + o pedaço que fica aparecendo. */
-      style={{ width: "clamp(260px, calc((100% - 128px) / 4), 434px)" }}
+      /* No celular o card ocupa quase a largura da tela e fica mais alto que
+         largo: é um post de Instagram na mão, e no tamanho antigo (260px, 4/5)
+         o rosto, o preço e o botão dividiam um quadro pequeno demais.
+         Do md pra cima volta a régua da vitrine: 4 cards inteiros + um pedaço
+         do 5º sempre cabem no trilho; 434px (a medida da referência) é o teto,
+         atingido só em telas muito largas. 128 = 3 vãos internos + o vão do 5º
+         + o pedaço que fica aparecendo. */
+      className="group/post w-[min(82vw,380px)] flex-shrink-0 snap-center snap-always md:w-[clamp(260px,calc((100%-128px)/4),434px)]"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <div
-        className="relative overflow-hidden"
-        style={{ aspectRatio: "434 / 543", borderRadius: 16, background: "var(--surface-2)" }}
+        className="relative aspect-[9/14] overflow-hidden md:aspect-[434/543]"
+        style={{ borderRadius: 16, background: "var(--surface-2)" }}
       >
         {m.video ? (
           <video
@@ -142,7 +145,12 @@ function MusicianCard({ m, autoPlay, onHistoria }: { m: Musician; autoPlay: bool
             muted
             loop
             playsInline
-            preload="none"
+            /* Só os vizinhos do card central carregam de verdade (ver
+               `precarregar` na seção): quando a vez chega, o vídeo já tem
+               frame e começa na hora. Os outros 12 ficam em "none" — com os 15
+               carregando juntos eles disputam as 6 conexões que o browser abre
+               por origem e NENHUM começa. */
+            preload={precarregar ? "auto" : "none"}
             className="absolute inset-0 h-full w-full object-cover transition-[scale] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/post:scale-[1.03]"
           />
         ) : (
@@ -305,6 +313,12 @@ export function MusicosTonante() {
   /* história aberta = índice do músico em MUSICIANS (o modal navega por essa
      lista, não pela do trilho) */
   const [historia, setHistoria] = useState<number | null>(null);
+  /* No toque não há hover pra escolher o vídeo, e deixar os ~15 reels do
+     trilho rodando junto come CPU e bateria. Toca só o card parado no centro
+     da tela — o mesmo que o snap acabou de encaixar. */
+  const [central, setCentral] = useState(0);
+  /* carga começa antes da seção entrar; o play continua preso ao `naTela` */
+  const [pertoDaTela, setPertoDaTela] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -338,10 +352,36 @@ export function MusicosTonante() {
     const ro = new ResizeObserver(ir);
     ro.observe(el);
 
+    /* quem está no centro é medido no próprio trilho, não na viewport: o card
+       do meio é o que o snap encaixou, e o trilho sangra além da tela. */
+    let raf = 0;
+    const medirCentral = () => {
+      raf = 0;
+      const centro = el.scrollLeft + el.clientWidth / 2;
+      let melhor = 0;
+      let menorDist = Infinity;
+      for (let i = 0; i < el.children.length; i++) {
+        const c = el.children[i] as HTMLElement;
+        const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - centro);
+        if (d < menorDist) { menorDist = d; melhor = i; }
+      }
+      setCentral(melhor);
+    };
+    medirCentral();
+
     let t: ReturnType<typeof setTimeout>;
-    const onScroll = () => { clearTimeout(t); t = setTimeout(normalizar, 150); };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(medirCentral);
+      clearTimeout(t);
+      t = setTimeout(normalizar, 150);
+    };
     el.addEventListener("scroll", onScroll, { passive: true });
-    return () => { ro.disconnect(); el.removeEventListener("scroll", onScroll); clearTimeout(t); };
+    return () => {
+      ro.disconnect();
+      el.removeEventListener("scroll", onScroll);
+      clearTimeout(t);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [normalizar]);
 
   const scrollBy = useCallback((dir: 1 | -1) => {
@@ -358,7 +398,15 @@ export function MusicosTonante() {
       { threshold: 0.25 },
     );
     io.observe(el);
-    return () => io.disconnect();
+    /* Uma tela inteira de antecedência só pra começar a baixar: sem isto o
+       primeiro vídeo só era pedido depois que a seção já estava à vista, e
+       dava pra ver o poster parado esperando o primeiro frame. */
+    const ioCarga = new IntersectionObserver(
+      ([e]) => setPertoDaTela(e.isIntersecting),
+      { rootMargin: "100% 0px" },
+    );
+    ioCarga.observe(el);
+    return () => { io.disconnect(); ioCarga.disconnect(); };
   }, []);
 
   return (
@@ -397,21 +445,31 @@ export function MusicosTonante() {
         </div>
       </div>
 
-      <div className="mx-auto w-full px-5 md:px-12" style={{ maxWidth: "1680px" }}>
+      <div className="mx-auto w-full px-0 md:px-12" style={{ maxWidth: "1680px" }}>
         {/* O trilho sangra até a borda direita da tela: o 5º card fica pela
             metade e é ele que convida a arrastar. O cabeçalho acima continua
-            no container de 1680, pra não desalinhar com as outras seções. */}
+            no container de 1680, pra não desalinhar com as outras seções.
+            No celular sangra também à esquerda (o container não tem px): com
+            o px-5 de antes o primeiro card nascia cortado pela margem. */}
         <div className="group/trilho relative" style={{ marginRight: "calc(50% - 50vw)" }}>
           <div
             ref={trackRef}
-            className="shelf-track flex overflow-x-auto pb-2"
+            /* No celular cada arrasto para com um card centralizado
+               (snap-mandatory + snap-center). Sem isso o trilho parava em
+               qualquer ponto e a tela ficava com dois meios-cards. `snap-always`
+               impede que um arrasto forte pule cards. No desktop o trilho tem 4
+               cards à vista e centralizar um não quer dizer nada: lá o scroll
+               segue livre. */
+            className="shelf-track flex snap-x snap-mandatory overflow-x-auto pb-2 md:snap-none"
             style={{ scrollbarWidth: "none", gap: 22 }}
           >
             {VOLTAS.map((m, i) => (
               <MusicianCard
                 key={`${m.id}-${i}`}
                 m={m}
-                autoPlay={naTela && semHover && historia === null}
+                autoPlay={naTela && semHover && historia === null && i === central}
+                /* o central e os dois vizinhos: quem entra já entra carregado */
+                precarregar={pertoDaTela && Math.abs(i - central) <= 1}
                 onHistoria={() => setHistoria(MUSICIANS.findIndex((x) => x.id === m.id))}
               />
             ))}

@@ -13,7 +13,9 @@ import { useAuth } from "../components/AuthContext";
 import { useFavorites } from "../components/FavoritesContext";
 import { getCatalogHref, getPrimaryProductImage, getVisibleCatalogProducts } from "../components/productPresentation";
 import { allProducts, type Product } from "../components/productsData";
+import { getDiscountPct } from "../components/productEnhancements";
 import { getProductUrl } from "../lib/slug";
+import { CATEGORIA_KIT } from "../lib/kits";
 import { abrirVLibras } from "../lib/vlibras";
 import { SearchBar } from "../components/SearchBar";
 import { SOCIAL_LINKS, type SocialLabel } from "../components/socialLinks";
@@ -57,14 +59,22 @@ const CATEGORIAS = [
   { label: "Suportes", category: "Suportes" },
 ];
 
-/* depois das categorias, os atalhos que não são catálogo */
-const NAV = [
-  { label: "Ofertas", href: "/produtos?promo=1" },
-];
-
 /* Conteúdo do mega menu derivado do catálogo — subcategorias reais e os
    destaques mais avaliados de cada categoria. */
 const catalog = getVisibleCatalogProducts(allProducts);
+
+/* O maior desconto vivo no catálogo — é o mesmo universo que a aba Ofertas
+   lista (/ofertas = todo produto com desconto), então a pill nunca
+   promete um número que a página não tem. Cai sozinha quando a promoção sai. */
+const MAIOR_OFERTA = catalog.reduce((maior, p) => Math.max(maior, getDiscountPct(p)), 0);
+
+/* depois das categorias, os atalhos de catálogo que não abrem mega. Kits é
+   categoria de verdade ("Pronto pra Tocar") e cai na mesma página das outras;
+   fica fora do MEGA porque um kit não tem subcategoria nem marca pra listar. */
+const NAV: { label: string; href: string; pill?: string }[] = [
+  { label: "Kits", href: getCatalogHref({ category: CATEGORIA_KIT }) },
+  { label: "Ofertas", href: "/ofertas", pill: MAIOR_OFERTA > 0 ? `até -${MAIOR_OFERTA}%` : undefined },
+];
 const norm = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
 /* tags que são família de produto, não tipo — não viram bolha de subcategoria */
@@ -633,10 +643,20 @@ export function HeaderV2() {
             <Link
               key={n.label}
               to={n.href}
-              className="group/nav relative flex-shrink-0 py-1 transition-opacity duration-200 focus-visible:outline-none"
+              className="group/nav relative flex flex-shrink-0 items-center gap-1.5 py-1 transition-opacity duration-200 focus-visible:outline-none"
               style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 500, color: "var(--ink-strong)" }}
             >
               {n.label}
+              {/* verde do PIX, o mesmo da pill de desconto do card: no header
+                  ele já quer dizer "isto economiza dinheiro". */}
+              {n.pill && (
+                <span
+                  className="num"
+                  style={{ background: "var(--buy-green)", color: "#fff", borderRadius: 999, padding: "4px 9px", fontSize: "11.5px", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.01em" }}
+                >
+                  {n.pill}
+                </span>
+              )}
               <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 transition-all duration-250 ease-out group-hover/nav:w-full group-focus-visible/nav:w-full" style={{ background: "var(--ink-strong)" }} />
             </Link>
           ))}
