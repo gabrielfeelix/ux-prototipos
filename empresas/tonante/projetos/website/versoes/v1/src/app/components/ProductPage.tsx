@@ -979,7 +979,7 @@ function MobilePurchaseFlow({
   /* Sem `mt-2` na section: o pai já é um flex-col com `gap-6`, então os 8px
      extras só se somavam ao vão que separa a ficha do preço. */
   return (
-    <section className="order-4 lg:hidden w-full mb-10" data-purchase-card="mobile-product-flow">
+    <section className="order-4 lg:hidden w-full mb-0 md:mb-10" data-purchase-card="mobile-product-flow">
       <div className="py-5 border-y border-foreground/8">
         {isPreOrder && (
           <div className="flex items-center gap-2 mb-4">
@@ -1525,7 +1525,7 @@ function ReviewsSection({ product, isDark }: { product: any; isDark: boolean }) 
   }, [ratingDropdownOpen]);
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-20 border-t border-foreground/5 bg-foreground/[0.01] scroll-mt-[96px]">
+    <section ref={sectionRef} className="py-10 md:py-16 lg:py-20 border-t border-foreground/5 bg-foreground/[0.01] scroll-mt-[96px]">
       <div className="max-w-[1760px] mx-auto">
         {/* Duas colunas só a partir de xl. Esta seção mora na coluna esquerda
             do grid da PDP (784px em 1280x800), e lá dentro 320 + gap-20 + a
@@ -2053,9 +2053,13 @@ function ProductStandardDescription({ product, images }: { product: any; images:
     boxShadow: "var(--shadow-card-hairline)",
   } as const;
 
+  /* Sem borda no celular: logo acima está o card de compra, que já fecha com
+     a própria `border-b`. Com as duas, sobravam dois filetes a 64px um do
+     outro e nada entre eles. No desktop o card vive na coluna da direita,
+     então lá a borda ainda é a única separação. */
   return (
-    <section className="pb-20 border-t border-foreground/5">
-      <div className="mx-auto mt-10 max-w-[1120px]">
+    <section className="pb-10 md:pb-20 border-t-0 md:border-t border-foreground/5">
+      <div className="mx-auto mt-6 md:mt-10 max-w-[1120px]">
         <div
           className={`overflow-hidden pdp-desc-clamp${descAberta ? " is-open" : ""}`}
           style={{
@@ -2769,7 +2773,7 @@ export function ProductPage() {
 
       {/* Related products — full width below grid (sticky card stops here) */}
       {related.length > 0 && (
-        <div ref={relatedRef} className="py-20 border-t border-foreground/5">
+        <div ref={relatedRef} className="py-10 md:py-20 border-t border-foreground/5">
           <div className="max-w-[1760px] mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -2862,10 +2866,10 @@ export function ProductPage() {
               var(--gradient-buy), que é outro verde. */}
           <CTAButton
             variant={preOrderInfo ? "preorder" : "buy"}
-            size="md"
+            size="lg"
             onClick={handleBuyNow}
             disabled={preOrderInfo ? (preOrderInfo.reservedUnits >= preOrderInfo.totalUnits) : (product.inStock === false)}
-            className="h-12 flex-shrink-0 cursor-pointer px-5 disabled:cursor-not-allowed"
+            className="flex-shrink-0 cursor-pointer px-5 disabled:cursor-not-allowed"
           >
             {preOrderInfo ? (
               preOrderInfo.reservedUnits >= preOrderInfo.totalUnits ? (
