@@ -92,17 +92,6 @@ export function LoadingScreen({
 
 const FADE_MS = 480;
 
-/* A marca aparece uma vez por aba, no primeiro carregamento. */
-const JA_VIU = "tonante:boot-visto";
-
-function jaViuNestaAba() {
-  try {
-    return sessionStorage.getItem(JA_VIU) === "1";
-  } catch {
-    return false; // aba anônima com storage bloqueado: mostra, não quebra
-  }
-}
-
 /**
  * Overlay de boot: a marca cobrindo a tela enquanto o site monta.
  *
@@ -116,9 +105,14 @@ function jaViuNestaAba() {
  * Agora ele não espera imagem nenhuma. Cada imagem tem o seu próprio
  * esqueleto (ver components/Esqueletos e figma/ImageWithFallback), então a
  * página pode aparecer com buracos preenchidos e ir completando à vista.
- * O overlay serve só ao instante de marca: um piso curto pra não piscar, um
- * teto baixo pra nunca ser ele o gargalo, e uma vez só por aba — voltar pra
- * home depois de navegar não merece outra tela de abertura.
+ * O overlay serve só ao instante de marca: um piso curto pra não piscar e um
+ * teto baixo pra nunca ser ele o gargalo.
+ *
+ * Ele não precisa de trava pra "não repetir": só roda no carregamento
+ * completo da página, e navegar entre rotas não remonta o RootLayout. Chegou
+ * a ter uma marca em sessionStorage, e o efeito foi o contrário do esperado —
+ * um F5 é carregamento completo, mas a marca sobrevivia a ele, então a tela
+ * de abertura sumia justamente quando a pessoa pedia a página de novo.
  */
 export function BootLoader({
   minDurationMs = 900,
@@ -127,9 +121,7 @@ export function BootLoader({
   minDurationMs?: number;
   maxDurationMs?: number;
 }) {
-  const [phase, setPhase] = useState<"visible" | "fading" | "done">(() =>
-    jaViuNestaAba() ? "done" : "visible",
-  );
+  const [phase, setPhase] = useState<"visible" | "fading" | "done">("visible");
 
   useEffect(() => {
     if (phase === "done") return;
@@ -140,11 +132,6 @@ export function BootLoader({
     const finish = () => {
       if (encerrado) return;
       encerrado = true;
-      try {
-        sessionStorage.setItem(JA_VIU, "1");
-      } catch {
-        /* storage bloqueado: só não lembra entre páginas */
-      }
       const elapsed = performance.now() - start;
       timers.push(
         window.setTimeout(() => {

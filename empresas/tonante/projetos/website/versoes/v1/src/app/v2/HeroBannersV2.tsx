@@ -90,7 +90,12 @@ export function HeroBannersV2() {
                   alt={s.alt}
                   className="h-full w-full object-cover object-[16%_center] md:object-center"
                   loading={i === 0 ? "eager" : "lazy"}
-                  fetchPriority={i === 0 ? "high" : "low"}
+                  /* minúsculo, e por isso espalhado: só o React 19 reconhece a
+                     forma camelCase e a repassa ao DOM; no 18 ela vira aviso
+                     no console e o atributo não chega. Os tipos do React
+                     instalados são os do 19, então o nome em minúscula não
+                     passa pela checagem direto no JSX. */
+                  {...({ fetchpriority: i === 0 ? "high" : "low" } as Record<string, string>)}
                   decoding={i === 0 ? "sync" : "async"}
                   onLoad={i === 0 ? () => setHeroPronto(true) : undefined}
                   onError={i === 0 ? () => setHeroPronto(true) : undefined}
