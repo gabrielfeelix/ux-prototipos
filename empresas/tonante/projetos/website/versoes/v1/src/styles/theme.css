@@ -146,6 +146,38 @@
   --buy-green-press:          #128646;
   --buy-green-deep:           #128646;
   --gradient-buy:             linear-gradient(135deg, #1ebd67 0%, #159a53 100%);
+
+  /* ===================================================================
+     BOTÕES — rampa de 3 degraus por intenção (repouso / hover / pressed).
+     Cor sólida, nunca gradiente: CSS não anima entre dois background-image,
+     e era essa a razão de `brand` e `preorder` não terem hover nenhum.
+     Contraste medido com texto branco: neutral 18.88:1, danger 6.54:1,
+     buy 2.60:1 no repouso (decisão registrada logo acima) subindo para
+     4.64:1 no pressed. Âmbar não preenche botão: em área grande lê marrom.
+     =================================================================== */
+  --btn-neutral:            #111111;
+  --btn-neutral-hover:      #2b2b2b;
+  --btn-neutral-press:      #000000;
+
+  --btn-danger:             #b3261e;
+  --btn-danger-hover:       #9a2019;
+  --btn-danger-press:       #821b15;
+  --btn-danger-tint:        rgba(179, 38, 30, 0.07);
+  --btn-danger-tint-press:  rgba(179, 38, 30, 0.14);
+  --btn-danger-edge:        rgba(179, 38, 30, 0.35);
+
+  /* brand só existe como contorno. A borda leva o âmbar da marca (3.42:1,
+     acima do mínimo 3:1 de WCAG 1.4.11 para componente); o texto desce um
+     degrau para #965a00 (5.59:1) e passa em texto normal. */
+  --btn-brand-edge:         #C87800;
+  --btn-brand-edge-hover:   #b06a00;
+  --btn-brand-ink:          #965a00;
+  --btn-brand-ink-press:    #7a4900;
+  --btn-brand-tint:         rgba(200, 120, 0, 0.08);
+  --btn-brand-tint-press:   rgba(200, 120, 0, 0.16);
+
+  --btn-disabled-bg:        var(--edge-subtle);
+  --btn-disabled-ink:       var(--ink-subtle);
   /* Novidade = azul, o único azul da página. Não disputa com o âmbar da marca
      (que é acento), com o verde de compra nem com o laranja da pré-venda —
      quatro pills no mesmo card precisam dizer quatro coisas diferentes. */
@@ -419,6 +451,12 @@ input:-webkit-autofill:active {
   --shadow-brand-cta: var(--shadow-brand-cta);
   --shadow-brand-cta-sm: var(--shadow-brand-cta-sm);
   --shadow-brand-pill: var(--shadow-brand-pill);
+  /* Botões — só as cores de repouso viram utilitário do Tailwind; hover e
+     pressed são aplicados em arbitrary value dentro do primitivo Button. */
+  --color-btn-neutral: var(--btn-neutral);
+  --color-btn-danger: var(--btn-danger);
+  --color-btn-brand-edge: var(--btn-brand-edge);
+  --color-btn-brand-ink: var(--btn-brand-ink);
   --shadow-discount-badge: var(--shadow-discount-badge);
   --shadow-discount-sm: var(--shadow-discount-sm);
   --shadow-preorder-cta: var(--shadow-preorder-cta);
