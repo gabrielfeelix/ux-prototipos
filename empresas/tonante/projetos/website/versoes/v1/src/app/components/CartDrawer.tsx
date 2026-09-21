@@ -10,7 +10,7 @@ import { allProducts } from "./productsData";
 import { getPrimaryProductImage, getVisibleCatalogProducts } from "./productPresentation";
 import { PcyesCoin } from "./PcyesCoin";
 import { useCheckoutPrefs } from "./CheckoutPrefsContext";
-import { BrindePill, CTAButton, QtyStepper } from "./section";
+import { BrindePill, Button, QtyStepper } from "./section";
 
 const MOCK_SHIPPING: Record<string, { name: string; price: number; days: string }[]> = {
   default: [
@@ -443,35 +443,44 @@ export function CartDrawer() {
                     secundária ganhava a mesma largura da principal e as duas
                     pareciam ter o mesmo peso. Lado a lado, quem manda é a cor. */}
                 <div className="grid grid-cols-2 gap-2.5">
-                  <button
+                  {/* As duas colunas do grid ficam com ~140px em celular
+                      pequeno: o respiro lateral do size lg estouraria o rótulo,
+                      então aqui ele cede e o texto volta a poder quebrar. */}
+                  <Button
+                    hierarchy="secondary"
+                    intent="neutral"
+                    size="lg"
+                    block
                     onClick={() => setIsOpen(false)}
-                    className="flex min-h-[52px] cursor-pointer items-center justify-center rounded-full border border-foreground/12 bg-transparent px-2 text-center text-foreground/80 transition-colors hover:border-foreground/22 hover:text-foreground"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "15px", fontWeight: 600 }}
-                  >Continuar comprando</button>
-                  <button
-                    className="flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-full transition-[transform,background-color] duration-200 hover:scale-[1.01] active:scale-[0.98] [background-color:var(--buy-green)] hover:[background-color:var(--buy-green-hover)] active:[background-color:var(--buy-green-press)]"
-                    style={{
-                      color: "#fff",
-                      fontFamily: "var(--font-family-inter)",
-                      fontSize: "16px",
-                      fontWeight: 700,
-                      boxShadow: "var(--shadow-buy-cta-sm)",
-                    }}
+                    className="h-auto min-h-[52px] whitespace-normal px-3 text-center leading-tight"
+                  >
+                    Continuar comprando
+                  </Button>
+                  <Button
+                    hierarchy="primary"
+                    intent="buy"
+                    size="lg"
+                    block
                     onClick={() => { setIsOpen(false); navigate("/checkout"); }}
                     aria-label="Revisar pedido"
-                  ><ShoppingBag size={17} strokeWidth={2} /> Revisar pedido</button>
+                    className="h-auto min-h-[52px] whitespace-normal px-3 text-center leading-tight"
+                  >
+                    <ShoppingBag size={17} strokeWidth={2} />
+                    Revisar pedido
+                  </Button>
                 </div>
 
                 <div className="flex items-center justify-center pt-1">
-                  <button
+                  <Button
+                    hierarchy="ghost"
+                    intent="danger"
+                    size="sm"
                     onClick={() => clearCart()}
-                    className="inline-flex min-h-[40px] items-center gap-1.5 rounded-full px-3 text-foreground/65 hover:text-primary transition-colors cursor-pointer"
-                    style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-sm)", fontWeight: 600 }}
                     aria-label="Limpar carrinho"
                   >
                     <Trash2 size={14} strokeWidth={2} />
                     Limpar carrinho
-                  </button>
+                  </Button>
                 </div>
 
                 {/* Bandeiras por último: é a linha de fecho do painel, a última
@@ -600,9 +609,15 @@ export function CartDrawer() {
                     >
                       Agora não
                     </button>
-                    <CTAButton variant="buy" size="md" onClick={confirmGift} disabled={!selectedGiftId} className="cursor-pointer disabled:cursor-not-allowed">
+                    <Button
+                      hierarchy="primary"
+                      intent="buy"
+                      size="md"
+                      onClick={confirmGift}
+                      disabled={!selectedGiftId}
+                    >
                       Adicionar presente
-                    </CTAButton>
+                    </Button>
                   </div>
                 </motion.div>
               </motion.div>

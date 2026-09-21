@@ -25,7 +25,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { CTAButton, Eyebrow } from "./section";
+import { Button, Eyebrow } from "./section";
 import { PcyesCoin } from "./PcyesCoin";
 import { useCart } from "./CartContext";
 import { useCheckoutPrefs } from "./CheckoutPrefsContext";
@@ -657,10 +657,10 @@ export function CheckoutPage() {
             >
               Seu carrinho ainda está vazio
             </h1>
-            <CTAButton as="link" to="/produtos" variant="ink" size="lg">
+            <Button as="link" to="/produtos" hierarchy="primary" intent="neutral" size="lg">
               Explorar produtos
               <ArrowRight size={14} strokeWidth={2.4} />
-            </CTAButton>
+            </Button>
           </div>
         </div>
         <Footer />
@@ -777,16 +777,17 @@ export function CheckoutPage() {
                   >
                     {pixCode.slice(0, 70)}…
                   </div>
-                  <CTAButton
+                  <Button
                     onClick={copyPix}
                     aria-label="Copiar código PIX"
-                    variant={pixCopied ? "buy" : "ink"}
+                    hierarchy="primary"
+                    intent={pixCopied ? "buy" : "neutral"}
                     size="lg"
                     block
                   >
                     {pixCopied ? <Check size={14} strokeWidth={2.6} /> : <Copy size={13} strokeWidth={2.4} />}
                     {pixCopied ? "Código copiado" : "Copiar código PIX"}
-                  </CTAButton>
+                  </Button>
                 </div>
               </div>
 
@@ -946,10 +947,10 @@ export function CheckoutPage() {
                       {formatBRL(snap.total)}
                     </p>
                   </div>
-                  <CTAButton as="link" to="/" variant="ink" size="md">
+                  <Button as="link" to="/" hierarchy="primary" intent="neutral" size="md">
                     Voltar para a home
                     <ArrowRight size={13} strokeWidth={2.4} />
-                  </CTAButton>
+                  </Button>
                 </div>
               </motion.div>
             )}
@@ -1693,31 +1694,32 @@ export function CheckoutPage() {
               </AnimatePresence>
 
               <div className="mt-6 flex items-center justify-between gap-3">
-                <button
+                <Button
+                  hierarchy="ghost"
+                  intent="neutral"
+                  size="md"
                   onClick={() => (step === 0 ? navigate("/carrinho") : setStep((s) => (s - 1) as Step))}
-                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-5 py-3 min-h-[44px] md:min-h-0 text-ink-muted transition-colors hover:bg-[var(--surface-2)] hover:text-ink-strong"
-                  style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}
                 >
                   <ChevronLeft size={14} strokeWidth={2.4} />
                   Voltar
-                </button>
+                </Button>
 
                 {step < 3 ? (
-                  <CTAButton
+                  <Button
                     onClick={() => setStep((s) => (s + 1) as Step)}
                     disabled={!canAdvance}
-                    variant="ink"
+                    hierarchy="primary" intent="neutral"
                     size="lg"
                     className="hidden lg:inline-flex"
                   >
                     Continuar
                     <ChevronRight size={14} strokeWidth={2.6} />
-                  </CTAButton>
+                  </Button>
                 ) : (
-                  <CTAButton onClick={handleFinish} variant="buy" size="lg" className="hidden lg:inline-flex">
+                  <Button onClick={handleFinish} hierarchy="primary" intent="buy" size="lg" className="hidden lg:inline-flex">
                     <Lock size={13} strokeWidth={2.6} />
                     Finalizar pedido
-                  </CTAButton>
+                  </Button>
                 )}
               </div>
             </div>
@@ -1838,9 +1840,9 @@ export function CheckoutPage() {
                               fontWeight: 600,
                             }}
                           />
-                          <CTAButton onClick={handleApplyCoupon} disabled={!coupon.trim()} variant="ink" size="sm" className="shrink-0">
+                          <Button onClick={handleApplyCoupon} disabled={!coupon.trim()} hierarchy="primary" intent="neutral" size="sm" className="shrink-0">
                             Aplicar
-                          </CTAButton>
+                          </Button>
                         </div>
                         {couponError && (
                           <p className="mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--destructive)" }}>
@@ -2055,21 +2057,21 @@ export function CheckoutPage() {
             </p>
           </div>
           {step < 3 ? (
-            <CTAButton
+            <Button
               onClick={() => setStep((s) => (s + 1) as Step)}
               disabled={!canAdvance}
-              variant="ink"
+              hierarchy="primary" intent="neutral"
               size="md"
               className="shrink-0"
             >
               Continuar
               <ChevronRight size={14} strokeWidth={2.6} />
-            </CTAButton>
+            </Button>
           ) : (
-            <CTAButton onClick={handleFinish} variant="buy" size="md" className="shrink-0">
+            <Button onClick={handleFinish} hierarchy="primary" intent="buy" size="md" className="shrink-0">
               <Lock size={13} strokeWidth={2.6} />
               Finalizar pedido
-            </CTAButton>
+            </Button>
           )}
           </div>
         </div>
@@ -2352,19 +2354,19 @@ export function CheckoutPage() {
                             fontWeight: 600,
                           }}
                         />
-                        <CTAButton
+                        <Button
                           onClick={() => {
                             const c = coupon.trim().toUpperCase();
                             handleApplyCoupon();
                             if (COUPONS[c]) setMobileSheet(null);
                           }}
                           disabled={!coupon.trim()}
-                          variant="ink"
+                          hierarchy="primary" intent="neutral"
                           size="md"
                           className="shrink-0"
                         >
                           Aplicar
-                        </CTAButton>
+                        </Button>
                       </div>
                       {couponError && (
                         <p className="mt-2" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600, color: "var(--destructive)" }}>
@@ -2418,15 +2420,15 @@ export function CheckoutPage() {
                       Não usar pontos
                     </button>
                   ) : (
-                    <CTAButton
+                    <Button
                       onClick={() => { setPointsApplied(true); setMobileSheet(null); }}
                       disabled={pointsToUse <= 0}
-                      variant="ink"
+                      hierarchy="primary" intent="neutral"
                       size="lg"
                       className="mt-4 w-full"
                     >
                       Usar pontos
-                    </CTAButton>
+                    </Button>
                   )}
                 </div>
               )}

@@ -21,7 +21,7 @@ import {
   X,
 } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { CTAButton } from "./section";
+import { Button } from "./section";
 import { PcyesCoin } from "./PcyesCoin";
 import { useCart } from "./CartContext";
 import { useCheckoutPrefs } from "./CheckoutPrefsContext";
@@ -255,22 +255,10 @@ export function CartPage() {
             >
               Bora montar seu setup? Tem drop novo e promoções imperdíveis esperando.
             </p>
-            <Link
-              to="/produtos"
-              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-ink-strong transition-transform hover:scale-[1.03] active:scale-[0.97]"
-              style={{
-                background: "var(--gradient-brand)",
-                fontFamily: "var(--font-family-inter)",
-                fontSize: "var(--text-sm)",
-                fontWeight: 700,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                boxShadow: "var(--shadow-brand-cta)",
-              }}
-            >
+            <Button as="link" to="/produtos" hierarchy="primary" intent="neutral" size="lg">
               Explorar produtos
               <ArrowRight size={15} strokeWidth={2.4} />
-            </Link>
+            </Button>
           </div>
         </div>
         <Footer />
@@ -314,14 +302,10 @@ export function CartPage() {
                 {items.length} {items.length === 1 ? "item selecionado" : "itens selecionados"}
               </h1>
             </div>
-            <button
-              onClick={clearCart}
-              className="inline-flex items-center gap-1.5 cursor-pointer text-ink-subtle transition-colors hover:text-ink min-h-[44px] md:min-h-0"
-              style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}
-            >
+            <Button hierarchy="ghost" intent="danger" size="sm" onClick={clearCart}>
               <Trash2 size={13} strokeWidth={2} />
               Limpar
-            </button>
+            </Button>
           </div>
 
           {/* Gift unlocked CTA (after threshold) */}
@@ -354,22 +338,15 @@ export function CartPage() {
                   </p>
                 </div>
               </div>
-              <button
+              <Button
+                hierarchy="secondary"
+                intent="neutral"
+                size="md"
                 onClick={() => { setGiftDismissed(false); setGiftModalOpen(true); }}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full px-5 py-2.5 text-ink-strong transition-transform hover:scale-[1.03] active:scale-[0.98] min-h-[44px] md:min-h-0"
-                style={{
-                  background: "var(--gradient-brand)",
-                  fontFamily: "var(--font-family-inter)",
-                  fontSize: "var(--text-caption)",
-                  fontWeight: 800,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                  boxShadow: "0 12px 26px -10px rgba(200, 120, 0,0.6)",
-                }}
               >
                 <Gift size={13} strokeWidth={2.4} />
                 Escolher brinde
-              </button>
+              </Button>
             </div>
           )}
 
@@ -817,22 +794,15 @@ export function CartPage() {
                             letterSpacing: "0.02em",
                           }}
                         />
-                        <button
+                        <Button
+                          hierarchy="primary"
+                          intent="neutral"
+                          size="sm"
                           onClick={handleApplyCoupon}
                           disabled={!coupon.trim()}
-                          className="cursor-pointer rounded-[var(--radius-card-sm)] px-4 py-2.5 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[44px] md:min-h-0"
-                          style={{
-                            background: "var(--gradient-brand)",
-                            fontFamily: "var(--font-family-inter)",
-                            fontSize: "var(--text-caption)",
-                            fontWeight: 700,
-                            letterSpacing: "0.06em",
-                            textTransform: "uppercase",
-                            boxShadow: "var(--shadow-brand-cta-sm)",
-                          }}
                         >
                           Aplicar
-                        </button>
+                        </Button>
                       </div>
                       {couponError && (
                         <p
@@ -1000,22 +970,17 @@ export function CartPage() {
                 </div>
 
                 {/* CTA */}
-                <button
+                <Button
+                  hierarchy="primary"
+                  intent="buy"
+                  size="lg"
+                  block
                   onClick={() => navigate("/checkout")}
-                  className="mb-3 hidden h-[52px] w-full cursor-pointer items-center justify-center gap-2 rounded-full px-6 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.98] lg:inline-flex"
-                  style={{
-                    background: "var(--gradient-buy)",
-                    fontFamily: "var(--font-family-inter)",
-                    fontSize: "16px",
-                    fontWeight: 800,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    boxShadow: "var(--shadow-buy-cta)",
-                  }}
+                  className="mb-3 hidden lg:inline-flex"
                 >
                   <Lock size={14} strokeWidth={2.4} />
                   Finalizar compra
-                </button>
+                </Button>
 
                 <div className="flex items-center justify-center gap-1.5 text-ink-subtle" style={{ fontFamily: "var(--font-family-inter)", fontSize: "var(--text-caption)", fontWeight: 600 }}>
                   <ShieldCheck size={12} strokeWidth={2} />
@@ -1166,21 +1131,15 @@ export function CartPage() {
                 >
                   Agora não
                 </button>
-                <button
+                <Button
+                  hierarchy="primary"
+                  intent="neutral"
+                  size="md"
                   onClick={confirmGift}
                   disabled={!selectedGiftId}
-                  className="cursor-pointer rounded-full px-7 py-3 text-ink-strong transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:scale-100 min-h-[44px] md:min-h-0"
-                  style={{
-                    background: "var(--gradient-brand)",
-                    fontFamily: "var(--font-family-inter)",
-                    fontSize: "var(--text-sm)",
-                    fontWeight: 700,
-                    letterSpacing: "0.04em",
-                    boxShadow: "var(--shadow-brand-cta)",
-                  }}
                 >
                   Selecionar presente
-                </button>
+                </Button>
               </div>
             </motion.div>
           </motion.div>
@@ -1218,10 +1177,16 @@ export function CartPage() {
           </div>
           {/* mesmo botão de compra do resto do site: --buy-green chapado. Era um
               <button> à parte com var(--gradient-buy), que é outro verde. */}
-          <CTAButton onClick={() => navigate("/checkout")} variant="buy" size="md" className="shrink-0">
+          <Button
+            hierarchy="primary"
+            intent="buy"
+            size="lg"
+            onClick={() => navigate("/checkout")}
+            className="shrink-0"
+          >
             <Lock size={13} strokeWidth={2.6} />
             Finalizar compra
-          </CTAButton>
+          </Button>
         </div>
       </div>
 
